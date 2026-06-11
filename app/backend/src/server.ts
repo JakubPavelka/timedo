@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import cors from "cors";
+import { disconnectDB } from "./db/db.js";
+import authRoutes from "./routes/authRoutes.js";
 
 const PORT = 3001;
 
@@ -20,10 +22,37 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
+app.use("/api/auth", authRoutes);
+
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
+});
+
+// Handle unhandled promise rejections (e.g., database connection errors)
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection: ", err);
+  server.close(async () => {
+    await disconnectDB();
+    process.exit(1);
+  });
+});
+
+// Handle uncaught exceptions
+process.on("uncaughtException", async (err) => {
+  console.error("Uncaught Exception: ", err);
+  await disconnectDB();
+  process.exit(1);
+});
+
+// Graceful shutdown
+process.on("SIGTERM", async (err) => {
+  console.error("SIGTERM received, shutting down gracefully", err);
+  server.close(async () => {
+    await disconnectDB();
+    process.exit(0);
+  });
 });
