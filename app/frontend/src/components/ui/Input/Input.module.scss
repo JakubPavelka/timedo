@@ -1,0 +1,51 @@
+@use "styles/mixins/layout";
+
+.Input {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--surface);
+  padding-right: 16px;
+  outline: none;
+  transition: border 0.2s;
+
+  &:focus-within {
+    border-color: var(--border-focused);
+  }
+}
+
+.Input__input {
+  border: 0;
+  padding: 12px;
+  width: 100%;
+  color: var(--text);
+  outline: none;
+
+  &::placeholder {
+    color: var(--text);
+  }
+}
+
+.Input__toggle {
+  @include layout.centerXY;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  transition: all 0.2s;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: var(--surface-3);
+  }
+}
+
+.Input__icon {
+  color: var(--text-3);
+}
+
+.Input__input,
+.Input__toggle,
+.Input__icon {
+  background-color: transparent;
+}
