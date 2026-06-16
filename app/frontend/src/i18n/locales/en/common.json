@@ -23,6 +23,13 @@
     "createAccount": "Create account",
     "alreadyHaveAccount": "Already have an account? <link>Sign in</link>"
   },
+  "AuthCard": {
+    "tryForFree": "Start for free",
+    "createAccount": "Create your account",
+    "welcomeBack": "Welcome back",
+    "signIn": "Sign in to Timedo",
+    "continueWithGoogle": "Continue with Google"
+  },
   "Input": {
     "showPassword": "Show password",
     "hidePassword": "Hide password"

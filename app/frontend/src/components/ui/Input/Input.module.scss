@@ -1,13 +1,11 @@
 @use "styles/mixins/layout";
+@use "styles/mixins/forms";
 @use "styles/typography";
 
 .Input {
+  @include forms.input-base;
   display: flex;
   align-items: center;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  background-color: var(--surface);
-  padding-right: 16px;
   outline: none;
   transition: border 0.2s;
 

@@ -17,7 +17,8 @@ export const RegisterSchema = z
       .string()
       .min(1, "Validation.lastNameMin")
       .max(30, "Validation.lastNameMax")
-      .optional(),
+      .optional()
+      .or(z.literal("")),
   })
   .refine((data) => data.password === data.passwordAgain, {
     message: "Validation.passwordDontMatch",

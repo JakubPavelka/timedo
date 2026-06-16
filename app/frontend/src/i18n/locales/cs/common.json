@@ -23,6 +23,13 @@
     "createAccount": "Vytvořit účet",
     "alreadyHaveAccount": "Už máš účet? <link>Přihlas se</link>"
   },
+  "AuthCard": {
+    "tryForFree": "Začni zdarma",
+    "createAccount": "Vytvoř si účet",
+    "welcomeBack": "Vítej zpět",
+    "signIn": "Přihlas se do Timedo",
+    "continueWithGoogle": "Pokračovat přes Google"
+  },
   "Input": {
     "showPassword": "Zobrazit heslo",
     "hidePassword": "Skrýt heslo"
