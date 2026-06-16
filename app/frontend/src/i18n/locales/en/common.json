@@ -1,4 +1,28 @@
 {
+  "General": {
+    "timeUnderControl": "Your time under control"
+  },
+  "Validation": {
+    "invalidEmail": "Invalid email address",
+    "passwordMin": "Password must be at least 8 characters",
+    "passwordUppercase": "Password must contain at least one uppercase letter",
+    "passwordSpecial": "Password must contain at least one special character",
+    "firstNameMin": "First name must contain at least one character",
+    "firstNameMax": "First name cannot exceed 30 characters",
+    "lastNameMin": "Last name must contain at least one character",
+    "lastNameMax": "Last name cannot exceed 30 characters",
+    "passwordDontMatch": "Passwords do not match"
+  },
+  "RegisterForm": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "E-mail",
+    "password": "Password",
+    "passwordAgain": "Confirm password",
+    "termsOfService": "I agree to the <link1>terms of service</link1> and <link2>privacy policy</link2>",
+    "createAccount": "Create account",
+    "alreadyHaveAccount": "Already have an account? <link>Sign in</link>"
+  },
   "Input": {
     "showPassword": "Show password",
     "hidePassword": "Hide password"

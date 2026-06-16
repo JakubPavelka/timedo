@@ -1,4 +1,28 @@
 {
+  "General": {
+    "timeUnderControl": "Tvůj čas pod kontrolou"
+  },
+  "Validation": {
+    "invalidEmail": "Neplatný email",
+    "passwordMin": "Heslo musí mít alespoň 8 znaků",
+    "passwordUppercase": "Heslo musí obsahovat alespoň jedno velké písmeno",
+    "passwordSpecial": "Heslo musí obsahovat alespoň jeden speciální znak",
+    "firstNameMin": "Jméno musí obsahovat alespoň jedno písmeno",
+    "firstNameMax": "Jméno nemůže obsahovat více než 30 znaků",
+    "lastNameMin": "Příjmení musí obsahovat alespoň jedno písmeno",
+    "lastNameMax": "Příjmení nemůže obsahovat více než 30 znaků",
+    "passwordDontMatch": "Hesla se neshodují"
+  },
+  "RegisterForm": {
+    "firstName": "Jméno",
+    "lastName": "Příjmení",
+    "email": "E-mail",
+    "password": "Heslo",
+    "passwordAgain": "Heslo znovu",
+    "termsOfService": "Souhlasím s <link1>podmínkami</link1> a <link2>ochranou soukromí</link2>",
+    "createAccount": "Vytvořit účet",
+    "alreadyHaveAccount": "Už máš účet? <link>Přihlas se</link>"
+  },
   "Input": {
     "showPassword": "Zobrazit heslo",
     "hidePassword": "Skrýt heslo"

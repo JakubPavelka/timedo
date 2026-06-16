@@ -347,6 +347,12 @@ importers:
         specifier: ^8.0.12
         version: 8.0.16(@types/node@24.13.1)(esbuild@0.28.0)(jiti@2.7.0)(sass@1.101.0)(tsx@4.22.4)
 
+  app/packages/shared:
+    dependencies:
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+
 packages:
 
   '@babel/code-frame@7.29.7':
