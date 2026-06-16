@@ -1,0 +1,43 @@
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 20px;
+$font-size-title: 28px;
+
+@mixin text-xs($color: var(--text)) {
+  font-size: $font-size-xs;
+  font-family: "Hanken Grotesk", sans-serif;
+  font-weight: 400;
+  line-height: 16px;
+  color: $color;
+}
+
+@mixin text-sm($color: var(--text)) {
+  font-size: $font-size-sm;
+  font-family: "Hanken Grotesk", sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+  color: $color;
+}
+
+@mixin text-md($color: var(--text)) {
+  font-size: $font-size-md;
+  font-family: "Hanken Grotesk", sans-serif;
+  line-height: 24px;
+  color: $color;
+}
+
+@mixin text-lg($color: var(--text)) {
+  font-size: $font-size-md;
+  font-family: "Hanken Grotesk", sans-serif;
+  line-height: 24px;
+  color: $color;
+}
+
+@mixin text-title {
+  font-size: $font-size-title;
+  font-family: "Hanken Grotesk", sans-serif;
+  font-weight: 700;
+  line-height: 36px;
+  color: $color;
+}
