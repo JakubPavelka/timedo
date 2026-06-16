@@ -4,7 +4,8 @@ import { useTheme } from "../../../hooks/useTheme";
 import clsx from "clsx";
 
 export const ThemeSwitch = () => {
-  const { theme, toggleTheme } = useTheme();
+  const theme = useTheme((s) => s.theme);
+  const toggleTheme = useTheme((s) => s.toggleTheme);
 
   return (
     <button

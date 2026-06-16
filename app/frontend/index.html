@@ -9,11 +9,14 @@
   <body>
     <script>
       (function () {
-        let theme = localStorage.getItem("theme");
-        if (theme !== "dark" && theme !== "light") {
-          theme = "light";
-          localStorage.setItem("theme", theme);
-        }
+        let theme = "light";
+        try {
+          const stored = localStorage.getItem("theme");
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed.state?.theme === "dark") theme = "dark";
+          }
+        } catch {}
         document.documentElement.dataset.theme = theme;
       })();
     </script>
