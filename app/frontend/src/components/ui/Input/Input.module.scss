@@ -15,17 +15,20 @@
 }
 
 .Input__input {
-  @include typography.text-sm;
+  @include typography.text-sm(var(--text));
   border: 0;
-  padding: 12px;
+  padding: 12px 16px 12px 10px;
   width: 100%;
-  color: var(--text);
   outline: none;
 
   &::placeholder {
-    @include typography.text-sm;
-    color: var(--text);
+    color: var(--text-3);
+    opacity: 1;
   }
+}
+
+.Input__input--withLockIcon {
+  padding-right: 10px;
 }
 
 .Input__toggle {
@@ -35,10 +38,17 @@
   height: 28px;
   transition: all 0.2s;
   border-radius: 8px;
+  margin-right: 8px;
 
   &:hover {
     background-color: var(--surface-3);
   }
+}
+
+.Input__prefixIcon {
+  @include layout.centerXY;
+  color: var(--text-3);
+  padding-left: 16px;
 }
 
 .Input__icon {

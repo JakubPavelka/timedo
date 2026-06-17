@@ -2,24 +2,36 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./Input.module.scss";
+import clsx from "clsx";
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+type InputProps = {
+  prefixIcon?: React.ReactNode;
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 const ICON_SIZE = 16;
 
-export const Input = (props: InputProps) => {
+export const Input = ({ prefixIcon, type, ...rest }: InputProps) => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => setShowPassword((prev) => !prev);
 
-  const inputType =
-    props.type === "password" && showPassword ? "text" : props.type;
+  const inputType = type === "password" && showPassword ? "text" : type;
 
   return (
     <div className={styles.Input}>
-      <input className={styles.Input__input} {...props} type={inputType} />
-      {props.type === "password" && (
+      {prefixIcon && (
+        <div className={styles.Input__prefixIcon}>{prefixIcon}</div>
+      )}
+      <input
+        className={clsx(
+          styles.Input__input,
+          type === "password" && styles["Input__input--withLockIcon"],
+        )}
+        {...rest}
+        type={inputType}
+      />
+      {type === "password" && (
         <button
           onClick={handleShowPassword}
           type="button"
