@@ -23,7 +23,31 @@ const registerRoute = createRoute({
   component: RegisterView,
 });
 
-const routeTree = rootRoute.addChildren([loginRoute, registerRoute]);
+const forgottenPasswordRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/forgotten-password",
+  component: RegisterView,
+});
+
+const privacyPolicyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/privacy-policy",
+  component: RegisterView,
+});
+
+const termsOfServiceRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/terms-of-service",
+  component: RegisterView,
+});
+
+const routeTree = rootRoute.addChildren([
+  loginRoute,
+  registerRoute,
+  privacyPolicyRoute,
+  termsOfServiceRoute,
+  forgottenPasswordRoute,
+]);
 
 export const router = createRouter({ routeTree });
 
