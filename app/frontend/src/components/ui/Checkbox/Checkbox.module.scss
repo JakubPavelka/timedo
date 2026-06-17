@@ -1,0 +1,57 @@
+@use "styles/mixins/layout";
+@use "styles/typography";
+
+.Checkbox {
+  @include layout.centerY;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.Checkbox__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.Checkbox__box {
+  @include layout.centerXY;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  background-color: var(--surface);
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+
+  .Checkbox__input:checked + & {
+    background-color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .Checkbox:hover & {
+    border-color: var(--border-focused);
+  }
+
+  .Checkbox:hover .Checkbox__input:checked + & {
+    border-color: var(--accent);
+  }
+}
+
+.Checkbox__check {
+  color: var(--white);
+  opacity: 0;
+  transition: opacity 0.15s;
+
+  .Checkbox__input:checked + .Checkbox__box & {
+    opacity: 1;
+  }
+}
+
+.Checkbox__label {
+  @include typography.text-sm;
+  color: var(--text-2);
+}
