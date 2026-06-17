@@ -28,7 +28,8 @@
     "createAccount": "Vytvoř si účet",
     "welcomeBack": "Vítej zpět",
     "signIn": "Přihlas se do Timedo",
-    "continueWithGoogle": "Pokračovat přes Google"
+    "continueWithGoogle": "Pokračovat přes Google",
+    "orWithEmail": "nebo e-mailemem"
   },
   "Input": {
     "showPassword": "Zobrazit heslo",
