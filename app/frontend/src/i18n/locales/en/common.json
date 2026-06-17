@@ -21,7 +21,7 @@
     "passwordAgain": "Confirm password",
     "termsOfService": "I agree to the <link1>terms of service</link1> and <link2>privacy policy</link2>",
     "createAccount": "Create account",
-    "alreadyHaveAccount": "Already have an account? <link>Sign in</link>"
+    "alreadyHaveAccount": "Already have an account? <link1>Sign in</link1>"
   },
   "AuthCard": {
     "tryForFree": "Start for free",
@@ -34,5 +34,8 @@
   "Input": {
     "showPassword": "Show password",
     "hidePassword": "Hide password"
+  },
+  "AuthRightSide": {
+    "title": "Track time, complete tasks and <colored>see where your day goes.</colored>"
   }
 }

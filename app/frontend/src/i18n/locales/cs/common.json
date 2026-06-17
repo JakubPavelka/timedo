@@ -21,7 +21,7 @@
     "passwordAgain": "Heslo znovu",
     "termsOfService": "Souhlasím s <link1>podmínkami</link1> a <link2>ochranou soukromí</link2>",
     "createAccount": "Vytvořit účet",
-    "alreadyHaveAccount": "Už máš účet? <link>Přihlas se</link>"
+    "alreadyHaveAccount": "Už máš účet? <link1>Přihlas se</link1>"
   },
   "AuthCard": {
     "tryForFree": "Začni zdarma",
@@ -30,6 +30,9 @@
     "signIn": "Přihlas se do Timedo",
     "continueWithGoogle": "Pokračovat přes Google",
     "orWithEmail": "nebo e-mailemem"
+  },
+  "AuthRightSide": {
+    "title": "Sleduj čas, plň úkoly a <colored>vidíš, kam mizí tvůj den.</colored>"
   },
   "Input": {
     "showPassword": "Zobrazit heslo",
