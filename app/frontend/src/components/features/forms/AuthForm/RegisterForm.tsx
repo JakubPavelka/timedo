@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/Input/Input";
 import { useTranslation, Trans } from "react-i18next";
-import { useForm, Controller, useWatch } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@timedo/shared/src/schemas/authSchema";
 import type { RegisterData } from "@timedo/shared/src/schemas/authSchema";
@@ -33,10 +33,9 @@ export const RegisterForm = (props: RegisterFormProps) => {
       passwordAgain: "",
       firstName: "",
       lastName: "",
+      termsAccepted: false,
     },
   });
-
-  //const passwordWatch = useWatch({ control, name: "password" });
 
   const onSubmitHandler = (data: RegisterData) => {
     props.onSubmit(data);
@@ -174,23 +173,39 @@ export const RegisterForm = (props: RegisterFormProps) => {
       </div>
 
       <div className={styles.AuthForm__checkboxWrapper}>
-        <Checkbox
-          id={"terms-of-service"}
-          required
-          label={
-            <Trans
-              i18nKey="RegisterForm.termsOfService"
-              components={{
-                link1: <Link to="/terms-of-service" />,
-                link2: <Link to="/privacy-policy" />,
-              }}
+        <Controller
+          control={control}
+          name={"termsAccepted"}
+          render={({ field: { onChange, value } }) => (
+            <Checkbox
+              id={"terms-of-service"}
+              checked={value}
+              onChange={onChange}
+              label={
+                <Trans
+                  i18nKey="RegisterForm.termsOfService"
+                  components={{
+                    link1: <Link to="/terms-of-service" />,
+                    link2: <Link to="/privacy-policy" />,
+                  }}
+                />
+              }
             />
-          }
+          )}
         />
+        {errors.termsAccepted && (
+          <p className={styles.AuthForm__errorMessage}>
+            {t(errors.termsAccepted.message!)}
+          </p>
+        )}
       </div>
 
       <div className={styles.AuthForm__submitBtn}>
-        <Button type={"submit"} haveRightArrow>
+        <Button
+          onClick={handleSubmit(onSubmitHandler)}
+          type={"submit"}
+          haveRightArrow
+        >
           {t("RegisterForm.createAccount")}
         </Button>
       </div>

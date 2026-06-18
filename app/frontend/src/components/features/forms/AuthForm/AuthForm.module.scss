@@ -38,8 +38,7 @@
 }
 
 .AuthForm__errorMessage {
-  @include typography.text-xs(var(--danger));
-  margin-top: 4px;
+  @include typography.text-error;
 }
 
 .AuthForm__submitBtn {
