@@ -7,10 +7,10 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import LogoBlue from "@/assets/images/logoBlue.svg?react";
 import LogoBlueDarkTheme from "@/assets/images/logoBlueDarkTheme.svg?react";
 import styles from "./AuthStyles.module.scss";
-import TimerCard from "@/assets/images/timerCard.png";
 import { useRegister } from "@/hooks/api/useAuth";
 import type { RegisterData } from "@timedo/shared/src/schemas/authSchema";
 import { ApiAuthError } from "@/api/auth/auth.api";
+import { AuthRightSide } from "@/components/features/Auth/AuthRightSide/AuthRightSide";
 
 export const RegisterView = () => {
   const { t } = useTranslation();
@@ -67,18 +67,7 @@ export const RegisterView = () => {
 
       {/* RIGHT SIDE */}
       <div className={styles.AuthView__rightSide}>
-        <img src={TimerCard} />
-        <div className={styles.AuthView__rightContent}>
-          <p>
-            <Trans
-              i18nKey={"AuthRightSide.title"}
-              components={{
-                colored: <span className={styles["--colored"]} />,
-                break: <br />,
-              }}
-            />
-          </p>
-        </div>
+        <AuthRightSide />
       </div>
     </div>
   );
