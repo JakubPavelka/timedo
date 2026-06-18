@@ -206,6 +206,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
           onClick={handleSubmit(onSubmitHandler)}
           type={"submit"}
           haveRightArrow
+          isLoading={props.isLoading}
         >
           {t("RegisterForm.createAccount")}
         </Button>

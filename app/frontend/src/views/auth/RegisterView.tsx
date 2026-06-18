@@ -14,7 +14,7 @@ import axios from "axios";
 
 export const RegisterView = () => {
   const { t } = useTranslation();
-  const { mutate: register, error } = useRegister();
+  const { mutate: register, error, isPending } = useRegister();
   const theme = useTheme((s) => s.theme);
   const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ export const RegisterView = () => {
         <div className={styles.AuthView__alignCenter}>
           <div className={styles.AuthView__leftContent}>
             <AuthCard />
-            <RegisterForm onSubmit={registerHandler} />
+            <RegisterForm onSubmit={registerHandler} isLoading={isPending} />
             {error && (
               <p className={styles.AuthView__errorMessage}>
                 {axios.isAxiosError(error)
