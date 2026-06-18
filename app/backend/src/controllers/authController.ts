@@ -4,10 +4,10 @@ import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 
 const register = async (req: Request, res: Response) => {
-  const { email, password, firstName } = req.body;
+  const { email, password, firstName, lastName } = req.body;
 
-  if (!email || !password || !firstName) {
-    return res.status(400).json({ message: "Provide all information" });
+  if (!email || !password || !firstName || !lastName) {
+    return res.status(400).json({ message: "Provide all information", code: "MISSING_FIELDS" });
   }
 
   const user = await prisma.user.findUnique({
@@ -15,7 +15,7 @@ const register = async (req: Request, res: Response) => {
   });
 
   if (user) {
-    return res.status(400).json({ message: "User already exists" });
+    return res.status(400).json({ message: "User already exists", code: "USER_ALREADY_EXISTS" });
   }
 
   const bcryptSalt = await bcrypt.genSalt(10);
@@ -25,6 +25,7 @@ const register = async (req: Request, res: Response) => {
     data: {
       email,
       firstName,
+      lastName,
       passwordHashed: hashedPassword,
     },
   });
@@ -36,6 +37,7 @@ const register = async (req: Request, res: Response) => {
         id: createUser.id,
         email: createUser.email,
         firstName: createUser.firstName,
+        lastName: createUser.lastName,
       },
     },
   });
@@ -45,7 +47,7 @@ const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ message: "Provide all information" });
+    return res.status(400).json({ message: "Provide all information", code: "MISSING_FIELDS" });
   }
 
   const user = await prisma.user.findUnique({
@@ -53,13 +55,13 @@ const login = async (req: Request, res: Response) => {
   });
 
   if (!user) {
-    return res.status(401).json({ message: "Invalid email or password" });
+    return res.status(401).json({ message: "Invalid email or password", code: "INVALID_CREDENTIALS" });
   }
 
   const isPasswordMatch = await bcrypt.compare(password, user.passwordHashed);
 
   if (!isPasswordMatch) {
-    return res.status(401).json({ message: "Invalid email or password" });
+    return res.status(401).json({ message: "Invalid email or password", code: "INVALID_CREDENTIALS" });
   }
 
   // Generate JWT
