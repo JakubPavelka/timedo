@@ -3,7 +3,7 @@ import TimerCard from "@/assets/images/timerCard.png";
 import { Trans } from "react-i18next";
 
 export const AuthRightSide = () => (
-  <>
+  <div className={styles.AuthRightSide}>
     <img src={TimerCard} />
     <div className={styles.AuthRightSide__content}>
       <p>
@@ -16,5 +16,5 @@ export const AuthRightSide = () => (
         />
       </p>
     </div>
-  </>
+  </div>
 );

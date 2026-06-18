@@ -1,21 +1,17 @@
 import { RegisterForm } from "@/components/features/forms/AuthForm/RegisterForm";
-import { ThemeSwitch } from "../../components/ui/ThemeSwitch/ThemeSwitch";
-import { useTheme } from "@/hooks/useTheme";
 import { AuthCard } from "@/components/features/Auth/AuthCard/AuthCard";
 import { useTranslation, Trans } from "react-i18next";
 import { Link, useNavigate } from "@tanstack/react-router";
-import LogoBlue from "@/assets/images/logoBlue.svg?react";
-import LogoBlueDarkTheme from "@/assets/images/logoBlueDarkTheme.svg?react";
 import styles from "./AuthStyles.module.scss";
 import { useRegister } from "@/hooks/api/useAuth";
 import type { RegisterData } from "@timedo/shared/src/schemas/authSchema";
 import { ApiAuthError } from "@/api/auth/auth.api";
 import { AuthRightSide } from "@/components/features/Auth/AuthRightSide/AuthRightSide";
+import { AuthHeaderLogo } from "@/components/features/Auth/AuthHeaderLogo/AuthHeaderLogo";
 
 export const RegisterView = () => {
   const { t } = useTranslation();
   const { mutate: register, error, isPending } = useRegister();
-  const theme = useTheme((s) => s.theme);
   const navigate = useNavigate();
 
   const registerHandler = (data: RegisterData) => {
@@ -34,14 +30,7 @@ export const RegisterView = () => {
     <div className={styles.AuthView}>
       {/* LEFT SIDE */}
       <div className={styles.AuthView__leftSide}>
-        <div className={styles.AuthView__logoWrapper}>
-          {theme === "light" ? (
-            <LogoBlue height={40} width={110} />
-          ) : (
-            <LogoBlueDarkTheme height={40} width={110} />
-          )}
-          <ThemeSwitch />
-        </div>
+        <AuthHeaderLogo />
         <div className={styles.AuthView__alignCenter}>
           <div className={styles.AuthView__leftContent}>
             <AuthCard isInRegister />

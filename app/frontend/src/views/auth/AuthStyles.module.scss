@@ -28,13 +28,6 @@
   @include layout.centerXY;
 }
 
-.AuthView__logoWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 8px;
-}
-
 .AuthView__alreadyHaveAccount {
   @include typography.text-sm;
   color: var(--text-2);
@@ -77,23 +70,4 @@
   background-size: 22px 22px;
   opacity: 0.5;
   mask: linear-gradient(180deg, #000, transparent 75%);
-}
-
-.AuthView__rightSide img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 268px;
-  width: 100%;
-  user-select: none;
-}
-
-.AuthView__rightSide p {
-  @include typography.text-title(var(--white));
-  user-select: none;
-
-  .--colored {
-    color: var(--accent-line);
-  }
 }
