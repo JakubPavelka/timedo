@@ -25,7 +25,7 @@
     "email": "E-mail",
     "password": "Password",
     "passwordAgain": "Confirm password",
-    "termsOfService": "I agree to the <link1>terms of service</link1> and <link2>privacy policy</link2>",
+    "termsOfService": "I agree to the <link1>terms of service</link1> and <link2>privacy policy</link2>*",
     "createAccount": "Create account",
     "alreadyHaveAccount": "Already have an account? <link1>Sign in</link1>"
   },

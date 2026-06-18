@@ -25,7 +25,7 @@
     "email": "E-mail",
     "password": "Heslo",
     "passwordAgain": "Heslo znovu",
-    "termsOfService": "Souhlasím s <link1>podmínkami</link1> a <link2>ochranou soukromí</link2>",
+    "termsOfService": "Souhlasím s <link1>podmínkami</link1> a <link2>ochranou soukromí</link2>*",
     "createAccount": "Vytvořit účet",
     "alreadyHaveAccount": "Už máš účet? <link1>Přihlas se</link1>"
   },

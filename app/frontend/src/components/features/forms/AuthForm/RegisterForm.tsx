@@ -172,6 +172,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
         )}
       </div>
 
+      {/* TERMS OF SERVICE CHECKBOX  */}
       <div className={styles.AuthForm__checkboxWrapper}>
         <Controller
           control={control}
