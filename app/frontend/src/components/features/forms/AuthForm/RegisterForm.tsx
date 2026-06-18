@@ -37,12 +37,8 @@ export const RegisterForm = (props: RegisterFormProps) => {
     },
   });
 
-  const onSubmitHandler = (data: RegisterData) => {
-    props.onSubmit(data);
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)}>
+    <form onSubmit={handleSubmit(props.onSubmit)}>
       {/* FIRSTNAME AND LASTNAME INPUT */}
       <div className={styles["AuthForm__inputWrapper--row"]}>
         <div className={styles.AuthForm__columnWrapper}>
