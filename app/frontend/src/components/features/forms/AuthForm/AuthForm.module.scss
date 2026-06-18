@@ -19,10 +19,6 @@
   margin-bottom: 9px;
 }
 
-.AuthForm__inputHalfWidth {
-  width: 50%;
-}
-
 .AuthForm__columnWrapper {
   @include layout.flexColumn;
   flex: 1;

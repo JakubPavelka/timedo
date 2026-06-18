@@ -10,7 +10,7 @@ import styles from "./AuthStyles.module.scss";
 import TimerCard from "@/assets/images/timerCard.png";
 import { useRegister } from "@/hooks/api/useAuth";
 import type { RegisterData } from "@timedo/shared/src/schemas/authSchema";
-import axios from "axios";
+import { ApiAuthError } from "@/api/auth/auth.api";
 
 export const RegisterView = () => {
   const { t } = useTranslation();
@@ -44,12 +44,12 @@ export const RegisterView = () => {
         </div>
         <div className={styles.AuthView__alignCenter}>
           <div className={styles.AuthView__leftContent}>
-            <AuthCard />
+            <AuthCard isInRegister />
             <RegisterForm onSubmit={registerHandler} isLoading={isPending} />
             {error && (
               <p className={styles.AuthView__errorMessage}>
-                {axios.isAxiosError(error)
-                  ? t(`BackendErrors.${error.response?.data?.code}`)
+                {error instanceof ApiAuthError
+                  ? t(`BackendErrors.${error.code}`)
                   : error.message}
               </p>
             )}

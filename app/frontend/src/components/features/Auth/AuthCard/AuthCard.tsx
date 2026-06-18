@@ -9,15 +9,18 @@ type AuthCardProps = {
 
 export const AuthCard = (props: AuthCardProps) => {
   const { t } = useTranslation();
-  const isInRegister = props.isInRegister ?? false;
 
   return (
     <div>
       <p className={styles.AuthCard__welcomeBackText}>
-        {isInRegister ? t("AuthCard.tryForFree") : t("AuthCard.welcomeBack")}
+        {props.isInRegister
+          ? t("AuthCard.tryForFree")
+          : t("AuthCard.welcomeBack")}
       </p>
       <h1 className={styles.AuthCard__title}>
-        {isInRegister ? t("AuthCard.createAccount") : t("AuthCard.signIn")}
+        {props.isInRegister
+          ? t("AuthCard.createAccount")
+          : t("AuthCard.signIn")}
       </h1>
       <button type={"button"} className={styles.AuthCard__googleCard}>
         <Google />

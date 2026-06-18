@@ -28,7 +28,7 @@ $font-size-title: 28px;
 }
 
 @mixin text-lg($color: var(--text)) {
-  font-size: $font-size-md;
+  font-size: $font-size-lg;
   font-family: "Hanken Grotesk", sans-serif;
   line-height: 24px;
   color: $color;

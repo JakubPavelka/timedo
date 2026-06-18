@@ -1,11 +1,27 @@
 import { apiClient } from "../client";
-import type { RegisterData } from "@/../@timedo/shared/src/schemas/authSchema";
+import axios from "axios";
+import type { RegisterData } from "@timedo/shared/src/schemas/authSchema";
+
+export class ApiAuthError extends Error {
+  readonly code: string;
+  constructor(code: string) {
+    super(code);
+    this.code = code;
+  }
+}
 
 export const authApi = {
   register: async (
     data: Omit<RegisterData, "passwordAgain" | "termsAccepted">,
   ): Promise<unknown> => {
-    const response = await apiClient.post("/api/auth/register", data);
-    return response.data;
+    try {
+      const response = await apiClient.post("/api/auth/register", data);
+      return response.data;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        throw new ApiAuthError(err.response?.data?.code ?? "UNKNOWN_ERROR");
+      }
+      throw err;
+    }
   },
 };

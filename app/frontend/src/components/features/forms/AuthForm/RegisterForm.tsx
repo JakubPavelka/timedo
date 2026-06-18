@@ -202,12 +202,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
       </div>
 
       <div className={styles.AuthForm__submitBtn}>
-        <Button
-          onClick={handleSubmit(onSubmitHandler)}
-          type={"submit"}
-          haveRightArrow
-          isLoading={props.isLoading}
-        >
+        <Button type={"submit"} haveRightArrow isLoading={props.isLoading}>
           {t("RegisterForm.createAccount")}
         </Button>
       </div>
