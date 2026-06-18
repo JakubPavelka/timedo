@@ -8,7 +8,7 @@ export const RegisterSchema = z
       .min(8, "Validation.passwordMin")
       .regex(/[A-Z]/, "Validation.passwordUppercase")
       .regex(/[^a-zA-Z0-9]/, "Validation.passwordSpecial"),
-    passwordAgain: z.string().min(8),
+    passwordAgain: z.string().min(8, "Validation.passwordMin"),
     firstName: z
       .string()
       .min(1, "Validation.firstNameMin")
@@ -19,11 +19,13 @@ export const RegisterSchema = z
       .max(30, "Validation.lastNameMax")
       .optional()
       .or(z.literal("")),
-    termsAccepted: z.boolean().refine((val) => val === true, "Validation.termsRequired"),
+    termsAccepted: z
+      .boolean()
+      .refine((val) => val === true, "Validation.termsRequired"),
   })
   .refine((data) => data.password === data.passwordAgain, {
     message: "Validation.passwordDontMatch",
-    path: ["password"],
+    path: ["passwordAgain"],
   });
 
 export type RegisterData = z.infer<typeof RegisterSchema>;
