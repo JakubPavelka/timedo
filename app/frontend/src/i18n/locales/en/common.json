@@ -36,6 +36,6 @@
     "hidePassword": "Hide password"
   },
   "AuthRightSide": {
-    "title": "Track time, complete tasks and <colored>see where your day goes.</colored>"
+    "title": "Track time, complete tasks and <break /><colored>see where your day goes.</colored>"
   }
 }

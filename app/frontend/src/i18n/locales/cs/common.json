@@ -32,7 +32,7 @@
     "orWithEmail": "nebo e-mailemem"
   },
   "AuthRightSide": {
-    "title": "Sleduj čas, plň úkoly a <colored>vidíš, kam mizí tvůj den.</colored>"
+    "title": "Sleduj čas, plň úkoly a <break /><colored>vidíš, kam mizí tvůj den.</colored>"
   },
   "Input": {
     "showPassword": "Zobrazit heslo",
