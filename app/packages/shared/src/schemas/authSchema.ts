@@ -19,6 +19,7 @@ export const RegisterSchema = z
       .max(30, "Validation.lastNameMax")
       .optional()
       .or(z.literal("")),
+    termsAccepted: z.literal(true, "Validation.termsRequired"),
   })
   .refine((data) => data.password === data.passwordAgain, {
     message: "Validation.passwordDontMatch",

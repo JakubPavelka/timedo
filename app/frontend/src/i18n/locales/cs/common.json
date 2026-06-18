@@ -1,4 +1,9 @@
 {
+  "BackendErrors": {
+    "USER_ALREADY_EXISTS": "Účet s tímto e-mailem již existuje",
+    "MISSING_FIELDS": "Vyplňte prosím všechna povinná pole",
+    "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo"
+  },
   "General": {
     "timeUnderControl": "Tvůj čas pod kontrolou"
   },
@@ -11,7 +16,8 @@
     "firstNameMax": "Jméno nemůže obsahovat více než 30 znaků",
     "lastNameMin": "Příjmení musí obsahovat alespoň jedno písmeno",
     "lastNameMax": "Příjmení nemůže obsahovat více než 30 znaků",
-    "passwordDontMatch": "Hesla se neshodují"
+    "passwordDontMatch": "Hesla se neshodují",
+    "termsRequired": "Musíte souhlasit s podmínkami použití"
   },
   "RegisterForm": {
     "firstName": "Jméno",

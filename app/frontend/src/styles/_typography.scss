@@ -41,3 +41,8 @@ $font-size-title: 28px;
   line-height: 36px;
   color: $color;
 }
+
+@mixin text-error {
+  @include text-xs(var(--danger));
+  margin-top: 4px;
+}

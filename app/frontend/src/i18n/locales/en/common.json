@@ -1,4 +1,9 @@
 {
+  "BackendErrors": {
+    "USER_ALREADY_EXISTS": "An account with this email already exists",
+    "MISSING_FIELDS": "Please fill in all required fields",
+    "INVALID_CREDENTIALS": "Invalid email or password"
+  },
   "General": {
     "timeUnderControl": "Your time under control"
   },
@@ -11,7 +16,8 @@
     "firstNameMax": "First name cannot exceed 30 characters",
     "lastNameMin": "Last name must contain at least one character",
     "lastNameMax": "Last name cannot exceed 30 characters",
-    "passwordDontMatch": "Passwords do not match"
+    "passwordDontMatch": "Passwords do not match",
+    "termsRequired": "You must agree to the terms of service"
   },
   "RegisterForm": {
     "firstName": "First name",
