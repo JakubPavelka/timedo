@@ -17,7 +17,8 @@
     "lastNameMin": "Příjmení musí obsahovat alespoň jedno písmeno",
     "lastNameMax": "Příjmení nemůže obsahovat více než 30 znaků",
     "passwordDontMatch": "Hesla se neshodují",
-    "termsRequired": "Musíte souhlasit s podmínkami použití"
+    "termsRequired": "Musíte souhlasit s podmínkami použití",
+    "passwordHaveToBeFilled": "Heslo musí být vyplněno"
   },
   "RegisterForm": {
     "firstName": "Jméno",
@@ -28,6 +29,11 @@
     "termsOfService": "Souhlasím s <link1>podmínkami</link1> a <link2>ochranou soukromí</link2>*",
     "createAccount": "Vytvořit účet",
     "alreadyHaveAccount": "Už máš účet? <link1>Přihlas se</link1>"
+  },
+  "LoginForm": {
+    "stayLoggedIn": "Zůstat přihlášený",
+    "login": "Přihlásit se",
+    "dontHaveAccount": "Nemáš účet? <link1>Vytvoř si ho</link1>"
   },
   "AuthCard": {
     "tryForFree": "Začni zdarma",

@@ -17,7 +17,8 @@
     "lastNameMin": "Last name must contain at least one character",
     "lastNameMax": "Last name cannot exceed 30 characters",
     "passwordDontMatch": "Passwords do not match",
-    "termsRequired": "You must agree to the terms of service"
+    "termsRequired": "You must agree to the terms of service",
+    "passwordHaveToBeFilled": "Password must be filled in"
   },
   "RegisterForm": {
     "firstName": "First name",
@@ -28,6 +29,11 @@
     "termsOfService": "I agree to the <link1>terms of service</link1> and <link2>privacy policy</link2>*",
     "createAccount": "Create account",
     "alreadyHaveAccount": "Already have an account? <link1>Sign in</link1>"
+  },
+  "LoginForm": {
+    "stayLoggedIn": "Stay logged in",
+    "login": "Sign in",
+    "dontHaveAccount": "Don't have an account? <link1>Create one</link1>"
   },
   "AuthCard": {
     "tryForFree": "Start for free",

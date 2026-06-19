@@ -28,4 +28,10 @@ export const RegisterSchema = z
     path: ["passwordAgain"],
   });
 
+export const LoginSchema = z.object({
+  email: z.email("Validation.invalidEmail"),
+  password: z.string().min(1, "Validation.passwordHaveToBeFilled"),
+});
+
 export type RegisterData = z.infer<typeof RegisterSchema>;
+export type LoginData = z.infer<typeof LoginSchema>;
