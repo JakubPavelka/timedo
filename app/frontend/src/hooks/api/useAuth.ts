@@ -4,3 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 export const useRegister = () => {
   return useMutation({ mutationFn: authApi.register });
 };
+
+export const useLogin = () => {
+  return useMutation({ mutationFn: authApi.login });
+};
