@@ -1,62 +1,73 @@
-import { apiClient } from "../client";
-import axios from "axios";
+import { apiClient } from '../client';
+import axios from 'axios';
 import type {
-  LoginData,
-  RegisterData,
-} from "@timedo/shared/src/schemas/authSchema";
+    LoginData,
+    RegisterData,
+} from '@timedo/shared/src/schemas/authSchema';
 
 export class ApiAuthError extends Error {
-  readonly code: string;
-  constructor(code: string) {
-    super(code);
-    this.code = code;
-  }
+    readonly code: string;
+    constructor(code: string) {
+        super(code);
+        this.code = code;
+    }
 }
 
 export const authApi = {
-  register: async (
-    data: Omit<RegisterData, "passwordAgain" | "termsAccepted">,
-  ): Promise<unknown> => {
-    try {
-      const response = await apiClient.post("/api/auth/register", data);
-      return response.data;
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        throw new ApiAuthError(err.response?.data?.code ?? "UNKNOWN_ERROR");
-      }
-      throw err;
-    }
-  },
+    register: async (
+        data: Omit<RegisterData, 'passwordAgain' | 'termsAccepted'>
+    ): Promise<unknown> => {
+        try {
+            const response = await apiClient.post('/api/auth/register', data);
+            return response.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiAuthError(
+                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
+                );
+            }
+            throw err;
+        }
+    },
 
-  login: async (data: LoginData): Promise<unknown> => {
-    try {
-      const response = await apiClient.post("/api/auth/login", data);
-      return response.data;
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        throw new ApiAuthError(err.response?.data?.code ?? "UNKNOWN_ERROR");
-      }
-      throw err;
-    }
-  },
+    login: async (data: LoginData): Promise<unknown> => {
+        try {
+            const response = await apiClient.post('/api/auth/login', data);
+            return response.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiAuthError(
+                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
+                );
+            }
+            throw err;
+        }
+    },
 
-  logout: async (): Promise<void> => {
-    try {
-      await apiClient.post("/api/auth/logout");
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        throw new ApiAuthError(err.response?.data?.code ?? "UNKNOWN_ERROR");
-      }
-      throw err;
-    }
-  },
+    logout: async (): Promise<void> => {
+        try {
+            await apiClient.post('/api/auth/logout');
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiAuthError(
+                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
+                );
+            }
+            throw err;
+        }
+    },
 
-  refresh: async (): Promise<void> => {
-    await apiClient.post("/api/auth/refresh");
-  },
+    refresh: async (): Promise<void> => {
+        await apiClient.post('/api/auth/refresh');
+    },
 
-  me: async (): Promise<{ id: string; email: string; firstName: string; lastName: string | null }> => {
-    const response = await apiClient.get("/api/auth/me");
-    return response.data.data.user;
-  },
+    me: async (): Promise<{
+        id: string;
+        email: string;
+        firstName: string;
+        lastName: string | null;
+    }> => {
+        const response = await apiClient.get('/api/auth/me');
+        return response.data.data.user;
+    },
 };

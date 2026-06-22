@@ -1,52 +1,52 @@
-@use "styles/typography";
-@use "styles/mixins/forms";
-@use "styles/mixins/layout";
+@use 'styles/typography';
+@use 'styles/mixins/forms';
+@use 'styles/mixins/layout';
 
 .AuthCard__title {
-  @include typography.text-title;
-  margin-bottom: 12px;
+    @include typography.text-title;
+    margin-bottom: 12px;
 }
 
 .AuthCard__welcomeBackText {
-  @include typography.text-xs(var(--accent-text));
-  text-transform: uppercase;
-  font-weight: 700;
+    @include typography.text-xs(var(--accent-text));
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
 .AuthCard__cardText {
-  @include typography.text-sm;
+    @include typography.text-sm;
 }
 
 .AuthCard__googleCard {
-  @include layout.centerXY;
-  @include forms.input-base;
-  cursor: pointer;
-  gap: 12px;
-  width: 100%;
-  padding: 12px;
-  transition: all 0.2s;
+    @include layout.centerXY;
+    @include forms.input-base;
+    cursor: pointer;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    transition: all 0.2s;
 
-  &:hover {
-    background-color: var(--surface-2);
-    border-color: var(--border-focused);
-  }
+    &:hover {
+        background-color: var(--surface-2);
+        border-color: var(--border-focused);
+    }
 }
 
 .AuthCard__withEmailWrapper {
-  @include layout.centerXY;
-  gap: 12px;
-  margin-block: 20px;
+    @include layout.centerXY;
+    gap: 12px;
+    margin-block: 20px;
 }
 
 .AuthCard__divider {
-  width: 100%;
-  height: 1px;
-  background-color: var(--border);
+    width: 100%;
+    height: 1px;
+    background-color: var(--border);
 }
 
 .AuthCard__withEmailText {
-  @include typography.text-xs(var(--light-gray));
-  font-weight: 700;
-  width: 100%;
-  text-align: center;
+    @include typography.text-xs(var(--light-gray));
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
 }
