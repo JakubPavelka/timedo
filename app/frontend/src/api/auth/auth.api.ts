@@ -39,4 +39,19 @@ export const authApi = {
       throw err;
     }
   },
+
+  logout: async (): Promise<void> => {
+    try {
+      await apiClient.post("/api/auth/logout");
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        throw new ApiAuthError(err.response?.data?.code ?? "UNKNOWN_ERROR");
+      }
+      throw err;
+    }
+  },
+
+  refresh: async (): Promise<void> => {
+    await apiClient.post("/api/auth/refresh");
+  },
 };

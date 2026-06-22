@@ -11,25 +11,33 @@ export const protect = async (
   next: NextFunction,
 ) => {
   try {
-    const token = req.cookies.jwt;
+    const token = req.cookies.accessToken;
 
     if (!token) {
-      return res.status(401).json({ message: "Not authorized" });
+      return res.status(401).json({ message: "Not authorized", code: "NO_ACCESS_TOKEN" });
     }
 
     if (!process.env.JWT_SECRET) {
       return res.status(400).json({ message: "JWT_SECRET was not found" });
     }
 
-    const decode = jwt.verify(token, process.env.JWT_SECRET) as { id: string };
+    let decoded: { id: string };
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET) as { id: string };
+    } catch (err) {
+      if (err instanceof jwt.TokenExpiredError) {
+        return res.status(401).json({ message: "Access token expired", code: "TOKEN_EXPIRED" });
+      }
+      return res.status(401).json({ message: "Not authorized", code: "INVALID_TOKEN" });
+    }
 
     const user = await prisma.user.findUnique({
-      where: { id: decode.id },
+      where: { id: decoded.id },
       select: { id: true, email: true, firstName: true, lastName: true },
     });
 
     if (!user) {
-      return res.status(401).json({ message: "Not authorized" });
+      return res.status(401).json({ message: "Not authorized", code: "USER_NOT_FOUND" });
     }
 
     req.user = user;
