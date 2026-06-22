@@ -1,6 +1,7 @@
 import { authApi } from "@/api/auth/auth.api";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter } from "@tanstack/react-router";
 
 export const useRegister = () => {
   return useMutation({ mutationFn: authApi.register });
@@ -11,7 +12,12 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
-  return useMutation({ mutationFn: authApi.logout });
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: authApi.logout,
+    onSuccess: () => router.navigate({ to: "/login", replace: true }),
+  });
 };
 
 export const useMe = () => {

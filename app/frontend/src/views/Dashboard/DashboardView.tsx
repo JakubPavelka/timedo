@@ -1,3 +1,12 @@
+import { useLogout } from "@/hooks/api/useAuth";
+
 export const DashboardView = () => {
-  return <div>DASHBOARD</div>;
+  const { mutate: logout } = useLogout();
+
+  return (
+    <div>
+      <p>DASHBOARD</p>
+      <button onClick={() => logout()}>LOGOUT</button>
+    </div>
+  );
 };
