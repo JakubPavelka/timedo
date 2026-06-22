@@ -1,0 +1,46 @@
+@use "styles/typography";
+@use "styles/mixins/layout";
+
+.AuthForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.AuthForm__inputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 9px;
+}
+
+.AuthForm__inputWrapper--row {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-bottom: 9px;
+}
+
+.AuthForm__columnWrapper {
+  @include layout.flexColumn;
+  flex: 1;
+}
+
+.AuthForm__inputLabel {
+  @include typography.text-sm(var(--text));
+  margin-bottom: 6px;
+}
+
+.AuthForm__forgotPassword {
+  @include typography.text-xs(var(--accent-text));
+}
+
+.AuthForm__errorMessage {
+  @include typography.text-error;
+}
+
+.AuthForm__submitBtn {
+  margin-top: 24px;
+}
+
+.AuthForm__checkboxWrapper {
+  margin-top: 14px;
+}

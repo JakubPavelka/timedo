@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="56" viewBox="0 0 200 56" font-family="&#39;Hanken Grotesk&#39;, system-ui, -apple-system, &#39;Segoe UI&#39;, sans-serif">
+  
+  <rect x="0.5" y="0.5" width="55" height="55" rx="16" fill="#ffffff" fill-opacity="0.14" stroke="#ffffff" stroke-opacity="0.22"></rect>
+  
+  <g transform="translate(14 14) scale(1.1667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round">
+    <circle cx="12" cy="13" r="8"></circle>
+    <path d="M12 13V9"></path>
+    <path d="M9.5 2.5h5"></path>
+  </g>
+  
+  <text x="72" y="37.5" font-size="30" font-weight="800" letter-spacing="-0.6" fill="#ffffff">Timedo</text>
+</svg>

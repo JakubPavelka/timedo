@@ -1,0 +1,62 @@
+@use "styles/mixins/layout";
+@use "styles/mixins/forms";
+@use "styles/typography";
+
+.Input {
+  @include forms.input-base;
+  display: flex;
+  align-items: center;
+  outline: none;
+  transition: border 0.2s;
+
+  &:focus-within {
+    border-color: var(--border-focused);
+  }
+}
+
+.Input__input {
+  @include typography.text-sm(var(--text));
+  border: 0;
+  padding: 12px 16px 12px 10px;
+  width: 100%;
+  outline: none;
+
+  &::placeholder {
+    color: var(--text-3);
+    opacity: 1;
+  }
+}
+
+.Input__input--withLockIcon {
+  padding-right: 10px;
+}
+
+.Input__toggle {
+  @include layout.centerXY;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  transition: all 0.2s;
+  border-radius: 8px;
+  margin-right: 8px;
+
+  &:hover {
+    background-color: var(--surface-3);
+  }
+}
+
+.Input__prefixIcon {
+  @include layout.centerXY;
+  color: var(--text-3);
+  padding-left: 16px;
+}
+
+.Input__icon {
+  color: var(--text-3);
+}
+
+.Input__input,
+.Input__toggle,
+.Input__icon {
+  background-color: transparent;
+}

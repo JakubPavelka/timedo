@@ -1,0 +1,33 @@
+@use "styles/colors";
+@use "styles/typography";
+
+.AuthRightSide {
+  height: 100%;
+}
+
+.AuthRightSide img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 268px;
+  width: 100%;
+  user-select: none;
+}
+
+.AuthRightSide p {
+  @include typography.text-title(var(--white));
+  user-select: none;
+
+  .--colored {
+    color: var(--accent-line);
+  }
+}
+
+.AuthRightSide__content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: end;
+  padding: 48px;
+  height: 100%;
+}

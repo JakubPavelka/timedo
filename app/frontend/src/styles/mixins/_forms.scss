@@ -1,0 +1,10 @@
+@mixin input-base {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background-color: var(--surface);
+
+  &:focus {
+    border-color: var(--border-focused);
+    outline: none;
+  }
+}

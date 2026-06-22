@@ -1,5 +1,9 @@
 packages:
   - "app/*"
+  - "app/packages/*"
   - "packages/*"
 allowBuilds:
+  '@parcel/watcher': false
+  '@prisma/engines': true
   esbuild: set this to true or false
+  prisma: true

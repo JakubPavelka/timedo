@@ -1,0 +1,26 @@
+@use "./colors";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+html {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Hanken Grotesk", sans-serif;
+}
