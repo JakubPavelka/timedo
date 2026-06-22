@@ -1,0 +1,9 @@
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
+app/frontend/src/routeTree.gen.ts
+
+app/backend/src/generated
+
+dist
+dist-ssr
