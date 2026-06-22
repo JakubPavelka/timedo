@@ -54,4 +54,9 @@ export const authApi = {
   refresh: async (): Promise<void> => {
     await apiClient.post("/api/auth/refresh");
   },
+
+  me: async (): Promise<{ id: string; email: string; firstName: string; lastName: string | null }> => {
+    const response = await apiClient.get("/api/auth/me");
+    return response.data.data.user;
+  },
 };

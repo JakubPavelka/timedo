@@ -179,4 +179,11 @@ const refresh = async (req: Request, res: Response) => {
   return res.status(200).json({ status: "success" });
 };
 
-export { register, login, logout, refresh };
+const me = async (req: Request, res: Response) => {
+  return res.status(200).json({
+    status: "success",
+    data: { user: req.user },
+  });
+};
+
+export { register, login, logout, refresh, me };
