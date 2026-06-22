@@ -1,35 +1,35 @@
-import { authApi } from "@/api/auth/auth.api";
-import { useAuthStore } from "@/store/useAuthStore";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRouter } from "@tanstack/react-router";
+import { authApi } from '@/api/auth/auth.api';
+import { useAuthStore } from '@/store/useAuthStore';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useRouter } from '@tanstack/react-router';
 
 export const useRegister = () => {
-  return useMutation({ mutationFn: authApi.register });
+    return useMutation({ mutationFn: authApi.register });
 };
 
 export const useLogin = () => {
-  return useMutation({ mutationFn: authApi.login });
+    return useMutation({ mutationFn: authApi.login });
 };
 
 export const useLogout = () => {
-  const router = useRouter();
+    const router = useRouter();
 
-  return useMutation({
-    mutationFn: authApi.logout,
-    onSuccess: () => router.navigate({ to: "/login", replace: true }),
-  });
+    return useMutation({
+        mutationFn: authApi.logout,
+        onSuccess: () => router.navigate({ to: '/login', replace: true }),
+    });
 };
 
 export const useMe = () => {
-  const setUser = useAuthStore((s) => s.setUser);
+    const setUser = useAuthStore((s) => s.setUser);
 
-  return useQuery({
-    queryKey: ["me"],
-    queryFn: async () => {
-      const user = await authApi.me();
-      setUser(user);
-      return user;
-    },
-    retry: false,
-  });
+    return useQuery({
+        queryKey: ['me'],
+        queryFn: async () => {
+            const user = await authApi.me();
+            setUser(user);
+            return user;
+        },
+        retry: false,
+    });
 };

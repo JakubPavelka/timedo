@@ -1,7 +1,7 @@
-import { apiClient } from "../client";
+import { apiClient } from '../client';
 
 export const profileApi = {
-  logout: async () => {
-    return await apiClient.post("/api/auth/logout");
-  },
+    logout: async () => {
+        return await apiClient.post('/api/auth/logout');
+    },
 };

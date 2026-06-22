@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { RegisterView } from "@/views/auth/RegisterView";
+import { createFileRoute } from '@tanstack/react-router';
+import { RegisterView } from '@/views/auth/RegisterView';
 
-export const Route = createFileRoute("/forgotten-password")({
-  component: RegisterView,
+export const Route = createFileRoute('/forgotten-password')({
+    component: RegisterView,
 });

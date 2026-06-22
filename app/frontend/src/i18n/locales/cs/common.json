@@ -1,53 +1,53 @@
 {
-  "BackendErrors": {
-    "USER_ALREADY_EXISTS": "Účet s tímto e-mailem již existuje",
-    "MISSING_FIELDS": "Vyplňte prosím všechna povinná pole",
-    "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo"
-  },
-  "General": {
-    "timeUnderControl": "Tvůj čas pod kontrolou"
-  },
-  "Validation": {
-    "invalidEmail": "Neplatný email",
-    "passwordMin": "Heslo musí mít alespoň 8 znaků",
-    "passwordUppercase": "Heslo musí obsahovat alespoň jedno velké písmeno",
-    "passwordSpecial": "Heslo musí obsahovat alespoň jeden speciální znak",
-    "firstNameMin": "Jméno musí obsahovat alespoň jedno písmeno",
-    "firstNameMax": "Jméno nemůže obsahovat více než 30 znaků",
-    "lastNameMin": "Příjmení musí obsahovat alespoň jedno písmeno",
-    "lastNameMax": "Příjmení nemůže obsahovat více než 30 znaků",
-    "passwordDontMatch": "Hesla se neshodují",
-    "termsRequired": "Musíte souhlasit s podmínkami použití",
-    "passwordHaveToBeFilled": "Heslo musí být vyplněno"
-  },
-  "RegisterForm": {
-    "firstName": "Jméno",
-    "lastName": "Příjmení",
-    "email": "E-mail",
-    "password": "Heslo",
-    "passwordAgain": "Heslo znovu",
-    "termsOfService": "Souhlasím s <link1>podmínkami</link1> a <link2>ochranou soukromí</link2>*",
-    "createAccount": "Vytvořit účet",
-    "alreadyHaveAccount": "Už máš účet? <link1>Přihlas se</link1>"
-  },
-  "LoginForm": {
-    "stayLoggedIn": "Zůstat přihlášený",
-    "login": "Přihlásit se",
-    "dontHaveAccount": "Nemáš účet? <link1>Vytvoř si ho</link1>"
-  },
-  "AuthCard": {
-    "tryForFree": "Začni zdarma",
-    "createAccount": "Vytvoř si účet",
-    "welcomeBack": "Vítej zpět",
-    "signIn": "Přihlas se do Timedo",
-    "continueWithGoogle": "Pokračovat přes Google",
-    "orWithEmail": "nebo e-mailemem"
-  },
-  "AuthRightSide": {
-    "title": "Sleduj čas, plň úkoly a <break /><colored>vidíš, kam mizí tvůj den.</colored>"
-  },
-  "Input": {
-    "showPassword": "Zobrazit heslo",
-    "hidePassword": "Skrýt heslo"
-  }
+    "BackendErrors": {
+        "USER_ALREADY_EXISTS": "Účet s tímto e-mailem již existuje",
+        "MISSING_FIELDS": "Vyplňte prosím všechna povinná pole",
+        "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo"
+    },
+    "General": {
+        "timeUnderControl": "Tvůj čas pod kontrolou"
+    },
+    "Validation": {
+        "invalidEmail": "Neplatný email",
+        "passwordMin": "Heslo musí mít alespoň 8 znaků",
+        "passwordUppercase": "Heslo musí obsahovat alespoň jedno velké písmeno",
+        "passwordSpecial": "Heslo musí obsahovat alespoň jeden speciální znak",
+        "firstNameMin": "Jméno musí obsahovat alespoň jedno písmeno",
+        "firstNameMax": "Jméno nemůže obsahovat více než 30 znaků",
+        "lastNameMin": "Příjmení musí obsahovat alespoň jedno písmeno",
+        "lastNameMax": "Příjmení nemůže obsahovat více než 30 znaků",
+        "passwordDontMatch": "Hesla se neshodují",
+        "termsRequired": "Musíte souhlasit s podmínkami použití",
+        "passwordHaveToBeFilled": "Heslo musí být vyplněno"
+    },
+    "RegisterForm": {
+        "firstName": "Jméno",
+        "lastName": "Příjmení",
+        "email": "E-mail",
+        "password": "Heslo",
+        "passwordAgain": "Heslo znovu",
+        "termsOfService": "Souhlasím s <link1>podmínkami</link1> a <link2>ochranou soukromí</link2>*",
+        "createAccount": "Vytvořit účet",
+        "alreadyHaveAccount": "Už máš účet? <link1>Přihlas se</link1>"
+    },
+    "LoginForm": {
+        "stayLoggedIn": "Zůstat přihlášený",
+        "login": "Přihlásit se",
+        "dontHaveAccount": "Nemáš účet? <link1>Vytvoř si ho</link1>"
+    },
+    "AuthCard": {
+        "tryForFree": "Začni zdarma",
+        "createAccount": "Vytvoř si účet",
+        "welcomeBack": "Vítej zpět",
+        "signIn": "Přihlas se do Timedo",
+        "continueWithGoogle": "Pokračovat přes Google",
+        "orWithEmail": "nebo e-mailemem"
+    },
+    "AuthRightSide": {
+        "title": "Sleduj čas, plň úkoly a <break /><colored>vidíš, kam mizí tvůj den.</colored>"
+    },
+    "Input": {
+        "showPassword": "Zobrazit heslo",
+        "hidePassword": "Skrýt heslo"
+    }
 }
