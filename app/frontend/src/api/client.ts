@@ -15,12 +15,11 @@ apiClient.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
+        const isAuthError =
+            error.response?.status === 401 ||
+            error.response?.data?.code === 'TOKEN_EXPIRED';
 
-        if (
-            error.response?.status === 401 &&
-            error.response?.data?.code === 'TOKEN_EXPIRED' &&
-            !originalRequest._retry
-        ) {
+        if (isAuthError && !originalRequest._retry) {
             originalRequest._retry = true;
 
             try {
