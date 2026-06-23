@@ -1,0 +1,12 @@
+@use 'styles/typography';
+@use 'styles/colors';
+
+.Sidebar {
+    padding: 24px 16px;
+    max-width: 248px;
+    width: 100%;
+}
+
+.Sidebar__buttonFocus {
+    margin-top: 12px;
+}

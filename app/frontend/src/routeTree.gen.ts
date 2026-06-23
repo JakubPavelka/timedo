@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgottenPasswordRouteImport } from './routes/forgotten-password'
@@ -24,6 +25,11 @@ const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/forgotten-password': typeof ForgottenPasswordRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/terms-of-service': typeof TermsOfServiceRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/forgotten-password': typeof ForgottenPasswordRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/terms-of-service': typeof TermsOfServiceRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/forgotten-password': typeof ForgottenPasswordRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/terms-of-service': typeof TermsOfServiceRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/forgotten-password'
     | '/login'
     | '/privacy-policy'
+    | '/profile'
     | '/register'
     | '/terms-of-service'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/forgotten-password'
     | '/login'
     | '/privacy-policy'
+    | '/profile'
     | '/register'
     | '/terms-of-service'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/forgotten-password'
     | '/login'
     | '/privacy-policy'
+    | '/profile'
     | '/register'
     | '/terms-of-service'
   fileRoutesById: FileRoutesById
@@ -104,6 +116,7 @@ export interface RootRouteChildren {
   ForgottenPasswordRoute: typeof ForgottenPasswordRoute
   LoginRoute: typeof LoginRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
 }
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -160,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForgottenPasswordRoute: ForgottenPasswordRoute,
   LoginRoute: LoginRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
 }

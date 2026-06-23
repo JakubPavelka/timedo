@@ -1,3 +1,4 @@
+import { Sidebar } from '@/components/features/Sidebar/Sidebar';
 import { useLogout } from '@/hooks/api/useAuth';
 
 export const DashboardView = () => {
@@ -5,7 +6,7 @@ export const DashboardView = () => {
 
     return (
         <div>
-            <p>DASHBOARD</p>
+            <Sidebar />
             <button onClick={() => logout()}>LOGOUT</button>
         </div>
     );
