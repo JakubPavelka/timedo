@@ -2,11 +2,53 @@
 @use 'styles/colors';
 
 .Sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface-2);
     padding: 24px 16px;
     max-width: 248px;
     width: 100%;
+    height: 100dvh;
 }
 
-.Sidebar__buttonFocus {
+.Sidebar__buttonTimer {
     margin-top: 12px;
+    padding-block: 8px;
+}
+
+.Sidebar__buttonsWrapper {
+    @include typography.text-sm;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--text-2);
+    margin-top: 12px;
+}
+
+.Sidebar__button {
+    padding: 7px 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 10px;
+
+    svg {
+        color: var(--text-3);
+    }
+
+    &:hover {
+        background-color: var(--surface-3);
+        color: var(--text);
+    }
+
+    &.--active {
+        background-color: var(--accent-soft);
+        color: var(--accent);
+    }
+}
+
+.Sidebar__profileWrapper {
+    margin-top: auto;
 }
