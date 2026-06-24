@@ -20,11 +20,16 @@ export const Button = ({
     isLoading,
     children,
     type,
+    className,
     ...rest
 }: ButtonProps) => {
     return (
         <button
-            className={clsx(styles.Button, styles[`Button--${variant}`])}
+            className={clsx(
+                styles.Button,
+                styles[`Button--${variant}`],
+                className
+            )}
             type={type ?? 'button'}
             disabled={isLoading}
             {...rest}
@@ -32,8 +37,8 @@ export const Button = ({
             {havePlayIcon && (
                 <Play
                     className={styles.Button_playIcon}
-                    width={12}
-                    height={12}
+                    width={10}
+                    height={10}
                 />
             )}
             <span className={styles.Button__text}>{children}</span>
