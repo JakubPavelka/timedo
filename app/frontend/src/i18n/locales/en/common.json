@@ -49,5 +49,13 @@
     },
     "AuthRightSide": {
         "title": "Track time, complete tasks and <break /><colored>see where your day goes.</colored>"
+    },
+    "Sidebar": {
+        "startFocus": "Start focus",
+        "focus": "Focus",
+        "tasks": "Tasks",
+        "calendar": "Calendar",
+        "overview": "Overview",
+        "projects": "PROJECTS"
     }
 }
