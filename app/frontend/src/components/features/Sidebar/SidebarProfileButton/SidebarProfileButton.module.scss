@@ -1,2 +1,49 @@
 @use 'styles/typography';
 @use 'styles/colors';
+@use 'styles/mixins/layout';
+
+.SidebarProfileButton {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-radius: 10px;
+
+    &:hover {
+        text-decoration: none;
+        background-color: var(--surface-3);
+
+        .SidebarProfileButton__nameText {
+            color: var(--text);
+        }
+    }
+}
+
+.SidebarProfileButton__initialsWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.SidebarProfileButton__initials {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--highlight) 100%);
+}
+
+.SidebarProfileButton__initialText {
+    @include typography.text-xs(var(--white));
+    @include layout.centerXY;
+    font-weight: 700;
+    text-transform: uppercase;
+    height: 100%;
+    letter-spacing: -0.6px;
+}
+
+.SidebarProfileButton__nameText {
+    @include typography.text-sm(var(--text-2));
+}

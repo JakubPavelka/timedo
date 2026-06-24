@@ -11,22 +11,22 @@ const ICON_SIZE = 18;
 
 const sidebarButtonsData = [
     {
-        text: 'Focus',
+        text: 'Sidebar.focus',
         view: 'xd',
         icon: <Timer width={ICON_SIZE} height={ICON_SIZE} />,
     },
     {
-        text: 'Ukoly',
+        text: 'Sidebar.tasks',
         view: 'xdd',
         icon: <ListChecks width={ICON_SIZE} height={ICON_SIZE} />,
     },
     {
-        text: 'KAl',
+        text: 'Sidebar.calendar',
         view: 'xdd',
         icon: <Calendar width={ICON_SIZE} height={ICON_SIZE} />,
     },
     {
-        text: 'Prehl',
+        text: 'Sidebar.overview',
         view: 'xdd',
         icon: <ChartLine width={ICON_SIZE} height={ICON_SIZE} />,
     },

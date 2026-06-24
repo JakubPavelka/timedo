@@ -3,11 +3,9 @@ import LogoBlueDarkTheme from '@/assets/images/logoBlueDarkTheme.svg?react';
 import { useTheme } from '@/hooks/useTheme';
 import { Button } from '@/components/ui/Button/Button';
 import styles from './Sidebar.module.scss';
-import { Link } from '@tanstack/react-router';
-import { Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
-import { useAuthStore } from '@/store/authStore';
+import { SidebarProfileButton } from './SidebarProfileButton/SidebarProfileButton';
 
 type SidebarProps = {
     projects?: any[];
@@ -18,18 +16,15 @@ type SidebarProps = {
 export const Sidebar = (props: SidebarProps) => {
     const { t } = useTranslation();
     const theme = useTheme((s) => s.theme);
-    const { user } = useAuthStore();
 
     return (
         <div className={styles.Sidebar}>
-            {/* LOGO */}
             {theme === 'light' ? (
                 <LogoBlue height={40} width={110} />
             ) : (
                 <LogoBlueDarkTheme height={40} width={110} />
             )}
 
-            {/* START TIMER BUTTON */}
             <Button
                 className={styles.Sidebar__buttonTimer}
                 onClick={props.onTimerClick}
@@ -38,7 +33,6 @@ export const Sidebar = (props: SidebarProps) => {
                 <p>{t('Sidebar.startFocus')}</p>
             </Button>
 
-            {/* BUTTONS */}
             <div className={styles.Sidebar__buttonsWrapper}>
                 {props.buttons?.map((item, index) => {
                     return (
@@ -49,22 +43,17 @@ export const Sidebar = (props: SidebarProps) => {
                                 item.isActive && styles['--active']
                             )}
                         >
-                            <span>{item.icon}</span>
-                            {item.text} {item.view}
+                            <span className={styles.Sidebar__buttonIcon}>
+                                {item.icon}
+                            </span>
+                            {t(item.text)}
                         </div>
                     );
                 })}
             </div>
 
-            {/* PROFILE BUTTON */}
             <div className={styles.Sidebar__profileWrapper}>
-                <Link to={'/profile'}>
-                    <div>
-                        <p>{user?.firstName}</p>
-                        <p>{user?.lastName}</p>
-                    </div>
-                    <Settings />
-                </Link>
+                <SidebarProfileButton />
             </div>
         </div>
     );

@@ -1,5 +1,6 @@
 @use 'styles/typography';
 @use 'styles/colors';
+@use 'styles/mixins/layout';
 
 .Sidebar {
     display: flex;
@@ -9,6 +10,7 @@
     max-width: 248px;
     width: 100%;
     height: 100dvh;
+    border-right: 1px solid var(--border);
 }
 
 .Sidebar__buttonTimer {
@@ -49,6 +51,12 @@
     }
 }
 
+.Sidebar__buttonIcon {
+    @include layout.centerXY;
+}
+
 .Sidebar__profileWrapper {
     margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-strong);
 }
