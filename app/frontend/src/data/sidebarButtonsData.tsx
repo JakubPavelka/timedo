@@ -1,7 +1,7 @@
 import type { FileRouteTypes } from '@/routeTree.gen';
 import { Timer, ChartLine, Calendar, ListChecks } from 'lucide-react';
 
-type SidebarButtonDataType = {
+export type SidebarButtonDataType = {
     text: string;
     view: FileRouteTypes['fullPaths'];
     icon: React.ReactNode;
@@ -9,25 +9,25 @@ type SidebarButtonDataType = {
 
 const ICON_SIZE = 18;
 
-const sidebarButtonsData = [
+const sidebarButtonsData: SidebarButtonDataType[] = [
     {
         text: 'Sidebar.focus',
-        view: 'xd',
+        view: '/dashboard/focus',
         icon: <Timer width={ICON_SIZE} height={ICON_SIZE} />,
     },
     {
         text: 'Sidebar.tasks',
-        view: 'xdd',
+        view: '/dashboard/tasks',
         icon: <ListChecks width={ICON_SIZE} height={ICON_SIZE} />,
     },
     {
         text: 'Sidebar.calendar',
-        view: 'xdd',
+        view: '/dashboard/calendar',
         icon: <Calendar width={ICON_SIZE} height={ICON_SIZE} />,
     },
     {
         text: 'Sidebar.overview',
-        view: 'xdd',
+        view: '/dashboard/overview',
         icon: <ChartLine width={ICON_SIZE} height={ICON_SIZE} />,
     },
 ];

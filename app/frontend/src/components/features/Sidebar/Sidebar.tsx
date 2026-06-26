@@ -2,10 +2,11 @@ import LogoBlue from '@/assets/images/logoBlue.svg?react';
 import LogoBlueDarkTheme from '@/assets/images/logoBlueDarkTheme.svg?react';
 import { useTheme } from '@/hooks/useTheme';
 import { Button } from '@/components/ui/Button/Button';
-import styles from './Sidebar.module.scss';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
 import { SidebarProfileButton } from './SidebarProfileButton/SidebarProfileButton';
+import { Link } from '@tanstack/react-router';
+import clsx from 'clsx';
+import styles from './Sidebar.module.scss';
 
 type SidebarProps = {
     projects?: any[];
@@ -36,7 +37,8 @@ export const Sidebar = (props: SidebarProps) => {
             <div className={styles.Sidebar__buttonsWrapper}>
                 {props.buttons?.map((item, index) => {
                     return (
-                        <div
+                        <Link
+                            to={item.view}
                             key={`${item.text}-${index}`}
                             className={clsx(
                                 styles.Sidebar__button,
@@ -47,7 +49,7 @@ export const Sidebar = (props: SidebarProps) => {
                                 {item.icon}
                             </span>
                             {t(item.text)}
-                        </div>
+                        </Link>
                     );
                 })}
             </div>

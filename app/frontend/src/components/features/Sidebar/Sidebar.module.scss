@@ -35,6 +35,7 @@
     cursor: pointer;
     transition: all 0.2s;
     border-radius: 10px;
+    color: inherit;
 
     svg {
         color: var(--text-3);
@@ -43,6 +44,7 @@
     &:hover {
         background-color: var(--surface-3);
         color: var(--text);
+        text-decoration: none;
     }
 
     &.--active {
