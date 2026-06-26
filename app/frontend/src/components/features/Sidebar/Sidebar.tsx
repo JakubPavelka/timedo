@@ -40,10 +40,8 @@ export const Sidebar = (props: SidebarProps) => {
                         <Link
                             to={item.view}
                             key={`${item.text}-${index}`}
-                            className={clsx(
-                                styles.Sidebar__button,
-                                item.isActive && styles['--active']
-                            )}
+                            className={clsx(styles.Sidebar__button)}
+                            activeProps={{ className: styles['--active'] }}
                         >
                             <span className={styles.Sidebar__buttonIcon}>
                                 {item.icon}
