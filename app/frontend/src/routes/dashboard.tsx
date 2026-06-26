@@ -1,7 +1,6 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { checkAuth } from '@/utils/checkAuth';
-import { Sidebar } from '@/components/features/Sidebar/Sidebar';
-import sidebarButtonsData from '@/data/sidebarButtonsData';
+import { DashboardLayout } from '@/components/features/DashboardLayout/DashboardLayout';
 
 export const Route = createFileRoute('/dashboard')({
     beforeLoad: async () => {
@@ -10,12 +9,5 @@ export const Route = createFileRoute('/dashboard')({
             throw redirect({ to: '/login' });
         }
     },
-    component: () => {
-        return (
-            <div>
-                <Sidebar buttons={sidebarButtonsData} projects={[]} />
-                <Outlet />
-            </div>
-        );
-    },
+    component: DashboardLayout,
 });
