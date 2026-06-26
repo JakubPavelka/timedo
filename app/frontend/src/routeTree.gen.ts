@@ -11,11 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as RegisterRouteImport } from './routes/register'
-import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgottenPasswordRouteImport } from './routes/forgotten-password'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DashboardTasksRouteImport } from './routes/dashboard/tasks'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
+import { Route as DashboardOverviewRouteImport } from './routes/dashboard/overview'
+import { Route as DashboardFocusRouteImport } from './routes/dashboard/focus'
+import { Route as DashboardCalendarRouteImport } from './routes/dashboard/calendar'
 
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
@@ -25,11 +29,6 @@ const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -52,34 +51,71 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardTasksRoute = DashboardTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardOverviewRoute = DashboardOverviewRouteImport.update({
+  id: '/overview',
+  path: '/overview',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardFocusRoute = DashboardFocusRouteImport.update({
+  id: '/focus',
+  path: '/focus',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardCalendarRoute = DashboardCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/forgotten-password': typeof ForgottenPasswordRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/dashboard/calendar': typeof DashboardCalendarRoute
+  '/dashboard/focus': typeof DashboardFocusRoute
+  '/dashboard/overview': typeof DashboardOverviewRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/tasks': typeof DashboardTasksRoute
 }
 export interface FileRoutesByTo {
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/forgotten-password': typeof ForgottenPasswordRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/dashboard/calendar': typeof DashboardCalendarRoute
+  '/dashboard/focus': typeof DashboardFocusRoute
+  '/dashboard/overview': typeof DashboardOverviewRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/tasks': typeof DashboardTasksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/forgotten-password': typeof ForgottenPasswordRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/dashboard/calendar': typeof DashboardCalendarRoute
+  '/dashboard/focus': typeof DashboardFocusRoute
+  '/dashboard/overview': typeof DashboardOverviewRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/tasks': typeof DashboardTasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -88,35 +124,46 @@ export interface FileRouteTypes {
     | '/forgotten-password'
     | '/login'
     | '/privacy-policy'
-    | '/profile'
     | '/register'
     | '/terms-of-service'
+    | '/dashboard/calendar'
+    | '/dashboard/focus'
+    | '/dashboard/overview'
+    | '/dashboard/profile'
+    | '/dashboard/tasks'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/dashboard'
     | '/forgotten-password'
     | '/login'
     | '/privacy-policy'
-    | '/profile'
     | '/register'
     | '/terms-of-service'
+    | '/dashboard/calendar'
+    | '/dashboard/focus'
+    | '/dashboard/overview'
+    | '/dashboard/profile'
+    | '/dashboard/tasks'
   id:
     | '__root__'
     | '/dashboard'
     | '/forgotten-password'
     | '/login'
     | '/privacy-policy'
-    | '/profile'
     | '/register'
     | '/terms-of-service'
+    | '/dashboard/calendar'
+    | '/dashboard/focus'
+    | '/dashboard/overview'
+    | '/dashboard/profile'
+    | '/dashboard/tasks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  DashboardRoute: typeof DashboardRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
   ForgottenPasswordRoute: typeof ForgottenPasswordRoute
   LoginRoute: typeof LoginRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
-  ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
 }
@@ -135,13 +182,6 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -172,15 +212,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/tasks': {
+      id: '/dashboard/tasks'
+      path: '/tasks'
+      fullPath: '/dashboard/tasks'
+      preLoaderRoute: typeof DashboardTasksRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/overview': {
+      id: '/dashboard/overview'
+      path: '/overview'
+      fullPath: '/dashboard/overview'
+      preLoaderRoute: typeof DashboardOverviewRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/focus': {
+      id: '/dashboard/focus'
+      path: '/focus'
+      fullPath: '/dashboard/focus'
+      preLoaderRoute: typeof DashboardFocusRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/calendar': {
+      id: '/dashboard/calendar'
+      path: '/calendar'
+      fullPath: '/dashboard/calendar'
+      preLoaderRoute: typeof DashboardCalendarRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
+interface DashboardRouteChildren {
+  DashboardCalendarRoute: typeof DashboardCalendarRoute
+  DashboardFocusRoute: typeof DashboardFocusRoute
+  DashboardOverviewRoute: typeof DashboardOverviewRoute
+  DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardTasksRoute: typeof DashboardTasksRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardCalendarRoute: DashboardCalendarRoute,
+  DashboardFocusRoute: DashboardFocusRoute,
+  DashboardOverviewRoute: DashboardOverviewRoute,
+  DashboardProfileRoute: DashboardProfileRoute,
+  DashboardTasksRoute: DashboardTasksRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  DashboardRoute: DashboardRoute,
+  DashboardRoute: DashboardRouteWithChildren,
   ForgottenPasswordRoute: ForgottenPasswordRoute,
   LoginRoute: LoginRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
-  ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
 }
