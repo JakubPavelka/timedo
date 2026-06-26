@@ -51,6 +51,7 @@
         "title": "Track time, complete tasks and <break /><colored>see where your day goes.</colored>"
     },
     "Sidebar": {
+        "dashboard": "Dashboard",
         "startFocus": "Start focus",
         "focus": "Focus",
         "tasks": "Tasks",

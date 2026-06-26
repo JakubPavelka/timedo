@@ -51,6 +51,7 @@
         "hidePassword": "Skrýt heslo"
     },
     "Sidebar": {
+        "dashboard": "Dashboard",
         "startFocus": "Spustit fokus",
         "focus": "Fokus",
         "tasks": "Úkoly",
