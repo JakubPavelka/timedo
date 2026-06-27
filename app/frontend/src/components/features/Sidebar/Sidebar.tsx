@@ -20,11 +20,13 @@ export const Sidebar = (props: SidebarProps) => {
 
     return (
         <div className={styles.Sidebar}>
-            {theme === 'light' ? (
-                <LogoBlue height={40} width={110} />
-            ) : (
-                <LogoBlueDarkTheme height={40} width={110} />
-            )}
+            <Link to={'/dashboard'}>
+                {theme === 'light' ? (
+                    <LogoBlue height={40} width={110} />
+                ) : (
+                    <LogoBlueDarkTheme height={40} width={110} />
+                )}
+            </Link>
 
             <Button
                 className={styles.Sidebar__buttonTimer}
