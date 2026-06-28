@@ -1,1 +1,7 @@
-export const ProfileView = () => <div>Profile view</div>;
+import { ProfileHeader } from '@/components/features/Profile/ProfileHeader/ProfileHeader';
+
+export const ProfileView = () => (
+    <div>
+        <ProfileHeader />
+    </div>
+);
