@@ -16,12 +16,14 @@ type ButtonProps = {
     havePlayIcon?: boolean;
     variant?: ButtonVariant;
     isLoading?: boolean;
+    fullWidth?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = (props: ButtonProps) => {
     const {
         variant = 'primary',
         haveRightArrow,
+        fullWidth,
         havePlayIcon,
         isLoading,
         children,
@@ -35,6 +37,7 @@ export const Button = (props: ButtonProps) => {
             className={clsx(
                 styles.Button,
                 styles[`Button--${variant}`],
+                fullWidth && styles.Button__full,
                 className
             )}
             type={type ?? 'button'}
