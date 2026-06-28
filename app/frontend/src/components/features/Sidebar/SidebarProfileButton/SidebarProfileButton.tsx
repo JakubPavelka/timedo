@@ -9,7 +9,7 @@ export const SidebarProfileButton = () => {
     const initialLastName = user?.lastName?.slice(0, 1);
 
     return (
-        <Link className={styles.SidebarProfileButton} to={'/profile'}>
+        <Link className={styles.SidebarProfileButton} to={'/dashboard/profile'}>
             <div className={styles.SidebarProfileButton__initialsWrapper}>
                 <div className={styles.SidebarProfileButton__initials}>
                     <p className={styles.SidebarProfileButton__initialText}>
