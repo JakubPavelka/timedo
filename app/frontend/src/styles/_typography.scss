@@ -1,7 +1,8 @@
 $font-size-xs: 12px;
 $font-size-sm: 14px;
 $font-size-md: 16px;
-$font-size-lg: 20px;
+$font-size-lg: 18px;
+$font-size-xl: 24px;
 $font-size-title: 28px;
 
 @mixin text-xs($color: var(--text)) {
@@ -31,6 +32,13 @@ $font-size-title: 28px;
     font-size: $font-size-lg;
     font-family: 'Hanken Grotesk', sans-serif;
     line-height: 24px;
+    color: $color;
+}
+
+@mixin text-xl($color: var(--text)) {
+    font-size: $font-size-xl;
+    font-family: 'Hanken Grotesk', sans-serif;
+    line-height: 26px;
     color: $color;
 }
 
