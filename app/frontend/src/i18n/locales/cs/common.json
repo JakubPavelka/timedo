@@ -5,7 +5,8 @@
         "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo"
     },
     "General": {
-        "timeUnderControl": "Tvůj čas pod kontrolou"
+        "timeUnderControl": "Tvůj čas pod kontrolou",
+        "cancel": "Zrušit"
     },
     "Validation": {
         "invalidEmail": "Neplatný email",
@@ -61,6 +62,7 @@
         "profile": "Profil"
     },
     "Profile": {
-        "logout": "Odhlásit se"
+        "logout": "Odhlásit se",
+        "logoutModalText": "Budete odhlášeni z účtu. Pro další práci se budete muset znovu přihlásit."
     }
 }

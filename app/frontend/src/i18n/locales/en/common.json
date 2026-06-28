@@ -5,7 +5,8 @@
         "INVALID_CREDENTIALS": "Invalid email or password"
     },
     "General": {
-        "timeUnderControl": "Your time under control"
+        "timeUnderControl": "Your time under control",
+        "cancel": "Cancel"
     },
     "Validation": {
         "invalidEmail": "Invalid email address",
@@ -61,6 +62,7 @@
         "profile": "Profile"
     },
     "Profile": {
-        "logout": "Sign out"
+        "logout": "Sign out",
+        "logoutModalText": "You will be signed out of your account. You will need to sign in again to continue."
     }
 }
