@@ -1,0 +1,46 @@
+@use 'styles/mixins/layout';
+@use 'styles/colors';
+@use 'styles/typography';
+
+.LogoutModal {
+    padding: 24px;
+    border-radius: 20px;
+    background-color: var(--surface);
+    max-width: 400px;
+    width: 100%;
+}
+
+.LogoutModal__iconWrapper {
+    @include layout.centerXY;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background-color: var(--danger-soft);
+    margin-bottom: 15px;
+}
+
+.LogoutModal__icon {
+    color: var(--danger);
+}
+
+.LogoutModal__title {
+    @include typography.text-xl;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.LogoutModal__text {
+    @include typography.text-md(var(--text-2));
+}
+
+.LogoutModal__buttonsWrapper {
+    @include layout.centerY;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 32px;
+}
+
+.LogoutModal__buttonText {
+    @include layout.centerXY;
+    gap: 8px;
+}
