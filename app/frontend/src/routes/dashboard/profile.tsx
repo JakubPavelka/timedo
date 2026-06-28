@@ -1,6 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { DashboardView } from '@/views/Dashboard/DashboardView';
 import { checkAuth } from '@/utils/checkAuth';
+import { ProfileView } from '@/views/Profile/ProfileView';
 
 export const Route = createFileRoute('/dashboard/profile')({
     beforeLoad: async () => {
@@ -9,5 +9,5 @@ export const Route = createFileRoute('/dashboard/profile')({
             throw redirect({ to: '/login' });
         }
     },
-    component: DashboardView,
+    component: ProfileView,
 });
