@@ -4,7 +4,12 @@ import { ChevronRight, Play } from 'lucide-react';
 import clsx from 'clsx';
 import { Spinner } from '../Spinner/Spinner';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline-danger';
+type ButtonVariant =
+    | 'primary'
+    | 'secondary'
+    | 'outline'
+    | 'danger'
+    | 'outline-danger';
 
 type ButtonProps = {
     haveRightArrow?: boolean;

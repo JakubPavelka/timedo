@@ -19,6 +19,27 @@
     }
 }
 
+.Button--outline {
+    background-color: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--surface-2);
+    }
+}
+
+.Button--danger {
+    background-color: var(--danger);
+    color: var(--white);
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--danger-hover);
+    }
+}
+
 .Button--outline-danger {
     background-color: transparent;
     color: var(--danger);
