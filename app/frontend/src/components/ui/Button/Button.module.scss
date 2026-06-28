@@ -5,7 +5,7 @@
     @include layout.centerXY;
     cursor: pointer;
     border-radius: 10px;
-    padding: 14px 28px;
+    padding: 14px 24px;
     width: 100%;
 }
 
@@ -16,6 +16,18 @@
 
     &:hover {
         background-color: var(--accent-text);
+    }
+}
+
+.Button--outline-danger {
+    background-color: transparent;
+    color: var(--danger);
+    outline: 1px solid var(--danger);
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--danger);
+        color: var(--white);
     }
 }
 

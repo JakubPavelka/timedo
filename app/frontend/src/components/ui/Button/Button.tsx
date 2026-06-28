@@ -4,7 +4,7 @@ import { ChevronRight, Play } from 'lucide-react';
 import clsx from 'clsx';
 import { Spinner } from '../Spinner/Spinner';
 
-type ButtonVariant = 'primary' | 'secondary';
+type ButtonVariant = 'primary' | 'secondary' | 'outline-danger';
 
 type ButtonProps = {
     haveRightArrow?: boolean;
@@ -13,16 +13,18 @@ type ButtonProps = {
     isLoading?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({
-    variant = 'primary',
-    haveRightArrow,
-    havePlayIcon,
-    isLoading,
-    children,
-    type,
-    className,
-    ...rest
-}: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
+    const {
+        variant = 'primary',
+        haveRightArrow,
+        havePlayIcon,
+        isLoading,
+        children,
+        type,
+        className,
+        ...rest
+    } = props;
+
     return (
         <button
             className={clsx(
