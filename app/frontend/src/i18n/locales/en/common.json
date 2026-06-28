@@ -57,6 +57,10 @@
         "tasks": "Tasks",
         "calendar": "Calendar",
         "overview": "Overview",
-        "projects": "PROJECTS"
+        "projects": "PROJECTS",
+        "profile": "Profile"
+    },
+    "Profile": {
+        "logout": "Sign out"
     }
 }

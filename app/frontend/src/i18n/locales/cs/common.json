@@ -57,6 +57,10 @@
         "tasks": "Úkoly",
         "calendar": "Kalendář",
         "overview": "Přehled",
-        "projects": "PROJEKTY"
+        "projects": "PROJEKTY",
+        "profile": "Profil"
+    },
+    "Profile": {
+        "logout": "Odhlásit se"
     }
 }
