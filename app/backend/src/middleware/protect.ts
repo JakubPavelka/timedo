@@ -32,12 +32,10 @@ export const protect = async (
             };
         } catch (err) {
             if (err instanceof jwt.TokenExpiredError) {
-                return res
-                    .status(401)
-                    .json({
-                        message: 'Access token expired',
-                        code: 'TOKEN_EXPIRED',
-                    });
+                return res.status(401).json({
+                    message: 'Access token expired',
+                    code: 'TOKEN_EXPIRED',
+                });
             }
             return res
                 .status(401)

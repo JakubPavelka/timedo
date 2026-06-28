@@ -1,13 +1,13 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
+import { DashboardView } from '@/views/Dashboard/DashboardView';
 import { checkAuth } from '@/utils/checkAuth';
-import { DashboardLayout } from '@/components/features/DashboardLayout/DashboardLayout';
 
-export const Route = createFileRoute('/dashboard')({
+export const Route = createFileRoute('/dashboard/profile')({
     beforeLoad: async () => {
         const user = await checkAuth();
         if (!user) {
             throw redirect({ to: '/login' });
         }
     },
-    component: DashboardLayout,
+    component: DashboardView,
 });

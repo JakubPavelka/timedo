@@ -49,5 +49,14 @@
     "Input": {
         "showPassword": "Zobrazit heslo",
         "hidePassword": "Skrýt heslo"
+    },
+    "Sidebar": {
+        "dashboard": "Dashboard",
+        "startFocus": "Spustit fokus",
+        "focus": "Fokus",
+        "tasks": "Úkoly",
+        "calendar": "Kalendář",
+        "overview": "Přehled",
+        "projects": "PROJEKTY"
     }
 }

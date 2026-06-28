@@ -5,7 +5,6 @@ export const DashboardView = () => {
 
     return (
         <div>
-            <p>DASHBOARD</p>
             <button onClick={() => logout()}>LOGOUT</button>
         </div>
     );

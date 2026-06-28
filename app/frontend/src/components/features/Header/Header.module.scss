@@ -1,0 +1,17 @@
+@use 'styles/typography';
+@use 'styles/colors';
+
+.Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--surface-2);
+}
+
+.Header__title {
+    @include typography.text-lg(var(--text));
+    font-weight: 700;
+}

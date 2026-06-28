@@ -1,5 +1,5 @@
 import { authApi } from '@/api/auth/auth.api';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/store/authStore';
 
 export const checkAuth = async () => {
     try {

@@ -15,19 +15,21 @@ apiClient.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
+        const isAuthError =
+            error.response?.status === 401 ||
+            error.response?.data?.code === 'TOKEN_EXPIRED';
+        const isRefreshRequest = originalRequest?.url?.includes(
+            '/api/auth/refresh'
+        );
 
-        if (
-            error.response?.status === 401 &&
-            error.response?.data?.code === 'TOKEN_EXPIRED' &&
-            !originalRequest._retry
-        ) {
+        if (isAuthError && !isRefreshRequest && !originalRequest._retry) {
             originalRequest._retry = true;
 
             try {
                 await authApi.refresh();
                 return apiClient(originalRequest);
-            } catch {
-                window.location.href = '/login';
+            } catch (refreshError) {
+                return Promise.reject(refreshError);
             }
         }
 
