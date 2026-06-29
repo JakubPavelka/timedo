@@ -67,6 +67,7 @@
         "logout": "Sign out",
         "logoutModalText": "You will be signed out of your account. You will need to sign in again to continue.",
         "PersonalInfo": {
+            "title": "Personal information",
             "firstName": "First name",
             "lastName": "Last name",
             "email": "E-mail"

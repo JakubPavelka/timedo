@@ -67,6 +67,7 @@
         "logout": "Odhlásit se",
         "logoutModalText": "Budete odhlášeni z účtu. Pro další práci se budete muset znovu přihlásit.",
         "PersonalInfo": {
+            "title": "Osobní údaje",
             "firstName": "Jméno",
             "lastName": "Příjmení",
             "email": "E-mail"
