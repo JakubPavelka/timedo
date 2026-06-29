@@ -10,7 +10,7 @@ type InputProps = {
 
 const ICON_SIZE = 16;
 
-export const Input = ({ prefixIcon, type, ...rest }: InputProps) => {
+export const Input = ({ prefixIcon, type, disabled, ...rest }: InputProps) => {
     const { t } = useTranslation();
     const [showPassword, setShowPassword] = useState(false);
 
@@ -30,6 +30,7 @@ export const Input = ({ prefixIcon, type, ...rest }: InputProps) => {
                 )}
                 {...rest}
                 type={inputType}
+                disabled={disabled}
             />
             {type === 'password' && (
                 <button

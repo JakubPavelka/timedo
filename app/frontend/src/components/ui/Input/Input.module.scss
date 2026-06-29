@@ -21,6 +21,12 @@
     width: 100%;
     outline: none;
 
+    &:disabled {
+        opacity: 0.5;
+        background-color: var(--surface-2);
+        cursor: not-allowed;
+    }
+
     &::placeholder {
         color: var(--text-3);
         opacity: 1;
