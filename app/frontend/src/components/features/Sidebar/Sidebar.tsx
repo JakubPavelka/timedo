@@ -32,6 +32,7 @@ export const Sidebar = (props: SidebarProps) => {
                 className={styles.Sidebar__buttonTimer}
                 onClick={props.onTimerClick}
                 havePlayIcon
+                fullWidth
             >
                 <p>{t('Sidebar.startFocus')}</p>
             </Button>
