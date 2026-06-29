@@ -11,19 +11,6 @@
     @include layout.spaceBetweenY;
 }
 
-.ProfilePersonalInfo__flexWrapper {
-    @include layout.centerY;
-    gap: 12px;
-}
-
-.ProfilePersonalInfo__iconWrapper {
-    @include layout.centerXY;
-    background-color: var(--accent-soft);
-    height: 36px;
-    width: 36px;
-    border-radius: 14px;
-}
-
 .ProfilePersonalInfo__icon {
     color: var(--accent);
 }
@@ -43,11 +30,6 @@
             color: var(--text);
         }
     }
-}
-
-.ProfilePersonalInfo__title {
-    @include typography.text-md;
-    font-weight: 700;
 }
 
 .ProfilePersonalInfo__editText {

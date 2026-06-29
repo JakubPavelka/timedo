@@ -5,6 +5,7 @@ import { ProfileForm } from '../../forms/ProfileForm/ProfileForm';
 import styles from './ProfilePersonalInfo.module.scss';
 import { useState } from 'react';
 import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
+import { SectionHeader } from '@/components/ui/SectionHeader/SectionHeader';
 
 type ProfilePersonalInfoProps = {
     onSubmit: (data: ProfileData) => void;
@@ -19,19 +20,16 @@ export const ProfilePersonalInfo = (props: ProfilePersonalInfoProps) => {
     return (
         <Card className={styles.ProfilePersonalInfo}>
             <div className={styles.ProfilePersonalInfo__topWrapper}>
-                <div className={styles.ProfilePersonalInfo__flexWrapper}>
-                    <div className={styles.ProfilePersonalInfo__iconWrapper}>
+                <SectionHeader
+                    title={t('Profile.PersonalInfo.title')}
+                    icon={
                         <User
                             className={styles.ProfilePersonalInfo__icon}
                             width={16}
                             height={16}
                         />
-                    </div>
-                    <p className={styles.ProfilePersonalInfo__title}>
-                        {t('Profile.PersonalInfo.title')}
-                    </p>
-                </div>
-
+                    }
+                />
                 <button
                     className={styles.ProfilePersonalInfo__button}
                     onClick={handleClickEditing}
