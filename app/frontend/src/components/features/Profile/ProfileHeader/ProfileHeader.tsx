@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/Card/Card';
 import { Button } from '@/components/ui/Button/Button';
 import { LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { LogoutModal } from '@/components/ui/Modal/LogoutModal/LogoutModal';
 import { useLogout } from '@/hooks/api/useAuth';
 import styles from './ProfileHeader.module.scss';
@@ -17,8 +17,8 @@ export const ProfileHeader = () => {
     const initialFirstName = user?.firstName?.slice(0, 1);
     const initialLastName = user?.lastName?.slice(0, 1);
 
-    const handleOpenModal = () => setLogoutModalOpen(true);
-    const handleCloseModal = () => setLogoutModalOpen(false);
+    const handleOpenModal = useCallback(() => setLogoutModalOpen(true), []);
+    const handleCloseModal = useCallback(() => setLogoutModalOpen(false), []);
 
     return (
         <Card className={styles.ProfileHeader}>
