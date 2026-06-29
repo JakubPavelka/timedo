@@ -1,0 +1,36 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+@use 'styles/colors';
+
+.ProfileForm {
+    @include layout.flexColumn;
+    gap: 16px;
+
+    label {
+        @include typography.text-sm(var(--text-2));
+        margin-bottom: 4px;
+    }
+}
+
+.ProfileForm__nameWrapper {
+    @include layout.centerY;
+    gap: 16px;
+}
+
+.ProfileForm__labelWrapper {
+    @include layout.flexColumn;
+}
+
+.ProfileForm__inputsWrapper {
+    @include layout.flexColumn;
+    gap: 12px;
+}
+
+.ProfileForm__submitButtonText {
+    @include layout.centerXY;
+    gap: 8px;
+}
+
+.ProfileForm__errorText {
+    @include typography.text-error;
+}
