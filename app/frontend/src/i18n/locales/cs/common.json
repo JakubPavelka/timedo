@@ -6,7 +6,9 @@
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",
-        "cancel": "Zrušit"
+        "cancel": "Zrušit",
+        "edit": "Upravit",
+        "saveChanges": "Uložit změny"
     },
     "Validation": {
         "invalidEmail": "Neplatný email",
@@ -63,6 +65,11 @@
     },
     "Profile": {
         "logout": "Odhlásit se",
-        "logoutModalText": "Budete odhlášeni z účtu. Pro další práci se budete muset znovu přihlásit."
+        "logoutModalText": "Budete odhlášeni z účtu. Pro další práci se budete muset znovu přihlásit.",
+        "PersonalInfo": {
+            "firstName": "Jméno",
+            "lastName": "Příjmení",
+            "email": "E-mail"
+        }
     }
 }

@@ -6,7 +6,9 @@
     },
     "General": {
         "timeUnderControl": "Your time under control",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "saveChanges": "Save changes"
     },
     "Validation": {
         "invalidEmail": "Invalid email address",
@@ -63,6 +65,11 @@
     },
     "Profile": {
         "logout": "Sign out",
-        "logoutModalText": "You will be signed out of your account. You will need to sign in again to continue."
+        "logoutModalText": "You will be signed out of your account. You will need to sign in again to continue.",
+        "PersonalInfo": {
+            "firstName": "First name",
+            "lastName": "Last name",
+            "email": "E-mail"
+        }
     }
 }
