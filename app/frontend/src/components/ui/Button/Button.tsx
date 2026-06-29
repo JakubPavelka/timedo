@@ -29,6 +29,7 @@ export const Button = (props: ButtonProps) => {
         children,
         type,
         className,
+        disabled,
         ...rest
     } = props;
 
@@ -41,7 +42,7 @@ export const Button = (props: ButtonProps) => {
                 className
             )}
             type={type ?? 'button'}
-            disabled={isLoading}
+            disabled={isLoading || disabled}
             {...rest}
         >
             {havePlayIcon && (

@@ -8,6 +8,12 @@
     padding: 10px 24px;
     max-width: fit-content;
     width: 100%;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
 }
 
 .Button__full {
