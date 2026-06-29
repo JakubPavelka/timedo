@@ -1,0 +1,56 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.ProfilePersonalInfo {
+    @include layout.flexColumn;
+    gap: 16px;
+    padding: 24px;
+}
+
+.ProfilePersonalInfo__topWrapper {
+    @include layout.spaceBetweenY;
+}
+
+.ProfilePersonalInfo__flexWrapper {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.ProfilePersonalInfo__iconWrapper {
+    @include layout.centerXY;
+    background-color: var(--accent-soft);
+    height: 36px;
+    width: 36px;
+    border-radius: 14px;
+}
+
+.ProfilePersonalInfo__icon {
+    color: var(--accent);
+}
+
+.ProfilePersonalInfo__button {
+    @include layout.centerY;
+    background-color: transparent;
+    color: var(--text-2);
+    cursor: pointer;
+    gap: 6px;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--text);
+
+        .ProfilePersonalInfo__editText {
+            color: var(--text);
+        }
+    }
+}
+
+.ProfilePersonalInfo__title {
+    @include typography.text-md;
+    font-weight: 700;
+}
+
+.ProfilePersonalInfo__editText {
+    @include typography.text-sm(var(--text-2));
+    transition: color 0.2s;
+}
