@@ -71,6 +71,27 @@
             "firstName": "First name",
             "lastName": "Last name",
             "email": "E-mail"
+        },
+        "AppPreferences": {
+            "title": "App preferences",
+            "Theme": {
+                "title": "Theme",
+                "description": "Light or dark theme",
+                "light": "Light",
+                "dark": "Dark"
+            },
+            "Timer": {
+                "title": "Default timer",
+                "description": "What opens when you start Focus",
+                "stopwatch": "Stopwatch",
+                "pomodoro": "Pomodoro"
+            },
+            "Language": {
+                "title": "Language",
+                "description": "App language",
+                "czech": "Czech",
+                "english": "English"
+            }
         }
     }
 }

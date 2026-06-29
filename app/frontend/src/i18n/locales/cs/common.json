@@ -71,6 +71,27 @@
             "firstName": "Jméno",
             "lastName": "Příjmení",
             "email": "E-mail"
+        },
+        "AppPreferences": {
+            "title": "Předvolby aplikace",
+            "Theme": {
+                "title": "Vzhled",
+                "description": "Světlý nebo tmavý vzhled",
+                "light": "Světlý",
+                "dark": "Tmavý"
+            },
+            "Timer": {
+                "title": "Výchozí časovač",
+                "description": "Co naběhne po otevření Fokusu",
+                "stopwatch": "Stopky",
+                "pomodoro": "Pomodoro"
+            },
+            "Language": {
+                "title": "Jazyk",
+                "description": "Jazyk aplikace",
+                "czech": "Čeština",
+                "english": "Angličtina "
+            }
         }
     }
 }
