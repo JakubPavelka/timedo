@@ -98,6 +98,7 @@ export const LoginForm = (props: LoginFormProps) => {
                     type={'submit'}
                     haveRightArrow
                     isLoading={props.isLoading}
+                    fullWidth
                 >
                     {t('LoginForm.login')}
                 </Button>
