@@ -96,7 +96,8 @@
                 "description": "App language",
                 "czech": "Czech",
                 "english": "English"
-            },
+            }
+        },
         "ConnectedAccounts": {
             "title": "Connected accounts"
         },
