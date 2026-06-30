@@ -106,7 +106,8 @@
             "password": "Heslo",
             "passwordDescription": "Změňte heslo pro zabezpečení účtu",
             "deleteAccountTitle": "Smazat účet",
-            "deleteAccountDescription": "Trvale odstraní data i historii času"
+            "deleteAccountDescription": "Trvale odstraní data i historii času",
+            "deleteAccountModalDescription": "Váš účet bude trvale odstraněn a ztratíte veškerá data. Tato akce je nevratná."
         }
     }
 }

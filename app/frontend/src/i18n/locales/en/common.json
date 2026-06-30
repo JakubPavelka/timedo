@@ -106,7 +106,8 @@
             "password": "Password",
             "passwordDescription": "Change your password to keep your account secure",
             "deleteAccountTitle": "Delete account",
-            "deleteAccountDescription": "Permanently deletes all data and time history"
+            "deleteAccountDescription": "Permanently deletes all data and time history",
+            "deleteAccountModalDescription": "Your account will be permanently deleted and you will lose all data. This action is irreversible."
         }
     }
 }
