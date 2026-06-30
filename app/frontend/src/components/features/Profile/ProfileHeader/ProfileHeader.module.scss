@@ -44,3 +44,7 @@
     @include layout.centerXY;
     gap: 8px;
 }
+
+.ProfileHeader__icon {
+    color: var(--danger);
+}

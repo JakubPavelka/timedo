@@ -4,12 +4,12 @@ import { Button } from '@/components/ui/Button/Button';
 import { LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useState, useCallback } from 'react';
-import { LogoutModal } from '@/components/ui/Modal/LogoutModal/LogoutModal';
+import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { useLogout } from '@/hooks/api/useAuth';
 import styles from './ProfileHeader.module.scss';
 
 export const ProfileHeader = () => {
-    const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const { mutate: logout } = useLogout();
 
     const { t } = useTranslation();
@@ -17,8 +17,8 @@ export const ProfileHeader = () => {
     const initialFirstName = user?.firstName?.slice(0, 1);
     const initialLastName = user?.lastName?.slice(0, 1);
 
-    const handleOpenModal = useCallback(() => setLogoutModalOpen(true), []);
-    const handleCloseModal = useCallback(() => setLogoutModalOpen(false), []);
+    const handleOpenModal = useCallback(() => setModalOpen(true), []);
+    const handleCloseModal = useCallback(() => setModalOpen(false), []);
 
     return (
         <Card className={styles.ProfileHeader}>
@@ -41,10 +41,22 @@ export const ProfileHeader = () => {
                     <span>{t('Profile.logout')}</span>
                 </span>
             </Button>
-            <LogoutModal
-                isOpen={logoutModalOpen}
+            <ConfirmModal
+                isOpen={modalOpen}
                 onClose={handleCloseModal}
                 onConfirm={logout}
+                title={`${t('Profile.logout')}?`}
+                description={t('Profile.logoutModalText')}
+                variant={'danger'}
+                icon={
+                    <LogOut
+                        className={styles.ProfileHeader__icon}
+                        width={18}
+                        height={18}
+                    />
+                }
+                confirmText={t('Profile.logout')}
+                confirmIcon={<LogOut width={16} height={16} />}
             />
         </Card>
     );
