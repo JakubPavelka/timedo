@@ -8,7 +8,12 @@
         "timeUnderControl": "Tvůj čas pod kontrolou",
         "cancel": "Zrušit",
         "edit": "Upravit",
-        "saveChanges": "Uložit změny"
+        "saveChanges": "Uložit změny",
+        "connect": "Propojit",
+        "connected": "Připojeno",
+        "notConnected": "Nepropojeno",
+        "delete": "Smazat",
+        "change": "Změnit"
     },
     "Validation": {
         "invalidEmail": "Neplatný email",
@@ -92,6 +97,15 @@
                 "czech": "Čeština",
                 "english": "Angličtina "
             }
+        },
+        "ConnectedAccounts": {
+            "title": "Propojené účty"
+        },
+        "Security": {
+            "title": "Zabezpečení",
+            "description": "Změňte heslo pro zabezpečení účtu",
+            "deleteAccountTitle": "Smazat účet",
+            "deleteAccountDescription": "Trvale odstraní data i historii času"
         }
     }
 }

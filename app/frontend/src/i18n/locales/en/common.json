@@ -8,7 +8,12 @@
         "timeUnderControl": "Your time under control",
         "cancel": "Cancel",
         "edit": "Edit",
-        "saveChanges": "Save changes"
+        "saveChanges": "Save changes",
+        "connect": "Connect",
+        "connected": "Connected",
+        "notConnected": "Not connected",
+        "delete": "Delete",
+        "change": "Change"
     },
     "Validation": {
         "invalidEmail": "Invalid email address",
@@ -91,7 +96,15 @@
                 "description": "App language",
                 "czech": "Czech",
                 "english": "English"
-            }
+            },
+        "ConnectedAccounts": {
+            "title": "Connected accounts"
+        },
+        "Security": {
+            "title": "Security",
+            "description": "Change your password to keep your account secure",
+            "deleteAccountTitle": "Delete account",
+            "deleteAccountDescription": "Permanently deletes all data and time history"
         }
     }
 }
