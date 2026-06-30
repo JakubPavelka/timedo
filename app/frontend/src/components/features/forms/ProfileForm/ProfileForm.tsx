@@ -9,6 +9,7 @@ import {
 import { useAuthStore } from '@/store/authStore';
 import { Button } from '@/components/ui/Button/Button';
 import { Check } from 'lucide-react';
+import clsx from 'clsx';
 import styles from './ProfileForm.module.scss';
 
 type ProfileForm = {
@@ -38,7 +39,12 @@ export const ProfileForm = (props: ProfileForm) => {
         <form className={styles.ProfileForm} onSubmit={onSubmitHandler}>
             <div className={styles.ProfileForm__inputsWrapper}>
                 <div className={styles.ProfileForm__nameWrapper}>
-                    <div className={styles.ProfileForm__labelWrapper}>
+                    <div
+                        className={clsx(
+                            styles.ProfileForm__labelWrapper,
+                            styles['--half']
+                        )}
+                    >
                         <label htmlFor={'firstName'}>
                             {t('Profile.PersonalInfo.firstName')}
                         </label>
@@ -60,7 +66,12 @@ export const ProfileForm = (props: ProfileForm) => {
                             </p>
                         )}
                     </div>
-                    <div className={styles.ProfileForm__labelWrapper}>
+                    <div
+                        className={clsx(
+                            styles.ProfileForm__labelWrapper,
+                            styles['--half']
+                        )}
+                    >
                         <label htmlFor={'lastName'}>
                             {t('Profile.PersonalInfo.lastName')}
                         </label>

@@ -19,6 +19,10 @@
 
 .ProfileForm__labelWrapper {
     @include layout.flexColumn;
+
+    &.--half {
+        width: 50%;
+    }
 }
 
 .ProfileForm__inputsWrapper {
