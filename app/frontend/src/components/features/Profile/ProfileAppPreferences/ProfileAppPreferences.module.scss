@@ -1,0 +1,22 @@
+@use 'styles/mixins/layout';
+
+.ProfileAppPreferences {
+    padding: 24px;
+}
+
+.ProfileAppPreferences__header {
+    margin-bottom: 16px;
+}
+
+.ProfileAppPreferences__iconAccent {
+    color: var(--accent);
+}
+
+.ProfileAppPreferences__icon {
+    color: var(--text-2);
+}
+
+.ProfileAppPreferences__itemsWrapper {
+    @include layout.flexColumn;
+    gap: 16px;
+}
