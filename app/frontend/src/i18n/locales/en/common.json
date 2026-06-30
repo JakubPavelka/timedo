@@ -103,7 +103,8 @@
         },
         "Security": {
             "title": "Security",
-            "description": "Change your password to keep your account secure",
+            "password": "Password",
+            "passwordDescription": "Change your password to keep your account secure",
             "deleteAccountTitle": "Delete account",
             "deleteAccountDescription": "Permanently deletes all data and time history"
         }

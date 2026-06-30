@@ -103,7 +103,8 @@
         },
         "Security": {
             "title": "Zabezpečení",
-            "description": "Změňte heslo pro zabezpečení účtu",
+            "password": "Heslo",
+            "passwordDescription": "Změňte heslo pro zabezpečení účtu",
             "deleteAccountTitle": "Smazat účet",
             "deleteAccountDescription": "Trvale odstraní data i historii času"
         }
