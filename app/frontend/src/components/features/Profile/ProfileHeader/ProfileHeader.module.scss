@@ -32,7 +32,7 @@
 }
 
 .ProfileHeader__name {
-    @include typography.text-xl(var(--text));
+    @include typography.text-lg(var(--text));
     font-weight: 700;
 }
 
