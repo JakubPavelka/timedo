@@ -1,0 +1,32 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+
+.IconItem {
+    @include layout.spaceBetweenY;
+}
+
+.IconItem__leftSide {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.IconItem__iconWrapper {
+    @include layout.centerXY;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background-color: var(--surface-3);
+}
+
+.IconItem__textWrapper {
+    @include layout.flexColumn;
+}
+
+.IconItem__title {
+    @include typography.text-sm;
+    font-weight: 700;
+}
+
+.IconItem__description {
+    @include typography.text-xs(var(--text-2));
+}
