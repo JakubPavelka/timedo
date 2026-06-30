@@ -28,6 +28,7 @@ export const ProfileConnectedAccounts = () => {
                 description={t('General.notConnected')}
                 icon={<Google width={16} height={16} />}
                 rightActions={
+                    // TODO Přidat propojení s Googlem
                     <Button
                         className={styles.ProfileConnectedAccounts__button}
                         variant={'outline'}
