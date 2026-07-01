@@ -82,8 +82,7 @@ export const ProfileSecurity = () => {
                     }
                 />
             </div>
-            {showDeleteModal && (
-                <ConfirmModal
+            <ConfirmModal
                     isOpen={showDeleteModal}
                     onClose={handleCloseModal}
                     onConfirm={handleDeleteAccount}
@@ -101,8 +100,7 @@ export const ProfileSecurity = () => {
                     )}
                     confirmText={t('General.delete')}
                     confirmIcon={<UserRoundX width={16} height={16} />}
-                />
-            )}
+            />
         </Card>
     );
 };
