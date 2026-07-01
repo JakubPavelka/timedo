@@ -4,10 +4,26 @@ import { useTranslation } from 'react-i18next';
 import { ShieldCheck, Lock, UserRoundX } from 'lucide-react';
 import { IconItem } from '@/components/ui/IconItem/IconItem';
 import { Button } from '@/components/ui/Button/Button';
+import { useDeleteAccount } from '@/hooks/api/useUser';
+import { useState, useCallback } from 'react';
+import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
+import { useNavigate } from '@tanstack/react-router';
 import styles from './ProfileSecurity.module.scss';
 
 export const ProfileSecurity = () => {
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const { t } = useTranslation();
+    const { mutate: deleteAccount } = useDeleteAccount();
+    const navigate = useNavigate();
+
+    const handleOpenModal = useCallback(() => setShowDeleteModal(true), []);
+    const handleCloseModal = useCallback(() => setShowDeleteModal(false), []);
+
+    const handleDeleteAccount = useCallback(() => {
+        deleteAccount(undefined, {
+            onSuccess: () => navigate({ to: '/login' }),
+        });
+    }, [deleteAccount, navigate]);
 
     return (
         <Card>
@@ -58,6 +74,7 @@ export const ProfileSecurity = () => {
                         // TODO Přidat delete účtu
                         <Button
                             className={styles.ProfileSecurity__button}
+                            onClick={handleOpenModal}
                             variant={'danger'}
                         >
                             {t('General.delete')}
@@ -65,6 +82,27 @@ export const ProfileSecurity = () => {
                     }
                 />
             </div>
+            {showDeleteModal && (
+                <ConfirmModal
+                    isOpen={showDeleteModal}
+                    onClose={handleCloseModal}
+                    onConfirm={handleDeleteAccount}
+                    variant={'danger'}
+                    title={`${t('Profile.Security.deleteAccountTitle')}?`}
+                    icon={
+                        <UserRoundX
+                            className={styles.ProfileSecurity__iconDanger}
+                            width={18}
+                            height={18}
+                        />
+                    }
+                    description={t(
+                        'Profile.Security.deleteAccountModalDescription'
+                    )}
+                    confirmText={t('General.delete')}
+                    confirmIcon={<UserRoundX width={16} height={16} />}
+                />
+            )}
         </Card>
     );
 };
