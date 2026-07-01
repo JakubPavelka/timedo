@@ -18,11 +18,9 @@ apiClient.interceptors.response.use(
         const isAuthError =
             error.response?.status === 401 ||
             error.response?.data?.code === 'TOKEN_EXPIRED';
-        const isRefreshRequest = originalRequest?.url?.includes(
-            '/api/auth/refresh'
-        );
+        const isAuthRoute = originalRequest?.url?.includes('/api/auth/');
 
-        if (isAuthError && !isRefreshRequest && !originalRequest._retry) {
+        if (isAuthError && !isAuthRoute && !originalRequest._retry) {
             originalRequest._retry = true;
 
             try {
