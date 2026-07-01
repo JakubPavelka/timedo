@@ -10,6 +10,7 @@ import { useAuthStore } from '@/store/authStore';
 import { Button } from '@/components/ui/Button/Button';
 import { Check } from 'lucide-react';
 import clsx from 'clsx';
+import { motion } from 'motion/react';
 import styles from './ProfileForm.module.scss';
 
 type ProfileForm = {
@@ -108,16 +109,23 @@ export const ProfileForm = (props: ProfileForm) => {
                 </div>
             </div>
             {props.isEditing && (
-                <Button
-                    className={styles.ProfileForm__submitButton}
-                    type={'submit'}
-                    disabled={!isDirty}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                 >
-                    <span className={styles.ProfileForm__submitButtonText}>
-                        <Check width={16} height={16} />
-                        <span>{t('General.saveChanges')}</span>
-                    </span>
-                </Button>
+                    <Button
+                        className={styles.ProfileForm__submitButton}
+                        type={'submit'}
+                        disabled={!isDirty}
+                    >
+                        <span className={styles.ProfileForm__submitButtonText}>
+                            <Check width={16} height={16} />
+                            <span>{t('General.saveChanges')}</span>
+                        </span>
+                    </Button>
+                </motion.div>
             )}
         </form>
     );
