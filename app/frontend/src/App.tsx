@@ -4,6 +4,7 @@ import './styles/global.scss';
 import { useEffect } from 'react';
 import { useTheme } from './hooks/useTheme';
 import { useTimerMode } from './hooks/useTimerMode';
+import { Toaster } from 'sonner';
 
 const App = () => {
     const theme = useTheme((s) => s.theme);
@@ -18,7 +19,12 @@ const App = () => {
         }
     }, []);
 
-    return <RouterProvider router={router} />;
+    return (
+        <>
+            <RouterProvider router={router} />
+            <Toaster theme={theme} richColors />
+        </>
+    );
 };
 
 export default App;
