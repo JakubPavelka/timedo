@@ -4,6 +4,7 @@ import type {
     LoginData,
     RegisterData,
 } from '@timedo/shared/src/schemas/authSchema';
+import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
 
 export class ApiAuthError extends Error {
     readonly code: string;
@@ -68,6 +69,18 @@ export const authApi = {
         lastName: string | null;
     }> => {
         const response = await apiClient.get('/api/auth/me');
+        return response.data.data.user;
+    },
+
+    updateMe: async (
+        data: ProfileData
+    ): Promise<{
+        id: string;
+        email: string;
+        firstName: string;
+        lastName: string | null;
+    }> => {
+        const response = await apiClient.put('/api/auth/me', data);
         return response.data.data.user;
     },
 };

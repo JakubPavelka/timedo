@@ -33,3 +33,12 @@ export const useMe = () => {
         retry: false,
     });
 };
+
+export const useUpdateMe = () => {
+    const setUser = useAuthStore((s) => s.setUser);
+
+    return useMutation({
+        mutationFn: authApi.updateMe,
+        onSuccess: (user) => setUser(user),
+    });
+};

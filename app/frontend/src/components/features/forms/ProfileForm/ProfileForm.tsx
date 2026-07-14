@@ -32,6 +32,10 @@ export const ProfileForm = (props: ProfileForm) => {
             firstName: user?.firstName,
             lastName: user?.lastName ?? '',
         },
+        values: {
+            firstName: user?.firstName ?? '',
+            lastName: user?.lastName ?? '',
+        },
     });
 
     const onSubmitHandler = handleSubmit((data) => props.onSubmit(data));

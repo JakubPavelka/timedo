@@ -8,7 +8,7 @@ import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
 import { SectionHeader } from '@/components/ui/SectionHeader/SectionHeader';
 
 type ProfilePersonalInfoProps = {
-    onSubmit: (data: ProfileData) => void;
+    onSubmit: (data: ProfileData) => Promise<unknown>;
 };
 
 export const ProfilePersonalInfo = (props: ProfilePersonalInfoProps) => {
@@ -16,6 +16,15 @@ export const ProfilePersonalInfo = (props: ProfilePersonalInfoProps) => {
     const { t } = useTranslation();
 
     const handleClickEditing = () => setIsEditing((prev) => !prev);
+
+    const handleSubmit = async (data: ProfileData) => {
+        try {
+            await props.onSubmit(data);
+            setIsEditing(false);
+        } catch {
+            //
+        }
+    };
 
     return (
         <Card className={styles.ProfilePersonalInfo}>
@@ -44,7 +53,7 @@ export const ProfilePersonalInfo = (props: ProfilePersonalInfoProps) => {
                     </span>
                 </button>
             </div>
-            <ProfileForm onSubmit={props.onSubmit} isEditing={isEditing} />
+            <ProfileForm onSubmit={handleSubmit} isEditing={isEditing} />
         </Card>
     );
 };
