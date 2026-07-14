@@ -10,12 +10,10 @@ const register = async (req: Request, res: Response) => {
     const { email, password, firstName, lastName } = req.body;
 
     if (!email || !password || !firstName || !lastName) {
-        return res
-            .status(400)
-            .json({
-                message: 'Provide all information',
-                code: 'MISSING_FIELDS',
-            });
+        return res.status(400).json({
+            message: 'Provide all information',
+            code: 'MISSING_FIELDS',
+        });
     }
 
     const user = await prisma.user.findUnique({
@@ -23,12 +21,10 @@ const register = async (req: Request, res: Response) => {
     });
 
     if (user) {
-        return res
-            .status(400)
-            .json({
-                message: 'User already exists',
-                code: 'USER_ALREADY_EXISTS',
-            });
+        return res.status(400).json({
+            message: 'User already exists',
+            code: 'USER_ALREADY_EXISTS',
+        });
     }
 
     const bcryptSalt = await bcrypt.genSalt(10);
@@ -72,12 +68,10 @@ const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res
-            .status(400)
-            .json({
-                message: 'Provide all information',
-                code: 'MISSING_FIELDS',
-            });
+        return res.status(400).json({
+            message: 'Provide all information',
+            code: 'MISSING_FIELDS',
+        });
     }
 
     const user = await prisma.user.findUnique({
@@ -195,4 +189,31 @@ const me = async (req: Request, res: Response) => {
     });
 };
 
-export { register, login, logout, refresh, me };
+const updateMe = async (req: Request, res: Response) => {
+    console.log('xd');
+    const { firstName, lastName } = req.body;
+    console.log('FIRSTNAME', firstName, 'LASTNAME', lastName);
+
+    if (!firstName) {
+        return res.status(400).json({
+            message: 'Provide all information',
+            code: 'MISSING_FIELDS',
+        });
+    }
+
+    const updatedUser = await prisma.user.update({
+        where: { id: req.user?.id },
+        data: {
+            firstName,
+            lastName: lastName || null,
+        },
+        select: { id: true, email: true, firstName: true, lastName: true },
+    });
+
+    return res.status(200).json({
+        status: 'success',
+        data: { user: updatedUser },
+    });
+};
+
+export { register, login, logout, refresh, me, updateMe };

@@ -5,6 +5,7 @@ import {
     register,
     refresh,
     me,
+    updateMe,
 } from '../controllers/authController.js';
 import { protect } from '../middleware/protect.js';
 
@@ -15,5 +16,6 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.post('/refresh', refresh);
 router.get('/me', protect, me);
+router.put('/me', protect, updateMe);
 
 export default router;
