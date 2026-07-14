@@ -2,7 +2,8 @@
     "BackendErrors": {
         "USER_ALREADY_EXISTS": "An account with this email already exists",
         "MISSING_FIELDS": "Please fill in all required fields",
-        "INVALID_CREDENTIALS": "Invalid email or password"
+        "INVALID_CREDENTIALS": "Invalid email or password",
+        "UNKNOWN_ERROR": "Something went wrong, please try again"
     },
     "General": {
         "timeUnderControl": "Your time under control",
@@ -13,7 +14,9 @@
         "connected": "Connected",
         "notConnected": "Not connected",
         "delete": "Delete",
-        "change": "Change"
+        "change": "Change",
+        "changesSaved": "Changes saved",
+        "somethingWentWrong": "Something went wrong, please try again"
     },
     "Validation": {
         "invalidEmail": "Invalid email address",
@@ -75,7 +78,8 @@
             "title": "Personal information",
             "firstName": "First name",
             "lastName": "Last name",
-            "email": "E-mail"
+            "email": "E-mail",
+            "updateError": "Failed to save personal information, please try again"
         },
         "AppPreferences": {
             "title": "App preferences",

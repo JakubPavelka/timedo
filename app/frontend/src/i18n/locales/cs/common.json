@@ -2,7 +2,8 @@
     "BackendErrors": {
         "USER_ALREADY_EXISTS": "Účet s tímto e-mailem již existuje",
         "MISSING_FIELDS": "Vyplňte prosím všechna povinná pole",
-        "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo"
+        "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo",
+        "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",
@@ -13,7 +14,9 @@
         "connected": "Připojeno",
         "notConnected": "Nepropojeno",
         "delete": "Smazat",
-        "change": "Změnit"
+        "change": "Změnit",
+        "changesSaved": "Změny byly uloženy",
+        "somethingWentWrong": "Něco se pokazilo, zkuste to prosím znovu"
     },
     "Validation": {
         "invalidEmail": "Neplatný email",
@@ -75,7 +78,8 @@
             "title": "Osobní údaje",
             "firstName": "Jméno",
             "lastName": "Příjmení",
-            "email": "E-mail"
+            "email": "E-mail",
+            "updateError": "Nepodařilo se uložit osobní údaje, zkuste to prosím znovu"
         },
         "AppPreferences": {
             "title": "Předvolby aplikace",
