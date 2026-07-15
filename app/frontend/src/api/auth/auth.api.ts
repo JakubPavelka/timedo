@@ -80,7 +80,16 @@ export const authApi = {
         firstName: string;
         lastName: string | null;
     }> => {
-        const response = await apiClient.put('/api/auth/me', data);
-        return response.data.data.user;
+        try {
+            const response = await apiClient.put('/api/auth/me', data);
+            return response.data.data.user;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiAuthError(
+                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
+                );
+            }
+            throw err;
+        }
     },
 };

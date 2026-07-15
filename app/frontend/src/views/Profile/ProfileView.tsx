@@ -4,14 +4,26 @@ import { ProfileAppPreferences } from '@/components/features/Profile/ProfileAppP
 import { ProfileConnectedAccounts } from '@/components/features/Profile/ProfileConnectedAccounts/ProfileConnectedAccounts';
 import { ProfileSecurity } from '@/components/features/Profile/ProfileSecurity/ProfileSecurity';
 import { useUpdateMe } from '@/hooks/api/useAuth';
+import { ApiAuthError } from '@/api/auth/auth.api';
 import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import styles from './ProfileView.module.scss';
 
 export const ProfileView = () => {
-    const { mutateAsync: changeProfileData, error } = useUpdateMe();
+    const { t } = useTranslation();
+    const { mutateAsync: changeProfileData } = useUpdateMe();
 
     const handleChangeProfileData = (data: ProfileData) => {
-        return changeProfileData(data);
+        return changeProfileData(data, {
+            onSuccess: () => toast.success(t('General.changesSaved')),
+            onError: (err) =>
+                toast.error(
+                    err instanceof ApiAuthError && err.code !== 'UNKNOWN_ERROR'
+                        ? t(`BackendErrors.${err.code}`)
+                        : t('Profile.PersonalInfo.updateError')
+                ),
+        });
     };
 
     return (
@@ -20,7 +32,6 @@ export const ProfileView = () => {
             <div className={styles.ProfileView__flexWrapper}>
                 <div className={styles.ProfileView__leftSide}>
                     <ProfilePersonalInfo onSubmit={handleChangeProfileData} />
-                    <p>{error?.message}</p>
                     <ProfileAppPreferences />
                 </div>
                 <div className={styles.ProfileView__rightSide}>
