@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { authApi } from './auth/auth.api';
+import { useAuthStore } from '@/store/authStore';
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -35,6 +36,7 @@ apiClient.interceptors.response.use(
                 await authApi.refresh();
                 return apiClient(originalRequest);
             } catch (refreshError) {
+                useAuthStore.getState().setUser(null);
                 return Promise.reject(refreshError);
             }
         }
