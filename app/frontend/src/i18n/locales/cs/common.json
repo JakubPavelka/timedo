@@ -4,6 +4,7 @@
         "MISSING_FIELDS": "Vyplňte prosím všechna povinná pole",
         "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo",
         "VALIDATION_ERROR": "Zkontrolujte prosím zadané údaje",
+        "RATE_LIMITED": "Příliš mnoho požadavků, zkuste to prosím za chvíli znovu",
         "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu"
     },
     "General": {
