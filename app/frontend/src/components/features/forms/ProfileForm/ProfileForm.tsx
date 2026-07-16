@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
     ProfileSchema,
     type ProfileData,
-} from '@/../../packages/shared/src/schemas/profileSchema';
+} from '@timedo/shared/src/schemas/profileSchema';
 import { useAuthStore } from '@/store/authStore';
 import { Button } from '@/components/ui/Button/Button';
 import { Check } from 'lucide-react';
