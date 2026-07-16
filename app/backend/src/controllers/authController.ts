@@ -7,9 +7,9 @@ import {
 } from '../utils/generateToken.js';
 
 const register = async (req: Request, res: Response) => {
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password, firstName, lastName, termsAccepted } = req.body;
 
-    if (!email || !password || !firstName || !lastName) {
+    if (!email || !password || !firstName || !lastName || !termsAccepted) {
         return res.status(400).json({
             message: 'Provide all information',
             code: 'MISSING_FIELDS',
@@ -36,6 +36,7 @@ const register = async (req: Request, res: Response) => {
             firstName,
             lastName,
             passwordHashed: hashedPassword,
+            termsAcceptedAt: new Date(),
         },
     });
 

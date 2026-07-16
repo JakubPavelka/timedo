@@ -16,7 +16,7 @@ export class ApiAuthError extends Error {
 
 export const authApi = {
     register: async (
-        data: Omit<RegisterData, 'passwordAgain' | 'termsAccepted'>
+        data: Omit<RegisterData, 'passwordAgain'>
     ): Promise<unknown> => {
         try {
             const response = await apiClient.post('/api/auth/register', data);
