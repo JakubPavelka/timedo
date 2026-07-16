@@ -1,0 +1,50 @@
+@use 'styles/typography';
+@use 'styles/colors';
+@use 'styles/mixins/layout';
+
+.ProfileHeader {
+    @include layout.spaceBetweenY;
+}
+
+.ProfileHeader__leftSide {
+    @include layout.centerY;
+}
+
+.ProfileHeader__initials {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--highlight) 100%);
+}
+
+.ProfileHeader__initialText {
+    @include typography.text-lg(var(--white));
+    @include layout.centerXY;
+    font-weight: 700;
+    text-transform: uppercase;
+    height: 100%;
+    letter-spacing: -1.5px;
+}
+
+.ProfileHeader__informationWrapper {
+    @include layout.flexColumn;
+    margin-left: 16px;
+}
+
+.ProfileHeader__name {
+    @include typography.text-lg(var(--text));
+    font-weight: 700;
+}
+
+.ProfileHeader__email {
+    @include typography.text-md(var(--text-2));
+}
+
+.ProfileHeader__buttonText {
+    @include layout.centerXY;
+    gap: 8px;
+}
+
+.ProfileHeader__icon {
+    color: var(--danger);
+}

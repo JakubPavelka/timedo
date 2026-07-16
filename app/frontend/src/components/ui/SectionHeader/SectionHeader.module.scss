@@ -1,0 +1,20 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.SectionHeader__iconWrapper {
+    @include layout.centerXY;
+    background-color: var(--accent-soft);
+    height: 36px;
+    width: 36px;
+    border-radius: 12px;
+}
+
+.SectionHeader__flexWrapper {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.SectionHeader__title {
+    @include typography.text-md;
+    font-weight: 700;
+}

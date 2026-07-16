@@ -4,6 +4,7 @@ import type {
     LoginData,
     RegisterData,
 } from '@timedo/shared/src/schemas/authSchema';
+import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
 
 export class ApiAuthError extends Error {
     readonly code: string;
@@ -15,7 +16,7 @@ export class ApiAuthError extends Error {
 
 export const authApi = {
     register: async (
-        data: Omit<RegisterData, 'passwordAgain' | 'termsAccepted'>
+        data: Omit<RegisterData, 'passwordAgain'>
     ): Promise<unknown> => {
         try {
             const response = await apiClient.post('/api/auth/register', data);
@@ -69,5 +70,26 @@ export const authApi = {
     }> => {
         const response = await apiClient.get('/api/auth/me');
         return response.data.data.user;
+    },
+
+    updateMe: async (
+        data: ProfileData
+    ): Promise<{
+        id: string;
+        email: string;
+        firstName: string;
+        lastName: string | null;
+    }> => {
+        try {
+            const response = await apiClient.put('/api/auth/me', data);
+            return response.data.data.user;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiAuthError(
+                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
+                );
+            }
+            throw err;
+        }
     },
 };

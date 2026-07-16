@@ -2,10 +2,22 @@
     "BackendErrors": {
         "USER_ALREADY_EXISTS": "Účet s tímto e-mailem již existuje",
         "MISSING_FIELDS": "Vyplňte prosím všechna povinná pole",
-        "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo"
+        "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo",
+        "VALIDATION_ERROR": "Zkontrolujte prosím zadané údaje",
+        "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu"
     },
     "General": {
-        "timeUnderControl": "Tvůj čas pod kontrolou"
+        "timeUnderControl": "Tvůj čas pod kontrolou",
+        "cancel": "Zrušit",
+        "edit": "Upravit",
+        "saveChanges": "Uložit změny",
+        "connect": "Propojit",
+        "connected": "Připojeno",
+        "notConnected": "Nepropojeno",
+        "delete": "Smazat",
+        "change": "Změnit",
+        "changesSaved": "Změny byly uloženy",
+        "somethingWentWrong": "Něco se pokazilo, zkuste to prosím znovu"
     },
     "Validation": {
         "invalidEmail": "Neplatný email",
@@ -14,8 +26,10 @@
         "passwordSpecial": "Heslo musí obsahovat alespoň jeden speciální znak",
         "firstNameMin": "Jméno musí obsahovat alespoň jedno písmeno",
         "firstNameMax": "Jméno nemůže obsahovat více než 30 znaků",
+        "firstNameInvalid": "Zadejte platné jméno",
         "lastNameMin": "Příjmení musí obsahovat alespoň jedno písmeno",
         "lastNameMax": "Příjmení nemůže obsahovat více než 30 znaků",
+        "lastNameInvalid": "Zadejte platné příjmení",
         "passwordDontMatch": "Hesla se neshodují",
         "termsRequired": "Musíte souhlasit s podmínkami použití",
         "passwordHaveToBeFilled": "Heslo musí být vyplněno"
@@ -57,6 +71,50 @@
         "tasks": "Úkoly",
         "calendar": "Kalendář",
         "overview": "Přehled",
-        "projects": "PROJEKTY"
+        "projects": "PROJEKTY",
+        "profile": "Profil"
+    },
+    "Profile": {
+        "logout": "Odhlásit se",
+        "logoutModalText": "Budete odhlášeni z účtu. Pro další práci se budete muset znovu přihlásit.",
+        "PersonalInfo": {
+            "title": "Osobní údaje",
+            "firstName": "Jméno",
+            "lastName": "Příjmení",
+            "email": "E-mail",
+            "updateError": "Nepodařilo se uložit osobní údaje, zkuste to prosím znovu"
+        },
+        "AppPreferences": {
+            "title": "Předvolby aplikace",
+            "Theme": {
+                "title": "Vzhled",
+                "description": "Světlý nebo tmavý vzhled",
+                "light": "Světlý",
+                "dark": "Tmavý"
+            },
+            "Timer": {
+                "title": "Výchozí časovač",
+                "description": "Co naběhne po otevření Fokusu",
+                "stopwatch": "Stopky",
+                "pomodoro": "Pomodoro"
+            },
+            "Language": {
+                "title": "Jazyk",
+                "description": "Jazyk aplikace",
+                "czech": "Čeština",
+                "english": "Angličtina "
+            }
+        },
+        "ConnectedAccounts": {
+            "title": "Propojené účty"
+        },
+        "Security": {
+            "title": "Zabezpečení",
+            "password": "Heslo",
+            "passwordDescription": "Změňte heslo pro zabezpečení účtu",
+            "deleteAccountTitle": "Smazat účet",
+            "deleteAccountDescription": "Trvale odstraní data i historii času",
+            "deleteAccountModalDescription": "Váš účet bude trvale odstraněn a ztratíte veškerá data. Tato akce je nevratná."
+        }
     }
 }

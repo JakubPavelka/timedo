@@ -6,6 +6,7 @@ export type Theme = 'light' | 'dark';
 interface ThemeStore {
     theme: Theme;
     toggleTheme: () => void;
+    setTheme: (theme: Theme) => void;
 }
 
 export const useTheme = create<ThemeStore>()(
@@ -14,6 +15,7 @@ export const useTheme = create<ThemeStore>()(
             theme: 'light',
             toggleTheme: () =>
                 set({ theme: get().theme === 'light' ? 'dark' : 'light' }),
+            setTheme: (theme) => set({ theme }),
         }),
         { name: 'theme' }
     )

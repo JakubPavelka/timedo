@@ -2,33 +2,36 @@ import { Request, Response } from 'express';
 import { prisma } from '../db/db.js';
 import bcrypt from 'bcryptjs';
 import {
+    RegisterPayloadSchema,
+    LoginSchema,
+} from '@timedo/shared/src/schemas/authSchema';
+import { ProfileSchema } from '@timedo/shared/src/schemas/profileSchema';
+import {
     generateAccessToken,
     generateRefreshToken,
 } from '../utils/generateToken.js';
 
 const register = async (req: Request, res: Response) => {
-    const { email, password, firstName, lastName } = req.body;
+    const parsedBody = RegisterPayloadSchema.safeParse(req.body);
 
-    if (!email || !password || !firstName || !lastName) {
-        return res
-            .status(400)
-            .json({
-                message: 'Provide all information',
-                code: 'MISSING_FIELDS',
-            });
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
     }
+
+    const { email, password, firstName, lastName } = parsedBody.data;
 
     const user = await prisma.user.findUnique({
         where: { email: email },
     });
 
     if (user) {
-        return res
-            .status(400)
-            .json({
-                message: 'User already exists',
-                code: 'USER_ALREADY_EXISTS',
-            });
+        return res.status(400).json({
+            message: 'User already exists',
+            code: 'USER_ALREADY_EXISTS',
+        });
     }
 
     const bcryptSalt = await bcrypt.genSalt(10);
@@ -40,6 +43,7 @@ const register = async (req: Request, res: Response) => {
             firstName,
             lastName,
             passwordHashed: hashedPassword,
+            termsAcceptedAt: new Date(),
         },
     });
 
@@ -69,16 +73,16 @@ const register = async (req: Request, res: Response) => {
 };
 
 const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const parsedBody = LoginSchema.safeParse(req.body);
 
-    if (!email || !password) {
-        return res
-            .status(400)
-            .json({
-                message: 'Provide all information',
-                code: 'MISSING_FIELDS',
-            });
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
     }
+
+    const { email, password } = parsedBody.data;
 
     const user = await prisma.user.findUnique({
         where: { email: email },
@@ -195,4 +199,31 @@ const me = async (req: Request, res: Response) => {
     });
 };
 
-export { register, login, logout, refresh, me };
+const updateMe = async (req: Request, res: Response) => {
+    const parsedBody = ProfileSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { firstName, lastName } = parsedBody.data;
+
+    const updatedUser = await prisma.user.update({
+        where: { id: req.user?.id },
+        data: {
+            firstName,
+            lastName: lastName || null,
+        },
+        select: { id: true, email: true, firstName: true, lastName: true },
+    });
+
+    return res.status(200).json({
+        status: 'success',
+        data: { user: updatedUser },
+    });
+};
+
+export { register, login, logout, refresh, me, updateMe };

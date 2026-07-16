@@ -13,10 +13,14 @@ export const useLogin = () => {
 
 export const useLogout = () => {
     const router = useRouter();
+    const setUser = useAuthStore((s) => s.setUser);
 
     return useMutation({
         mutationFn: authApi.logout,
-        onSuccess: () => router.navigate({ to: '/login', replace: true }),
+        onSuccess: () => {
+            setUser(null);
+            router.navigate({ to: '/login', replace: true });
+        },
     });
 };
 
@@ -31,5 +35,14 @@ export const useMe = () => {
             return user;
         },
         retry: false,
+    });
+};
+
+export const useUpdateMe = () => {
+    const setUser = useAuthStore((s) => s.setUser);
+
+    return useMutation({
+        mutationFn: authApi.updateMe,
+        onSuccess: (user) => setUser(user),
     });
 };

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { authApi } from './auth/auth.api';
+import { useAuthStore } from '@/store/authStore';
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -18,17 +19,24 @@ apiClient.interceptors.response.use(
         const isAuthError =
             error.response?.status === 401 ||
             error.response?.data?.code === 'TOKEN_EXPIRED';
-        const isRefreshRequest = originalRequest?.url?.includes(
-            '/api/auth/refresh'
+        const authNoRetryRoutes = [
+            '/api/auth/login',
+            '/api/auth/register',
+            '/api/auth/refresh',
+            '/api/auth/logout',
+        ];
+        const isAuthRoute = authNoRetryRoutes.some((r) =>
+            originalRequest?.url?.includes(r)
         );
 
-        if (isAuthError && !isRefreshRequest && !originalRequest._retry) {
+        if (isAuthError && !isAuthRoute && !originalRequest._retry) {
             originalRequest._retry = true;
 
             try {
                 await authApi.refresh();
                 return apiClient(originalRequest);
             } catch (refreshError) {
+                useAuthStore.getState().setUser(null);
                 return Promise.reject(refreshError);
             }
         }

@@ -2,10 +2,22 @@
     "BackendErrors": {
         "USER_ALREADY_EXISTS": "An account with this email already exists",
         "MISSING_FIELDS": "Please fill in all required fields",
-        "INVALID_CREDENTIALS": "Invalid email or password"
+        "INVALID_CREDENTIALS": "Invalid email or password",
+        "VALIDATION_ERROR": "Please check the information you entered",
+        "UNKNOWN_ERROR": "Something went wrong, please try again"
     },
     "General": {
-        "timeUnderControl": "Your time under control"
+        "timeUnderControl": "Your time under control",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "saveChanges": "Save changes",
+        "connect": "Connect",
+        "connected": "Connected",
+        "notConnected": "Not connected",
+        "delete": "Delete",
+        "change": "Change",
+        "changesSaved": "Changes saved",
+        "somethingWentWrong": "Something went wrong, please try again"
     },
     "Validation": {
         "invalidEmail": "Invalid email address",
@@ -14,8 +26,10 @@
         "passwordSpecial": "Password must contain at least one special character",
         "firstNameMin": "First name must contain at least one character",
         "firstNameMax": "First name cannot exceed 30 characters",
+        "firstNameInvalid": "Enter a valid first name",
         "lastNameMin": "Last name must contain at least one character",
         "lastNameMax": "Last name cannot exceed 30 characters",
+        "lastNameInvalid": "Enter a valid last name",
         "passwordDontMatch": "Passwords do not match",
         "termsRequired": "You must agree to the terms of service",
         "passwordHaveToBeFilled": "Password must be filled in"
@@ -57,6 +71,50 @@
         "tasks": "Tasks",
         "calendar": "Calendar",
         "overview": "Overview",
-        "projects": "PROJECTS"
+        "projects": "PROJECTS",
+        "profile": "Profile"
+    },
+    "Profile": {
+        "logout": "Sign out",
+        "logoutModalText": "You will be signed out of your account. You will need to sign in again to continue.",
+        "PersonalInfo": {
+            "title": "Personal information",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "email": "E-mail",
+            "updateError": "Failed to save personal information, please try again"
+        },
+        "AppPreferences": {
+            "title": "App preferences",
+            "Theme": {
+                "title": "Theme",
+                "description": "Light or dark theme",
+                "light": "Light",
+                "dark": "Dark"
+            },
+            "Timer": {
+                "title": "Default timer",
+                "description": "What opens when you start Focus",
+                "stopwatch": "Stopwatch",
+                "pomodoro": "Pomodoro"
+            },
+            "Language": {
+                "title": "Language",
+                "description": "App language",
+                "czech": "Czech",
+                "english": "English"
+            }
+        },
+        "ConnectedAccounts": {
+            "title": "Connected accounts"
+        },
+        "Security": {
+            "title": "Security",
+            "password": "Password",
+            "passwordDescription": "Change your password to keep your account secure",
+            "deleteAccountTitle": "Delete account",
+            "deleteAccountDescription": "Permanently deletes all data and time history",
+            "deleteAccountModalDescription": "Your account will be permanently deleted and you will lose all data. This action is irreversible."
+        }
     }
 }

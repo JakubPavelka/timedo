@@ -24,7 +24,9 @@ export const DashboardLayout = () => {
             <Sidebar buttons={sidebarButtonsData} projects={[]} />
             <div className={styles.DashboardLayout__rightSide}>
                 <Header title={t(title)} />
-                <Outlet />
+                <div className={styles.DashboardLayout__content}>
+                    <Outlet />
+                </div>
             </div>
         </div>
     );

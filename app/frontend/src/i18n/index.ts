@@ -10,7 +10,7 @@ i18n.use(LanguageDetector)
     .init({
         resources: {
             en: { common: en },
-            cs: { common: cs },
+            'cs-CZ': { common: cs },
         },
         fallbackLng: 'en',
         defaultNS: 'common',

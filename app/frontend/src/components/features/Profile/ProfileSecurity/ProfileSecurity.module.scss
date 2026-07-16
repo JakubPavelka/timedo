@@ -1,0 +1,26 @@
+@use 'styles/mixins/layout';
+
+.ProfileSecurity__header {
+    margin-bottom: 16px;
+}
+
+.ProfileSecurity__iconAccent {
+    color: var(--accent);
+}
+
+.ProfileSecurity__itemsWrapper {
+    @include layout.flexColumn;
+    gap: 16px;
+}
+
+.ProfileSecurity__icon {
+    color: var(--text-2);
+}
+
+.ProfileSecurity__iconDanger {
+    color: var(--danger);
+}
+
+.ProfileSecurity__button {
+    padding-block: 6px;
+}

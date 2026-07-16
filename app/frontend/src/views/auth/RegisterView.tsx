@@ -21,6 +21,7 @@ export const RegisterView = () => {
                 lastName: data.lastName,
                 email: data.email,
                 password: data.password,
+                termsAccepted: data.termsAccepted,
             },
             { onSuccess: () => navigate({ to: '/dashboard', replace: true }) }
         );

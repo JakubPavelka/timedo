@@ -1,0 +1,10 @@
+@use 'styles/mixins/layout';
+
+.Modal {
+    @include layout.centerXY;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+}

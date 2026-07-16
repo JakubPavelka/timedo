@@ -230,6 +230,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
                     type={'submit'}
                     haveRightArrow
                     isLoading={props.isLoading}
+                    fullWidth
                 >
                     {t('RegisterForm.createAccount')}
                 </Button>

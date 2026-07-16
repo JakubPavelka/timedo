@@ -1,0 +1,27 @@
+@use 'styles/mixins/layout';
+
+.ProfileView {
+    @include layout.flexColumn;
+    padding: 24px;
+    gap: 24px;
+}
+
+.ProfileView__flexWrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.ProfileView__leftSide {
+    @include layout.flexColumn;
+    gap: 24px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.ProfileView__rightSide {
+    @include layout.flexColumn;
+    gap: 24px;
+    max-width: 550px;
+    width: 100%;
+}

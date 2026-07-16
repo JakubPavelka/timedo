@@ -1,9 +1,17 @@
 .DashboardLayout {
     display: flex;
+    height: 100dvh;
+    overflow: hidden;
 }
 
 .DashboardLayout__rightSide {
     display: flex;
     flex-direction: column;
     width: 100%;
+    overflow: hidden;
+}
+
+.DashboardLayout__content {
+    flex: 1;
+    overflow-y: auto;
 }
