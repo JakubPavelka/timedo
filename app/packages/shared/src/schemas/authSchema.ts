@@ -1,32 +1,26 @@
 import { z } from 'zod';
+import { ProfileSchema } from './profileSchema';
 
-export const RegisterSchema = z
-    .object({
-        email: z.email('Validation.invalidEmail'),
-        password: z
-            .string()
-            .min(8, 'Validation.passwordMin')
-            .regex(/[A-Z]/, 'Validation.passwordUppercase')
-            .regex(/[^a-zA-Z0-9]/, 'Validation.passwordSpecial'),
-        passwordAgain: z.string().min(8, 'Validation.passwordMin'),
-        firstName: z
-            .string()
-            .min(1, 'Validation.firstNameMin')
-            .max(30, 'Validation.firstNameMax'),
-        lastName: z
-            .string()
-            .min(1, 'Validation.lastNameMin')
-            .max(30, 'Validation.lastNameMax')
-            .optional()
-            .or(z.literal('')),
-        termsAccepted: z
-            .boolean()
-            .refine((val) => val === true, 'Validation.termsRequired'),
-    })
-    .refine((data) => data.password === data.passwordAgain, {
-        message: 'Validation.passwordDontMatch',
-        path: ['passwordAgain'],
-    });
+export const RegisterPayloadSchema = z.object({
+    email: z.email('Validation.invalidEmail'),
+    password: z
+        .string()
+        .min(8, 'Validation.passwordMin')
+        .regex(/[A-Z]/, 'Validation.passwordUppercase')
+        .regex(/[^a-zA-Z0-9]/, 'Validation.passwordSpecial'),
+    firstName: ProfileSchema.shape.firstName,
+    lastName: ProfileSchema.shape.lastName,
+    termsAccepted: z
+        .boolean()
+        .refine((val) => val === true, 'Validation.termsRequired'),
+});
+
+export const RegisterSchema = RegisterPayloadSchema.extend({
+    passwordAgain: z.string().min(8, 'Validation.passwordMin'),
+}).refine((data) => data.password === data.passwordAgain, {
+    message: 'Validation.passwordDontMatch',
+    path: ['passwordAgain'],
+});
 
 export const LoginSchema = z.object({
     email: z.email('Validation.invalidEmail'),

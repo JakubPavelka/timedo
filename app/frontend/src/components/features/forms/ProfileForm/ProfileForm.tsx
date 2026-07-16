@@ -67,7 +67,7 @@ export const ProfileForm = (props: ProfileForm) => {
                         />
                         {errors.firstName && (
                             <p className={styles.ProfileForm__errorText}>
-                                {errors.firstName.message}
+                                {t(errors.firstName.message!)}
                             </p>
                         )}
                     </div>
@@ -94,7 +94,7 @@ export const ProfileForm = (props: ProfileForm) => {
                         />
                         {errors.lastName && (
                             <p className={styles.ProfileForm__errorText}>
-                                {errors.lastName.message}
+                                {t(errors.lastName.message!)}
                             </p>
                         )}
                     </div>

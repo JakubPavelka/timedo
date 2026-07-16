@@ -2,19 +2,26 @@ import { Request, Response } from 'express';
 import { prisma } from '../db/db.js';
 import bcrypt from 'bcryptjs';
 import {
+    RegisterPayloadSchema,
+    LoginSchema,
+} from '@timedo/shared/src/schemas/authSchema';
+import { ProfileSchema } from '@timedo/shared/src/schemas/profileSchema';
+import {
     generateAccessToken,
     generateRefreshToken,
 } from '../utils/generateToken.js';
 
 const register = async (req: Request, res: Response) => {
-    const { email, password, firstName, lastName, termsAccepted } = req.body;
+    const parsedBody = RegisterPayloadSchema.safeParse(req.body);
 
-    if (!email || !password || !firstName || !lastName || !termsAccepted) {
+    if (!parsedBody.success) {
         return res.status(400).json({
-            message: 'Provide all information',
-            code: 'MISSING_FIELDS',
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
         });
     }
+
+    const { email, password, firstName, lastName } = parsedBody.data;
 
     const user = await prisma.user.findUnique({
         where: { email: email },
@@ -66,14 +73,16 @@ const register = async (req: Request, res: Response) => {
 };
 
 const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const parsedBody = LoginSchema.safeParse(req.body);
 
-    if (!email || !password) {
+    if (!parsedBody.success) {
         return res.status(400).json({
-            message: 'Provide all information',
-            code: 'MISSING_FIELDS',
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
         });
     }
+
+    const { email, password } = parsedBody.data;
 
     const user = await prisma.user.findUnique({
         where: { email: email },
@@ -191,16 +200,16 @@ const me = async (req: Request, res: Response) => {
 };
 
 const updateMe = async (req: Request, res: Response) => {
-    console.log('xd');
-    const { firstName, lastName } = req.body;
-    console.log('FIRSTNAME', firstName, 'LASTNAME', lastName);
+    const parsedBody = ProfileSchema.safeParse(req.body);
 
-    if (!firstName) {
+    if (!parsedBody.success) {
         return res.status(400).json({
-            message: 'Provide all information',
-            code: 'MISSING_FIELDS',
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
         });
     }
+
+    const { firstName, lastName } = parsedBody.data;
 
     const updatedUser = await prisma.user.update({
         where: { id: req.user?.id },

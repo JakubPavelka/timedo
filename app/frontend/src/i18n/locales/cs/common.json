@@ -3,6 +3,7 @@
         "USER_ALREADY_EXISTS": "Účet s tímto e-mailem již existuje",
         "MISSING_FIELDS": "Vyplňte prosím všechna povinná pole",
         "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo",
+        "VALIDATION_ERROR": "Zkontrolujte prosím zadané údaje",
         "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu"
     },
     "General": {
@@ -25,8 +26,10 @@
         "passwordSpecial": "Heslo musí obsahovat alespoň jeden speciální znak",
         "firstNameMin": "Jméno musí obsahovat alespoň jedno písmeno",
         "firstNameMax": "Jméno nemůže obsahovat více než 30 znaků",
+        "firstNameInvalid": "Zadejte platné jméno",
         "lastNameMin": "Příjmení musí obsahovat alespoň jedno písmeno",
         "lastNameMax": "Příjmení nemůže obsahovat více než 30 znaků",
+        "lastNameInvalid": "Zadejte platné příjmení",
         "passwordDontMatch": "Hesla se neshodují",
         "termsRequired": "Musíte souhlasit s podmínkami použití",
         "passwordHaveToBeFilled": "Heslo musí být vyplněno"
