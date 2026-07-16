@@ -4,6 +4,7 @@
         "MISSING_FIELDS": "Please fill in all required fields",
         "INVALID_CREDENTIALS": "Invalid email or password",
         "VALIDATION_ERROR": "Please check the information you entered",
+        "RATE_LIMITED": "Too many requests, please wait a moment and try again",
         "UNKNOWN_ERROR": "Something went wrong, please try again"
     },
     "General": {

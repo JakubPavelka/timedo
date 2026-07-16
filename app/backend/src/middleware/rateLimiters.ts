@@ -1,0 +1,53 @@
+import { rateLimit } from 'express-rate-limit';
+
+const commonOptions = {
+    standardHeaders: 'draft-8' as const,
+    legacyHeaders: false,
+    ipv6Subnet: 56,
+    message: {
+        message: 'Too many requests, please try again later',
+        code: 'RATE_LIMITED',
+    },
+};
+
+export const registerLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 60 * 60 * 1000, // 1h
+    limit: 5,
+});
+
+export const loginLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 20,
+});
+
+export const meGetLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 100,
+});
+
+export const mePutLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 10,
+});
+
+export const logoutLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 20,
+});
+
+export const refreshLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 60,
+});
+
+export const deleteMeLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 60 * 60 * 1000, // 1h
+    limit: 5,
+});
