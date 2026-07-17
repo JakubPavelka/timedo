@@ -1,0 +1,25 @@
+@use 'styles/mixins/layout';
+
+.TaskHeader {
+    @include layout.centerY;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.TaskHeader__leftSide {
+    @include layout.centerY;
+    justify-content: flex-start;
+    flex: 1;
+    gap: 20px;
+}
+
+.TaskHeader__searchInput {
+    max-width: 250px;
+    width: 100%;
+    min-width: 0;
+}
+
+.TaskHeader__buttonWrapper {
+    @include layout.centerXY;
+    gap: 8px;
+}
