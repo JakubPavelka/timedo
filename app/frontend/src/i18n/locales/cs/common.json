@@ -33,7 +33,11 @@
         "lastNameInvalid": "Zadejte platné příjmení",
         "passwordDontMatch": "Hesla se neshodují",
         "termsRequired": "Musíte souhlasit s podmínkami použití",
-        "passwordHaveToBeFilled": "Heslo musí být vyplněno"
+        "passwordHaveToBeFilled": "Heslo musí být vyplněno",
+        "titleMin": "Název musí obsahovat alespoň jeden znak",
+        "titleMax": "Název nemůže obsahovat více než 255 znaků",
+        "descriptionMin": "Popis musí obsahovat alespoň jeden znak",
+        "descriptionMax": "Popis nemůže obsahovat více než 3000 znaků"
     },
     "RegisterForm": {
         "firstName": "Jméno",
@@ -116,6 +120,30 @@
             "deleteAccountTitle": "Smazat účet",
             "deleteAccountDescription": "Trvale odstraní data i historii času",
             "deleteAccountModalDescription": "Váš účet bude trvale odstraněn a ztratíte veškerá data. Tato akce je nevratná."
+        }
+    },
+    "Task": {
+        "searchTasks": "Hledat úkoly...",
+        "Status": {
+            "active": "Aktivní",
+            "all": "Vše",
+            "done": "Hotové",
+            "todo": "Nezahájené"
+        },
+        "newTask": "Nový úkol",
+        "Priority": {
+            "lowPriority": "Nízká priorita",
+            "mediumPriority": "Střední priorita",
+            "highPriority": "Vysoká priorita"
+        },
+        "Modal": {
+            "taskName": "Název úkolu",
+            "description": "Popis",
+            "project": "Projek",
+            "priortity": "Priorita",
+            "estimate": "Odhad",
+            "term": "Termín",
+            "tags": "Tagy"
         }
     }
 }
