@@ -6,7 +6,7 @@ import type { LoginData } from '@timedo/shared/src/schemas/authSchema';
 import { ApiAuthError } from '@/api/auth/auth.api';
 import { AuthRightSide } from '@/components/features/Auth/AuthRightSide/AuthRightSide';
 import { AuthHeaderLogo } from '@/components/features/Auth/AuthHeaderLogo/AuthHeaderLogo';
-import { LoginForm } from '@/components/features/forms/AuthForm/LoginForm';
+import { LoginForm } from '@/components/features/Forms/AuthForm/LoginForm';
 import styles from './AuthStyles.module.scss';
 
 export const LoginView = () => {

@@ -1,4 +1,4 @@
-import { RegisterForm } from '@/components/features/forms/AuthForm/RegisterForm';
+import { RegisterForm } from '@/components/features/Forms/AuthForm/RegisterForm';
 import { AuthCard } from '@/components/features/Auth/AuthCard/AuthCard';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, useNavigate } from '@tanstack/react-router';
