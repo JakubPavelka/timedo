@@ -144,6 +144,7 @@
             "estimate": "Estimate",
             "term": "Due date",
             "tags": "Tags",
+            "createTask": "Create task",
             "createError": "Failed to create task, please try again",
             "createSuccess": "Task created successfully"
         }
