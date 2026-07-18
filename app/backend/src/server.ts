@@ -6,6 +6,7 @@ import cors from 'cors';
 import { disconnectDB } from './db/db.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import taskRoutes from './routes/taskRoutes.js';
 
 const PORT = 3001;
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/task', taskRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello world');
