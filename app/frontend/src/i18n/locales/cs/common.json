@@ -143,7 +143,9 @@
             "priortity": "Priorita",
             "estimate": "Odhad",
             "term": "Termín",
-            "tags": "Tagy"
+            "tags": "Tagy",
+            "createError": "Nepodařilo se vytvořit úkol, zkuste to prosím znovu",
+            "createSuccess": "Úkol byl úspěšně vytvořen"
         }
     }
 }

@@ -143,7 +143,9 @@
             "priortity": "Priority",
             "estimate": "Estimate",
             "term": "Due date",
-            "tags": "Tags"
+            "tags": "Tags",
+            "createError": "Failed to create task, please try again",
+            "createSuccess": "Task created successfully"
         }
     }
 }
