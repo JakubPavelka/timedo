@@ -138,7 +138,9 @@
         },
         "Modal": {
             "taskName": "Název úkolu",
+            "taskNamePlaceholder": "Např. Odpovědět na e-maily od klientů",
             "description": "Popis",
+            "descriptionPlaceholder": "Přidejte podrobnosti k úkolu",
             "project": "Projek",
             "priortity": "Priorita",
             "estimate": "Odhad",

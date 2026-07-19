@@ -138,7 +138,9 @@
         },
         "Modal": {
             "taskName": "Task name",
+            "taskNamePlaceholder": "e.g. Reply to client emails",
             "description": "Description",
+            "descriptionPlaceholder": "Add task details",
             "project": "Project",
             "priortity": "Priority",
             "estimate": "Estimate",
