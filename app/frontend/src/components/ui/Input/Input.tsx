@@ -4,13 +4,23 @@ import { useTranslation } from 'react-i18next';
 import styles from './Input.module.scss';
 import clsx from 'clsx';
 
+type InputVariant = 'default' | 'filled';
+
 type InputProps = {
     prefixIcon?: React.ReactNode;
+    variant?: InputVariant;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const ICON_SIZE = 16;
 
-export const Input = ({ prefixIcon, type, disabled, ...rest }: InputProps) => {
+export const Input = ({
+    prefixIcon,
+    variant = 'default',
+    type,
+    disabled,
+    className,
+    ...rest
+}: InputProps) => {
     const { t } = useTranslation();
     const [showPassword, setShowPassword] = useState(false);
 
@@ -19,7 +29,13 @@ export const Input = ({ prefixIcon, type, disabled, ...rest }: InputProps) => {
     const inputType = type === 'password' && showPassword ? 'text' : type;
 
     return (
-        <div className={styles.Input}>
+        <div
+            className={clsx(
+                styles.Input,
+                styles[`Input--${variant}`],
+                className
+            )}
+        >
             {prefixIcon && (
                 <div className={styles.Input__prefixIcon}>{prefixIcon}</div>
             )}
