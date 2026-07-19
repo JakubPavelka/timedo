@@ -18,7 +18,8 @@
         "delete": "Delete",
         "change": "Change",
         "changesSaved": "Changes saved",
-        "somethingWentWrong": "Something went wrong, please try again"
+        "somethingWentWrong": "Something went wrong, please try again",
+        "add": "Add"
     },
     "Validation": {
         "invalidEmail": "Invalid email address",
@@ -142,7 +143,9 @@
             "description": "Description",
             "descriptionPlaceholder": "Add task details",
             "project": "Project",
-            "priortity": "Priority",
+            "projectPlaceholder": "Select a project",
+            "priority": "Priority",
+            "priorityPlaceholder": "Select a priority",
             "estimate": "Estimate",
             "term": "Due date",
             "tags": "Tags",

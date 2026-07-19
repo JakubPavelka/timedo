@@ -18,7 +18,8 @@
         "delete": "Smazat",
         "change": "Změnit",
         "changesSaved": "Změny byly uloženy",
-        "somethingWentWrong": "Něco se pokazilo, zkuste to prosím znovu"
+        "somethingWentWrong": "Něco se pokazilo, zkuste to prosím znovu",
+        "add": "Přidat"
     },
     "Validation": {
         "invalidEmail": "Neplatný email",
@@ -142,7 +143,9 @@
             "description": "Popis",
             "descriptionPlaceholder": "Přidejte podrobnosti k úkolu",
             "project": "Projek",
-            "priortity": "Priorita",
+            "projectPlaceholder": "Vyberte projekt",
+            "priority": "Priorita",
+            "priorityPlaceholder": "Vyberte prioritu",
             "estimate": "Odhad",
             "term": "Termín",
             "tags": "Tagy",
