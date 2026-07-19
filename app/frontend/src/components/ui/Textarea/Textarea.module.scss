@@ -1,0 +1,47 @@
+@use 'styles/mixins/forms';
+@use 'styles/typography';
+
+.Textarea {
+    @include forms.input-base;
+    display: flex;
+    outline: none;
+    transition:
+        border-color 0.2s,
+        background-color 0.2s;
+
+    &:focus-within {
+        border-color: var(--border-focused);
+    }
+}
+
+.Textarea--filled {
+    border-color: transparent;
+    background-color: var(--surface-2);
+
+    &:focus-within {
+        border: 1px solid var(--border);
+    }
+}
+
+.Textarea__input {
+    @include typography.text-sm(var(--text));
+    border: 0;
+    border-radius: inherit;
+    padding: 12px 16px;
+    width: 100%;
+    min-height: 96px;
+    resize: none;
+    outline: none;
+    background-color: transparent;
+
+    &:disabled {
+        opacity: 0.5;
+        background-color: var(--surface-2);
+        cursor: not-allowed;
+    }
+
+    &::placeholder {
+        color: var(--text-3);
+        opacity: 1;
+    }
+}
