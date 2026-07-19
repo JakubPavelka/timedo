@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
 import styles from './Select.module.scss';
+import { useTranslation } from 'react-i18next';
 
 export type SelectOption = {
     value: string;
     label: string;
     color?: string;
+    icon?: ReactNode;
 };
 
 type SelectProps = {
@@ -15,9 +17,11 @@ type SelectProps = {
     value?: string;
     placeholder?: string;
     id?: string;
+    translatedLabel?: boolean;
 };
 
 export const Select = (props: SelectProps) => {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -63,12 +67,15 @@ export const Select = (props: SelectProps) => {
                 aria-expanded={isOpen}
             >
                 <span className={styles.Select__triggerContent}>
-                    {selectedOption?.color && (
-                        <span
-                            className={styles.Select__dot}
-                            style={{ backgroundColor: selectedOption.color }}
-                        />
-                    )}
+                    {selectedOption?.icon ??
+                        (selectedOption?.color && (
+                            <span
+                                className={styles.Select__dot}
+                                style={{
+                                    backgroundColor: selectedOption.color,
+                                }}
+                            />
+                        ))}
                     <span
                         className={clsx(
                             styles.Select__label,
@@ -76,7 +83,11 @@ export const Select = (props: SelectProps) => {
                                 styles['Select__label--placeholder']
                         )}
                     >
-                        {selectedOption?.label ?? props.placeholder}
+                        {selectedOption
+                            ? props.translatedLabel
+                                ? t(selectedOption.label)
+                                : selectedOption.label
+                            : props.placeholder}
                     </span>
                 </span>
                 <ChevronDown
@@ -102,13 +113,20 @@ export const Select = (props: SelectProps) => {
                             )}
                             onClick={() => handleSelect(option.value)}
                         >
-                            {option.color && (
-                                <span
-                                    className={styles.Select__dot}
-                                    style={{ backgroundColor: option.color }}
-                                />
-                            )}
-                            <span>{option.label}</span>
+                            {option.icon ??
+                                (option.color && (
+                                    <span
+                                        className={styles.Select__dot}
+                                        style={{
+                                            backgroundColor: option.color,
+                                        }}
+                                    />
+                                ))}
+                            <span>
+                                {props.translatedLabel
+                                    ? t(option.label)
+                                    : option.label}
+                            </span>
                         </li>
                     ))}
                 </ul>
