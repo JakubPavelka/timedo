@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
 import styles from './Select.module.scss';
@@ -8,7 +8,7 @@ export type SelectOption = {
     value: string;
     label: string;
     color?: string;
-    icon?: ReactNode;
+    icon?: React.ReactNode;
 };
 
 type SelectProps = {
@@ -18,6 +18,7 @@ type SelectProps = {
     placeholder?: string;
     id?: string;
     translatedLabel?: boolean;
+    emptyOptions?: React.ReactNode;
 };
 
 export const Select = (props: SelectProps) => {
@@ -101,34 +102,36 @@ export const Select = (props: SelectProps) => {
             </button>
             {isOpen && (
                 <ul className={styles.Select__menu} role={'listbox'}>
-                    {props.options.map((option) => (
-                        <li
-                            key={option.value}
-                            role={'option'}
-                            aria-selected={option.value === props.value}
-                            className={clsx(
-                                styles.Select__option,
-                                option.value === props.value &&
-                                    styles['Select__option--selected']
-                            )}
-                            onClick={() => handleSelect(option.value)}
-                        >
-                            {option.icon ??
-                                (option.color && (
-                                    <span
-                                        className={styles.Select__dot}
-                                        style={{
-                                            backgroundColor: option.color,
-                                        }}
-                                    />
-                                ))}
-                            <span>
-                                {props.translatedLabel
-                                    ? t(option.label)
-                                    : option.label}
-                            </span>
-                        </li>
-                    ))}
+                    {props.options.length === 0
+                        ? props.emptyOptions
+                        : props.options.map((option) => (
+                              <li
+                                  key={option.value}
+                                  role={'option'}
+                                  aria-selected={option.value === props.value}
+                                  className={clsx(
+                                      styles.Select__option,
+                                      option.value === props.value &&
+                                          styles['Select__option--selected']
+                                  )}
+                                  onClick={() => handleSelect(option.value)}
+                              >
+                                  {option.icon ??
+                                      (option.color && (
+                                          <span
+                                              className={styles.Select__dot}
+                                              style={{
+                                                  backgroundColor: option.color,
+                                              }}
+                                          />
+                                      ))}
+                                  <span>
+                                      {props.translatedLabel
+                                          ? t(option.label)
+                                          : option.label}
+                                  </span>
+                              </li>
+                          ))}
                 </ul>
             )}
         </div>
