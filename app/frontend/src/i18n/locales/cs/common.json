@@ -151,7 +151,8 @@
             "tags": "Tagy",
             "createTask": "Vytvořit úkol",
             "createError": "Nepodařilo se vytvořit úkol, zkuste to prosím znovu",
-            "createSuccess": "Úkol byl úspěšně vytvořen"
+            "createSuccess": "Úkol byl úspěšně vytvořen",
+            "noProjects": "Žádné projekty"
         }
     }
 }

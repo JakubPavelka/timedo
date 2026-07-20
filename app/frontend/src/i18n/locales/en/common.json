@@ -151,7 +151,8 @@
             "tags": "Tags",
             "createTask": "Create task",
             "createError": "Failed to create task, please try again",
-            "createSuccess": "Task created successfully"
+            "createSuccess": "Task created successfully",
+            "noProjects": "No projects"
         }
     }
 }
