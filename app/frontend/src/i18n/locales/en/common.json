@@ -19,7 +19,8 @@
         "change": "Change",
         "changesSaved": "Changes saved",
         "somethingWentWrong": "Something went wrong, please try again",
-        "add": "Add"
+        "add": "Add",
+        "create": "Create"
     },
     "Validation": {
         "invalidEmail": "Invalid email address",
@@ -38,7 +39,9 @@
         "titleMin": "Title must contain at least one character",
         "titleMax": "Title cannot exceed 255 characters",
         "descriptionMin": "Description must contain at least one character",
-        "descriptionMax": "Description cannot exceed 3000 characters"
+        "descriptionMax": "Description cannot exceed 3000 characters",
+        "labelMin": "Name must contain at least one character",
+        "labelMax": "Name cannot exceed 50 characters"
     },
     "RegisterForm": {
         "firstName": "First name",

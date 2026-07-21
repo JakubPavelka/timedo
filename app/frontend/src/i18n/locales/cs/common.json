@@ -19,7 +19,8 @@
         "change": "Změnit",
         "changesSaved": "Změny byly uloženy",
         "somethingWentWrong": "Něco se pokazilo, zkuste to prosím znovu",
-        "add": "Přidat"
+        "add": "Přidat",
+        "create": "Vytvořit"
     },
     "Validation": {
         "invalidEmail": "Neplatný email",
@@ -38,7 +39,9 @@
         "titleMin": "Název musí obsahovat alespoň jeden znak",
         "titleMax": "Název nemůže obsahovat více než 255 znaků",
         "descriptionMin": "Popis musí obsahovat alespoň jeden znak",
-        "descriptionMax": "Popis nemůže obsahovat více než 3000 znaků"
+        "descriptionMax": "Popis nemůže obsahovat více než 3000 znaků",
+        "labelMin": "Název musí obsahovat alespoň jeden znak",
+        "labelMax": "Název nemůže obsahovat více než 50 znaků"
     },
     "RegisterForm": {
         "firstName": "Jméno",
