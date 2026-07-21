@@ -157,7 +157,8 @@
             "createSuccess": "Úkol byl úspěšně vytvořen",
             "noProjects": "Žádné projekty",
             "projectName": "Název projektu",
-            "selectColor": "Vyberte barvu"
+            "selectColor": "Vyberte barvu",
+            "customColor": "Vlastní barva"
         }
     }
 }

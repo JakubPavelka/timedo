@@ -157,7 +157,8 @@
             "createSuccess": "Task created successfully",
             "noProjects": "No projects",
             "projectName": "Project name",
-            "selectColor": "Select a color"
+            "selectColor": "Select a color",
+            "customColor": "Custom color"
         }
     }
 }
