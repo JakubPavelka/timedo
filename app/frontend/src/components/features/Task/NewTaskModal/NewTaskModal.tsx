@@ -16,6 +16,8 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { NewProjectForm } from '../../Forms/NewProjectForm/NewProjectForm';
 import { useCreateProject } from '@/hooks/api/useProject';
+import { toast } from 'sonner';
+import { ApiAuthError } from '@/api/auth/auth.api';
 import styles from './NewTaskModal.module.scss';
 
 type NewTaskModalProps = {
@@ -63,8 +65,20 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
     const handleHideProjectCreateForm = () => setShowProjectCreateForm(false);
 
     const handleOnSubmit = handleSubmit((data) => props.onSubmit(data));
-    const handleOnProjectSubmit = (data: ProjectData) => {
-        createProject(data);
+    const handleCreateProject = (data: ProjectData) => {
+        return createProject(data, {
+            onSuccess: () => {
+                toast.success(t('Task.Modal.createSuccess'));
+                setShowProjectCreateForm(false);
+            },
+            onError: (err) => {
+                toast.error(
+                    err instanceof ApiAuthError && err.code !== 'UNKNOWN_ERROR'
+                        ? t(`BackendErrors.${err.code}`)
+                        : t('Task.Modal.createProjectError')
+                );
+            },
+        });
     };
 
     return (
@@ -170,7 +184,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                             {showProjectCreateForm ? (
                                                 <NewProjectForm
                                                     onSubmit={
-                                                        handleOnProjectSubmit
+                                                        handleCreateProject
                                                     }
                                                     onClose={
                                                         handleHideProjectCreateForm
