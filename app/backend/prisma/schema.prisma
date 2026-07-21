@@ -20,6 +20,7 @@ model User {
     passwordHashed  String
     refreshTokens RefreshToken[]
     tasks         Task[]
+    projects Project[]
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt
     termsAcceptedAt DateTime
@@ -52,9 +53,13 @@ model Task {
 
 model Project {
     id        String   @id @default(cuid())
+    userId    String
     label     String
     color     String
     tasks     Task[]
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, label])
 }
 
 model TaskTag {
