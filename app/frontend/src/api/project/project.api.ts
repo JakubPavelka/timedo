@@ -17,4 +17,17 @@ export const projectApi = {
             throw err;
         }
     },
+    getProjects: async () => {
+        try {
+            const response = await apiClient.get('/api/project');
+            return response.data.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiAuthError(
+                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
+                );
+            }
+            throw err;
+        }
+    },
 };
