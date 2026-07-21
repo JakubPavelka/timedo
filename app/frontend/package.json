@@ -23,6 +23,7 @@
         "lucide-react": "^1.18.0",
         "motion": "^12.42.1",
         "react": "^19.2.6",
+        "react-colorful": "^5.8.0",
         "react-dom": "^19.2.6",
         "react-hook-form": "^7.78.0",
         "react-i18next": "^17.0.8",
