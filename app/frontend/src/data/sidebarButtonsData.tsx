@@ -3,7 +3,7 @@ import { Timer, ChartLine, Calendar, ListChecks } from 'lucide-react';
 
 export type SidebarButtonDataType = {
     text: string;
-    view: FileRouteTypes['fullPaths'];
+    view: FileRouteTypes['to'];
     icon: React.ReactNode;
 };
 
