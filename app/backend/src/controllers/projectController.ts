@@ -13,10 +13,27 @@ const createProject = async (req: Request, res: Response) => {
             });
         }
 
+        const existingProject = await prisma.project.findUnique({
+            where: {
+                userId_label: {
+                    userId: req.user!.id,
+                    label: parsedBody.data.label,
+                },
+            },
+        });
+
+        if (existingProject) {
+            return res.status(400).json({
+                message: 'Project already exists',
+                code: 'PROJECT_ALREADY_EXISTS',
+            });
+        }
+
         const project = await prisma.project.create({
             data: {
                 label: parsedBody.data.label,
                 color: parsedBody.data.color,
+                userId: req.user!.id,
             },
         });
 
