@@ -160,6 +160,7 @@
             "createProjectError": "Failed to create project, please try again",
             "createSuccess": "Task created successfully",
             "noProjects": "No projects",
+            "createProject": "Create project",
             "projectName": "Project name",
             "selectColor": "Select a color",
             "customColor": "Custom color"

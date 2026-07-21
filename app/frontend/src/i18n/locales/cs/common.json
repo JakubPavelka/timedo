@@ -160,6 +160,7 @@
             "createProjectError": "Nepodařilo se vytvořit projekt, zkuste to prosím znovu",
             "createSuccess": "Úkol byl úspěšně vytvořen",
             "noProjects": "Žádné projekty",
+            "createProject": "Vytvořit projekt",
             "projectName": "Název projektu",
             "selectColor": "Vyberte barvu",
             "customColor": "Vlastní barva"
