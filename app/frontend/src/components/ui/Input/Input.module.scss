@@ -5,7 +5,7 @@
 .Input {
     @include forms.input-base;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     outline: none;
     transition:
         border-color 0.2s,
