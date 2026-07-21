@@ -6,7 +6,8 @@
         "VALIDATION_ERROR": "Please check the information you entered",
         "RATE_LIMITED": "Too many requests, please wait a moment and try again",
         "UNKNOWN_ERROR": "Something went wrong, please try again",
-        "PROJECT_ALREADY_EXISTS": "A project with this name already exists"
+        "PROJECT_ALREADY_EXISTS": "A project with this name already exists",
+        "PROJECTS_LIMIT_REACHED": "You have reached the maximum limit of projects"
     },
     "General": {
         "timeUnderControl": "Your time under control",
@@ -42,7 +43,8 @@
         "descriptionMin": "Description must contain at least one character",
         "descriptionMax": "Description cannot exceed 3000 characters",
         "labelMin": "Name must contain at least one character",
-        "labelMax": "Name cannot exceed 50 characters"
+        "labelMax": "Name cannot exceed 50 characters",
+        "colorFormat": "Color must be a valid hex code (e.g. #FF0000)"
     },
     "RegisterForm": {
         "firstName": "First name",

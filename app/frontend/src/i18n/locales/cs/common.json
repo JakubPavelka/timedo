@@ -6,7 +6,8 @@
         "VALIDATION_ERROR": "Zkontrolujte prosím zadané údaje",
         "RATE_LIMITED": "Příliš mnoho požadavků, zkuste to prosím za chvíli znovu",
         "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu",
-        "PROJECT_ALREADY_EXISTS": "Projekt s tímto názvem již existuje"
+        "PROJECT_ALREADY_EXISTS": "Projekt s tímto názvem již existuje",
+        "PROJECTS_LIMIT_REACHED": "Dosáhli jste maximálního počtu projektů"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",
@@ -42,7 +43,8 @@
         "descriptionMin": "Popis musí obsahovat alespoň jeden znak",
         "descriptionMax": "Popis nemůže obsahovat více než 3000 znaků",
         "labelMin": "Název musí obsahovat alespoň jeden znak",
-        "labelMax": "Název nemůže obsahovat více než 50 znaků"
+        "labelMax": "Název nemůže obsahovat více než 50 znaků",
+        "colorFormat": "Barva musí být platný hex kód (např. #FF0000)"
     },
     "RegisterForm": {
         "firstName": "Jméno",
