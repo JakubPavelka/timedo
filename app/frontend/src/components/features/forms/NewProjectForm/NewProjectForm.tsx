@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { Palette } from 'lucide-react';
+import clsx from 'clsx';
 import { Input } from '@/components/ui/Input/Input';
 import { HexColorPicker } from 'react-colorful';
 import { useForm, Controller } from 'react-hook-form';
@@ -15,6 +18,85 @@ type NewProjectFormProps = {
     onClose: () => void;
 };
 
+type ProjectColorFieldProps = {
+    value: string;
+    onChange: (color: string) => void;
+};
+
+const PRESET_COLORS = [
+    '#EF4444',
+    '#F97316',
+    '#F59E0B',
+    '#84CC16',
+    '#10B981',
+    '#06B6D4',
+    '#3B82F6',
+    '#8B5CF6',
+    '#EC4899',
+    '#6B7280',
+];
+
+const ProjectColorField = (props: ProjectColorFieldProps) => {
+    const { t } = useTranslation();
+    const [showCustomPicker, setShowCustomPicker] = useState(false);
+
+    const handleSelectPreset = (presetColor: string) => {
+        setShowCustomPicker(false);
+        props.onChange(presetColor);
+    };
+
+    const handleShowCustomPicker = () => setShowCustomPicker(true);
+
+    return (
+        <div>
+            <span className={styles.NewProjectForm__colorLabel}>
+                {t('Task.Modal.selectColor')}
+            </span>
+            <div className={styles.NewProjectForm__colorRow}>
+                {PRESET_COLORS.map((presetColor) => (
+                    <button
+                        key={presetColor}
+                        type={'button'}
+                        aria-label={presetColor}
+                        aria-pressed={
+                            !showCustomPicker && props.value === presetColor
+                        }
+                        className={clsx(
+                            styles.NewProjectForm__colorSwatch,
+                            !showCustomPicker &&
+                                props.value === presetColor &&
+                                styles['NewProjectForm__colorSwatch--selected']
+                        )}
+                        style={{ backgroundColor: presetColor }}
+                        onClick={() => handleSelectPreset(presetColor)}
+                    />
+                ))}
+                <button
+                    type={'button'}
+                    aria-label={t('Task.Modal.customColor')}
+                    aria-pressed={showCustomPicker}
+                    className={clsx(
+                        styles.NewProjectForm__colorSwatch,
+                        styles.NewProjectForm__customColorButton,
+                        showCustomPicker &&
+                            styles['NewProjectForm__colorSwatch--selected']
+                    )}
+                    onClick={handleShowCustomPicker}
+                >
+                    <Palette width={14} height={14} />
+                </button>
+            </div>
+            {showCustomPicker && (
+                <HexColorPicker
+                    color={props.value}
+                    onChange={props.onChange}
+                    className={styles.NewProjectForm__colorPicker}
+                />
+            )}
+        </div>
+    );
+};
+
 export const NewProjectForm = (props: NewProjectFormProps) => {
     const { t } = useTranslation();
 
@@ -24,7 +106,7 @@ export const NewProjectForm = (props: NewProjectFormProps) => {
         handleSubmit,
     } = useForm<ProjectData>({
         resolver: zodResolver(ProjectSchema),
-        defaultValues: { color: '#aabbcc', label: '' },
+        defaultValues: { color: PRESET_COLORS[0], label: '' },
         mode: 'onSubmit',
     });
 
@@ -57,11 +139,7 @@ export const NewProjectForm = (props: NewProjectFormProps) => {
                 name={'color'}
                 control={control}
                 render={({ field: { onChange, value } }) => (
-                    <HexColorPicker
-                        color={value}
-                        onChange={onChange}
-                        className={styles.NewProjectForm__colorPicker}
-                    />
+                    <ProjectColorField value={value} onChange={onChange} />
                 )}
             />
 

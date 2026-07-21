@@ -21,6 +21,7 @@
 
     span {
         @include typography.text-xs;
+        color: inherit;
     }
 }
 
@@ -28,10 +29,43 @@
     @include typography.text-error;
 }
 
+.NewProjectForm__colorLabel {
+    @include typography.text-xs(var(--text-3));
+    display: block;
+    margin-bottom: 8px;
+}
+
+.NewProjectForm__colorRow {
+    @include layout.centerY;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.NewProjectForm__colorSwatch {
+    @include layout.centerXY;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.NewProjectForm__colorSwatch--selected {
+    border-color: var(--text);
+}
+
+.NewProjectForm__customColorButton {
+    background-color: var(--surface-2);
+}
+
 :global(.react-colorful).NewProjectForm__colorPicker {
     width: 160px;
     height: 160px;
     margin-inline: auto;
+    margin-top: 12px;
 
     :global(.react-colorful__hue) {
         height: 16px;
