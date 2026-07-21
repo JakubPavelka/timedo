@@ -5,7 +5,8 @@
         "INVALID_CREDENTIALS": "Invalid email or password",
         "VALIDATION_ERROR": "Please check the information you entered",
         "RATE_LIMITED": "Too many requests, please wait a moment and try again",
-        "UNKNOWN_ERROR": "Something went wrong, please try again"
+        "UNKNOWN_ERROR": "Something went wrong, please try again",
+        "PROJECT_ALREADY_EXISTS": "A project with this name already exists"
     },
     "General": {
         "timeUnderControl": "Your time under control",
@@ -154,6 +155,7 @@
             "tags": "Tags",
             "createTask": "Create task",
             "createError": "Failed to create task, please try again",
+            "createProjectError": "Failed to create project, please try again",
             "createSuccess": "Task created successfully",
             "noProjects": "No projects",
             "projectName": "Project name",

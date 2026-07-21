@@ -5,7 +5,8 @@
         "INVALID_CREDENTIALS": "Nesprávný e-mail nebo heslo",
         "VALIDATION_ERROR": "Zkontrolujte prosím zadané údaje",
         "RATE_LIMITED": "Příliš mnoho požadavků, zkuste to prosím za chvíli znovu",
-        "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu"
+        "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu",
+        "PROJECT_ALREADY_EXISTS": "Projekt s tímto názvem již existuje"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",
@@ -154,6 +155,7 @@
             "tags": "Tagy",
             "createTask": "Vytvořit úkol",
             "createError": "Nepodařilo se vytvořit úkol, zkuste to prosím znovu",
+            "createProjectError": "Nepodařilo se vytvořit projekt, zkuste to prosím znovu",
             "createSuccess": "Úkol byl úspěšně vytvořen",
             "noProjects": "Žádné projekty",
             "projectName": "Název projektu",
