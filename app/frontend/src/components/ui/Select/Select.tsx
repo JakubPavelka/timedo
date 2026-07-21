@@ -57,13 +57,15 @@ export const Select = (props: SelectProps) => {
         setIsOpen(false);
     };
 
+    const handleToggle = () => setIsOpen((prev) => !prev);
+
     return (
         <div className={styles.Select} ref={wrapperRef}>
             <button
                 id={props.id}
                 type={'button'}
                 className={styles.Select__trigger}
-                onClick={() => setIsOpen((prev) => !prev)}
+                onClick={handleToggle}
                 aria-haspopup={'listbox'}
                 aria-expanded={isOpen}
             >
