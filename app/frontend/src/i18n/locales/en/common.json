@@ -155,7 +155,9 @@
             "createTask": "Create task",
             "createError": "Failed to create task, please try again",
             "createSuccess": "Task created successfully",
-            "noProjects": "No projects"
+            "noProjects": "No projects",
+            "projectName": "Project name",
+            "selectColor": "Select a color"
         }
     }
 }
