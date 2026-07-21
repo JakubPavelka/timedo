@@ -1,0 +1,45 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.NewProjectForm {
+    @include layout.flexColumn;
+    gap: 16px;
+}
+
+.NewProjectForm__buttonsWrapper {
+    @include layout.centerY;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.NewProjectForm__input {
+    height: 38px;
+}
+
+.NewProjectForm__button {
+    padding: 6px 12px;
+
+    span {
+        @include typography.text-xs;
+    }
+}
+
+.NewProjectForm__errorText {
+    @include typography.text-error;
+}
+
+:global(.react-colorful).NewProjectForm__colorPicker {
+    width: 160px;
+    height: 160px;
+    margin-inline: auto;
+
+    :global(.react-colorful__hue) {
+        height: 16px;
+    }
+
+    :global(.react-colorful__pointer) {
+        width: 12px;
+        height: 12px;
+        border-width: 1px;
+    }
+}
