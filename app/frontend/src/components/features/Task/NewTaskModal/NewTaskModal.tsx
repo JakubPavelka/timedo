@@ -6,12 +6,16 @@ import {
     TaskSchema,
     type TaskData,
 } from '@timedo/shared/src/schemas/taskSchema';
+import type { ProjectData } from '@timedo/shared/src/schemas/projectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus } from 'lucide-react';
 import { Select } from '@/components/ui/Select/Select';
 import { Textarea } from '@/components/ui/Textarea/Textarea';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import clsx from 'clsx';
+import { useState } from 'react';
+import { NewProjectForm } from '../../Forms/NewProjectForm/NewProjectForm';
+import { useCreateProject } from '@/hooks/api/useProject';
 import styles from './NewTaskModal.module.scss';
 
 type NewTaskModalProps = {
@@ -39,6 +43,8 @@ const PRIORITY = [
 
 export const NewTaskModal = (props: NewTaskModalProps) => {
     const { t } = useTranslation();
+    const { mutate: createProject } = useCreateProject();
+    const [showProjectCreateForm, setShowProjectCreateForm] = useState(false);
     const {
         control,
         handleSubmit,
@@ -53,10 +59,16 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
         },
     });
 
-    const onSubmitHandler = handleSubmit((data) => props.onSubmit(data));
+    const handleShowProjectCreateForm = () => setShowProjectCreateForm(true);
+    const handleHideProjectCreateForm = () => setShowProjectCreateForm(false);
+
+    const handleOnSubmit = handleSubmit((data) => props.onSubmit(data));
+    const handleOnProjectSubmit = (data: ProjectData) => {
+        createProject(data);
+    };
 
     return (
-        <form className={styles.NewTaskModal} onSubmit={onSubmitHandler}>
+        <form className={styles.NewTaskModal} onSubmit={handleOnSubmit}>
             <p className={styles.NewTaskModal__title}>{t('Task.newTask')}</p>
             <div className={styles.NewTaskModal__inputsWrapper}>
                 {/* TITLE */}
@@ -155,14 +167,35 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                                 styles.NewTaskModal__emptyOptionWrapper
                                             }
                                         >
-                                            <span
-                                                className={
-                                                    styles.NewTaskModal__emptyOption
-                                                }
-                                            >
-                                                {t('Task.Modal.noProjects')}
-                                            </span>
-                                            <Plus width={16} height={16} />
+                                            {showProjectCreateForm ? (
+                                                <NewProjectForm
+                                                    onSubmit={
+                                                        handleOnProjectSubmit
+                                                    }
+                                                    onClose={
+                                                        handleHideProjectCreateForm
+                                                    }
+                                                />
+                                            ) : (
+                                                <>
+                                                    <span
+                                                        className={
+                                                            styles.NewTaskModal__emptyOption
+                                                        }
+                                                    >
+                                                        {t(
+                                                            'Task.Modal.noProjects'
+                                                        )}
+                                                    </span>
+                                                    <Plus
+                                                        width={16}
+                                                        height={16}
+                                                        onClick={
+                                                            handleShowProjectCreateForm
+                                                        }
+                                                    />
+                                                </>
+                                            )}
                                         </div>
                                     }
                                 />
@@ -208,7 +241,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                 <Button onClick={props.onClose} variant={'outline'}>
                     <span>{t('General.cancel')}</span>
                 </Button>
-                <Button onClick={onSubmitHandler}>
+                <Button>
                     <span className={styles.NewTaskModal__buttonText}>
                         <Plus width={16} height={16} />
                         <span>{t('Task.Modal.createTask')}</span>
