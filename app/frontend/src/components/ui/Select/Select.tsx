@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
 import clsx from 'clsx';
 import styles from './Select.module.scss';
 import { useTranslation } from 'react-i18next';
@@ -14,11 +14,12 @@ export type SelectOption = {
 type SelectProps = {
     options: SelectOption[];
     onChange: (value: string) => void;
+    onClear?: () => void;
     value?: string;
     placeholder?: string;
     id?: string;
     translatedLabel?: boolean;
-    emptyOptions?: React.ReactNode;
+    footer?: React.ReactNode;
 };
 
 export const Select = (props: SelectProps) => {
@@ -59,6 +60,12 @@ export const Select = (props: SelectProps) => {
 
     const handleToggle = () => setIsOpen((prev) => !prev);
 
+    const handleClear = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        props.onClear?.();
+        setIsOpen(false);
+    };
+
     return (
         <div className={styles.Select} ref={wrapperRef}>
             <button
@@ -93,47 +100,58 @@ export const Select = (props: SelectProps) => {
                             : props.placeholder}
                     </span>
                 </span>
-                <ChevronDown
-                    width={16}
-                    height={16}
-                    className={clsx(
-                        styles.Select__chevron,
-                        isOpen && styles['Select__chevron--open']
+                <span className={styles.Select__actions}>
+                    {props.onClear && selectedOption && (
+                        <span
+                            className={styles.Select__clear}
+                            onClick={handleClear}
+                            role={'button'}
+                            aria-label={'clear'}
+                        >
+                            <X width={14} height={14} />
+                        </span>
                     )}
-                />
+                    <ChevronDown
+                        width={16}
+                        height={16}
+                        className={clsx(
+                            styles.Select__chevron,
+                            isOpen && styles['Select__chevron--open']
+                        )}
+                    />
+                </span>
             </button>
             {isOpen && (
                 <ul className={styles.Select__menu} role={'listbox'}>
-                    {props.options.length === 0
-                        ? props.emptyOptions
-                        : props.options.map((option) => (
-                              <li
-                                  key={option.value}
-                                  role={'option'}
-                                  aria-selected={option.value === props.value}
-                                  className={clsx(
-                                      styles.Select__option,
-                                      option.value === props.value &&
-                                          styles['Select__option--selected']
-                                  )}
-                                  onClick={() => handleSelect(option.value)}
-                              >
-                                  {option.icon ??
-                                      (option.color && (
-                                          <span
-                                              className={styles.Select__dot}
-                                              style={{
-                                                  backgroundColor: option.color,
-                                              }}
-                                          />
-                                      ))}
-                                  <span>
-                                      {props.translatedLabel
-                                          ? t(option.label)
-                                          : option.label}
-                                  </span>
-                              </li>
-                          ))}
+                    {props.options.map((option) => (
+                        <li
+                            key={option.value}
+                            role={'option'}
+                            aria-selected={option.value === props.value}
+                            className={clsx(
+                                styles.Select__option,
+                                option.value === props.value &&
+                                    styles['Select__option--selected']
+                            )}
+                            onClick={() => handleSelect(option.value)}
+                        >
+                            {option.icon ??
+                                (option.color && (
+                                    <span
+                                        className={styles.Select__dot}
+                                        style={{
+                                            backgroundColor: option.color,
+                                        }}
+                                    />
+                                ))}
+                            <span>
+                                {props.translatedLabel
+                                    ? t(option.label)
+                                    : option.label}
+                            </span>
+                        </li>
+                    ))}
+                    {props.footer}
                 </ul>
             )}
         </div>

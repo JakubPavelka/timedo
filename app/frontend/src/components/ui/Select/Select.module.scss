@@ -37,6 +37,31 @@
     color: var(--text-3);
 }
 
+.Select__actions {
+    @include layout.centerY;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.Select__clear {
+    @include layout.centerY;
+    color: var(--text-3);
+    border-radius: 6px;
+    padding: 2px;
+    opacity: 0;
+    transition: all 0.15s;
+
+    .Select__trigger:hover &,
+    .Select__trigger:focus-within & {
+        opacity: 1;
+    }
+
+    &:hover {
+        color: var(--text);
+        background-color: var(--surface-3);
+    }
+}
+
 .Select__chevron {
     flex-shrink: 0;
     color: var(--text-3);
