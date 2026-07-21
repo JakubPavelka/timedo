@@ -29,6 +29,17 @@ const createProject = async (req: Request, res: Response) => {
             });
         }
 
+        const projectsCount = await prisma.project.count({
+            where: { userId: req.user!.id },
+        });
+
+        if (projectsCount >= 30) {
+            return res.status(400).json({
+                message: 'You have reached maximum limit of projects',
+                code: 'PROJECTS_LIMIT_REACHED',
+            });
+        }
+
         const project = await prisma.project.create({
             data: {
                 label: parsedBody.data.label,
@@ -43,4 +54,24 @@ const createProject = async (req: Request, res: Response) => {
     }
 };
 
-export { createProject };
+const getProjects = async (req: Request, res: Response) => {
+    try {
+        const projects = await prisma.project.findMany({
+            where: { userId: req.user!.id },
+            select: {
+                id: true,
+                label: true,
+                color: true,
+                _count: {
+                    select: { tasks: true },
+                },
+            },
+        });
+
+        return res.status(200).json({ status: 'success', data: projects });
+    } catch {
+        return res.status(500).json({ message: 'Failed to get projects' });
+    }
+};
+
+export { createProject, getProjects };
