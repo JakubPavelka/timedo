@@ -42,7 +42,7 @@
         transition: all 0.2s;
     }
 
-    &:hover {
+    &:hover:not(.Sidebar__button--active) {
         background-color: var(--surface-3);
         color: var(--text);
         text-decoration: none;
@@ -51,19 +51,59 @@
             color: var(--text);
         }
     }
+}
 
-    &.--active {
-        background-color: var(--accent-soft);
-        color: var(--text);
+.Sidebar__button--active {
+    background-color: var(--accent-soft);
+    color: var(--text);
 
-        svg {
-            color: inherit;
-        }
+    svg {
+        color: inherit;
     }
 }
 
 .Sidebar__buttonIcon {
     @include layout.centerXY;
+}
+
+.Sidebar__projectsTitle {
+    @include typography.text-xs(var(--text-3));
+    margin: 18px 0 4px 0;
+    padding-inline: 13px;
+}
+
+.Sidebar__projectsButton {
+    @include layout.spaceBetweenY;
+    width: 100%;
+    border: 0;
+    padding-block: 8px;
+    background-color: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.Sidebar__projectsList {
+    list-style: none;
+}
+
+.Sidebar__projectsText {
+    @include typography.text-sm(var(--text-2));
+}
+
+.Sidebar__projectsCount {
+    @include typography.text-xs(var(--text-3));
+    font-weight: 700;
+}
+
+.Sidebar__projectsColorWrapper {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.Sidebar__projectsDot {
+    height: 8px;
+    width: 8px;
+    border-radius: 999px;
 }
 
 .Sidebar__profileWrapper {
