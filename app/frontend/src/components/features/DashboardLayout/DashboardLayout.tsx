@@ -1,9 +1,9 @@
 import { Header } from '../Header/Header';
 import { Outlet, useRouterState } from '@tanstack/react-router';
 import { Sidebar } from '../Sidebar/Sidebar';
-import sidebarButtonsData from '@/data/sidebarButtonsData';
-import styles from './DashboardLayout.module.scss';
 import { useTranslation } from 'react-i18next';
+import { useGetProjects } from '@/hooks/api/useProject';
+import styles from './DashboardLayout.module.scss';
 
 const titlePaths: Record<string, string> = {
     '/dashboard': 'Sidebar.dashboard',
@@ -18,10 +18,11 @@ export const DashboardLayout = () => {
     const { t } = useTranslation();
     const pathname = useRouterState({ select: (s) => s.location.pathname });
     const title = titlePaths[pathname];
+    useGetProjects();
 
     return (
         <div className={styles.DashboardLayout}>
-            <Sidebar buttons={sidebarButtonsData} projects={[]} />
+            <Sidebar />
             <div className={styles.DashboardLayout__rightSide}>
                 <Header title={t(title)} />
                 <div className={styles.DashboardLayout__content}>
