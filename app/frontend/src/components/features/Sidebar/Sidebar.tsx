@@ -48,7 +48,9 @@ export const Sidebar = (props: SidebarProps) => {
                                 className: styles['Sidebar__button--active'],
                             }}
                         >
-                            <span className={styles.Sidebar__buttonIcon}>{item.icon}</span>
+                            <span className={styles.Sidebar__buttonIcon}>
+                                {item.icon}
+                            </span>
                             {t(item.text)}
                         </Link>
                     );
@@ -57,7 +59,9 @@ export const Sidebar = (props: SidebarProps) => {
 
             {projects.length !== 0 && (
                 <div>
-                    <p className={styles.Sidebar__projectsTitle}>{t('Sidebar.projects')}</p>
+                    <p className={styles.Sidebar__projectsTitle}>
+                        {t('Sidebar.projects')}
+                    </p>
                     <ul className={styles.Sidebar__projectsList}>
                         {projects.map((project) => {
                             return (
@@ -66,14 +70,20 @@ export const Sidebar = (props: SidebarProps) => {
                                         className={styles.Sidebar__projectsButton}
                                         type={'button'}
                                     >
-                                        <span className={styles.Sidebar__projectsColorWrapper}>
+                                        <span
+                                            className={
+                                                styles.Sidebar__projectsColorWrapper
+                                            }
+                                        >
                                             <span
                                                 className={styles.Sidebar__projectsDot}
                                                 style={{
                                                     backgroundColor: project.color,
                                                 }}
                                             />
-                                            <span className={styles.Sidebar__projectsText}>
+                                            <span
+                                                className={styles.Sidebar__projectsText}
+                                            >
                                                 {project.label}
                                             </span>
                                         </span>
