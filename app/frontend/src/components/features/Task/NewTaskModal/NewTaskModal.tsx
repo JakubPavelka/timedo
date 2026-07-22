@@ -2,14 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/Input/Input';
 import { Button } from '@/components/ui/Button/Button';
 import { Controller, useForm } from 'react-hook-form';
-import {
-    TaskSchema,
-    type TaskData,
-} from '@timedo/shared/src/schemas/taskSchema';
+import { TaskSchema, type TaskData } from '@timedo/shared/src/schemas/taskSchema';
 import type { ProjectData } from '@timedo/shared/src/schemas/projectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus } from 'lucide-react';
-import { Select } from '@/components/ui/Select/Select';
+import { Select, type SelectOption } from '@/components/ui/Select/Select';
 import { Textarea } from '@/components/ui/Textarea/Textarea';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import clsx from 'clsx';
@@ -18,6 +15,7 @@ import { NewProjectForm } from '../../Forms/NewProjectForm/NewProjectForm';
 import { useCreateProject } from '@/hooks/api/useProject';
 import { toast } from 'sonner';
 import { ApiAuthError } from '@/api/auth/auth.api';
+import { useProjectStore } from '@/store/projectStore';
 import styles from './NewTaskModal.module.scss';
 
 type NewTaskModalProps = {
@@ -47,6 +45,12 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
     const { t } = useTranslation();
     const { mutate: createProject } = useCreateProject();
     const [showProjectCreateForm, setShowProjectCreateForm] = useState(false);
+    const projects = useProjectStore((s) => s.projects);
+    const projectOptions: SelectOption[] = projects.map((project) => ({
+        value: project.id,
+        label: project.label,
+        color: project.color,
+    }));
     const {
         control,
         handleSubmit,
@@ -103,17 +107,13 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                     value={value}
                                     onChange={onChange}
                                     variant={'filled'}
-                                    placeholder={t(
-                                        'Task.Modal.taskNamePlaceholder'
-                                    )}
+                                    placeholder={t('Task.Modal.taskNamePlaceholder')}
                                 />
                             </div>
                         )}
                     />
                     {errors.title && (
-                        <p className={styles.NewTaskModal__errorText}>
-                            {t(errors.title.message!)}
-                        </p>
+                        <p className={styles.NewTaskModal__errorText}>{t(errors.title.message!)}</p>
                     )}
                 </div>
 
@@ -135,9 +135,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                     value={value}
                                     onChange={onChange}
                                     variant={'filled'}
-                                    placeholder={t(
-                                        'Task.Modal.descriptionPlaceholder'
-                                    )}
+                                    placeholder={t('Task.Modal.descriptionPlaceholder')}
                                 />
                             </div>
                         )}
@@ -169,44 +167,33 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                 </label>
                                 <Select
                                     id={'project-select'}
-                                    options={[]}
-                                    value={value}
+                                    options={projectOptions}
+                                    value={value ?? undefined}
                                     onChange={onChange}
-                                    placeholder={t(
-                                        'Task.Modal.projectPlaceholder'
-                                    )}
-                                    emptyOptions={
-                                        <div
-                                            className={
-                                                styles.NewTaskModal__emptyOptionWrapper
-                                            }
-                                        >
+                                    onClear={() => onChange(null)}
+                                    placeholder={t('Task.Modal.projectPlaceholder')}
+                                    footer={
+                                        <div className={styles.NewTaskModal__emptyOptionWrapper}>
                                             {showProjectCreateForm ? (
                                                 <NewProjectForm
-                                                    onSubmit={
-                                                        handleCreateProject
-                                                    }
-                                                    onClose={
-                                                        handleHideProjectCreateForm
-                                                    }
+                                                    onSubmit={handleCreateProject}
+                                                    onClose={handleHideProjectCreateForm}
                                                 />
                                             ) : (
                                                 <>
                                                     <span
-                                                        className={
-                                                            styles.NewTaskModal__emptyOption
-                                                        }
+                                                        className={styles.NewTaskModal__emptyOption}
                                                     >
                                                         {t(
-                                                            'Task.Modal.noProjects'
+                                                            projects.length === 0
+                                                                ? 'Task.Modal.noProjects'
+                                                                : 'Task.Modal.createProject'
                                                         )}
                                                     </span>
                                                     <Plus
                                                         width={16}
                                                         height={16}
-                                                        onClick={
-                                                            handleShowProjectCreateForm
-                                                        }
+                                                        onClick={handleShowProjectCreateForm}
                                                     />
                                                 </>
                                             )}
@@ -239,9 +226,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                     options={PRIORITY}
                                     value={value}
                                     onChange={onChange}
-                                    placeholder={t(
-                                        'Task.Modal.priorityPlaceholder'
-                                    )}
+                                    placeholder={t('Task.Modal.priorityPlaceholder')}
                                     translatedLabel
                                 />
                             </div>
@@ -255,7 +240,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                 <Button onClick={props.onClose} variant={'outline'}>
                     <span>{t('General.cancel')}</span>
                 </Button>
-                <Button>
+                <Button type={'submit'}>
                     <span className={styles.NewTaskModal__buttonText}>
                         <Plus width={16} height={16} />
                         <span>{t('Task.Modal.createTask')}</span>
