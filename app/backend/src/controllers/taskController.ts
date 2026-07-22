@@ -48,11 +48,15 @@ const getTasks = async (req: Request, res: Response) => {
         });
     }
 
-    const { limit, offset } = parsedQuery.data;
+    const { limit, offset, priority, status } = parsedQuery.data;
 
     try {
         const tasks = await prisma.task.findMany({
-            where: { userId: req.user!.id },
+            where: {
+                userId: req.user!.id,
+                ...(priority && { priority }),
+                ...(status && { status }),
+            },
             orderBy: { createdAt: 'desc' },
             take: limit,
             skip: offset,
@@ -92,4 +96,61 @@ const getTasks = async (req: Request, res: Response) => {
     }
 };
 
-export { createTask, getTasks };
+const getTask = async (req: Request, res: Response) => {
+    const taskId = req.params.task;
+
+    if (typeof taskId !== 'string') {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    try {
+        const task = await prisma.task.findUnique({
+            where: { id: taskId },
+            select: {
+                id: true,
+                userId: true,
+                description: true,
+                priority: true,
+                project: {
+                    select: {
+                        id: true,
+                        label: true,
+                        color: true,
+                    },
+                },
+                tags: {
+                    select: {
+                        id: true,
+                        label: true,
+                        color: true,
+                    },
+                },
+                title: true,
+                status: true,
+                links: {
+                    select: {
+                        id: true,
+                        label: true,
+                        url: true,
+                    },
+                },
+            },
+        });
+
+        if (!task || task.userId !== req.user!.id) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { userId, ...taskData } = task;
+
+        return res.status(200).json({ status: 'success', data: taskData });
+    } catch {
+        return res.status(500).json({ message: 'Failed to get task' });
+    }
+};
+
+export { createTask, getTasks, getTask };
