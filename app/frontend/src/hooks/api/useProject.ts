@@ -7,8 +7,7 @@ export const useCreateProject = () => {
 
     return useMutation({
         mutationFn: projectApi.createProject,
-        onSuccess: () =>
-            queryClient.invalidateQueries({ queryKey: ['projects'] }),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['projects'] }),
     });
 };
 
