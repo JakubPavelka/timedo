@@ -113,7 +113,9 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                         )}
                     />
                     {errors.title && (
-                        <p className={styles.NewTaskModal__errorText}>{t(errors.title.message!)}</p>
+                        <p className={styles.NewTaskModal__errorText}>
+                            {t(errors.title.message!)}
+                        </p>
                     )}
                 </div>
 
@@ -173,7 +175,11 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                     onClear={() => onChange(null)}
                                     placeholder={t('Task.Modal.projectPlaceholder')}
                                     footer={
-                                        <div className={styles.NewTaskModal__emptyOptionWrapper}>
+                                        <div
+                                            className={
+                                                styles.NewTaskModal__emptyOptionWrapper
+                                            }
+                                        >
                                             {showProjectCreateForm ? (
                                                 <NewProjectForm
                                                     onSubmit={handleCreateProject}
@@ -182,7 +188,9 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                             ) : (
                                                 <>
                                                     <span
-                                                        className={styles.NewTaskModal__emptyOption}
+                                                        className={
+                                                            styles.NewTaskModal__emptyOption
+                                                        }
                                                     >
                                                         {t(
                                                             projects.length === 0
@@ -193,7 +201,9 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                                     <Plus
                                                         width={16}
                                                         height={16}
-                                                        onClick={handleShowProjectCreateForm}
+                                                        onClick={
+                                                            handleShowProjectCreateForm
+                                                        }
                                                     />
                                                 </>
                                             )}
