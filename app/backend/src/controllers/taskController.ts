@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import { prisma } from '../db/db.js';
-import { TaskSchema } from '@timedo/shared/src/schemas/taskSchema.js';
+import {
+    TaskSchema,
+    GetTasksQuerySchema,
+} from '@timedo/shared/src/schemas/taskSchema.js';
 
 const createTask = async (req: Request, res: Response) => {
     const parsedBody = TaskSchema.safeParse(req.body);
@@ -36,9 +39,23 @@ const createTask = async (req: Request, res: Response) => {
 };
 
 const getTasks = async (req: Request, res: Response) => {
+    const parsedQuery = GetTasksQuerySchema.safeParse(req.query);
+
+    if (!parsedQuery.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { limit, offset } = parsedQuery.data;
+
     try {
         const tasks = await prisma.task.findMany({
             where: { userId: req.user!.id },
+            orderBy: { createdAt: 'desc' },
+            take: limit,
+            skip: offset,
             select: {
                 id: true,
                 description: true,
