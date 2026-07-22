@@ -4,6 +4,9 @@ type Project = {
     id: string;
     label: string;
     color: string;
+    _count: {
+        tasks: number;
+    };
 };
 
 type ProjectStore = {
