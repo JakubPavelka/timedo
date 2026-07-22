@@ -15,10 +15,7 @@ export const Priority = {
 export type Priority = (typeof Priority)[keyof typeof Priority];
 
 export const TaskSchema = z.object({
-    title: z
-        .string()
-        .min(1, 'Validation.titleMin')
-        .max(255, 'Validation.titleMax'),
+    title: z.string().min(1, 'Validation.titleMin').max(255, 'Validation.titleMax'),
     description: z
         .string()
         .min(1, 'Validation.descriptionMin')
@@ -35,6 +32,8 @@ export type TaskData = z.infer<typeof TaskSchema>;
 export const GetTasksQuerySchema = z.object({
     limit: z.coerce.number().int().min(1).max(100).default(20),
     offset: z.coerce.number().int().min(0).default(0),
+    priority: z.enum(Priority).optional(),
+    status: z.enum(Status).optional(),
 });
 
 export type GetTasksQuery = z.infer<typeof GetTasksQuerySchema>;
