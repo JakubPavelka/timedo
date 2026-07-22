@@ -35,4 +35,44 @@ const createTask = async (req: Request, res: Response) => {
     }
 };
 
-export { createTask };
+const getTasks = async (req: Request, res: Response) => {
+    try {
+        const tasks = await prisma.task.findMany({
+            where: { userId: req.user!.id },
+            select: {
+                id: true,
+                description: true,
+                priority: true,
+                project: {
+                    select: {
+                        id: true,
+                        label: true,
+                        color: true,
+                    },
+                },
+                tags: {
+                    select: {
+                        id: true,
+                        label: true,
+                        color: true,
+                    },
+                },
+                title: true,
+                status: true,
+                links: {
+                    select: {
+                        id: true,
+                        label: true,
+                        url: true,
+                    },
+                },
+            },
+        });
+
+        return res.status(200).json({ status: 'success', data: tasks });
+    } catch {
+        return res.status(500).json({ message: 'Failed to get tasks' });
+    }
+};
+
+export { createTask, getTasks };
