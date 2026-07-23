@@ -9,6 +9,7 @@ const titlePaths: Record<string, string> = {
     '/dashboard': 'Sidebar.dashboard',
     '/dashboard/focus': 'Sidebar.focus',
     '/dashboard/tasks': 'Sidebar.tasks',
+    '/dashboard/tasks/$taskId': 'Task.detail',
     '/dashboard/calendar': 'Sidebar.calendar',
     '/dashboard/overview': 'Sidebar.overview',
     '/dashboard/profile': 'Sidebar.profile',
@@ -16,8 +17,10 @@ const titlePaths: Record<string, string> = {
 
 export const DashboardLayout = () => {
     const { t } = useTranslation();
-    const pathname = useRouterState({ select: (s) => s.location.pathname });
-    const title = titlePaths[pathname];
+    const routeId = useRouterState({
+        select: (s) => s.matches.at(-1)?.routeId,
+    });
+    const title = titlePaths[routeId ?? ''];
     useGetProjects();
 
     return (

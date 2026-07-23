@@ -130,6 +130,7 @@
         }
     },
     "Task": {
+        "detail": "Task detail",
         "searchTasks": "Search tasks...",
         "Status": {
             "active": "Active",

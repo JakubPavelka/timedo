@@ -130,6 +130,7 @@
         }
     },
     "Task": {
+        "detail": "Detail úkolu",
         "searchTasks": "Hledat úkoly...",
         "Status": {
             "active": "Aktivní",
