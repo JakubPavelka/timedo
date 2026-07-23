@@ -41,6 +41,14 @@
     }
 }
 
+.Checkbox--sm {
+    .Checkbox__box {
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+    }
+}
+
 .Checkbox__check {
     color: var(--white);
     opacity: 0;
