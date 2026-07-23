@@ -10,9 +10,31 @@ export const taskApi = {
             return response.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(
-                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
-                );
+                throw new ApiAuthError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+    getTasks: async (limit: string, offset: string) => {
+        try {
+            const response = await apiClient.get('/api/task', {
+                params: { limit, offset },
+            });
+            return response.data.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiAuthError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+    getTask: async (taskId: string) => {
+        try {
+            const response = await apiClient.get(`/api/task/${taskId}`);
+            return response.data.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiAuthError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }
