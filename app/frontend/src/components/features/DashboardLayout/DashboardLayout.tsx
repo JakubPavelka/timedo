@@ -8,7 +8,7 @@ import styles from './DashboardLayout.module.scss';
 const titlePaths: Record<string, string> = {
     '/dashboard': 'Sidebar.dashboard',
     '/dashboard/focus': 'Sidebar.focus',
-    '/dashboard/tasks': 'Sidebar.tasks',
+    '/dashboard/tasks/': 'Sidebar.tasks',
     '/dashboard/tasks/$taskId': 'Task.detail',
     '/dashboard/calendar': 'Sidebar.calendar',
     '/dashboard/overview': 'Sidebar.overview',
