@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { TaskView } from '@/views/Task/TaskView';
+import { TaskDetailView } from '@/views/Task/TaskDetailView';
 
 export const Route = createFileRoute('/dashboard/tasks/$taskId')({
-    component: TaskView,
+    component: TaskDetailView,
 });
