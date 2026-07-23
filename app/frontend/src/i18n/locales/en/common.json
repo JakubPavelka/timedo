@@ -143,6 +143,10 @@
             "mediumPriority": "Medium priority",
             "highPriority": "High priority"
         },
+        "Filter": {
+            "filter": "Filter",
+            "cancelFilter": "Clear filters"
+        },
         "Modal": {
             "taskName": "Task name",
             "taskNamePlaceholder": "e.g. Reply to client emails",

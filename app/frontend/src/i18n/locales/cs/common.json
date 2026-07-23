@@ -143,6 +143,10 @@
             "mediumPriority": "Střední priorita",
             "highPriority": "Vysoká priorita"
         },
+        "Filter": {
+            "filter": "Filtr",
+            "cancelFilter": "Zrušit filtry"
+        },
         "Modal": {
             "taskName": "Název úkolu",
             "taskNamePlaceholder": "Např. Odpovědět na e-maily od klientů",
