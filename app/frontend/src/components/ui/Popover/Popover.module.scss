@@ -1,0 +1,47 @@
+.Popover {
+    position: relative;
+    display: inline-block;
+}
+
+.Popover__trigger {
+    display: inline-flex;
+}
+
+.Popover__content {
+    position: absolute;
+    top: calc(100% + 6px);
+    z-index: 10;
+}
+
+.Popover__content--left {
+    left: 0;
+}
+
+.Popover__content--right {
+    right: 0;
+}
+
+.Popover__content--middle {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.Popover__panel {
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background-color: var(--surface);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.Popover__panel--left {
+    transform-origin: top left;
+}
+
+.Popover__panel--right {
+    transform-origin: top right;
+}
+
+.Popover__panel--middle {
+    transform-origin: top center;
+}

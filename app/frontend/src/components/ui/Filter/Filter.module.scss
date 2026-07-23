@@ -1,0 +1,7 @@
+@use 'styles/mixins/layout';
+
+.Filter__buttonWrapper {
+    @include layout.centerXY;
+    gap: 8px;
+    font-weight: 400;
+}
