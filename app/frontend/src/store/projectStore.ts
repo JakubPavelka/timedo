@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type Project = {
+export type Project = {
     id: string;
     label: string;
     color: string;
