@@ -141,7 +141,10 @@
         "Priority": {
             "lowPriority": "Low priority",
             "mediumPriority": "Medium priority",
-            "highPriority": "High priority"
+            "highPriority": "High priority",
+            "low": "Low",
+            "medium": "Medium",
+            "high": "High"
         },
         "Filter": {
             "filter": "Filter",

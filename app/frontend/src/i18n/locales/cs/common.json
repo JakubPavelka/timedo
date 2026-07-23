@@ -141,7 +141,10 @@
         "Priority": {
             "lowPriority": "Nízká priorita",
             "mediumPriority": "Střední priorita",
-            "highPriority": "Vysoká priorita"
+            "highPriority": "Vysoká priorita",
+            "low": "Nízká",
+            "medium": "Střední",
+            "high": "Vysoká"
         },
         "Filter": {
             "filter": "Filtr",
