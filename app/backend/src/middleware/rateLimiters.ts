@@ -81,3 +81,15 @@ export const readProjectsLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 200,
 });
+
+export const createTagLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 30,
+});
+
+export const readTagLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 100,
+});

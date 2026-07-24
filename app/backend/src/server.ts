@@ -8,6 +8,7 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
 import projectRoutes from './routes/projectRoutes.js';
+import tagRoutes from './routes/tagRoutes.js';
 
 const PORT = 3001;
 
@@ -29,6 +30,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/task', taskRoutes);
 app.use('/api/project', projectRoutes);
+app.use('/api/tag', tagRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello world');
