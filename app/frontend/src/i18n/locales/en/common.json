@@ -7,7 +7,9 @@
         "RATE_LIMITED": "Too many requests, please wait a moment and try again",
         "UNKNOWN_ERROR": "Something went wrong, please try again",
         "PROJECT_ALREADY_EXISTS": "A project with this name already exists",
-        "PROJECTS_LIMIT_REACHED": "You have reached the maximum limit of projects"
+        "PROJECTS_LIMIT_REACHED": "You have reached the maximum limit of projects",
+        "TAG_ALREADY_EXISTS": "A tag with this name already exists",
+        "TAGS_LIMIT_REACHED": "You have reached the maximum limit of tags"
     },
     "General": {
         "timeUnderControl": "Your time under control",

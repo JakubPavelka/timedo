@@ -7,7 +7,9 @@
         "RATE_LIMITED": "Příliš mnoho požadavků, zkuste to prosím za chvíli znovu",
         "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu",
         "PROJECT_ALREADY_EXISTS": "Projekt s tímto názvem již existuje",
-        "PROJECTS_LIMIT_REACHED": "Dosáhli jste maximálního počtu projektů"
+        "PROJECTS_LIMIT_REACHED": "Dosáhli jste maximálního počtu projektů",
+        "TAG_ALREADY_EXISTS": "Tag s tímto názvem již existuje",
+        "TAGS_LIMIT_REACHED": "Dosáhli jste maximálního počtu tagů"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",
