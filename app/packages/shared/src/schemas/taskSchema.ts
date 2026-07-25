@@ -25,6 +25,7 @@ export const TaskSchema = z.object({
     status: z.enum(Status).optional(),
     priority: z.enum(Priority).optional(),
     projectId: z.string().nullable().optional(),
+    tags: z.array(z.string()).optional(),
 });
 
 export type TaskData = z.infer<typeof TaskSchema>;
