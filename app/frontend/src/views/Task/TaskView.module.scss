@@ -1,0 +1,15 @@
+@use 'styles/mixins/layout';
+
+.TaskView {
+    padding: 24px;
+}
+
+.TaskView__tasksWrapper {
+    @include layout.flexColumn;
+    gap: 4px;
+    margin-block: 16px;
+}
+
+.TaskView__taskLink:hover {
+    text-decoration: none;
+}
