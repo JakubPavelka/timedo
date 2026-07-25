@@ -15,7 +15,7 @@ const createTask = async (req: Request, res: Response) => {
         });
     }
 
-    const { title, description, priority, projectId, status } = parsedBody.data;
+    const { title, description, priority, projectId, status, tags } = parsedBody.data;
 
     try {
         const createdTask = await prisma.task.create({
@@ -26,6 +26,7 @@ const createTask = async (req: Request, res: Response) => {
                 status,
                 projectId: projectId ?? undefined,
                 userId: req.user!.id,
+                tags: tags?.length ? { connect: tags.map((id) => ({ id })) } : undefined,
             },
         });
 
