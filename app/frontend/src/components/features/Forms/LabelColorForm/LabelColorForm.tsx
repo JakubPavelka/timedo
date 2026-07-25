@@ -5,20 +5,24 @@ import { Input } from '@/components/ui/Input/Input';
 import { HexColorPicker } from 'react-colorful';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-    ProjectSchema,
-    type ProjectData,
-} from '@timedo/shared/src/schemas/projectSchema';
+import type { ZodType } from 'zod';
 import { Button } from '@/components/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
-import styles from './NewProjectForm.module.scss';
+import styles from './LabelColorForm.module.scss';
 
-type NewProjectFormProps = {
-    onSubmit: (data: ProjectData) => void;
+type LabelColorData = {
+    label: string;
+    color: string;
+};
+
+type LabelColorFormProps = {
+    schema: ZodType<LabelColorData, LabelColorData>;
+    namePlaceholder: string;
+    onSubmit: (data: LabelColorData) => void;
     onClose: () => void;
 };
 
-type ProjectColorFieldProps = {
+type ColorFieldProps = {
     value: string;
     onChange: (color: string) => void;
 };
@@ -36,7 +40,7 @@ const PRESET_COLORS = [
     '#6B7280',
 ];
 
-const ProjectColorField = (props: ProjectColorFieldProps) => {
+const ColorField = (props: ColorFieldProps) => {
     const { t } = useTranslation();
     const [showCustomPicker, setShowCustomPicker] = useState(false);
 
@@ -49,23 +53,21 @@ const ProjectColorField = (props: ProjectColorFieldProps) => {
 
     return (
         <div>
-            <span className={styles.NewProjectForm__colorLabel}>
+            <span className={styles.LabelColorForm__colorLabel}>
                 {t('Task.Modal.selectColor')}
             </span>
-            <div className={styles.NewProjectForm__colorRow}>
+            <div className={styles.LabelColorForm__colorRow}>
                 {PRESET_COLORS.map((presetColor) => (
                     <button
                         key={presetColor}
                         type={'button'}
                         aria-label={presetColor}
-                        aria-pressed={
-                            !showCustomPicker && props.value === presetColor
-                        }
+                        aria-pressed={!showCustomPicker && props.value === presetColor}
                         className={clsx(
-                            styles.NewProjectForm__colorSwatch,
+                            styles.LabelColorForm__colorSwatch,
                             !showCustomPicker &&
                                 props.value === presetColor &&
-                                styles['NewProjectForm__colorSwatch--selected']
+                                styles['LabelColorForm__colorSwatch--selected']
                         )}
                         style={{ backgroundColor: presetColor }}
                         onClick={() => handleSelectPreset(presetColor)}
@@ -76,10 +78,10 @@ const ProjectColorField = (props: ProjectColorFieldProps) => {
                     aria-label={t('Task.Modal.customColor')}
                     aria-pressed={showCustomPicker}
                     className={clsx(
-                        styles.NewProjectForm__colorSwatch,
-                        styles.NewProjectForm__customColorButton,
+                        styles.LabelColorForm__colorSwatch,
+                        styles.LabelColorForm__customColorButton,
                         showCustomPicker &&
-                            styles['NewProjectForm__colorSwatch--selected']
+                            styles['LabelColorForm__colorSwatch--selected']
                     )}
                     onClick={handleShowCustomPicker}
                 >
@@ -90,22 +92,22 @@ const ProjectColorField = (props: ProjectColorFieldProps) => {
                 <HexColorPicker
                     color={props.value}
                     onChange={props.onChange}
-                    className={styles.NewProjectForm__colorPicker}
+                    className={styles.LabelColorForm__colorPicker}
                 />
             )}
         </div>
     );
 };
 
-export const NewProjectForm = (props: NewProjectFormProps) => {
+export const LabelColorForm = (props: LabelColorFormProps) => {
     const { t } = useTranslation();
 
     const {
         control,
         formState: { errors },
         handleSubmit,
-    } = useForm<ProjectData>({
-        resolver: zodResolver(ProjectSchema),
+    } = useForm<LabelColorData>({
+        resolver: zodResolver(props.schema),
         defaultValues: { color: PRESET_COLORS[0], label: '' },
         mode: 'onSubmit',
     });
@@ -113,23 +115,23 @@ export const NewProjectForm = (props: NewProjectFormProps) => {
     const onSubmitHandler = handleSubmit((data) => props.onSubmit(data));
 
     return (
-        <div className={styles.NewProjectForm}>
+        <div className={styles.LabelColorForm}>
             <div>
                 <Controller
                     name={'label'}
                     control={control}
                     render={({ field: { onChange, value } }) => (
                         <Input
-                            id={'project-input'}
-                            className={styles.NewProjectForm__input}
+                            id={'label-color-form-input'}
+                            className={styles.LabelColorForm__input}
                             value={value}
                             onChange={onChange}
-                            placeholder={t('Task.Modal.projectName')}
+                            placeholder={props.namePlaceholder}
                         />
                     )}
                 />
                 {errors.label && (
-                    <span className={styles.NewProjectForm__errorText}>
+                    <span className={styles.LabelColorForm__errorText}>
                         {t(errors.label.message!)}
                     </span>
                 )}
@@ -139,20 +141,20 @@ export const NewProjectForm = (props: NewProjectFormProps) => {
                 name={'color'}
                 control={control}
                 render={({ field: { onChange, value } }) => (
-                    <ProjectColorField value={value} onChange={onChange} />
+                    <ColorField value={value} onChange={onChange} />
                 )}
             />
 
-            <div className={styles.NewProjectForm__buttonsWrapper}>
+            <div className={styles.LabelColorForm__buttonsWrapper}>
                 <Button
-                    className={styles.NewProjectForm__button}
+                    className={styles.LabelColorForm__button}
                     variant={'outline'}
                     onClick={props.onClose}
                 >
                     {t('General.cancel')}
                 </Button>
                 <Button
-                    className={styles.NewProjectForm__button}
+                    className={styles.LabelColorForm__button}
                     onClick={onSubmitHandler}
                 >
                     {t('General.create')}

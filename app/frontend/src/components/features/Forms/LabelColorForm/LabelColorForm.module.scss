@@ -1,22 +1,22 @@
 @use 'styles/mixins/layout';
 @use 'styles/typography';
 
-.NewProjectForm {
+.LabelColorForm {
     @include layout.flexColumn;
     gap: 16px;
 }
 
-.NewProjectForm__buttonsWrapper {
+.LabelColorForm__buttonsWrapper {
     @include layout.centerY;
     justify-content: flex-end;
     gap: 8px;
 }
 
-.NewProjectForm__input {
+.LabelColorForm__input {
     height: 38px;
 }
 
-.NewProjectForm__button {
+.LabelColorForm__button {
     padding: 6px 12px;
 
     span {
@@ -25,24 +25,24 @@
     }
 }
 
-.NewProjectForm__errorText {
+.LabelColorForm__errorText {
     @include typography.text-error;
 }
 
-.NewProjectForm__colorLabel {
+.LabelColorForm__colorLabel {
     @include typography.text-xs(var(--text-3));
     display: block;
     margin-bottom: 8px;
 }
 
-.NewProjectForm__colorRow {
+.LabelColorForm__colorRow {
     @include layout.centerY;
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 8px;
 }
 
-.NewProjectForm__colorSwatch {
+.LabelColorForm__colorSwatch {
     @include layout.centerXY;
     width: 24px;
     height: 24px;
@@ -53,15 +53,15 @@
     color: var(--text);
 }
 
-.NewProjectForm__colorSwatch--selected {
+.LabelColorForm__colorSwatch--selected {
     border-color: var(--text);
 }
 
-.NewProjectForm__customColorButton {
+.LabelColorForm__customColorButton {
     background-color: var(--surface-2);
 }
 
-:global(.react-colorful).NewProjectForm__colorPicker {
+:global(.react-colorful).LabelColorForm__colorPicker {
     width: 160px;
     height: 160px;
     margin-inline: auto;
