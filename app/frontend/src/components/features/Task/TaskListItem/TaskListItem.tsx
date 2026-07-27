@@ -2,17 +2,15 @@ import { Priority } from '@timedo/shared/src/schemas/taskSchema';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { useTranslation } from 'react-i18next';
+import type { Tag } from '@/store/tagStore';
+import type { Project } from '@/store/projectStore';
 import styles from './TaskListItem.module.scss';
 
 type TaskListItem = {
     title: string;
     priority: Priority;
-    tags?: any[];
-    project?: {
-        label: string;
-        color: string;
-        id: string;
-    };
+    tags?: Tag[];
+    project?: Omit<Project, '_count'>;
 };
 
 export const TaskListItem = (props: TaskListItem) => {
@@ -29,7 +27,11 @@ export const TaskListItem = (props: TaskListItem) => {
                             {props.project.label}
                         </Pill>
                     )}
-                    {props?.tags}
+                    {props.tags?.map((tag) => (
+                        <Pill key={tag.id} hashtag variant={'colored'} color={tag.color}>
+                            {tag.label}
+                        </Pill>
+                    ))}
                     <Pill>
                         <span className={styles.TaskListItem__priorityPill}>
                             <PriorityIcon level={props.priority} />
