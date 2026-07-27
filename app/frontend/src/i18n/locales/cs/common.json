@@ -172,6 +172,11 @@
             "noProjects": "Žádné projekty",
             "createProject": "Vytvořit projekt",
             "projectName": "Název projektu",
+            "tagsPlaceholder": "Vyberte tagy",
+            "noTags": "Žádné tagy",
+            "createTag": "Vytvořit tag",
+            "createTagError": "Nepodařilo se vytvořit tag, zkuste to prosím znovu",
+            "tagName": "Název tagu",
             "selectColor": "Vyberte barvu",
             "customColor": "Vlastní barva"
         }

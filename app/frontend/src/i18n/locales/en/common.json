@@ -172,6 +172,11 @@
             "noProjects": "No projects",
             "createProject": "Create project",
             "projectName": "Project name",
+            "tagsPlaceholder": "Select tags",
+            "noTags": "No tags",
+            "createTag": "Create tag",
+            "createTagError": "Failed to create tag, please try again",
+            "tagName": "Tag name",
             "selectColor": "Select a color",
             "customColor": "Custom color"
         }
