@@ -1,7 +1,7 @@
 import { apiClient } from '../client';
 import type { ProjectData } from '@timedo/shared/src/schemas/projectSchema';
 import axios from 'axios';
-import { ApiAuthError } from '../auth/auth.api';
+import { ApiError } from '../ApiError';
 
 export const projectApi = {
     createProject: async (data: ProjectData) => {
@@ -10,7 +10,7 @@ export const projectApi = {
             return response.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(
+                throw new ApiError(
                     err.response?.data?.code ?? 'UNKNOWN_ERROR'
                 );
             }
@@ -23,7 +23,7 @@ export const projectApi = {
             return response.data.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(
+                throw new ApiError(
                     err.response?.data?.code ?? 'UNKNOWN_ERROR'
                 );
             }

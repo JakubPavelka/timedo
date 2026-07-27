@@ -9,7 +9,6 @@ import { Plus } from 'lucide-react';
 import { Select, type SelectOption } from '@/components/ui/Select/Select';
 import { Textarea } from '@/components/ui/Textarea/Textarea';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
-import clsx from 'clsx';
 import { useState } from 'react';
 import { LabelColorForm } from '../../Forms/LabelColorForm/LabelColorForm';
 import { ProjectSchema } from '@timedo/shared/src/schemas/projectSchema';
@@ -17,9 +16,10 @@ import { TagSchema, type TagData } from '@timedo/shared/src/schemas/tagsSchema';
 import { useCreateProject } from '@/hooks/api/useProject';
 import { useCreateTag } from '@/hooks/api/useTag';
 import { toast } from 'sonner';
-import { ApiAuthError } from '@/api/auth/auth.api';
+import { ApiError } from '@/api/ApiError';
 import { useProjectStore } from '@/store/projectStore';
 import { useTagStore } from '@/store/tagStore';
+import clsx from 'clsx';
 import styles from './NewTaskModal.module.scss';
 
 type NewTaskModalProps = {
@@ -91,7 +91,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
             },
             onError: (err) => {
                 toast.error(
-                    err instanceof ApiAuthError && err.code !== 'UNKNOWN_ERROR'
+                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
                         ? t(`BackendErrors.${err.code}`)
                         : t('Task.Modal.createProjectError')
                 );
@@ -107,7 +107,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
             },
             onError: (err) => {
                 toast.error(
-                    err instanceof ApiAuthError && err.code !== 'UNKNOWN_ERROR'
+                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
                         ? t(`BackendErrors.${err.code}`)
                         : t('Task.Modal.createTagError')
                 );

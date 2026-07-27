@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiClient } from '../client';
-import { ApiAuthError } from '../auth/auth.api';
+import { ApiError } from '../ApiError';
 import type { TaskData } from '@timedo/shared/src/schemas/taskSchema';
 
 export const taskApi = {
@@ -10,7 +10,7 @@ export const taskApi = {
             return response.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }
@@ -23,7 +23,7 @@ export const taskApi = {
             return response.data.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }
@@ -34,7 +34,7 @@ export const taskApi = {
             return response.data.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }

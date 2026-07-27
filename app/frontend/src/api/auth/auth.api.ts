@@ -5,14 +5,7 @@ import type {
     RegisterData,
 } from '@timedo/shared/src/schemas/authSchema';
 import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
-
-export class ApiAuthError extends Error {
-    readonly code: string;
-    constructor(code: string) {
-        super(code);
-        this.code = code;
-    }
-}
+import { ApiError } from '../ApiError';
 
 export const authApi = {
     register: async (
@@ -23,7 +16,7 @@ export const authApi = {
             return response.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(
+                throw new ApiError(
                     err.response?.data?.code ?? 'UNKNOWN_ERROR'
                 );
             }
@@ -37,7 +30,7 @@ export const authApi = {
             return response.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(
+                throw new ApiError(
                     err.response?.data?.code ?? 'UNKNOWN_ERROR'
                 );
             }
@@ -50,7 +43,7 @@ export const authApi = {
             await apiClient.post('/api/auth/logout');
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(
+                throw new ApiError(
                     err.response?.data?.code ?? 'UNKNOWN_ERROR'
                 );
             }
@@ -85,7 +78,7 @@ export const authApi = {
             return response.data.data.user;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiAuthError(
+                throw new ApiError(
                     err.response?.data?.code ?? 'UNKNOWN_ERROR'
                 );
             }

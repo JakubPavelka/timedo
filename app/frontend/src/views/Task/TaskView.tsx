@@ -5,7 +5,7 @@ import { Modal } from '@/components/ui/Modal/Modal';
 import { useCreateTask, useGetTasks } from '@/hooks/api/useTask';
 import type { TaskData } from '@timedo/shared/src/schemas/taskSchema';
 import { toast } from 'sonner';
-import { ApiAuthError } from '@/api/auth/auth.api';
+import { ApiError } from '@/api/ApiError';
 import { useTranslation } from 'react-i18next';
 import { useTaskStore } from '@/store/taskStore';
 import { TaskListItem } from '@/components/features/Task/TaskListItem/TaskListItem';
@@ -30,7 +30,7 @@ export const TaskView = () => {
             },
             onError: (err) =>
                 toast.error(
-                    err instanceof ApiAuthError && err.code !== 'UNKNOWN_ERROR'
+                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
                         ? t(`BackendErrors.${err.code}`)
                         : t('Task.Modal.createError')
                 ),
