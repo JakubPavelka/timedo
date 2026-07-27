@@ -11,11 +11,15 @@ import { Textarea } from '@/components/ui/Textarea/Textarea';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import clsx from 'clsx';
 import { useState } from 'react';
-import { NewProjectForm } from '../../Forms/NewProjectForm/NewProjectForm';
+import { LabelColorForm } from '../../Forms/LabelColorForm/LabelColorForm';
+import { ProjectSchema } from '@timedo/shared/src/schemas/projectSchema';
+import { TagSchema, type TagData } from '@timedo/shared/src/schemas/tagsSchema';
 import { useCreateProject } from '@/hooks/api/useProject';
+import { useCreateTag } from '@/hooks/api/useTag';
 import { toast } from 'sonner';
 import { ApiAuthError } from '@/api/auth/auth.api';
 import { useProjectStore } from '@/store/projectStore';
+import { useTagStore } from '@/store/tagStore';
 import styles from './NewTaskModal.module.scss';
 
 type NewTaskModalProps = {
@@ -44,12 +48,20 @@ const PRIORITY = [
 export const NewTaskModal = (props: NewTaskModalProps) => {
     const { t } = useTranslation();
     const { mutate: createProject } = useCreateProject();
+    const { mutate: createTag } = useCreateTag();
     const [showProjectCreateForm, setShowProjectCreateForm] = useState(false);
+    const [showTagCreateForm, setShowTagCreateForm] = useState(false);
     const projects = useProjectStore((s) => s.projects);
+    const tags = useTagStore((s) => s.tags);
     const projectOptions: SelectOption[] = projects.map((project) => ({
         value: project.id,
         label: project.label,
         color: project.color,
+    }));
+    const tagOptions: SelectOption[] = tags.map((tag) => ({
+        value: tag.id,
+        label: tag.label,
+        color: tag.color,
     }));
     const {
         control,
@@ -67,6 +79,8 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
 
     const handleShowProjectCreateForm = () => setShowProjectCreateForm(true);
     const handleHideProjectCreateForm = () => setShowProjectCreateForm(false);
+    const handleShowTagCreateForm = () => setShowTagCreateForm(true);
+    const handleHideTagCreateForm = () => setShowTagCreateForm(false);
 
     const handleOnSubmit = handleSubmit((data) => props.onSubmit(data));
     const handleCreateProject = (data: ProjectData) => {
@@ -80,6 +94,22 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                     err instanceof ApiAuthError && err.code !== 'UNKNOWN_ERROR'
                         ? t(`BackendErrors.${err.code}`)
                         : t('Task.Modal.createProjectError')
+                );
+            },
+        });
+    };
+
+    const handleCreateTag = (data: TagData) => {
+        return createTag(data, {
+            onSuccess: () => {
+                toast.success(t('Task.Modal.createSuccess'));
+                setShowTagCreateForm(false);
+            },
+            onError: (err) => {
+                toast.error(
+                    err instanceof ApiAuthError && err.code !== 'UNKNOWN_ERROR'
+                        ? t(`BackendErrors.${err.code}`)
+                        : t('Task.Modal.createTagError')
                 );
             },
         });
@@ -181,7 +211,11 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                             }
                                         >
                                             {showProjectCreateForm ? (
-                                                <NewProjectForm
+                                                <LabelColorForm
+                                                    schema={ProjectSchema}
+                                                    namePlaceholder={t(
+                                                        'Task.Modal.projectName'
+                                                    )}
                                                     onSubmit={handleCreateProject}
                                                     onClose={handleHideProjectCreateForm}
                                                 />
@@ -238,6 +272,69 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                     onChange={onChange}
                                     placeholder={t('Task.Modal.priorityPlaceholder')}
                                     translatedLabel
+                                />
+                            </div>
+                        )}
+                    />
+                </div>
+
+                {/* TAGS */}
+                <div>
+                    <Controller
+                        name={'tags'}
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <div className={styles.NewTaskModal__labelWrapper}>
+                                <label
+                                    className={styles.NewTaskModal__labelText}
+                                    htmlFor={'tag-select'}
+                                >
+                                    {t('Task.Modal.tags')}
+                                </label>
+                                <Select
+                                    multiple
+                                    id={'tag-select'}
+                                    options={tagOptions}
+                                    value={value}
+                                    onChange={onChange}
+                                    placeholder={t('Task.Modal.tagsPlaceholder')}
+                                    footer={
+                                        <div
+                                            className={
+                                                styles.NewTaskModal__emptyOptionWrapper
+                                            }
+                                        >
+                                            {showTagCreateForm ? (
+                                                <LabelColorForm
+                                                    schema={TagSchema}
+                                                    namePlaceholder={t(
+                                                        'Task.Modal.tagName'
+                                                    )}
+                                                    onSubmit={handleCreateTag}
+                                                    onClose={handleHideTagCreateForm}
+                                                />
+                                            ) : (
+                                                <>
+                                                    <span
+                                                        className={
+                                                            styles.NewTaskModal__emptyOption
+                                                        }
+                                                    >
+                                                        {t(
+                                                            tags.length === 0
+                                                                ? 'Task.Modal.noTags'
+                                                                : 'Task.Modal.createTag'
+                                                        )}
+                                                    </span>
+                                                    <Plus
+                                                        width={16}
+                                                        height={16}
+                                                        onClick={handleShowTagCreateForm}
+                                                    />
+                                                </>
+                                            )}
+                                        </div>
+                                    }
                                 />
                             </div>
                         )}
