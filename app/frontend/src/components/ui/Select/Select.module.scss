@@ -20,6 +20,11 @@
     }
 }
 
+.Select__trigger--hasPills {
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
 .Select__triggerContent {
     @include layout.centerY;
     gap: 8px;
@@ -35,6 +40,13 @@
 
 .Select__label--placeholder {
     color: var(--text-3);
+}
+
+.Select__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-width: 0;
 }
 
 .Select__actions {
