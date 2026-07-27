@@ -25,12 +25,7 @@ export const TaskListItem = (props: TaskListItem) => {
                 <span className={styles.TaskListItem__title}>{props.title}</span>
                 <div className={styles.TaskListItem__pillsWrapper}>
                     {props.project && (
-                        <Pill
-                            variant={'basic'}
-                            color={props.project.color}
-                            tone={'danger'}
-                            dot
-                        >
+                        <Pill variant={'basic'} color={props.project.color} dot>
                             {props.project.label}
                         </Pill>
                     )}
