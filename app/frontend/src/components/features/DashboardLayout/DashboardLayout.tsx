@@ -3,6 +3,7 @@ import { Outlet, useRouterState } from '@tanstack/react-router';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { useTranslation } from 'react-i18next';
 import { useGetProjects } from '@/hooks/api/useProject';
+import { useGetTags } from '@/hooks/api/useTag';
 import styles from './DashboardLayout.module.scss';
 
 const titlePaths: Record<string, string> = {
@@ -22,6 +23,7 @@ export const DashboardLayout = () => {
     });
     const title = titlePaths[routeId ?? ''];
     useGetProjects();
+    useGetTags();
 
     return (
         <div className={styles.DashboardLayout}>
