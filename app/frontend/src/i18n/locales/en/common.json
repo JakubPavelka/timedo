@@ -180,5 +180,11 @@
             "selectColor": "Select a color",
             "customColor": "Custom color"
         }
+    },
+    "TaskDetail": {
+        "backToTasks": "Back to tasks",
+        "description": "DESCRIPTION",
+        "links": "LINKS",
+        "timeTracking": "TIME TRACKING"
     }
 }

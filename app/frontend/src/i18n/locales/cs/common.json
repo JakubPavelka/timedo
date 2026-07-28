@@ -180,5 +180,11 @@
             "selectColor": "Vyberte barvu",
             "customColor": "Vlastní barva"
         }
+    },
+    "TaskDetail": {
+        "backToTasks": "Zpět na úkoly",
+        "description": "POPIS",
+        "links": "ODKAZY",
+        "timeTracking": "ZÁZNAMY ČASU"
     }
 }
