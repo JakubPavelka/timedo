@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { Status, Priority } from '@timedo/shared/src/schemas/taskSchema';
 
-type Task = {
+export type Task = {
     id: string;
     title: string;
     description: string | null;
