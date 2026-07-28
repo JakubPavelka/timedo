@@ -2,13 +2,13 @@ import { ExternalLink } from 'lucide-react';
 import styles from './LinkItem.module.scss';
 
 type LinkItemProps = {
-    link: string;
+    url: string;
     label: string;
 };
 
 export const LinkItem = (props: LinkItemProps) => (
     <a
-        href={props.link}
+        href={props.url}
         rel={'noopener noreferrer'}
         target={'_blank'}
         className={styles.LinkItem}
@@ -17,6 +17,6 @@ export const LinkItem = (props: LinkItemProps) => (
             <ExternalLink width={16} height={16} className={styles.LinkItem__icon} />
             <span className={styles.LinkItem__label}>{props.label}</span>
         </span>
-        <span className={styles.LinkItem__link}>{props.link}</span>
+        <span className={styles.LinkItem__link}>{props.url}</span>
     </a>
 );
