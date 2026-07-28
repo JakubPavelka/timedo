@@ -1,0 +1,47 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.LinkItem {
+    @include layout.spaceBetweenY;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    gap: 12px;
+
+    &:hover {
+        background-color: var(--surface-2);
+        border-color: var(--border-strong);
+    }
+}
+
+.LinkItem__leftWrapper {
+    @include layout.centerY;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+}
+
+.LinkItem__icon {
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.LinkItem__label {
+    @include typography.text-sm;
+    text-decoration: underline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.LinkItem__link {
+    @include typography.text-sm(var(--text-3));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 0;
+    max-width: 40%;
+}
