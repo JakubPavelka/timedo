@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { taskApi } from '@/api/task/task.api';
-import { useTaskStore } from '@/store/taskStore';
+import { useTaskStore, type Task } from '@/store/taskStore';
 
 export const useCreateTask = () => {
     const queryClient = useQueryClient();
@@ -31,7 +31,7 @@ export const useGetTasks = (limit: string, offset: string) => {
 export const useGetTask = (taskId: string) => {
     return useQuery({
         queryKey: ['task', taskId],
-        queryFn: () => taskApi.getTask(taskId),
+        queryFn: (): Promise<Task> => taskApi.getTask(taskId),
         retry: false,
     });
 };
