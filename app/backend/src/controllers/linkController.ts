@@ -31,6 +31,28 @@ const createLink = async (req: Request, res: Response) => {
     }
 };
 
+const getLinks = async (req: Request, res: Response) => {
+    try {
+        const { taskId } = req.params;
+
+        if (typeof taskId !== 'string') {
+            return res.status(400).json({
+                message: 'Task ID missing',
+                code: 'NO_TASKID',
+            });
+        }
+
+        const links = await prisma.link.findMany({
+            where: { taskId, userId: req.user!.id },
+            select: { label: true, url: true, id: true },
+        });
+
+        return res.status(200).json({ message: 'success', data: links });
+    } catch {
+        return res.status(500).json({ message: 'Failed to get links' });
+    }
+};
+
 const deleteLink = async (req: Request, res: Response) => {
     try {
         const body = req.body;
@@ -90,4 +112,4 @@ const updateLink = async (req: Request, res: Response) => {
     }
 };
 
-export { createLink, deleteLink, updateLink };
+export { createLink, deleteLink, updateLink, getLinks };
