@@ -99,3 +99,9 @@ export const createLinkLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 25,
 });
+
+export const deleteLinkLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 25,
+});
