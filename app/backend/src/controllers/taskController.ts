@@ -19,6 +19,29 @@ const createTask = async (req: Request, res: Response) => {
         parsedBody.data;
 
     try {
+        if (projectId) {
+            const project = await prisma.project.findUnique({
+                where: { id: projectId, userId: req.user!.id },
+                select: { id: true },
+            });
+
+            if (!project) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+        }
+
+        if (tags?.length) {
+            const uniqueTagIds = new Set(tags);
+
+            const ownedTagsCount = await prisma.taskTag.count({
+                where: { id: { in: tags }, userId: req.user!.id },
+            });
+
+            if (ownedTagsCount !== uniqueTagIds.size) {
+                return res.status(404).json({ message: 'Tag not found' });
+            }
+        }
+
         const createdTask = await prisma.task.create({
             data: {
                 title,

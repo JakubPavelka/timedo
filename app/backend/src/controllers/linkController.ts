@@ -14,6 +14,14 @@ const createLink = async (req: Request, res: Response) => {
             });
         }
 
+        const task = await prisma.task.findUnique({
+            where: { id: parsedBody.data.taskId },
+        });
+
+        if (!task || task.userId !== req.user!.id) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
         const { url, label } = parsedBody.data;
 
         const link = await prisma.link.create({
