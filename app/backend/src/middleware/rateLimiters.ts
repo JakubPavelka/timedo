@@ -93,3 +93,9 @@ export const readTagLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 100,
 });
+
+export const createLinkLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 25,
+});
