@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { LinkBaseSchema } from './linkSchema';
 
 export const Status = {
     TODO: 'TODO',
@@ -26,6 +27,7 @@ export const TaskSchema = z.object({
     priority: z.enum(Priority).optional(),
     projectId: z.string().nullable().optional(),
     tags: z.array(z.string()).optional(),
+    links: z.array(LinkBaseSchema).optional(),
 });
 
 export type TaskData = z.infer<typeof TaskSchema>;
