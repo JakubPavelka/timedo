@@ -75,3 +75,16 @@
         }
     }
 }
+
+.NewTaskModal__linkWrapper {
+    @include layout.centerY;
+    @include typography.text-md;
+    gap: 8px;
+    margin-top: 4px;
+    transition: color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--accent);
+    }
+}

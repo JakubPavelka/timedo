@@ -340,6 +340,17 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                         )}
                     />
                 </div>
+
+                {/* LINKS */}
+                <div>
+                    <label className={styles.NewTaskModal__labelText} htmlFor={'links'}>
+                        {t('Task.Modal.links')}
+                    </label>
+                    <div id={'links'} className={styles.NewTaskModal__linkWrapper}>
+                        <p>{t('Task.Modal.addLink')}</p>
+                        <Plus width={16} height={16} />
+                    </div>
+                </div>
             </div>
 
             {/* BUTTONS */}
