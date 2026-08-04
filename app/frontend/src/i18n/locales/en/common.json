@@ -9,7 +9,9 @@
         "PROJECT_ALREADY_EXISTS": "A project with this name already exists",
         "PROJECTS_LIMIT_REACHED": "You have reached the maximum limit of projects",
         "TAG_ALREADY_EXISTS": "A tag with this name already exists",
-        "TAGS_LIMIT_REACHED": "You have reached the maximum limit of tags"
+        "TAGS_LIMIT_REACHED": "You have reached the maximum limit of tags",
+        "NO_TASKID": "Task ID is missing",
+        "NO_LINKID": "Link ID is missing"
     },
     "General": {
         "timeUnderControl": "Your time under control",
@@ -46,7 +48,8 @@
         "descriptionMax": "Description cannot exceed 3000 characters",
         "labelMin": "Name must contain at least one character",
         "labelMax": "Name cannot exceed 50 characters",
-        "colorFormat": "Color must be a valid hex code (e.g. #FF0000)"
+        "colorFormat": "Color must be a valid hex code (e.g. #FF0000)",
+        "invalidUrl": "Invalid URL"
     },
     "RegisterForm": {
         "firstName": "First name",
@@ -178,7 +181,9 @@
             "createTagError": "Failed to create tag, please try again",
             "tagName": "Tag name",
             "selectColor": "Select a color",
-            "customColor": "Custom color"
+            "customColor": "Custom color",
+            "links": "Links",
+            "addLink": "Add link"
         }
     },
     "TaskDetail": {

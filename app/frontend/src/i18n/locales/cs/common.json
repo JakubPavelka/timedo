@@ -9,7 +9,9 @@
         "PROJECT_ALREADY_EXISTS": "Projekt s tímto názvem již existuje",
         "PROJECTS_LIMIT_REACHED": "Dosáhli jste maximálního počtu projektů",
         "TAG_ALREADY_EXISTS": "Tag s tímto názvem již existuje",
-        "TAGS_LIMIT_REACHED": "Dosáhli jste maximálního počtu tagů"
+        "TAGS_LIMIT_REACHED": "Dosáhli jste maximálního počtu tagů",
+        "NO_TASKID": "Chybí ID úkolu",
+        "NO_LINKID": "Chybí ID odkazu"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",
@@ -46,7 +48,8 @@
         "descriptionMax": "Popis nemůže obsahovat více než 3000 znaků",
         "labelMin": "Název musí obsahovat alespoň jeden znak",
         "labelMax": "Název nemůže obsahovat více než 50 znaků",
-        "colorFormat": "Barva musí být platný hex kód (např. #FF0000)"
+        "colorFormat": "Barva musí být platný hex kód (např. #FF0000)",
+        "invalidUrl": "Neplatná URL"
     },
     "RegisterForm": {
         "firstName": "Jméno",
@@ -178,7 +181,9 @@
             "createTagError": "Nepodařilo se vytvořit tag, zkuste to prosím znovu",
             "tagName": "Název tagu",
             "selectColor": "Vyberte barvu",
-            "customColor": "Vlastní barva"
+            "customColor": "Vlastní barva",
+            "links": "Odkazy",
+            "addLink": "Přidat odkaz"
         }
     },
     "TaskDetail": {
