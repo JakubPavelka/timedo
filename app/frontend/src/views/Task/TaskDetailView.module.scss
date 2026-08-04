@@ -1,0 +1,56 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.TaskDetailView {
+    padding: 24px;
+    display: flex;
+    gap: 24px;
+}
+
+.TaskDetailView__left {
+    width: 60%;
+}
+
+.TaskDetailView__right {
+    width: 40%;
+}
+
+.TaskDetailView__back {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.TaskDetailView__badges {
+    @include layout.centerY;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.TaskDetailView__priorityWrapper {
+    @include layout.centerXY;
+    gap: 5px;
+}
+
+.TaskDetailView__taskName {
+    @include typography.text-title;
+    margin-block: 16px;
+}
+
+.TaskDetailView__heading {
+    @include typography.text-sm(var(--text-2));
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.TaskDetailView__text {
+    @include typography.text-md;
+    font-weight: 400;
+}
+
+.TaskDetailView__linksWrapper {
+    @include layout.flexColumn;
+    gap: 4px;
+}
