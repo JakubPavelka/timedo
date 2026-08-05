@@ -183,7 +183,9 @@
             "selectColor": "Select a color",
             "customColor": "Custom color",
             "links": "Links",
-            "addLink": "Add link"
+            "addLink": "Add link",
+            "linkName": "Link name",
+            "linkUrl": "Link URL"
         }
     },
     "TaskDetail": {

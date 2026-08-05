@@ -183,7 +183,9 @@
             "selectColor": "Vyberte barvu",
             "customColor": "Vlastní barva",
             "links": "Odkazy",
-            "addLink": "Přidat odkaz"
+            "addLink": "Přidat odkaz",
+            "linkName": "Název linku",
+            "linkUrl": "URL linku"
         }
     },
     "TaskDetail": {
