@@ -8,6 +8,7 @@ import { Filter } from '@/components/ui/Filter/Filter';
 import { useProjectStore } from '@/store/projectStore';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
+import { useTaskFilter } from '@/hooks/useTaskFilter';
 
 type TaskHeader = {
     onNewTaskClick: () => void;
@@ -16,27 +17,39 @@ type TaskHeader = {
 export const TaskHeader = (props: TaskHeader) => {
     const { t } = useTranslation();
     const projects = useProjectStore((s) => s.projects);
+    const status = useTaskFilter((s) => s.status);
+    const setStatus = useTaskFilter((s) => s.setStatus);
+    const setPriority = useTaskFilter((s) => s.setPriority);
+    const priority = useTaskFilter((s) => s.priority) ?? [];
+
+    const handlePriorityToggle = (level: 'LOW' | 'MEDIUM' | 'HIGH') => {
+        setPriority(
+            priority.includes(level)
+                ? priority.filter((p) => p !== level)
+                : [...priority, level]
+        );
+    };
 
     const statusSegmentedData = [
         {
             title: t('Task.Status.all'),
-            isActive: true,
-            onClick: () => {},
+            isActive: status === undefined,
+            onClick: () => setStatus(undefined),
         },
         {
             title: t('Task.Status.active'),
-            isActive: false,
-            onClick: () => {},
+            isActive: status === 'ACTIVE',
+            onClick: () => setStatus('ACTIVE'),
         },
         {
             title: t('Task.Status.todo'),
-            isActive: false,
-            onClick: () => {},
+            isActive: status === 'TODO',
+            onClick: () => setStatus('TODO'),
         },
         {
             title: t('Task.Status.done'),
-            isActive: false,
-            onClick: () => {},
+            isActive: status === 'DONE',
+            onClick: () => setStatus('DONE'),
         },
     ];
 
@@ -70,6 +83,8 @@ export const TaskHeader = (props: TaskHeader) => {
                                         <p>{t('Task.Priority.low')}</p>
                                     </div>
                                 }
+                                checked={priority.includes('LOW')}
+                                onChange={() => handlePriorityToggle('LOW')}
                             />
                             <Checkbox
                                 size={'sm'}
@@ -81,6 +96,8 @@ export const TaskHeader = (props: TaskHeader) => {
                                         <p>{t('Task.Priority.medium')}</p>
                                     </div>
                                 }
+                                checked={priority.includes('MEDIUM')}
+                                onChange={() => handlePriorityToggle('MEDIUM')}
                             />
                             <Checkbox
                                 size={'sm'}
@@ -92,6 +109,8 @@ export const TaskHeader = (props: TaskHeader) => {
                                         <p>{t('Task.Priority.high')}</p>
                                     </div>
                                 }
+                                checked={priority.includes('HIGH')}
+                                onChange={() => handlePriorityToggle('HIGH')}
                             />
                         </div>
 

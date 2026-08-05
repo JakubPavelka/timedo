@@ -17,6 +17,8 @@ dotenv.config();
 
 const app = express();
 
+app.set('query parser', 'extended');
+
 app.use(
     cors({
         origin: process.env.CLIENT_URL,

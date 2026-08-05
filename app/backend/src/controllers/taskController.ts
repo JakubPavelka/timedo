@@ -110,7 +110,7 @@ const getTasks = async (req: Request, res: Response) => {
         const tasks = await prisma.task.findMany({
             where: {
                 userId: req.user!.id,
-                ...(priority && { priority }),
+                ...(priority?.length && { priority: { in: priority } }),
                 ...(status && { status }),
             },
             orderBy: { createdAt: 'desc' },

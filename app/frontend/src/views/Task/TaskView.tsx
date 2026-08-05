@@ -11,13 +11,16 @@ import { useTaskStore } from '@/store/taskStore';
 import { TaskListItem } from '@/components/features/Task/TaskListItem/TaskListItem';
 import styles from './TaskView.module.scss';
 import { Link } from '@tanstack/react-router';
+import { useTaskFilter } from '@/hooks/useTaskFilter';
 
 export const TaskView = () => {
     const { t } = useTranslation();
     const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
     const tasks = useTaskStore((s) => s.tasks);
     const { mutate: createTask } = useCreateTask();
-    useGetTasks('20', '0');
+    const status = useTaskFilter((s) => s.status);
+    const priority = useTaskFilter((s) => s.priority);
+    useGetTasks('20', '0', priority, status);
 
     const handleModalOpen = () => setNewTaskModalOpen(true);
     const handleModalClose = () => setNewTaskModalOpen(false);

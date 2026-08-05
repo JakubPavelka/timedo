@@ -14,13 +14,18 @@ export const useCreateTask = () => {
     });
 };
 
-export const useGetTasks = (limit: string, offset: string) => {
+export const useGetTasks = (
+    limit: string,
+    offset: string,
+    priority: string[] | undefined,
+    status: string | undefined
+) => {
     const setTasks = useTaskStore((s) => s.setTasks);
 
     return useQuery({
-        queryKey: ['tasks', limit, offset],
+        queryKey: ['tasks', limit, offset, priority, status],
         queryFn: async () => {
-            const tasks = await taskApi.getTasks(limit, offset);
+            const tasks = await taskApi.getTasks(limit, offset, priority, status);
             setTasks(tasks);
             return tasks;
         },

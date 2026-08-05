@@ -15,10 +15,15 @@ export const taskApi = {
             throw err;
         }
     },
-    getTasks: async (limit: string, offset: string) => {
+    getTasks: async (
+        limit: string,
+        offset: string,
+        priority: string[] | undefined,
+        status: string | undefined
+    ) => {
         try {
             const response = await apiClient.get('/api/task', {
-                params: { limit, offset },
+                params: { limit, offset, priority, status },
             });
             return response.data.data;
         } catch (err) {
