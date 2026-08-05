@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/Input/Input';
 import { Button } from '@/components/ui/Button/Button';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { TaskSchema, type TaskData } from '@timedo/shared/src/schemas/taskSchema';
+import { LinkBaseSchema } from '@timedo/shared/src/schemas/linkSchema';
 import type { ProjectData } from '@timedo/shared/src/schemas/projectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus } from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { Select, type SelectOption } from '@/components/ui/Select/Select';
 import { Textarea } from '@/components/ui/Textarea/Textarea';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
@@ -21,11 +22,14 @@ import { useProjectStore } from '@/store/projectStore';
 import { useTagStore } from '@/store/tagStore';
 import clsx from 'clsx';
 import styles from './NewTaskModal.module.scss';
+import { LinkItem } from '@/components/ui/LinkItem/LinkItem';
 
 type NewTaskModalProps = {
     onSubmit: (data: TaskData) => void;
     onClose: () => void;
 };
+
+const EMPTY_LINK_DRAFT = { label: '', url: '' };
 
 const PRIORITY = [
     {
@@ -51,6 +55,9 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
     const { mutate: createTag } = useCreateTag();
     const [showProjectCreateForm, setShowProjectCreateForm] = useState(false);
     const [showTagCreateForm, setShowTagCreateForm] = useState(false);
+    const [showLinkInput, setShowLinkInput] = useState(false);
+    const [draftLink, setDraftLink] = useState(EMPTY_LINK_DRAFT);
+    const [draftLinkError, setDraftLinkError] = useState<string>();
     const projects = useProjectStore((s) => s.projects);
     const tags = useTagStore((s) => s.tags);
     const projectOptions: SelectOption[] = projects.map((project) => ({
@@ -66,6 +73,8 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
     const {
         control,
         handleSubmit,
+        getValues,
+        setValue,
         formState: { errors },
     } = useForm<TaskData>({
         resolver: zodResolver(TaskSchema),
@@ -74,13 +83,47 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
             title: '',
             description: '',
             priority: 'LOW',
+            links: [],
         },
     });
+
+    const links = useWatch({ control, name: 'links' }) ?? [];
 
     const handleShowProjectCreateForm = () => setShowProjectCreateForm(true);
     const handleHideProjectCreateForm = () => setShowProjectCreateForm(false);
     const handleShowTagCreateForm = () => setShowTagCreateForm(true);
     const handleHideTagCreateForm = () => setShowTagCreateForm(false);
+    const handleHideLinkInput = () => {
+        setShowLinkInput(false);
+        setDraftLink(EMPTY_LINK_DRAFT);
+        setDraftLinkError(undefined);
+    };
+    const handleToggleLinkInput = () => setShowLinkInput((s) => !s);
+    const handleDraftLinkLabelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDraftLink((prev) => ({ ...prev, label: e.target.value }));
+    };
+    const handleDraftLinkUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDraftLink((prev) => ({ ...prev, url: e.target.value }));
+    };
+    const handleAddLink = () => {
+        const result = LinkBaseSchema.safeParse(draftLink);
+
+        if (!result.success) {
+            setDraftLinkError(result.error.issues[0].message);
+            return;
+        }
+
+        setValue('links', [...(getValues('links') ?? []), result.data]);
+        setDraftLink(EMPTY_LINK_DRAFT);
+        setDraftLinkError(undefined);
+        setShowLinkInput(false);
+    };
+    const handleRemoveLink = (index: number) => {
+        setValue(
+            'links',
+            (getValues('links') ?? []).filter((_, i) => i !== index)
+        );
+    };
 
     const handleOnSubmit = handleSubmit((data) => props.onSubmit(data));
     const handleCreateProject = (data: ProjectData) => {
@@ -346,7 +389,73 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                     <label className={styles.NewTaskModal__labelText} htmlFor={'links'}>
                         {t('Task.Modal.links')}
                     </label>
-                    <div id={'links'} className={styles.NewTaskModal__linkWrapper}>
+                    {links.length > 0 && (
+                        <div className={styles.NewTaskModal__createdLinkItemWrapper}>
+                            {links.map((link, index) => (
+                                <div
+                                    key={index}
+                                    className={styles.NewTaskModal__linkItemWrapper}
+                                >
+                                    <LinkItem label={link.label} url={link.url} />
+                                    <X
+                                        className={styles.NewTaskModal__closeLinkIcon}
+                                        onClick={() => handleRemoveLink(index)}
+                                        width={18}
+                                        height={18}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    {showLinkInput && (
+                        <div>
+                            <div
+                                className={clsx(
+                                    styles.NewTaskModal__halfInputWrapper,
+                                    styles.NewTaskModal__spacingLinks
+                                )}
+                            >
+                                <Input
+                                    variant={'filled'}
+                                    id={'link-name'}
+                                    className={styles.NewTaskModal__halfInput}
+                                    placeholder={t('Task.Modal.linkName')}
+                                    onChange={handleDraftLinkLabelChange}
+                                    value={draftLink.label}
+                                />{' '}
+                                <Input
+                                    variant={'filled'}
+                                    id={'link-url'}
+                                    className={styles.NewTaskModal__halfInput}
+                                    placeholder={t('Task.Modal.linkUrl')}
+                                    onChange={handleDraftLinkUrlChange}
+                                    value={draftLink.url}
+                                />
+                                <X
+                                    className={styles.NewTaskModal__closeLinkIcon}
+                                    onClick={handleHideLinkInput}
+                                    width={18}
+                                    height={18}
+                                />
+                                <Plus
+                                    className={styles.NewTaskModal__closeLinkIcon}
+                                    onClick={handleAddLink}
+                                    width={18}
+                                    height={18}
+                                />
+                            </div>
+                            {draftLinkError && (
+                                <p className={styles.NewTaskModal__errorText}>
+                                    {t(draftLinkError)}
+                                </p>
+                            )}
+                        </div>
+                    )}
+                    <div
+                        id={'links'}
+                        className={styles.NewTaskModal__linkWrapper}
+                        onClick={handleToggleLinkInput}
+                    >
                         <p>{t('Task.Modal.addLink')}</p>
                         <Plus width={16} height={16} />
                     </div>

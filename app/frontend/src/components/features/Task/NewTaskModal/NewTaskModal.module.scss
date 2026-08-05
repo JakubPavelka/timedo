@@ -83,8 +83,39 @@
     margin-top: 4px;
     transition: color 0.2s;
     cursor: pointer;
+    max-width: fit-content;
 
     &:hover {
         color: var(--accent);
     }
+}
+
+.NewTaskModal__spacingLinks {
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.NewTaskModal__closeLinkIcon {
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.NewTaskModal__linkItemWrapper {
+    @include layout.centerY;
+    gap: 8px;
+    margin-bottom: 8px;
+
+    a {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+.NewTaskModal__createdLinkItemWrapper {
+    margin-block: 4px;
 }
