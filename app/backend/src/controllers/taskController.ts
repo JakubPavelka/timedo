@@ -55,6 +55,34 @@ const createTask = async (req: Request, res: Response) => {
                     ? { create: links.map((link) => ({ ...link, userId: req.user!.id })) }
                     : undefined,
             },
+            select: {
+                id: true,
+                description: true,
+                priority: true,
+                project: {
+                    select: {
+                        id: true,
+                        label: true,
+                        color: true,
+                    },
+                },
+                tags: {
+                    select: {
+                        id: true,
+                        label: true,
+                        color: true,
+                    },
+                },
+                title: true,
+                status: true,
+                links: {
+                    select: {
+                        id: true,
+                        label: true,
+                        url: true,
+                    },
+                },
+            },
         });
 
         return res.status(201).json({
