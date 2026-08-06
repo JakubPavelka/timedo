@@ -9,18 +9,18 @@ import { ApiError } from '@/api/ApiError';
 import { useTranslation } from 'react-i18next';
 import { useTaskStore } from '@/store/taskStore';
 import { TaskListItem } from '@/components/features/Task/TaskListItem/TaskListItem';
-import styles from './TaskView.module.scss';
 import { Link } from '@tanstack/react-router';
-import { useTaskFilter } from '@/hooks/useTaskFilter';
+import { Route } from '@/routes/dashboard/tasks/index';
+import styles from './TaskView.module.scss';
 
 export const TaskView = () => {
     const { t } = useTranslation();
     const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
     const tasks = useTaskStore((s) => s.tasks);
     const { mutate: createTask } = useCreateTask();
-    const status = useTaskFilter((s) => s.status);
-    const priority = useTaskFilter((s) => s.priority);
-    useGetTasks('20', '0', priority, status);
+    const { priority, status } = Route.useSearch();
+    const priorityFilter = priority ? priority.split(',') : undefined;
+    useGetTasks('20', '0', priorityFilter, status);
 
     const handleModalOpen = () => setNewTaskModalOpen(true);
     const handleModalClose = () => setNewTaskModalOpen(false);

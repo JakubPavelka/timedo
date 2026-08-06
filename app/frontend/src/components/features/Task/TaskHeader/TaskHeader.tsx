@@ -2,13 +2,13 @@ import { Input } from '@/components/ui/Input/Input';
 import { SegmentedControl } from '@/components/ui/SegmentedControl/SegmentedControl';
 import { Button } from '@/components/ui/Button/Button';
 import { Plus, Search } from 'lucide-react';
-import styles from './TaskHeader.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Filter } from '@/components/ui/Filter/Filter';
 import { useProjectStore } from '@/store/projectStore';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
-import { useTaskFilter } from '@/hooks/useTaskFilter';
+import { Route } from '@/routes/dashboard/tasks/index';
+import styles from './TaskHeader.module.scss';
 
 type TaskHeader = {
     onNewTaskClick: () => void;
@@ -17,39 +17,47 @@ type TaskHeader = {
 export const TaskHeader = (props: TaskHeader) => {
     const { t } = useTranslation();
     const projects = useProjectStore((s) => s.projects);
-    const status = useTaskFilter((s) => s.status);
-    const setStatus = useTaskFilter((s) => s.setStatus);
-    const setPriority = useTaskFilter((s) => s.setPriority);
-    const priority = useTaskFilter((s) => s.priority) ?? [];
+    const { status, priority: priorityParam } = Route.useSearch();
+    const navigate = Route.useNavigate();
+    const priority = priorityParam ? priorityParam.split(',') : [];
 
     const handlePriorityToggle = (level: 'LOW' | 'MEDIUM' | 'HIGH') => {
-        setPriority(
-            priority.includes(level)
-                ? priority.filter((p) => p !== level)
-                : [...priority, level]
-        );
+        const nextPriority = priority.includes(level)
+            ? priority.filter((p) => p !== level)
+            : [...priority, level];
+
+        navigate({
+            search: (prev) => ({
+                ...prev,
+                priority: nextPriority.join(',') || undefined,
+            }),
+        });
+    };
+
+    const handleStatusChange = (nextStatus: string | undefined) => {
+        navigate({ search: (prev) => ({ ...prev, status: nextStatus }) });
     };
 
     const statusSegmentedData = [
         {
             title: t('Task.Status.all'),
             isActive: status === undefined,
-            onClick: () => setStatus(undefined),
+            onClick: () => handleStatusChange(undefined),
         },
         {
             title: t('Task.Status.active'),
             isActive: status === 'ACTIVE',
-            onClick: () => setStatus('ACTIVE'),
+            onClick: () => handleStatusChange('ACTIVE'),
         },
         {
             title: t('Task.Status.todo'),
             isActive: status === 'TODO',
-            onClick: () => setStatus('TODO'),
+            onClick: () => handleStatusChange('TODO'),
         },
         {
             title: t('Task.Status.done'),
             isActive: status === 'DONE',
-            onClick: () => setStatus('DONE'),
+            onClick: () => handleStatusChange('DONE'),
         },
     ];
 
