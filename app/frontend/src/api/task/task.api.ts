@@ -19,11 +19,12 @@ export const taskApi = {
         limit: string,
         offset: string,
         priority: string[] | undefined,
-        status: string | undefined
+        status: string | undefined,
+        project: string[] | undefined
     ) => {
         try {
             const response = await apiClient.get('/api/task', {
-                params: { limit, offset, priority, status },
+                params: { limit, offset, priority, status, project },
             });
             return response.data.data;
         } catch (err) {

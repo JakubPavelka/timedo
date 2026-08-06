@@ -37,6 +37,7 @@ export const GetTasksQuerySchema = z.object({
     offset: z.coerce.number().int().min(0).default(0),
     priority: z.array(z.enum(Priority)).optional(),
     status: z.enum(Status).optional(),
+    project: z.array(z.string()).optional(),
 });
 
 export type GetTasksQuery = z.infer<typeof GetTasksQuerySchema>;

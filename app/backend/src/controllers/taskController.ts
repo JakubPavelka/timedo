@@ -104,7 +104,7 @@ const getTasks = async (req: Request, res: Response) => {
         });
     }
 
-    const { limit, offset, priority, status } = parsedQuery.data;
+    const { limit, offset, priority, status, project } = parsedQuery.data;
 
     try {
         const tasks = await prisma.task.findMany({
@@ -112,6 +112,7 @@ const getTasks = async (req: Request, res: Response) => {
                 userId: req.user!.id,
                 ...(priority?.length && { priority: { in: priority } }),
                 ...(status && { status }),
+                ...(project?.length && { projectId: { in: project } }),
             },
             orderBy: { createdAt: 'desc' },
             take: limit,

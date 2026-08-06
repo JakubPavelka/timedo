@@ -18,9 +18,10 @@ export const TaskView = () => {
     const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
     const tasks = useTaskStore((s) => s.tasks);
     const { mutate: createTask } = useCreateTask();
-    const { priority, status } = Route.useSearch();
+    const { priority, status, project } = Route.useSearch();
     const priorityFilter = priority ? priority.split(',') : undefined;
-    useGetTasks('20', '0', priorityFilter, status);
+    const projectFilter = project ? project.split(',') : undefined;
+    useGetTasks('20', '0', priorityFilter, status, projectFilter);
 
     const handleModalOpen = () => setNewTaskModalOpen(true);
     const handleModalClose = () => setNewTaskModalOpen(false);

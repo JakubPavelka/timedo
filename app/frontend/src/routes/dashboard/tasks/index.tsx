@@ -6,6 +6,7 @@ export const Route = createFileRoute('/dashboard/tasks/')({
     validateSearch: z.object({
         priority: z.string().optional(),
         status: z.string().optional(),
+        project: z.string().optional(),
     }),
     component: TaskView,
 });

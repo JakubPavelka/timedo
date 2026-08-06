@@ -17,9 +17,10 @@ type TaskHeader = {
 export const TaskHeader = (props: TaskHeader) => {
     const { t } = useTranslation();
     const projects = useProjectStore((s) => s.projects);
-    const { status, priority: priorityParam } = Route.useSearch();
+    const { status, priority: priorityParam, project: projectParam } = Route.useSearch();
     const navigate = Route.useNavigate();
     const priority = priorityParam ? priorityParam.split(',') : [];
+    const project = projectParam ? projectParam.split(',') : [];
 
     const handlePriorityToggle = (level: 'LOW' | 'MEDIUM' | 'HIGH') => {
         const nextPriority = priority.includes(level)
@@ -30,6 +31,19 @@ export const TaskHeader = (props: TaskHeader) => {
             search: (prev) => ({
                 ...prev,
                 priority: nextPriority.join(',') || undefined,
+            }),
+        });
+    };
+
+    const handleProjectToggle = (proj: string) => {
+        const nextProject = project.includes(proj)
+            ? project.filter((p) => p !== proj)
+            : [...project, proj];
+
+        navigate({
+            search: (prev) => ({
+                ...prev,
+                project: nextProject.join(',') || undefined,
             }),
         });
     };
@@ -128,9 +142,9 @@ export const TaskHeader = (props: TaskHeader) => {
                             {t('Task.Modal.project')}
                         </p>
                         <div className={styles.TaskHeader__filterProjectWrapper}>
-                            {projects.map((project) => (
+                            {projects.map((proj) => (
                                 <Checkbox
-                                    key={project.id}
+                                    key={proj.id}
                                     label={
                                         <span
                                             className={
@@ -138,14 +152,16 @@ export const TaskHeader = (props: TaskHeader) => {
                                             }
                                         >
                                             <span
-                                                style={{ background: project.color }}
+                                                style={{ background: proj.color }}
                                                 className={
                                                     styles.TaskHeader__filterProjectDot
                                                 }
                                             />
-                                            {project.label}
+                                            {proj.label}
                                         </span>
                                     }
+                                    onClick={() => handleProjectToggle(proj.id)}
+                                    checked={project.includes(proj.id)}
                                 />
                             ))}
                         </div>
