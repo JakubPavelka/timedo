@@ -7,6 +7,7 @@ export const Route = createFileRoute('/dashboard/tasks/')({
         priority: z.string().optional(),
         status: z.string().optional(),
         project: z.string().optional(),
+        search: z.string().optional(),
     }),
     component: TaskView,
 });

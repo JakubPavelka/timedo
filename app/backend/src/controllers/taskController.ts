@@ -104,15 +104,26 @@ const getTasks = async (req: Request, res: Response) => {
         });
     }
 
-    const { limit, offset, priority, status, project } = parsedQuery.data;
+    const { limit, offset, priority, status, project, search } = parsedQuery.data;
 
     try {
+        const matchingTaskIds = search
+            ? (
+                  await prisma.$queryRaw<{ id: string }[]>`
+                      SELECT id FROM "Task"
+                      WHERE "userId" = ${req.user!.id}
+                        AND unaccent(title) ILIKE unaccent(${'%' + search + '%'})
+                  `
+              ).map((task) => task.id)
+            : undefined;
+
         const tasks = await prisma.task.findMany({
             where: {
                 userId: req.user!.id,
                 ...(priority?.length && { priority: { in: priority } }),
                 ...(status && { status }),
                 ...(project?.length && { projectId: { in: project } }),
+                ...(matchingTaskIds && { id: { in: matchingTaskIds } }),
             },
             orderBy: { createdAt: 'desc' },
             take: limit,

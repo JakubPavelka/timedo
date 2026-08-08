@@ -17,7 +17,12 @@ type TaskHeader = {
 export const TaskHeader = (props: TaskHeader) => {
     const { t } = useTranslation();
     const projects = useProjectStore((s) => s.projects);
-    const { status, priority: priorityParam, project: projectParam } = Route.useSearch();
+    const {
+        status,
+        priority: priorityParam,
+        project: projectParam,
+        search,
+    } = Route.useSearch();
     const navigate = Route.useNavigate();
     const priority = priorityParam ? priorityParam.split(',') : [];
     const project = projectParam ? projectParam.split(',') : [];
@@ -46,6 +51,10 @@ export const TaskHeader = (props: TaskHeader) => {
                 project: nextProject.join(',') || undefined,
             }),
         });
+    };
+
+    const handleSearch = (text: string) => {
+        navigate({ search: (prev) => ({ ...prev, search: text || undefined }) });
     };
 
     const handleStatusChange = (nextStatus: string | undefined) => {
@@ -83,6 +92,8 @@ export const TaskHeader = (props: TaskHeader) => {
                         id={'task-search'}
                         placeholder={t('Task.searchTasks')}
                         prefixIcon={<Search width={16} height={16} />}
+                        value={search ?? ''}
+                        onChange={(e) => handleSearch(e.target.value)}
                     />
                 </div>
 

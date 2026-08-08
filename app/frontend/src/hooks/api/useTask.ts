@@ -19,19 +19,21 @@ export const useGetTasks = (
     offset: string,
     priority: string[] | undefined,
     status: string | undefined,
-    project: string[] | undefined
+    project: string[] | undefined,
+    search: string | undefined
 ) => {
     const setTasks = useTaskStore((s) => s.setTasks);
 
     return useQuery({
-        queryKey: ['tasks', limit, offset, priority, status, project],
+        queryKey: ['tasks', limit, offset, priority, status, project, search],
         queryFn: async () => {
             const tasks = await taskApi.getTasks(
                 limit,
                 offset,
                 priority,
                 status,
-                project
+                project,
+                search
             );
             setTasks(tasks);
             return tasks;
