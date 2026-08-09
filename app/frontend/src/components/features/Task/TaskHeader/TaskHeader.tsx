@@ -171,7 +171,7 @@ export const TaskHeader = (props: TaskHeader) => {
                                             {proj.label}
                                         </span>
                                     }
-                                    onClick={() => handleProjectToggle(proj.id)}
+                                    onChange={() => handleProjectToggle(proj.id)}
                                     checked={project.includes(proj.id)}
                                 />
                             ))}
