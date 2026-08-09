@@ -8,6 +8,8 @@ import { useProjectStore } from '@/store/projectStore';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
 import { Route } from '@/routes/dashboard/tasks/index';
+import { useState, useEffect } from 'react';
+import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import styles from './TaskHeader.module.scss';
 
 type TaskHeader = {
@@ -26,6 +28,13 @@ export const TaskHeader = (props: TaskHeader) => {
     const navigate = Route.useNavigate();
     const priority = priorityParam ? priorityParam.split(',') : [];
     const project = projectParam ? projectParam.split(',') : [];
+    const [searchInput, setSearchInput] = useState(search ?? '');
+    const [prevSearch, setPrevSearch] = useState(search);
+    if (search !== prevSearch) {
+        setPrevSearch(search);
+        setSearchInput(search ?? '');
+    }
+    const debouncedSearch = useDebouncedValue(searchInput, 500);
 
     const handlePriorityToggle = (level: 'LOW' | 'MEDIUM' | 'HIGH') => {
         const nextPriority = priority.includes(level)
@@ -53,13 +62,16 @@ export const TaskHeader = (props: TaskHeader) => {
         });
     };
 
-    const handleSearch = (text: string) => {
-        navigate({ search: (prev) => ({ ...prev, search: text || undefined }) });
-    };
-
     const handleStatusChange = (nextStatus: string | undefined) => {
         navigate({ search: (prev) => ({ ...prev, status: nextStatus }) });
     };
+
+    useEffect(() => {
+        navigate({
+            search: (prev) => ({ ...prev, search: debouncedSearch || undefined }),
+            replace: true,
+        });
+    }, [debouncedSearch, navigate]);
 
     const statusSegmentedData = [
         {
@@ -92,8 +104,8 @@ export const TaskHeader = (props: TaskHeader) => {
                         id={'task-search'}
                         placeholder={t('Task.searchTasks')}
                         prefixIcon={<Search width={16} height={16} />}
-                        value={search ?? ''}
-                        onChange={(e) => handleSearch(e.target.value)}
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
                     />
                 </div>
 
