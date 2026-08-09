@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { prisma } from '../db/db.js';
+import { Prisma } from '../generated/prisma/client.js';
 import bcrypt from 'bcryptjs';
 import {
     RegisterPayloadSchema,
@@ -191,7 +192,19 @@ const refresh = async (req: Request, res: Response) => {
             });
         }
 
-        await prisma.refreshToken.delete({ where: { id: storedToken.id } });
+        try {
+            await prisma.refreshToken.delete({ where: { id: storedToken.id } });
+        } catch (err) {
+            if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+                res.clearCookie('accessToken');
+                res.clearCookie('refreshToken');
+                return res.status(401).json({
+                    message: 'Refresh token expired or invalid',
+                    code: 'REFRESH_TOKEN_INVALID',
+                });
+            }
+            throw err;
+        }
 
         const { token: newRefreshToken, expiresAt } = generateRefreshToken(res);
 
