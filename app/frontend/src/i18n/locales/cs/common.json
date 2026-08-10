@@ -11,7 +11,14 @@
         "TAG_ALREADY_EXISTS": "Tag s tímto názvem již existuje",
         "TAGS_LIMIT_REACHED": "Dosáhli jste maximálního počtu tagů",
         "NO_TASKID": "Chybí ID úkolu",
-        "NO_LINKID": "Chybí ID odkazu"
+        "NO_LINKID": "Chybí ID odkazu",
+        "TASK_NOT_FOUND": "Úkol nebyl nalezen",
+        "NO_ACCESS_TOKEN": "Nejste přihlášeni",
+        "NO_REFRESH_TOKEN": "Nejste přihlášeni",
+        "TOKEN_EXPIRED": "Vaše session vypršela, přihlaste se prosím znovu",
+        "INVALID_TOKEN": "Vaše session je neplatná, přihlaste se prosím znovu",
+        "REFRESH_TOKEN_INVALID": "Vaše session vypršela, přihlaste se prosím znovu",
+        "USER_NOT_FOUND": "Uživatel nebyl nalezen"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",

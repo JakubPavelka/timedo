@@ -11,7 +11,14 @@
         "TAG_ALREADY_EXISTS": "A tag with this name already exists",
         "TAGS_LIMIT_REACHED": "You have reached the maximum limit of tags",
         "NO_TASKID": "Task ID is missing",
-        "NO_LINKID": "Link ID is missing"
+        "NO_LINKID": "Link ID is missing",
+        "TASK_NOT_FOUND": "Task not found",
+        "NO_ACCESS_TOKEN": "Not authorized",
+        "NO_REFRESH_TOKEN": "Not authorized",
+        "TOKEN_EXPIRED": "Your session has expired, please sign in again",
+        "INVALID_TOKEN": "Your session is invalid, please sign in again",
+        "REFRESH_TOKEN_INVALID": "Your session has expired, please sign in again",
+        "USER_NOT_FOUND": "User not found"
     },
     "General": {
         "timeUnderControl": "Your time under control",
