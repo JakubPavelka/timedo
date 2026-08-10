@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { taskApi } from '@/api/task/task.api';
 import { useTaskStore, type Task } from '@/store/taskStore';
+import type { TaskData } from '@timedo/shared/src/schemas/taskSchema';
 
 export const useCreateTask = () => {
     const queryClient = useQueryClient();
@@ -47,5 +48,16 @@ export const useGetTask = (taskId: string) => {
         queryKey: ['task', taskId],
         queryFn: (): Promise<Task> => taskApi.getTask(taskId),
         retry: false,
+    });
+};
+
+export const useUpdateTask = (taskId: string) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (data: TaskData) => taskApi.updateTask(taskId, data),
+        onSuccess: (updated) => {
+            queryClient.setQueryData(['task', taskId], updated);
+        },
     });
 };

@@ -46,4 +46,15 @@ export const taskApi = {
             throw err;
         }
     },
+    updateTask: async (taskId: string, data: TaskData) => {
+        try {
+            const response = await apiClient.patch(`/api/task/${taskId}`, data);
+            return response.data.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
 };
