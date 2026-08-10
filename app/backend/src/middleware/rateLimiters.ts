@@ -70,6 +70,12 @@ export const readTaskLimiter = rateLimit({
     limit: 300,
 });
 
+export const updateTaskLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 50,
+});
+
 export const createProjectLimiter = rateLimit({
     ...commonOptions,
     windowMs: 15 * 60 * 1000, // 15min
