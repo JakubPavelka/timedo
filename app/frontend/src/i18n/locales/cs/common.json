@@ -199,6 +199,8 @@
         "backToTasks": "Zpět na úkoly",
         "description": "POPIS",
         "links": "ODKAZY",
-        "timeTracking": "ZÁZNAMY ČASU"
+        "timeTracking": "ZÁZNAMY ČASU",
+        "updateTitleError": "Nepodařilo se upravit název úkolu, zkuste to prosím znovu",
+        "updateTitleSuccess": "Název úkolu byl upraven"
     }
 }
