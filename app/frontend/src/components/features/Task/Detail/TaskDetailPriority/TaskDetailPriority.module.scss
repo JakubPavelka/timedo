@@ -12,7 +12,7 @@
 }
 
 .TaskDetailPriority__item {
-    @include typography.text-xs;
+    @include typography.text-sm;
     display: flex;
     align-items: center;
     gap: 8px;
