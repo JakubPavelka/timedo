@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
 import { useUpdateTask } from '@/hooks/api/useTask';
 import { PRIORITY } from '@/data/priorityData';
+import { toast } from 'sonner';
+import { ApiError } from '@/api/ApiError';
 import styles from './TaskDetailPriority.module.scss';
 
 type TaskDetailPriorityProps = {
@@ -27,7 +29,21 @@ export const TaskDetailPriority = (props: TaskDetailPriorityProps) => {
             return;
         }
 
-        updateTask({ priority });
+        updateTask(
+            { priority },
+            {
+                onSuccess: () => {
+                    toast.success(t('TaskDetail.updatePrioritySuccess'));
+                },
+                onError: (err) => {
+                    toast.error(
+                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
+                            ? t(`BackendErrors.${err.code}`)
+                            : t('TaskDetail.updatePriorityError')
+                    );
+                },
+            }
+        );
     };
 
     return (
