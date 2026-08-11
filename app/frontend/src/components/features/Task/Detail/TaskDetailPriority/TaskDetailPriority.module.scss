@@ -1,0 +1,27 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.TaskDetailView__priorityWrapper {
+    @include layout.centerXY;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.TaskDetailPriority__list {
+    min-width: 120px;
+}
+
+.TaskDetailPriority__item {
+    @include typography.text-xs;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--surface-2);
+    }
+}
