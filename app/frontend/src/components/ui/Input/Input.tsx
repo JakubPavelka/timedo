@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import styles from './Input.module.scss';
 import clsx from 'clsx';
 
-type InputVariant = 'default' | 'filled';
+type InputVariant = 'default' | 'filled' | 'ghost';
 
 type InputProps = {
     prefixIcon?: React.ReactNode;
+    suffixIcon?: React.ReactNode;
     variant?: InputVariant;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
@@ -15,6 +16,7 @@ const ICON_SIZE = 16;
 
 export const Input = ({
     prefixIcon,
+    suffixIcon,
     variant = 'default',
     type,
     disabled,
@@ -29,16 +31,8 @@ export const Input = ({
     const inputType = type === 'password' && showPassword ? 'text' : type;
 
     return (
-        <div
-            className={clsx(
-                styles.Input,
-                styles[`Input--${variant}`],
-                className
-            )}
-        >
-            {prefixIcon && (
-                <div className={styles.Input__prefixIcon}>{prefixIcon}</div>
-            )}
+        <div className={clsx(styles.Input, styles[`Input--${variant}`], className)}>
+            {prefixIcon && <div className={styles.Input__prefixIcon}>{prefixIcon}</div>}
             <input
                 className={clsx(
                     styles.Input__input,
@@ -54,9 +48,7 @@ export const Input = ({
                     type="button"
                     className={styles.Input__toggle}
                     aria-label={
-                        showPassword
-                            ? t('Input.hidePassword')
-                            : t('Input.showPassword')
+                        showPassword ? t('Input.hidePassword') : t('Input.showPassword')
                     }
                 >
                     {showPassword ? (
@@ -74,6 +66,7 @@ export const Input = ({
                     )}
                 </button>
             )}
+            {suffixIcon && <div className={styles.Input__suffixIcon}>{suffixIcon}</div>}
         </div>
     );
 };

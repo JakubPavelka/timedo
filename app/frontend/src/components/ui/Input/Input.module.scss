@@ -25,6 +25,22 @@
     }
 }
 
+.Input--ghost {
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.Input--ghost .Input__input {
+    padding: 0;
+}
+
+.Input--ghost .Input__input:disabled {
+    opacity: 1;
+    background-color: transparent;
+}
+
 .Input__input {
     @include typography.text-sm(var(--text));
     border: 0;
@@ -88,6 +104,13 @@
     @include layout.centerXY;
     color: var(--text-3);
     padding-left: 16px;
+}
+
+.Input__suffixIcon {
+    @include layout.centerXY;
+    color: var(--text-3);
+    padding-inline: 16px;
+    cursor: pointer;
 }
 
 .Input__icon {
