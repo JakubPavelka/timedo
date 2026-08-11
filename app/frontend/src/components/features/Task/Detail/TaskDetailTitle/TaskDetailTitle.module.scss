@@ -1,0 +1,23 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.TaskDetailTitle__taskName {
+    @include typography.text-title;
+    padding-block: 16px;
+    max-width: fit-content;
+    cursor: pointer;
+}
+
+.TaskDetailTitle__titleEditInput {
+    padding-block: 16px;
+}
+
+.TaskDetailTitle__titleEditInput input {
+    @include typography.text-title;
+}
+
+.TaskDetailTitle__titleError {
+    @include typography.text-error;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
