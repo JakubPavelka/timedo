@@ -9,7 +9,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, X } from 'lucide-react';
 import { Select, type SelectOption } from '@/components/ui/Select/Select';
 import { Textarea } from '@/components/ui/Textarea/Textarea';
-import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import { useState } from 'react';
 import { LabelColorForm } from '../../Forms/LabelColorForm/LabelColorForm';
 import { ProjectSchema } from '@timedo/shared/src/schemas/projectSchema';
@@ -21,8 +20,9 @@ import { ApiError } from '@/api/ApiError';
 import { useProjectStore } from '@/store/projectStore';
 import { useTagStore } from '@/store/tagStore';
 import clsx from 'clsx';
-import styles from './NewTaskModal.module.scss';
 import { LinkItem } from '@/components/ui/LinkItem/LinkItem';
+import { PRIORITY } from '@/data/priorityData';
+import styles from './NewTaskModal.module.scss';
 
 type NewTaskModalProps = {
     onSubmit: (data: TaskData) => void;
@@ -30,24 +30,6 @@ type NewTaskModalProps = {
 };
 
 const EMPTY_LINK_DRAFT = { label: '', url: '' };
-
-const PRIORITY = [
-    {
-        label: 'Task.Priority.lowPriority',
-        value: 'LOW',
-        icon: <PriorityIcon level={'LOW'} />,
-    },
-    {
-        label: 'Task.Priority.mediumPriority',
-        value: 'MEDIUM',
-        icon: <PriorityIcon level={'MEDIUM'} />,
-    },
-    {
-        label: 'Task.Priority.highPriority',
-        value: 'HIGH',
-        icon: <PriorityIcon level={'HIGH'} />,
-    },
-];
 
 export const NewTaskModal = (props: NewTaskModalProps) => {
     const { t } = useTranslation();
