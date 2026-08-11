@@ -42,18 +42,6 @@
     flex-grow: 1;
 }
 
-.TaskDetailView__priorityWrapper {
-    @include layout.centerXY;
-    gap: 5px;
-}
-
-.TaskDetailView__taskName {
-    @include typography.text-title;
-    padding-block: 16px;
-    max-width: fit-content;
-    cursor: pointer;
-}
-
 .TaskDetailView__heading {
     @include typography.text-sm(var(--text-2));
     font-weight: 700;
@@ -69,18 +57,4 @@
 .TaskDetailView__linksWrapper {
     @include layout.flexColumn;
     gap: 4px;
-}
-
-.TaskDetailView__titleEditInput {
-    margin-block: 12px;
-}
-
-.TaskDetailView__titleEditInput input {
-    @include typography.text-title;
-}
-
-.TaskDetailView__titleError {
-    @include typography.text-error;
-    margin-top: -8px;
-    margin-bottom: 8px;
 }
