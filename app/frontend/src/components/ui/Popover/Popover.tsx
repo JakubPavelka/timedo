@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import {
+    useEffect,
+    useImperativeHandle,
+    useRef,
+    useState,
+    type ReactNode,
+    type Ref,
+} from 'react';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'motion/react';
 import styles from './Popover.module.scss';
@@ -7,6 +14,11 @@ type PopoverProps = {
     trigger: ReactNode;
     children: ReactNode;
     align?: 'left' | 'right' | 'middle';
+    ref?: Ref<PopoverHandle>;
+};
+
+export type PopoverHandle = {
+    close: () => void;
 };
 
 const panelAnimation = {
@@ -16,9 +28,13 @@ const panelAnimation = {
     transition: { duration: 0.15 },
 };
 
-export const Popover = ({ trigger, children, align = 'left' }: PopoverProps) => {
+export const Popover = ({ trigger, children, align = 'left', ref }: PopoverProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
+
+    useImperativeHandle(ref, () => ({
+        close: () => setIsOpen(false),
+    }));
 
     useEffect(() => {
         if (!isOpen) {
@@ -41,7 +57,7 @@ export const Popover = ({ trigger, children, align = 'left' }: PopoverProps) => 
         };
     }, [isOpen]);
 
-    const handleToggle = () => setIsOpen((prev) => !prev);
+    const handleToggle = () => setIsOpen(!isOpen);
 
     return (
         <div className={styles.Popover} ref={wrapperRef}>
