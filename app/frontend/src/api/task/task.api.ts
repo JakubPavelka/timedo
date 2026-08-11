@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { apiClient } from '../client';
 import { ApiError } from '../ApiError';
-import type { TaskData } from '@timedo/shared/src/schemas/taskSchema';
+import type { TaskData, UpdateTaskData } from '@timedo/shared/src/schemas/taskSchema';
 
 export const taskApi = {
     createTask: async (data: TaskData) => {
@@ -46,7 +46,7 @@ export const taskApi = {
             throw err;
         }
     },
-    updateTask: async (taskId: string, data: TaskData) => {
+    updateTask: async (taskId: string, data: UpdateTaskData) => {
         try {
             const response = await apiClient.patch(`/api/task/${taskId}`, data);
             return response.data.data;
