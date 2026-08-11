@@ -204,6 +204,10 @@
         "updateTitleError": "Nepodařilo se upravit název úkolu, zkuste to prosím znovu",
         "updateTitleSuccess": "Název úkolu byl upraven",
         "updateDescriptionError": "Nepodařilo se upravit popis úkolu, zkuste to prosím znovu",
-        "updateDescriptionSuccess": "Popis úkolu byl upraven"
+        "updateDescriptionSuccess": "Popis úkolu byl upraven",
+        "updatePriorityError": "Nepodařilo se upravit prioritu úkolu, zkuste to prosím znovu",
+        "updatePrioritySuccess": "Priorita úkolu byla upravena",
+        "updateProjectError": "Nepodařilo se upravit projekt úkolu, zkuste to prosím znovu",
+        "updateProjectSuccess": "Projekt úkolu byl upraven"
     }
 }
