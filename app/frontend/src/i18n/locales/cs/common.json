@@ -198,6 +198,7 @@
     "TaskDetail": {
         "backToTasks": "Zpět na úkoly",
         "description": "POPIS",
+        "withoutDescription": "Bez popisu",
         "links": "ODKAZY",
         "timeTracking": "ZÁZNAMY ČASU",
         "updateTitleError": "Nepodařilo se upravit název úkolu, zkuste to prosím znovu",
