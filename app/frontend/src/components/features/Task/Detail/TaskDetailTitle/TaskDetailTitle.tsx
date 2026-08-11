@@ -38,6 +38,11 @@ export const TaskDetailTitle = (props: TaskDetailTitleProps) => {
             return;
         }
 
+        if (draft === props.title) {
+            cancelEditing();
+            return;
+        }
+
         const value = validate();
 
         if (value === undefined) {
