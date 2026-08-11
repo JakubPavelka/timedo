@@ -201,6 +201,8 @@
         "links": "ODKAZY",
         "timeTracking": "ZÁZNAMY ČASU",
         "updateTitleError": "Nepodařilo se upravit název úkolu, zkuste to prosím znovu",
-        "updateTitleSuccess": "Název úkolu byl upraven"
+        "updateTitleSuccess": "Název úkolu byl upraven",
+        "updateDescriptionError": "Nepodařilo se upravit popis úkolu, zkuste to prosím znovu",
+        "updateDescriptionSuccess": "Popis úkolu byl upraven"
     }
 }

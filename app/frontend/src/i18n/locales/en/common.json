@@ -201,6 +201,8 @@
         "links": "LINKS",
         "timeTracking": "TIME TRACKING",
         "updateTitleError": "Failed to update task title, please try again",
-        "updateTitleSuccess": "Task title updated"
+        "updateTitleSuccess": "Task title updated",
+        "updateDescriptionError": "Failed to update task description, please try again",
+        "updateDescriptionSuccess": "Task description updated"
     }
 }
