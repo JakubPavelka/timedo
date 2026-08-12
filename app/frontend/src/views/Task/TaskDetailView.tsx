@@ -4,12 +4,12 @@ import { Link } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/$taskId';
 import { useGetTask } from '@/hooks/api/useTask';
 import { Pill } from '@/components/ui/Pill/Pill';
-import { LinkItem } from '@/components/ui/LinkItem/LinkItem';
-import styles from './TaskDetailView.module.scss';
 import { TaskDetailTitle } from '@/components/features/Task/Detail/TaskDetailTitle/TaskDetailTitle';
 import { TaskDetailDescription } from '@/components/features/Task/Detail/TaskDetailDescription/TaskDetailDescription';
 import { TaskDetailPriority } from '@/components/features/Task/Detail/TaskDetailPriority/TaskDetailPriority';
 import { TaskDetailProject } from '@/components/features/Task/Detail/TaskDetailProject/TaskDetailProject';
+import { TaskDetailLink } from '@/components/features/Task/Detail/TaskDetailLink/TaskDetailLink';
+import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
     const { t } = useTranslation();
@@ -26,10 +26,7 @@ export const TaskDetailView = () => {
                 {(task?.project || task?.priority) && (
                     <div className={styles.TaskDetailView__badges}>
                         {task.project && (
-                            <TaskDetailProject
-                                taskId={taskId}
-                                project={task.project}
-                            />
+                            <TaskDetailProject taskId={taskId} project={task.project} />
                         )}
                         {task.priority && (
                             <TaskDetailPriority
@@ -65,21 +62,9 @@ export const TaskDetailView = () => {
                         />
                     </>
                 )}
-                {(task?.links.length ?? 0) > 0 && (
-                    <>
-                        <p className={styles.TaskDetailView__heading}>
-                            {t('TaskDetail.links')}
-                        </p>
-                        <div className={styles.TaskDetailView__linksWrapper}>
-                            {task?.links.map((link) => (
-                                <LinkItem
-                                    key={link.id}
-                                    url={link.url}
-                                    label={link.label}
-                                />
-                            ))}
-                        </div>
-                    </>
+                <p className={styles.TaskDetailView__heading}>{t('TaskDetail.links')}</p>
+                {task?.links !== undefined && (
+                    <TaskDetailLink taskId={taskId} links={task?.links ?? []} />
                 )}
             </div>
             <div className={styles.TaskDetailView__right}></div>

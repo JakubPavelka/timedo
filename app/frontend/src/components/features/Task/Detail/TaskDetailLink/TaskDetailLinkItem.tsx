@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { Check, Edit, X } from 'lucide-react';
+import { Edit, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { LinkBaseSchema } from '@timedo/shared/src/schemas/linkSchema';
 import { LinkItem } from '@/components/ui/LinkItem/LinkItem';
-import { Input } from '@/components/ui/Input/Input';
 import { useEditableField } from '@/hooks/useEditableField';
 import { useUpdateTask } from '@/hooks/api/useTask';
 import { ApiError } from '@/api/ApiError';
+import { TaskDetailLinkEditRow } from './TaskDetailLinkEditRow';
 import styles from './TaskDetailLink.module.scss';
 
 type Link = { id: string; label: string; url: string };
@@ -118,42 +118,16 @@ export const TaskDetailLinkItem = (props: TaskDetailLinkItemProps) => {
 
     if (isEditing) {
         return (
-            <div>
-                <div className={styles.TaskDetailLink__editInputs}>
-                    <Input
-                        className={styles.TaskDetailLink__editInput}
-                        value={draft.label}
-                        onChange={handleLabelChange}
-                        onKeyDown={handleKeyDown}
-                        placeholder={t('Task.Modal.linkName')}
-                        variant={'filled'}
-                        disabled={isPending}
-                        autoFocus
-                    />
-                    <Input
-                        className={styles.TaskDetailLink__editInput}
-                        value={draft.url}
-                        onChange={handleUrlChange}
-                        onKeyDown={handleKeyDown}
-                        placeholder={t('Task.Modal.linkUrl')}
-                        variant={'filled'}
-                        disabled={isPending}
-                    />
-                    <X
-                        className={styles.TaskDetailLink__actionIcon}
-                        onClick={cancelEditing}
-                        width={18}
-                        height={18}
-                    />
-                    <Check
-                        className={styles.TaskDetailLink__actionIcon}
-                        onClick={handleSubmitLink}
-                        width={18}
-                        height={18}
-                    />
-                </div>
-                {error && <p className={styles.TaskDetailLink__error}>{t(error)}</p>}
-            </div>
+            <TaskDetailLinkEditRow
+                draft={draft}
+                error={error}
+                isPending={isPending}
+                onLabelChange={handleLabelChange}
+                onUrlChange={handleUrlChange}
+                onKeyDown={handleKeyDown}
+                onCancel={cancelEditing}
+                onSubmit={handleSubmitLink}
+            />
         );
     }
 

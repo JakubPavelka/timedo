@@ -1,11 +1,15 @@
 @use 'styles/mixins/layout';
 @use 'styles/typography';
 
+.TaskDetailLink {
+    @include layout.flexColumn;
+    gap: 10px;
+}
+
 .TaskDetailLink__addLinkWrapper {
     @include layout.centerY;
     @include typography.text-md;
     gap: 8px;
-    margin-top: 12px;
     transition: color 0.2s;
     cursor: pointer;
     max-width: fit-content;
