@@ -94,7 +94,7 @@ export const TaskDetailDescription = (props: TaskDetailDescriptionProps) => {
                 <p onClick={startEditing} className={styles.TaskDetailDescription__text}>
                     {props.description || (
                         <span className={styles.TaskDetailDescription__emptyTextWrapper}>
-                            {t('TaskDetail.withoutDescription')}
+                            {t('TaskDetail.addDescription')}
                             <Plus width={16} height={16} />
                         </span>
                     )}
