@@ -214,6 +214,8 @@
         "deleteLinkError": "Failed to delete link, please try again",
         "deleteLinkSuccess": "Link deleted",
         "addLinkError": "Failed to add link, please try again",
-        "addLinkSuccess": "Link added"
+        "addLinkSuccess": "Link added",
+        "updateTagsError": "Failed to update tags, please try again",
+        "updateTagsSuccess": "Tags updated"
     }
 }

@@ -214,6 +214,8 @@
         "deleteLinkError": "Nepodařilo se smazat odkaz, zkuste to prosím znovu",
         "deleteLinkSuccess": "Odkaz byl smazán",
         "addLinkError": "Nepodařilo se přidat odkaz, zkuste to prosím znovu",
-        "addLinkSuccess": "Odkaz byl přidán"
+        "addLinkSuccess": "Odkaz byl přidán",
+        "updateTagsError": "Nepodařilo se upravit tagy, zkuste to prosím znovu",
+        "updateTagsSuccess": "Tagy byly upraveny"
     }
 }
