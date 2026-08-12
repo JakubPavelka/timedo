@@ -198,7 +198,7 @@
     "TaskDetail": {
         "backToTasks": "Back to tasks",
         "description": "DESCRIPTION",
-        "withoutDescription": "Without description",
+        "addDescription": "Add description",
         "links": "LINKS",
         "timeTracking": "TIME TRACKING",
         "updateTitleError": "Failed to update task title, please try again",
