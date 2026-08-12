@@ -210,6 +210,8 @@
         "updateProjectError": "Nepodařilo se upravit projekt úkolu, zkuste to prosím znovu",
         "updateProjectSuccess": "Projekt úkolu byl upraven",
         "updateLinkError": "Nepodařilo se upravit odkaz, zkuste to prosím znovu",
-        "updateLinkSuccess": "Odkaz byl upraven"
+        "updateLinkSuccess": "Odkaz byl upraven",
+        "deleteLinkError": "Nepodařilo se smazat odkaz, zkuste to prosím znovu",
+        "deleteLinkSuccess": "Odkaz byl smazán"
     }
 }

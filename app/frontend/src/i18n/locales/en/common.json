@@ -210,6 +210,8 @@
         "updateProjectError": "Failed to update task project, please try again",
         "updateProjectSuccess": "Task project updated",
         "updateLinkError": "Failed to update link, please try again",
-        "updateLinkSuccess": "Link updated"
+        "updateLinkSuccess": "Link updated",
+        "deleteLinkError": "Failed to delete link, please try again",
+        "deleteLinkSuccess": "Link deleted"
     }
 }
