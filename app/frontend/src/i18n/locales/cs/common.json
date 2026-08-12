@@ -208,6 +208,8 @@
         "updatePriorityError": "Nepodařilo se upravit prioritu úkolu, zkuste to prosím znovu",
         "updatePrioritySuccess": "Priorita úkolu byla upravena",
         "updateProjectError": "Nepodařilo se upravit projekt úkolu, zkuste to prosím znovu",
-        "updateProjectSuccess": "Projekt úkolu byl upraven"
+        "updateProjectSuccess": "Projekt úkolu byl upraven",
+        "updateLinkError": "Nepodařilo se upravit odkaz, zkuste to prosím znovu",
+        "updateLinkSuccess": "Odkaz byl upraven"
     }
 }

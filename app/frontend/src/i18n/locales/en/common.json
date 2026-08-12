@@ -208,6 +208,8 @@
         "updatePriorityError": "Failed to update task priority, please try again",
         "updatePrioritySuccess": "Task priority updated",
         "updateProjectError": "Failed to update task project, please try again",
-        "updateProjectSuccess": "Task project updated"
+        "updateProjectSuccess": "Task project updated",
+        "updateLinkError": "Failed to update link, please try again",
+        "updateLinkSuccess": "Link updated"
     }
 }
