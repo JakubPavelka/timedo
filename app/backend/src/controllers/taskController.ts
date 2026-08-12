@@ -244,12 +244,15 @@ const updateTask = async (req: Request, res: Response) => {
             });
         }
 
-        const { title, description, priority, status, projectId, tags } = parsedBody.data;
+        const { title, description, priority, status, projectId, tags, links } =
+            parsedBody.data;
 
         const task = await prisma.task.findUnique({ where: { id: taskId } });
 
         if (!task || task.userId !== req.user!.id) {
-            return res.status(404).json({ message: 'Task not found', code: 'TASK_NOT_FOUND' });
+            return res
+                .status(404)
+                .json({ message: 'Task not found', code: 'TASK_NOT_FOUND' });
         }
 
         if (projectId) {
@@ -284,6 +287,12 @@ const updateTask = async (req: Request, res: Response) => {
                 priority,
                 ...(projectId !== undefined && { projectId }),
                 ...(tags !== undefined && { tags: { set: tags.map((id) => ({ id })) } }),
+                ...(links !== undefined && {
+                    links: {
+                        deleteMany: {},
+                        create: links.map((link) => ({ ...link, userId: req.user!.id })),
+                    },
+                }),
             },
             select: {
                 id: true,
