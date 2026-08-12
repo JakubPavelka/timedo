@@ -212,6 +212,8 @@
         "updateLinkError": "Nepodařilo se upravit odkaz, zkuste to prosím znovu",
         "updateLinkSuccess": "Odkaz byl upraven",
         "deleteLinkError": "Nepodařilo se smazat odkaz, zkuste to prosím znovu",
-        "deleteLinkSuccess": "Odkaz byl smazán"
+        "deleteLinkSuccess": "Odkaz byl smazán",
+        "addLinkError": "Nepodařilo se přidat odkaz, zkuste to prosím znovu",
+        "addLinkSuccess": "Odkaz byl přidán"
     }
 }

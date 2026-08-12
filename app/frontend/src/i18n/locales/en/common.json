@@ -212,6 +212,8 @@
         "updateLinkError": "Failed to update link, please try again",
         "updateLinkSuccess": "Link updated",
         "deleteLinkError": "Failed to delete link, please try again",
-        "deleteLinkSuccess": "Link deleted"
+        "deleteLinkSuccess": "Link deleted",
+        "addLinkError": "Failed to add link, please try again",
+        "addLinkSuccess": "Link added"
     }
 }
