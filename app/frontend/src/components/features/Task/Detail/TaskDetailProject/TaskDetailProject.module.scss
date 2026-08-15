@@ -1,4 +1,5 @@
 @use 'styles/typography';
+@use 'styles/mixins/layout';
 
 .TaskDetailProject {
     cursor: pointer;
@@ -60,4 +61,16 @@
 .TaskDetailProject__createProjectText {
     @include typography.text-sm(inherit);
     white-space: nowrap;
+}
+
+.TaskDetailProject__noProjectWrapper {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    gap: 3px;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--accent);
+    }
 }

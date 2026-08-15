@@ -23,19 +23,12 @@ export const TaskDetailView = () => {
                     <ArrowLeft width={16} height={16} />
                     <span>{t('TaskDetail.backToTasks')}</span>
                 </Link>
-                {(task?.project || task?.priority) && (
-                    <div className={styles.TaskDetailView__badges}>
-                        {task.project && (
-                            <TaskDetailProject taskId={taskId} project={task.project} />
-                        )}
-                        {task.priority && (
-                            <TaskDetailPriority
-                                taskId={taskId}
-                                priority={task?.priority}
-                            />
-                        )}
-                    </div>
-                )}
+                <div className={styles.TaskDetailView__badges}>
+                    <TaskDetailProject taskId={taskId} project={task?.project ?? null} />
+                    {task?.priority && (
+                        <TaskDetailPriority taskId={taskId} priority={task.priority} />
+                    )}
+                </div>
                 <TaskDetailTitle taskId={taskId} title={task?.title ?? ''} />
 
                 <TaskDetailTags taskId={taskId} tags={task?.tags ?? []} />

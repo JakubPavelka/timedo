@@ -8,7 +8,10 @@ import { useProjectStore } from '@/store/projectStore';
 import { toast } from 'sonner';
 import { ApiError } from '@/api/ApiError';
 import { LabelColorForm } from '@/components/features/Forms/LabelColorForm/LabelColorForm';
-import { ProjectSchema, type ProjectData } from '@timedo/shared/src/schemas/projectSchema';
+import {
+    ProjectSchema,
+    type ProjectData,
+} from '@timedo/shared/src/schemas/projectSchema';
 import { useCreateProject } from '@/hooks/api/useProject';
 import clsx from 'clsx';
 import styles from './TaskDetailProject.module.scss';
@@ -18,7 +21,7 @@ type TaskDetailProjectProps = {
         id: string;
         label: string;
         color: string;
-    };
+    } | null;
     taskId: string;
 };
 
@@ -47,7 +50,7 @@ export const TaskDetailProject = (props: TaskDetailProjectProps) => {
     const handleSelect = (projectId: string) => {
         popoverRef.current?.close();
 
-        if (projectId === props.project.id) {
+        if (projectId === props.project?.id) {
             return;
         }
 
@@ -89,13 +92,20 @@ export const TaskDetailProject = (props: TaskDetailProjectProps) => {
             ref={popoverRef}
             onOpenChange={handlePopoverOpenChange}
             trigger={
-                <Pill
-                    className={styles.TaskDetailProject}
-                    color={props.project.color}
-                    dot
-                >
-                    {props.project.label}
-                </Pill>
+                props.project ? (
+                    <Pill
+                        className={styles.TaskDetailProject}
+                        color={props.project.color}
+                        dot
+                    >
+                        {props.project.label}
+                    </Pill>
+                ) : (
+                    <div className={styles.TaskDetailProject__noProjectWrapper}>
+                        <p>{t('Task.Modal.project')}</p>
+                        <Plus width={16} height={16} />
+                    </div>
+                )
             }
         >
             <div
