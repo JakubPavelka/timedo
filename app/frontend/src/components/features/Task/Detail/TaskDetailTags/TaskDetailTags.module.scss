@@ -13,6 +13,10 @@
     gap: 8px;
 }
 
+.TaskDetailTags__popover--createActive {
+    min-width: 250px;
+}
+
 .TaskDetailTags__tags {
     @include layout.centerY;
     gap: 8px;
@@ -61,4 +65,25 @@
 
 .TaskDetailTags__tagIconWrapper p {
     @include typography.text-sm(var(--text-2));
+}
+
+.TaskDetailTags__noTagsText {
+    @include typography.text-sm(var(--text-2));
+}
+
+.TaskDetailTags__createTagWrapper {
+    @include layout.centerY;
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    gap: 8px;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.TaskDetailTags__createTagText {
+    @include typography.text-sm(inherit);
 }
