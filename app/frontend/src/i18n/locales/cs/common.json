@@ -144,6 +144,8 @@
     "Task": {
         "detail": "Detail úkolu",
         "searchTasks": "Hledat úkoly...",
+        "noTasks": "Žádné úkoly nebyly nalezeny",
+        "noTasksDescription": "Zkus upravit filtry, nebo přidej svůj první úkol.",
         "Status": {
             "active": "Aktivní",
             "all": "Vše",

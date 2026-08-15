@@ -144,6 +144,8 @@
     "Task": {
         "detail": "Task detail",
         "searchTasks": "Search tasks...",
+        "noTasks": "No tasks found",
+        "noTasksDescription": "Try adjusting the filters, or add your first task.",
         "Status": {
             "active": "Active",
             "all": "All",
