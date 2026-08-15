@@ -39,7 +39,6 @@
 .TaskDetailView__badges {
     @include layout.centerY;
     gap: 8px;
-    flex-grow: 1;
 }
 
 .TaskDetailView__heading {

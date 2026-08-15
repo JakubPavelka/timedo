@@ -3,12 +3,12 @@ import { ArrowLeft } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/$taskId';
 import { useGetTask } from '@/hooks/api/useTask';
-import { Pill } from '@/components/ui/Pill/Pill';
 import { TaskDetailTitle } from '@/components/features/Task/Detail/TaskDetailTitle/TaskDetailTitle';
 import { TaskDetailDescription } from '@/components/features/Task/Detail/TaskDetailDescription/TaskDetailDescription';
 import { TaskDetailPriority } from '@/components/features/Task/Detail/TaskDetailPriority/TaskDetailPriority';
 import { TaskDetailProject } from '@/components/features/Task/Detail/TaskDetailProject/TaskDetailProject';
 import { TaskDetailLink } from '@/components/features/Task/Detail/TaskDetailLink/TaskDetailLink';
+import { TaskDetailTags } from '@/components/features/Task/Detail/TaskDetailTags/TaskDetailTags';
 import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
@@ -37,20 +37,9 @@ export const TaskDetailView = () => {
                     </div>
                 )}
                 <TaskDetailTitle taskId={taskId} title={task?.title ?? ''} />
-                {(task?.tags.length ?? 0) > 0 && (
-                    <div className={styles.TaskDetailView__badges}>
-                        {task?.tags.map((tag) => (
-                            <Pill
-                                key={tag.id}
-                                variant={'colored'}
-                                color={tag.color}
-                                hashtag
-                            >
-                                {tag.label}
-                            </Pill>
-                        ))}
-                    </div>
-                )}
+
+                <TaskDetailTags taskId={taskId} tags={task?.tags ?? []} />
+
                 {task?.description !== undefined && (
                     <>
                         <p className={styles.TaskDetailView__heading}>
