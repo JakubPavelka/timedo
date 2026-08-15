@@ -1,4 +1,5 @@
 import {
+    useCallback,
     useEffect,
     useImperativeHandle,
     useRef,
@@ -15,6 +16,7 @@ type PopoverProps = {
     children: ReactNode;
     align?: 'left' | 'right' | 'middle';
     ref?: Ref<PopoverHandle>;
+    onOpenChange?: (isOpen: boolean) => void;
 };
 
 export type PopoverHandle = {
@@ -28,12 +30,26 @@ const panelAnimation = {
     transition: { duration: 0.15 },
 };
 
-export const Popover = ({ trigger, children, align = 'left', ref }: PopoverProps) => {
+export const Popover = ({
+    trigger,
+    children,
+    align = 'left',
+    ref,
+    onOpenChange,
+}: PopoverProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
+    const updateOpen = useCallback(
+        (open: boolean) => {
+            setIsOpen(open);
+            onOpenChange?.(open);
+        },
+        [onOpenChange]
+    );
+
     useImperativeHandle(ref, () => ({
-        close: () => setIsOpen(false),
+        close: () => updateOpen(false),
     }));
 
     useEffect(() => {
@@ -43,10 +59,10 @@ export const Popover = ({ trigger, children, align = 'left', ref }: PopoverProps
 
         const onClickOutside = (e: MouseEvent) => {
             if (!wrapperRef.current?.contains(e.target as Node)) {
-                setIsOpen(false);
+                updateOpen(false);
             }
         };
-        const onKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && setIsOpen(false);
+        const onKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && updateOpen(false);
 
         document.addEventListener('mousedown', onClickOutside);
         document.addEventListener('keydown', onKeyDown);
@@ -55,9 +71,9 @@ export const Popover = ({ trigger, children, align = 'left', ref }: PopoverProps
             document.removeEventListener('mousedown', onClickOutside);
             document.removeEventListener('keydown', onKeyDown);
         };
-    }, [isOpen]);
+    }, [isOpen, updateOpen]);
 
-    const handleToggle = () => setIsOpen(!isOpen);
+    const handleToggle = () => updateOpen(!isOpen);
 
     return (
         <div className={styles.Popover} ref={wrapperRef}>
