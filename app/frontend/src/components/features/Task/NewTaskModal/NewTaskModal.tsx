@@ -111,7 +111,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
     const handleCreateProject = (data: ProjectData) => {
         return createProject(data, {
             onSuccess: () => {
-                toast.success(t('Task.Modal.createSuccess'));
+                toast.success(t('Task.Modal.createProjectSuccess'));
                 setShowProjectCreateForm(false);
             },
             onError: (err) => {
@@ -127,7 +127,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
     const handleCreateTag = (data: TagData) => {
         return createTag(data, {
             onSuccess: () => {
-                toast.success(t('Task.Modal.createSuccess'));
+                toast.success(t('Task.Modal.createTagSuccess'));
                 setShowTagCreateForm(false);
             },
             onError: (err) => {
