@@ -220,6 +220,13 @@
         "addLinkError": "Nepodařilo se přidat odkaz, zkuste to prosím znovu",
         "addLinkSuccess": "Odkaz byl přidán",
         "updateTagsError": "Nepodařilo se upravit tagy, zkuste to prosím znovu",
-        "updateTagsSuccess": "Tagy byly upraveny"
+        "updateTagsSuccess": "Tagy byly upraveny",
+        "RightSide": {
+            "priority": "Priorita",
+            "project": "Projekt",
+            "estimate": "Odhad",
+            "term": "Termín",
+            "hoursWorked": "Odpracováno"
+        }
     }
 }
