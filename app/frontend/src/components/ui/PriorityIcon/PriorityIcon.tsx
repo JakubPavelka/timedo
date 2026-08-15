@@ -2,6 +2,7 @@ export type PriorityLevel = 'LOW' | 'MEDIUM' | 'HIGH';
 
 type PriorityIconProps = {
     level: PriorityLevel;
+    color?: string;
     className?: string;
 };
 
@@ -21,7 +22,7 @@ const BAR_HEIGHTS = [5, 8, 11];
 
 export const PriorityIcon = (props: PriorityIconProps) => {
     const filled = FILLED_BARS[props.level];
-    const color = COLORS[props.level];
+    const color = props.color ?? COLORS[props.level];
 
     return (
         <svg
