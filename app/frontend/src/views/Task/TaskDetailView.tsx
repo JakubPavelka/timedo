@@ -9,6 +9,7 @@ import { TaskDetailPriority } from '@/components/features/Task/Detail/TaskDetail
 import { TaskDetailProject } from '@/components/features/Task/Detail/TaskDetailProject/TaskDetailProject';
 import { TaskDetailLink } from '@/components/features/Task/Detail/TaskDetailLink/TaskDetailLink';
 import { TaskDetailTags } from '@/components/features/Task/Detail/TaskDetailTags/TaskDetailTags';
+import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDetailProperties/TaskDetailProperties';
 import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
@@ -30,9 +31,7 @@ export const TaskDetailView = () => {
                     )}
                 </div>
                 <TaskDetailTitle taskId={taskId} title={task?.title ?? ''} />
-
                 <TaskDetailTags taskId={taskId} tags={task?.tags ?? []} />
-
                 {task?.description !== undefined && (
                     <>
                         <p className={styles.TaskDetailView__heading}>
@@ -49,7 +48,12 @@ export const TaskDetailView = () => {
                     <TaskDetailLink taskId={taskId} links={task?.links ?? []} />
                 )}
             </div>
-            <div className={styles.TaskDetailView__right}></div>
+            <div className={styles.TaskDetailView__right}>
+                <TaskDetailProperties
+                    priority={task?.priority ?? 'LOW'}
+                    project={task?.project?.label ?? ''}
+                />
+            </div>
         </div>
     );
 };
