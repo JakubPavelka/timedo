@@ -226,7 +226,11 @@
             "project": "Project",
             "estimate": "Estimate",
             "term": "Due date",
-            "hoursWorked": "Worked"
+            "hoursWorked": "Worked",
+            "estimateOf": "/ {{time}} estimate",
+            "percentOfEstimate": "{{percent}}% of estimate",
+            "remaining": "{{time}} left",
+            "startTimer": "Start timer"
         }
     }
 }

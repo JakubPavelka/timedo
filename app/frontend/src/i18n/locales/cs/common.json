@@ -226,7 +226,11 @@
             "project": "Projekt",
             "estimate": "Odhad",
             "term": "Termín",
-            "hoursWorked": "Odpracováno"
+            "hoursWorked": "Odpracováno",
+            "estimateOf": "/ {{time}} odhad",
+            "percentOfEstimate": "{{percent}}% z odhadu",
+            "remaining": "{{time}} zbývá",
+            "startTimer": "Spustit časovač"
         }
     }
 }
