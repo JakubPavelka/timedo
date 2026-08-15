@@ -11,6 +11,8 @@ import { useTaskStore } from '@/store/taskStore';
 import { TaskListItem } from '@/components/features/Task/TaskListItem/TaskListItem';
 import { Link } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/index';
+import { FilePlus2, Plus } from 'lucide-react';
+import { Button } from '@/components/ui/Button/Button';
 import styles from './TaskView.module.scss';
 
 export const TaskView = () => {
@@ -21,7 +23,14 @@ export const TaskView = () => {
     const { priority, status, project, search } = Route.useSearch();
     const priorityFilter = priority ? priority.split(',') : undefined;
     const projectFilter = project ? project.split(',') : undefined;
-    useGetTasks('20', '0', priorityFilter, status, projectFilter, search);
+    const { isPending } = useGetTasks(
+        '20',
+        '0',
+        priorityFilter,
+        status,
+        projectFilter,
+        search
+    );
 
     const handleModalOpen = () => setNewTaskModalOpen(true);
     const handleModalClose = () => setNewTaskModalOpen(false);
@@ -44,22 +53,43 @@ export const TaskView = () => {
     return (
         <div className={styles.TaskView}>
             <TaskHeader onNewTaskClick={handleModalOpen} />
-            <div className={styles.TaskView__tasksWrapper}>
-                {tasks.map((task) => (
-                    <Link
-                        className={styles.TaskView__taskLink}
-                        key={task.id}
-                        to={task.id}
-                    >
-                        <TaskListItem
-                            priority={task.priority}
-                            title={task.title}
-                            project={task.project ?? undefined}
-                            tags={task.tags}
-                        />
-                    </Link>
-                ))}
-            </div>
+            {isPending ? null : tasks.length > 0 ? (
+                <div className={styles.TaskView__tasksWrapper}>
+                    {tasks.map((task) => (
+                        <Link
+                            className={styles.TaskView__taskLink}
+                            key={task.id}
+                            to={task.id}
+                        >
+                            <TaskListItem
+                                priority={task.priority}
+                                title={task.title}
+                                project={task.project ?? undefined}
+                                tags={task.tags}
+                            />
+                        </Link>
+                    ))}
+                </div>
+            ) : (
+                <div className={styles.TaskView__emptyWrapper}>
+                    <div className={styles.TaskView__emptyIcon}>
+                        <FilePlus2 width={24} height={24} />
+                    </div>
+                    <p className={styles.TaskView__noTaskTitle}>
+                        {t('Task.noTasks')}
+                    </p>
+                    <p className={styles.TaskView__noTaskDescription}>
+                        {t('Task.noTasksDescription')}
+                    </p>
+                    <Button onClick={handleModalOpen}>
+                        <span className={styles.TaskView__buttonWrapper}>
+                            <Plus width={16} height={16} />
+                            <span>{t('Task.newTask')}</span>
+                        </span>
+                    </Button>
+                </div>
+            )}
+
             {newTaskModalOpen && (
                 <Modal
                     isOpen={newTaskModalOpen}

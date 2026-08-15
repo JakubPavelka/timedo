@@ -1,4 +1,5 @@
 @use 'styles/mixins/layout';
+@use 'styles/typography';
 
 .TaskView {
     padding: 24px;
@@ -12,4 +13,43 @@
 
 .TaskView__taskLink:hover {
     text-decoration: none;
+}
+
+.TaskView__emptyWrapper {
+    @include layout.centerX;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 120px;
+}
+
+.TaskView__emptyIcon {
+    @include layout.centerXY;
+    background-color: var(--accent-soft);
+    border-radius: 16px;
+    margin-inline: auto;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 16px;
+
+    svg {
+        color: var(--accent);
+    }
+}
+
+.TaskView__noTaskTitle {
+    @include typography.text-lg;
+}
+
+.TaskView__noTaskDescription {
+    @include typography.text-md(var(--text-2));
+}
+
+.TaskView__buttonWrapper {
+    @include layout.centerXY;
+    gap: 8px;
+}
+
+.TaskView__emptyWrapper button {
+    margin-inline: auto;
+    margin-top: 24px;
 }
