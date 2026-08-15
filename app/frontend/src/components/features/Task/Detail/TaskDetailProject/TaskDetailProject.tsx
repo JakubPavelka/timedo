@@ -1,11 +1,16 @@
 import { Popover, type PopoverHandle } from '@/components/ui/Popover/Popover';
 import { Pill } from '@/components/ui/Pill/Pill';
-import { useRef } from 'react';
+import { Plus } from 'lucide-react';
+import { useCallback, useRef, useState, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUpdateTask } from '@/hooks/api/useTask';
 import { useProjectStore } from '@/store/projectStore';
 import { toast } from 'sonner';
 import { ApiError } from '@/api/ApiError';
+import { LabelColorForm } from '@/components/features/Forms/LabelColorForm/LabelColorForm';
+import { ProjectSchema, type ProjectData } from '@timedo/shared/src/schemas/projectSchema';
+import { useCreateProject } from '@/hooks/api/useProject';
+import clsx from 'clsx';
 import styles from './TaskDetailProject.module.scss';
 
 type TaskDetailProjectProps = {
@@ -20,8 +25,24 @@ type TaskDetailProjectProps = {
 export const TaskDetailProject = (props: TaskDetailProjectProps) => {
     const { t } = useTranslation();
     const { mutate: updateTask } = useUpdateTask(props.taskId);
+    const { mutate: createProject } = useCreateProject();
     const projects = useProjectStore((s) => s.projects);
     const popoverRef = useRef<PopoverHandle>(null);
+    const [showCreateProject, setShowCreateProject] = useState(false);
+
+    const handleShowCreateProject = () => setShowCreateProject(true);
+    const handleHideCreateProject = () => setShowCreateProject(false);
+    const handlePopoverOpenChange = useCallback((isOpen: boolean) => {
+        if (!isOpen) {
+            setShowCreateProject(false);
+        }
+    }, []);
+    const handleCreateProjectKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleShowCreateProject();
+        }
+    };
 
     const handleSelect = (projectId: string) => {
         popoverRef.current?.close();
@@ -47,9 +68,26 @@ export const TaskDetailProject = (props: TaskDetailProjectProps) => {
         );
     };
 
+    const handleCreateProject = (data: ProjectData) => {
+        return createProject(data, {
+            onSuccess: () => {
+                toast.success(t('Task.Modal.createProjectSuccess'));
+                setShowCreateProject(false);
+            },
+            onError: (err) => {
+                toast.error(
+                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
+                        ? t(`BackendErrors.${err.code}`)
+                        : t('Task.Modal.createProjectError')
+                );
+            },
+        });
+    };
+
     return (
         <Popover
             ref={popoverRef}
+            onOpenChange={handlePopoverOpenChange}
             trigger={
                 <Pill
                     className={styles.TaskDetailProject}
@@ -60,20 +98,52 @@ export const TaskDetailProject = (props: TaskDetailProjectProps) => {
                 </Pill>
             }
         >
-            <div className={styles.TaskDetailProject__list}>
-                {projects.map((project) => (
+            <div
+                className={clsx(
+                    styles.TaskDetailProject__list,
+                    showCreateProject && styles['TaskDetailProject__list--createActive']
+                )}
+            >
+                {showCreateProject ? (
+                    <LabelColorForm
+                        schema={ProjectSchema}
+                        namePlaceholder={t('Task.Modal.projectName')}
+                        onSubmit={handleCreateProject}
+                        onClose={handleHideCreateProject}
+                    />
+                ) : projects.length > 0 ? (
+                    projects.map((project) => (
+                        <div
+                            key={project.id}
+                            className={styles.TaskDetailProject__item}
+                            onClick={() => handleSelect(project.id)}
+                        >
+                            <span
+                                className={styles.TaskDetailProject__dot}
+                                style={{ backgroundColor: project.color }}
+                            />
+                            <span>{project.label}</span>
+                        </div>
+                    ))
+                ) : (
+                    <p className={styles.TaskDetailProject__noProjectsText}>
+                        {t('Task.Modal.noProjects')}
+                    </p>
+                )}
+                {!showCreateProject && (
                     <div
-                        key={project.id}
-                        className={styles.TaskDetailProject__item}
-                        onClick={() => handleSelect(project.id)}
+                        onClick={handleShowCreateProject}
+                        onKeyDown={handleCreateProjectKeyDown}
+                        role={'button'}
+                        tabIndex={0}
+                        className={styles.TaskDetailProject__createProjectWrapper}
                     >
-                        <span
-                            className={styles.TaskDetailProject__dot}
-                            style={{ backgroundColor: project.color }}
-                        />
-                        <span>{project.label}</span>
+                        <p className={styles.TaskDetailProject__createProjectText}>
+                            {t('Task.Modal.createProject')}
+                        </p>
+                        <Plus width={16} height={16} />
                     </div>
-                ))}
+                )}
             </div>
         </Popover>
     );

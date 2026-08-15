@@ -8,6 +8,11 @@
     min-width: 120px;
 }
 
+.TaskDetailProject__list--createActive {
+    min-width: 250px;
+    padding: 8px;
+}
+
 .TaskDetailProject__item {
     @include typography.text-sm;
     display: flex;
@@ -28,4 +33,31 @@
     height: 6px;
     border-radius: 50%;
     flex-shrink: 0;
+}
+
+.TaskDetailProject__noProjectsText {
+    @include typography.text-sm(var(--text-2));
+    padding: 6px 8px;
+}
+
+.TaskDetailProject__createProjectWrapper {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    padding-bottom: 8px;
+    margin-inline: 8px;
+    margin-top: 2px;
+    gap: 8px;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.TaskDetailProject__createProjectText {
+    @include typography.text-sm(inherit);
+    white-space: nowrap;
 }
