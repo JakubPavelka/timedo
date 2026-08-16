@@ -8,10 +8,13 @@ import type { Project } from '@/store/projectStore';
 import styles from './TaskListItem.module.scss';
 
 type TaskListItem = {
+    id: string;
     title: string;
     priority: Priority;
     tags?: Tag[];
     project?: Omit<Project, '_count'>;
+    selected?: boolean;
+    onSelectChange?: (id: string, selected: boolean) => void;
 };
 
 export const TaskListItem = (props: TaskListItem) => {
@@ -21,7 +24,11 @@ export const TaskListItem = (props: TaskListItem) => {
     return (
         <div className={styles.TaskListItem}>
             <div className={styles.TaskListItem__leftWrapper}>
-                <Checkbox round />
+                <Checkbox
+                    round
+                    checked={props.selected ?? false}
+                    onChange={(e) => props.onSelectChange?.(props.id, e.target.checked)}
+                />
                 <div className={styles.TaskListItem__contentWrapper}>
                     <span className={styles.TaskListItem__title}>{props.title}</span>
                     <div className={styles.TaskListItem__pillsWrapper}>
