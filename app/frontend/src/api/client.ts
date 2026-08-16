@@ -15,6 +15,8 @@ export const apiClient = axios.create({
 
 let refreshPromise: ReturnType<typeof authApi.refresh> | null = null;
 
+const publicRoutes = ['/login', '/register'];
+
 apiClient.interceptors.response.use(
     (response) => response,
     async (error) => {
@@ -43,7 +45,7 @@ apiClient.interceptors.response.use(
                 return apiClient(originalRequest);
             } catch (refreshError) {
                 useAuthStore.getState().setUser(null);
-                if (router.state.location.pathname !== '/login') {
+                if (!publicRoutes.includes(router.state.location.pathname)) {
                     router.navigate({ to: '/login', replace: true });
                 }
                 return Promise.reject(refreshError);
