@@ -7,6 +7,7 @@ import { Filter } from '@/components/ui/Filter/Filter';
 import { useProjectStore } from '@/store/projectStore';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
+import { Popover } from '@/components/ui/Popover/Popover';
 import { Route } from '@/routes/dashboard/tasks/index';
 import { useState, useEffect } from 'react';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue';
@@ -14,6 +15,7 @@ import styles from './TaskHeader.module.scss';
 
 type TaskHeader = {
     onNewTaskClick: () => void;
+    selectedCount: number;
 };
 
 export const TaskHeader = (props: TaskHeader) => {
@@ -192,12 +194,28 @@ export const TaskHeader = (props: TaskHeader) => {
                 </Filter>
             </div>
 
-            <Button onClick={props.onNewTaskClick}>
-                <span className={styles.TaskHeader__buttonWrapper}>
-                    <Plus width={16} height={16} />
-                    <span>{t('Task.newTask')}</span>
-                </span>
-            </Button>
+            <div className={styles.TaskHeader__rightSide}>
+                {props.selectedCount > 0 && (
+                    <Popover
+                        align={'right'}
+                        trigger={
+                            <Button variant={'outline'}>
+                                <span className={styles.TaskHeader__buttonWrapper}>
+                                    {t('Task.actions', { count: props.selectedCount })}
+                                </span>
+                            </Button>
+                        }
+                    >
+                        <div className={styles.TaskHeader__actionsMenu}>ahoj</div>
+                    </Popover>
+                )}
+                <Button onClick={props.onNewTaskClick}>
+                    <span className={styles.TaskHeader__buttonWrapper}>
+                        <Plus width={16} height={16} />
+                        <span>{t('Task.newTask')}</span>
+                    </span>
+                </Button>
+            </div>
         </div>
     );
 };
