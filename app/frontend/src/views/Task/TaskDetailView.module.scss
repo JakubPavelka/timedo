@@ -4,6 +4,16 @@
 .TaskDetailView {
     padding: 24px;
     display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.TaskDetailView__header {
+    @include layout.spaceBetweenY;
+}
+
+.TaskDetailView__columns {
+    display: flex;
     gap: 24px;
 }
 
@@ -21,7 +31,6 @@
     @include layout.centerY;
     @include typography.text-sm(var(--text-2));
     max-width: fit-content;
-    margin-bottom: 16px;
     gap: 4px;
     transition: color 0.2s;
 
@@ -36,6 +45,11 @@
             transform: translateX(-2px);
         }
     }
+}
+
+.TaskDetailView__deleteButton {
+    @include layout.centerXY;
+    gap: 8px;
 }
 
 .TaskDetailView__badges {
