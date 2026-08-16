@@ -3,7 +3,7 @@ import { ArrowLeft, Trash2, X } from 'lucide-react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/$taskId';
 import { useDeleteTask, useGetTask } from '@/hooks/api/useTask';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/Button/Button';
 import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
@@ -29,10 +29,10 @@ export const TaskDetailView = () => {
         console.log('start timer');
     };
 
-    const handleOpenDeleteModal = useCallback(() => setShowDeleteModal(true), []);
-    const handleCloseDeleteModal = useCallback(() => setShowDeleteModal(false), []);
+    const handleOpenDeleteModal = () => setShowDeleteModal(true);
+    const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
-    const handleDeleteTask = useCallback(() => {
+    const handleDeleteTask = () => {
         deleteTask(undefined, {
             onSuccess: () => {
                 toast.success(t('TaskDetail.deleteTaskSuccess'));
@@ -40,7 +40,7 @@ export const TaskDetailView = () => {
             },
             onError: () => toast.error(t('TaskDetail.deleteTaskError')),
         });
-    }, [deleteTask, navigate, t]);
+    };
 
     return (
         <div className={styles.TaskDetailView}>
