@@ -231,6 +231,11 @@
             "percentOfEstimate": "{{percent}}% of estimate",
             "remaining": "{{time}} left",
             "startTimer": "Start timer"
-        }
+        },
+        "deleteTask": "Delete task",
+        "deleteTaskModalTitle": "Delete task?",
+        "deleteTaskModalDescription": "This action is irreversible. The task and all its time entries will be permanently deleted.",
+        "deleteTaskSuccess": "Task deleted",
+        "deleteTaskError": "Failed to delete task, please try again"
     }
 }
