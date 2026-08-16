@@ -57,4 +57,14 @@ export const taskApi = {
             throw err;
         }
     },
+    deleteTask: async (taskId: string) => {
+        try {
+            await apiClient.delete(`/api/task/${taskId}`);
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
 };
