@@ -333,4 +333,34 @@ const updateTask = async (req: Request, res: Response) => {
     }
 };
 
-export { createTask, getTasks, getTask, updateTask };
+const deleteTask = async (req: Request, res: Response) => {
+    const taskId = req.params.task;
+
+    if (typeof taskId !== 'string') {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    try {
+        const task = await prisma.task.findUnique({ where: { id: taskId } });
+
+        if (!task || task.userId !== req.user!.id) {
+            return res
+                .status(404)
+                .json({ message: 'Task not found', code: 'TASK_NOT_FOUND' });
+        }
+
+        await prisma.task.delete({ where: { id: taskId } });
+
+        return res.status(204).send();
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+        return res.status(500).json({ message: 'Failed to delete task' });
+    }
+};
+
+export { createTask, getTasks, getTask, updateTask, deleteTask };
