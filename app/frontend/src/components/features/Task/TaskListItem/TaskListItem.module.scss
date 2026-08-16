@@ -14,6 +14,11 @@
 }
 
 .TaskListItem__leftWrapper {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.TaskListItem__contentWrapper {
     @include layout.flexColumn;
     gap: 8px;
 }
