@@ -8,6 +8,7 @@ type CheckboxSize = 'sm' | 'md';
 type CheckboxProps = {
     label?: React.ReactNode;
     size?: CheckboxSize;
+    round?: boolean;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>;
 
 const CHECK_ICON_SIZE: Record<CheckboxSize, number> = {
@@ -18,21 +19,32 @@ const CHECK_ICON_SIZE: Record<CheckboxSize, number> = {
 export const Checkbox = ({
     label,
     size = 'md',
+    round = false,
     className,
     id,
     ...rest
 }: CheckboxProps) => (
     <label
-        className={clsx(styles.Checkbox, styles[`Checkbox--${size}`], className)}
+        className={clsx(
+            styles.Checkbox,
+            styles[`Checkbox--${size}`],
+            round && styles['Checkbox--round'],
+            className
+        )}
         htmlFor={id}
+        onClick={(e) => e.stopPropagation()}
     >
         <input type="checkbox" id={id} className={styles.Checkbox__input} {...rest} />
         <span className={styles.Checkbox__box}>
-            <Check
-                className={styles.Checkbox__check}
-                width={CHECK_ICON_SIZE[size]}
-                height={CHECK_ICON_SIZE[size]}
-            />
+            {round ? (
+                <span className={styles.Checkbox__dot} />
+            ) : (
+                <Check
+                    className={styles.Checkbox__check}
+                    width={CHECK_ICON_SIZE[size]}
+                    height={CHECK_ICON_SIZE[size]}
+                />
+            )}
         </span>
         {label && <span className={styles.Checkbox__label}>{label}</span>}
     </label>

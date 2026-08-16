@@ -47,10 +47,34 @@
         height: 14px;
         border-radius: 4px;
     }
+
+    .Checkbox__dot {
+        width: 5px;
+        height: 5px;
+    }
+}
+
+.Checkbox--round {
+    .Checkbox__box {
+        border-radius: 50%;
+    }
 }
 
 .Checkbox__check {
     color: var(--white);
+    opacity: 0;
+    transition: opacity 0.15s;
+
+    .Checkbox__input:checked + .Checkbox__box & {
+        opacity: 1;
+    }
+}
+
+.Checkbox__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--white);
     opacity: 0;
     transition: opacity 0.15s;
 
