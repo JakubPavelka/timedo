@@ -153,6 +153,7 @@
             "todo": "Nezahájené"
         },
         "newTask": "Nový úkol",
+        "actions": "Hromadná akce ({{count}})",
         "Priority": {
             "lowPriority": "Nízká priorita",
             "mediumPriority": "Střední priorita",

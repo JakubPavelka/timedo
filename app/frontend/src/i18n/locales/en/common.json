@@ -153,6 +153,7 @@
             "todo": "To do"
         },
         "newTask": "New task",
+        "actions": "Bulk actions",
         "Priority": {
             "lowPriority": "Low priority",
             "mediumPriority": "Medium priority",
