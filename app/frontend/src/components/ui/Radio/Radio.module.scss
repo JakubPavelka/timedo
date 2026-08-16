@@ -1,0 +1,72 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.Radio {
+    @include layout.centerY;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.Radio__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.Radio__circle {
+    @include layout.centerXY;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    background-color: var(--surface);
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
+
+    .Radio__input:checked + & {
+        background-color: var(--accent);
+        border-color: var(--accent);
+    }
+
+    .Radio:hover & {
+        border-color: var(--border-focused);
+    }
+
+    .Radio:hover .Radio__input:checked + & {
+        border-color: var(--accent);
+    }
+}
+
+.Radio--sm {
+    .Radio__circle {
+        width: 14px;
+        height: 14px;
+    }
+
+    .Radio__dot {
+        width: 5px;
+        height: 5px;
+    }
+}
+
+.Radio__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--white);
+    opacity: 0;
+    transition: opacity 0.15s;
+
+    .Radio__input:checked + .Radio__circle & {
+        opacity: 1;
+    }
+}
+
+.Radio__label {
+    @include typography.text-sm;
+    color: var(--text-2);
+}
