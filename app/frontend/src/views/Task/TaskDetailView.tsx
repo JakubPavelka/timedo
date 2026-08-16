@@ -10,12 +10,17 @@ import { TaskDetailProject } from '@/components/features/Task/Detail/TaskDetailP
 import { TaskDetailLink } from '@/components/features/Task/Detail/TaskDetailLink/TaskDetailLink';
 import { TaskDetailTags } from '@/components/features/Task/Detail/TaskDetailTags/TaskDetailTags';
 import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDetailProperties/TaskDetailProperties';
+import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDetailTimeTracking/TaskDetailTimeTracking';
 import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
     const { t } = useTranslation();
     const { taskId } = Route.useParams();
     const { data: task } = useGetTask(taskId);
+
+    const handleTimerClick = () => {
+        console.log('start timer');
+    };
 
     return (
         <div className={styles.TaskDetailView}>
@@ -49,6 +54,11 @@ export const TaskDetailView = () => {
                 )}
             </div>
             <div className={styles.TaskDetailView__right}>
+                <TaskDetailTimeTracking
+                    workedMinutes={96}
+                    estimateMinutes={180}
+                    onTimerClick={handleTimerClick}
+                />
                 <TaskDetailProperties
                     priority={task?.priority ?? 'LOW'}
                     project={task?.project?.label ?? ''}

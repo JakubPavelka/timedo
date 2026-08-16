@@ -12,7 +12,9 @@
 }
 
 .TaskDetailView__right {
+    @include layout.flexColumn;
     width: 30%;
+    gap: 24px;
 }
 
 .TaskDetailView__back {
