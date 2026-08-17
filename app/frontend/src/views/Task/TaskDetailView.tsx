@@ -16,6 +16,7 @@ import { TaskDetailTags } from '@/components/features/Task/Detail/TaskDetailTags
 import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDetailProperties/TaskDetailProperties';
 import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDetailTimeTracking/TaskDetailTimeTracking';
 import { ApiError } from '@/api/ApiError';
+import { Pill } from '@/components/ui/Pill/Pill';
 import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
@@ -125,6 +126,11 @@ export const TaskDetailView = () => {
                                 taskId={taskId}
                                 priority={task.priority}
                             />
+                        )}
+                        {isDone && (
+                            <Pill variant={'colored'} tone={'success'}>
+                                {t('TaskDetail.markAsDone')}
+                            </Pill>
                         )}
                     </div>
                     <TaskDetailTitle taskId={taskId} title={task?.title ?? ''} />
