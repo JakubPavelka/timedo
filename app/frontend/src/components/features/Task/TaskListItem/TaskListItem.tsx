@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import { Check } from 'lucide-react';
+import { Check, Circle, CircleDot } from 'lucide-react';
 import { Priority, Status } from '@timedo/shared/src/schemas/taskSchema';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
-import { Pill } from '@/components/ui/Pill/Pill';
+import { Pill, type PillTone, type PillVariant } from '@/components/ui/Pill/Pill';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
 import { useTranslation } from 'react-i18next';
 import type { Tag } from '@/store/tagStore';
@@ -20,10 +20,31 @@ type TaskListItem = {
     onSelectChange?: (id: string, selected: boolean) => void;
 };
 
+const STATUS_PILL: Record<
+    Status,
+    { variant: PillVariant; tone?: PillTone; icon: React.ReactNode }
+> = {
+    [Status.TODO]: {
+        variant: 'basic',
+        icon: <Circle width={12} height={12} />,
+    },
+    [Status.ACTIVE]: {
+        variant: 'colored',
+        tone: 'accent',
+        icon: <CircleDot width={12} height={12} />,
+    },
+    [Status.DONE]: {
+        variant: 'colored',
+        tone: 'success',
+        icon: <Check width={12} height={12} />,
+    },
+};
+
 export const TaskListItem = (props: TaskListItem) => {
     const { t } = useTranslation();
     const priority = props.priority.toLowerCase();
     const isDone = props.status === Status.DONE;
+    const statusPill = STATUS_PILL[props.status];
 
     return (
         <div className={styles.TaskListItem}>
@@ -64,15 +85,13 @@ export const TaskListItem = (props: TaskListItem) => {
                                 <span>{t(`Task.Priority.${priority}`)}</span>
                             </span>
                         </Pill>
-                        {isDone && (
-                            <Pill
-                                variant={'colored'}
-                                tone={'success'}
-                                icon={<Check width={12} height={12} />}
-                            >
-                                {t('TaskDetail.markAsDone')}
-                            </Pill>
-                        )}
+                        <Pill
+                            variant={statusPill.variant}
+                            tone={statusPill.tone}
+                            icon={statusPill.icon}
+                        >
+                            {t(`Task.Status.${props.status.toLowerCase()}`)}
+                        </Pill>
                     </div>
                 </div>
             </div>
