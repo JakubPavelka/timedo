@@ -198,7 +198,19 @@
             "addLink": "Add link",
             "linkName": "Link name",
             "linkUrl": "Link URL"
-        }
+        },
+        "tasksDeleteSuccess": "Tasks were successfully deleted",
+        "tasksDeleteError": "Failed to delete tasks, please try again",
+        "deleteSelected": "Delete selected",
+        "unselectSelected": "Unselect selected",
+        "deleteTasksModalTitle": "Delete tasks?",
+        "deleteTasksModalDescription": "This action cannot be undone. The tasks and all their time entries will be permanently deleted.",
+        "changePriority": "Change priority",
+        "changeStatus": "Change status",
+        "changeProject": "Change project",
+        "changeTags": "Change tags",
+        "updateTasksSuccess": "Tasks were successfully updated",
+        "updateTasksError": "Failed to update tasks, please try again"
     },
     "TaskDetail": {
         "backToTasks": "Back to tasks",
