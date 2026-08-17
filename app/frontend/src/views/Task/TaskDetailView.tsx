@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Trash2, X } from 'lucide-react';
+import { ArrowLeft, Check, Trash2, X } from 'lucide-react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/$taskId';
-import { useDeleteTask, useGetTask } from '@/hooks/api/useTask';
+import { useDeleteTask, useGetTask, useUpdateTask } from '@/hooks/api/useTask';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/Button/Button';
@@ -15,6 +15,7 @@ import { TaskDetailLink } from '@/components/features/Task/Detail/TaskDetailLink
 import { TaskDetailTags } from '@/components/features/Task/Detail/TaskDetailTags/TaskDetailTags';
 import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDetailProperties/TaskDetailProperties';
 import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDetailTimeTracking/TaskDetailTimeTracking';
+import { ApiError } from '@/api/ApiError';
 import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
@@ -22,6 +23,7 @@ export const TaskDetailView = () => {
     const { taskId } = Route.useParams();
     const { data: task } = useGetTask(taskId);
     const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask(taskId);
+    const { mutate: updateTask } = useUpdateTask(taskId);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
 
@@ -38,8 +40,42 @@ export const TaskDetailView = () => {
                 toast.success(t('TaskDetail.deleteTaskSuccess'));
                 navigate({ to: '/dashboard/tasks', replace: true });
             },
-            onError: () => toast.error(t('TaskDetail.deleteTaskError')),
+            onError: (err) =>
+                toast.error(
+                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
+                        ? t(`BackendErrors.${err.code}`)
+                        : t('TaskDetail.deleteTaskError')
+                ),
         });
+    };
+
+    const isDone = task?.status === 'DONE';
+
+    const handleToggleDone = () => {
+        updateTask(
+            { status: isDone ? 'TODO' : 'DONE' },
+            {
+                onSuccess: () => {
+                    toast.success(
+                        t(
+                            isDone
+                                ? 'TaskDetail.reopenTaskSuccess'
+                                : 'TaskDetail.markAsDoneSuccess'
+                        )
+                    );
+                },
+                onError: (err) =>
+                    toast.error(
+                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
+                            ? t(`BackendErrors.${err.code}`)
+                            : t(
+                                  isDone
+                                      ? 'TaskDetail.reopenTaskError'
+                                      : 'TaskDetail.markAsDoneError'
+                              )
+                    ),
+            }
+        );
     };
 
     return (
@@ -49,16 +85,33 @@ export const TaskDetailView = () => {
                     <ArrowLeft width={16} height={16} />
                     <span>{t('TaskDetail.backToTasks')}</span>
                 </Link>
-                <Button
-                    variant={'outline-danger'}
-                    onClick={handleOpenDeleteModal}
-                    isLoading={isDeleting}
-                >
-                    <span className={styles.TaskDetailView__deleteButton}>
-                        <X width={16} height={16} />
-                        <span>{t('TaskDetail.deleteTask')}</span>
-                    </span>
-                </Button>
+                <div className={styles.TaskDetailView__headerActions}>
+                    <Button
+                        variant={isDone ? 'outline' : 'outline-success'}
+                        onClick={handleToggleDone}
+                    >
+                        <span className={styles.TaskDetailView__deleteButton}>
+                            <Check width={16} height={16} />
+                            <span>
+                                {t(
+                                    isDone
+                                        ? 'TaskDetail.reopenTask'
+                                        : 'TaskDetail.markAsDone'
+                                )}
+                            </span>
+                        </span>
+                    </Button>
+                    <Button
+                        variant={'outline-danger'}
+                        onClick={handleOpenDeleteModal}
+                        isLoading={isDeleting}
+                    >
+                        <span className={styles.TaskDetailView__deleteButton}>
+                            <X width={16} height={16} />
+                            <span>{t('TaskDetail.deleteTask')}</span>
+                        </span>
+                    </Button>
+                </div>
             </div>
             <div className={styles.TaskDetailView__columns}>
                 <div className={styles.TaskDetailView__left}>

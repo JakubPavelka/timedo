@@ -47,6 +47,11 @@
     }
 }
 
+.TaskDetailView__headerActions {
+    @include layout.centerY;
+    gap: 16px;
+}
+
 .TaskDetailView__deleteButton {
     @include layout.centerXY;
     gap: 8px;
