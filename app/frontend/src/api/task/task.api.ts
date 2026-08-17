@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { apiClient } from '../client';
 import { ApiError } from '../ApiError';
-import type { TaskData, UpdateTaskData } from '@timedo/shared/src/schemas/taskSchema';
+import type {
+    TaskData,
+    UpdateTaskData,
+    UpdateTasksData,
+} from '@timedo/shared/src/schemas/taskSchema';
 
 export const taskApi = {
     createTask: async (data: TaskData) => {
@@ -70,6 +74,16 @@ export const taskApi = {
     deleteTasks: async (taskIds: string[]) => {
         try {
             await apiClient.delete('/api/task', { data: { taskIds } });
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+    updateTasks: async (taskIds: string[], data: Omit<UpdateTasksData, 'taskIds'>) => {
+        try {
+            await apiClient.patch('/api/task', { taskIds, ...data });
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');

@@ -52,3 +52,13 @@ export const DeleteTasksSchema = z.object({
 });
 
 export type DeleteTasksData = z.infer<typeof DeleteTasksSchema>;
+
+export const UpdateTasksSchema = z.object({
+    taskIds: z.array(z.string()).min(1, 'Validation.taskIdsMin'),
+    status: z.enum(Status).optional(),
+    priority: z.enum(Priority).optional(),
+    projectId: z.string().nullable().optional(),
+    tags: z.array(z.string()).optional(),
+});
+
+export type UpdateTasksData = z.infer<typeof UpdateTasksSchema>;

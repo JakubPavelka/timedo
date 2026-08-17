@@ -1,7 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { taskApi } from '@/api/task/task.api';
 import { useTaskStore, type Task } from '@/store/taskStore';
-import type { UpdateTaskData } from '@timedo/shared/src/schemas/taskSchema';
+import type {
+    UpdateTaskData,
+    UpdateTasksData,
+} from '@timedo/shared/src/schemas/taskSchema';
 
 export const useCreateTask = () => {
     const queryClient = useQueryClient();
@@ -82,6 +85,26 @@ export const useDeleteTasks = () => {
         onSuccess: (_, taskIds) => {
             taskIds.forEach((taskId) =>
                 queryClient.removeQueries({ queryKey: ['task', taskId] })
+            );
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+        },
+    });
+};
+
+export const useUpdateTasks = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({
+            taskIds,
+            data,
+        }: {
+            taskIds: string[];
+            data: Omit<UpdateTasksData, 'taskIds'>;
+        }) => taskApi.updateTasks(taskIds, data),
+        onSuccess: (_, { taskIds }) => {
+            taskIds.forEach((taskId) =>
+                queryClient.invalidateQueries({ queryKey: ['task', taskId] })
             );
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },

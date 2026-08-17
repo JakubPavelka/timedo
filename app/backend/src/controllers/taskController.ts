@@ -4,6 +4,7 @@ import {
     TaskSchema,
     GetTasksQuerySchema,
     DeleteTasksSchema,
+    UpdateTasksSchema,
 } from '@timedo/shared/src/schemas/taskSchema.js';
 import { Prisma } from '../generated/prisma/client.js';
 
@@ -399,4 +400,93 @@ const deleteTasks = async (req: Request, res: Response) => {
     }
 };
 
-export { createTask, getTasks, getTask, updateTask, deleteTask, deleteTasks };
+const updateTasks = async (req: Request, res: Response) => {
+    const parsedBody = UpdateTasksSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { taskIds, status, priority, projectId, tags } = parsedBody.data;
+
+    try {
+        const tasks = await prisma.task.findMany({
+            where: { id: { in: taskIds }, userId: req.user!.id },
+            select: { id: true },
+        });
+
+        if (tasks.length !== taskIds.length) {
+            return res
+                .status(404)
+                .json({ message: 'Tasks not found', code: 'TASK_NOT_FOUND' });
+        }
+
+        if (projectId) {
+            const project = await prisma.project.findUnique({
+                where: { id: projectId, userId: req.user!.id },
+                select: { id: true },
+            });
+
+            if (!project) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+        }
+
+        if (tags?.length) {
+            const uniqueTagIds = new Set(tags);
+
+            const ownedTagsCount = await prisma.taskTag.count({
+                where: { id: { in: tags }, userId: req.user!.id },
+            });
+
+            if (ownedTagsCount !== uniqueTagIds.size) {
+                return res.status(404).json({ message: 'Tag not found' });
+            }
+        }
+
+        if (tags !== undefined) {
+            await prisma.$transaction(
+                taskIds.map((taskId) =>
+                    prisma.task.update({
+                        where: { id: taskId },
+                        data: {
+                            status,
+                            priority,
+                            projectId,
+                            tags: { set: tags.map((id) => ({ id })) },
+                        },
+                    })
+                )
+            );
+        } else {
+            await prisma.task.updateMany({
+                where: { id: { in: taskIds } },
+                data: {
+                    status,
+                    priority,
+                    projectId,
+                },
+            });
+        }
+
+        return res.status(204).send();
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res.status(404).json({ message: 'Tasks not found' });
+        }
+        return res.status(500).json({ message: 'Failed to update tasks' });
+    }
+};
+
+export {
+    createTask,
+    getTasks,
+    getTask,
+    updateTask,
+    deleteTask,
+    deleteTasks,
+    updateTasks,
+};

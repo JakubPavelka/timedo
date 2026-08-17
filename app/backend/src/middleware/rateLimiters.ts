@@ -88,6 +88,12 @@ export const deleteTasksLimiter = rateLimit({
     limit: 30,
 });
 
+export const updateTasksLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 30,
+});
+
 export const createProjectLimiter = rateLimit({
     ...commonOptions,
     windowMs: 15 * 60 * 1000, // 15min
