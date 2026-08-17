@@ -37,6 +37,7 @@ export const TaskView = () => {
 
     const handleModalOpen = () => setNewTaskModalOpen(true);
     const handleModalClose = () => setNewTaskModalOpen(false);
+    const handleUnselectAll = () => setSelectedTaskIds(new Set());
 
     const handleSelectChange = (id: string, selected: boolean) => {
         setSelectedTaskIds((prev) => {
@@ -65,7 +66,8 @@ export const TaskView = () => {
         <div className={styles.TaskView}>
             <TaskHeader
                 onNewTaskClick={handleModalOpen}
-                selectedCount={selectedTaskIds.size}
+                selectedTasks={selectedTaskIds}
+                onUnselectAll={handleUnselectAll}
             />
             {isPending ? null : tasks.length > 0 ? (
                 <div className={styles.TaskView__tasksWrapper}>
