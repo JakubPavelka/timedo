@@ -46,3 +46,9 @@ export const GetTasksQuerySchema = z.object({
 });
 
 export type GetTasksQuery = z.infer<typeof GetTasksQuerySchema>;
+
+export const DeleteTasksSchema = z.object({
+    taskIds: z.array(z.string()).min(1, 'Validation.taskIdsMin'),
+});
+
+export type DeleteTasksData = z.infer<typeof DeleteTasksSchema>;
