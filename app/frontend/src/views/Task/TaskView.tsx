@@ -18,6 +18,7 @@ import styles from './TaskView.module.scss';
 export const TaskView = () => {
     const { t } = useTranslation();
     const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
+    const [selectedTaskIds, setSelectedTaskIds] = useState<Set<string>>(new Set());
     const tasks = useTaskStore((s) => s.tasks);
     const { mutate: createTask } = useCreateTask();
     const { priority, status, project, search } = Route.useSearch();
@@ -32,8 +33,22 @@ export const TaskView = () => {
         search
     );
 
+    console.log(selectedTaskIds);
+
     const handleModalOpen = () => setNewTaskModalOpen(true);
     const handleModalClose = () => setNewTaskModalOpen(false);
+
+    const handleSelectChange = (id: string, selected: boolean) => {
+        setSelectedTaskIds((prev) => {
+            const next = new Set(prev);
+            if (selected) {
+                next.add(id);
+            } else {
+                next.delete(id);
+            }
+            return next;
+        });
+    };
 
     const handleCreateTask = (data: TaskData) => {
         return createTask(data, {
@@ -52,7 +67,10 @@ export const TaskView = () => {
 
     return (
         <div className={styles.TaskView}>
-            <TaskHeader onNewTaskClick={handleModalOpen} />
+            <TaskHeader
+                onNewTaskClick={handleModalOpen}
+                selectedCount={selectedTaskIds.size}
+            />
             {isPending ? null : tasks.length > 0 ? (
                 <div className={styles.TaskView__tasksWrapper}>
                     {tasks.map((task) => (
@@ -62,10 +80,13 @@ export const TaskView = () => {
                             to={task.id}
                         >
                             <TaskListItem
+                                id={task.id}
                                 priority={task.priority}
                                 title={task.title}
                                 project={task.project ?? undefined}
                                 tags={task.tags}
+                                selected={selectedTaskIds.has(task.id)}
+                                onSelectChange={handleSelectChange}
                             />
                         </Link>
                     ))}
@@ -75,9 +96,7 @@ export const TaskView = () => {
                     <div className={styles.TaskView__emptyIcon}>
                         <FilePlus2 width={24} height={24} />
                     </div>
-                    <p className={styles.TaskView__noTaskTitle}>
-                        {t('Task.noTasks')}
-                    </p>
+                    <p className={styles.TaskView__noTaskTitle}>{t('Task.noTasks')}</p>
                     <p className={styles.TaskView__noTaskDescription}>
                         {t('Task.noTasksDescription')}
                     </p>
