@@ -73,3 +73,17 @@ export const useDeleteTask = (taskId: string) => {
         },
     });
 };
+
+export const useDeleteTasks = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (taskIds: string[]) => taskApi.deleteTasks(taskIds),
+        onSuccess: (_, taskIds) => {
+            taskIds.forEach((taskId) =>
+                queryClient.removeQueries({ queryKey: ['task', taskId] })
+            );
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+        },
+    });
+};

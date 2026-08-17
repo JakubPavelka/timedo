@@ -6,6 +6,7 @@ import {
     readTaskLimiter,
     updateTaskLimiter,
     deleteTaskLimiter,
+    deleteTasksLimiter,
 } from '../middleware/rateLimiters.js';
 import {
     createTask,
@@ -13,6 +14,7 @@ import {
     getTasks,
     updateTask,
     deleteTask,
+    deleteTasks,
 } from '../controllers/taskController.js';
 
 const router = express.Router();
@@ -22,5 +24,6 @@ router.get('/', readTasksLimiter, protect, getTasks);
 router.get('/:task', readTaskLimiter, protect, getTask);
 router.patch('/:task', updateTaskLimiter, protect, updateTask);
 router.delete('/:task', deleteTaskLimiter, protect, deleteTask);
+router.delete('/', deleteTasksLimiter, protect, deleteTasks);
 
 export default router;

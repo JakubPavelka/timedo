@@ -3,6 +3,7 @@ import { prisma } from '../db/db.js';
 import {
     TaskSchema,
     GetTasksQuerySchema,
+    DeleteTasksSchema,
 } from '@timedo/shared/src/schemas/taskSchema.js';
 import { Prisma } from '../generated/prisma/client.js';
 
@@ -363,4 +364,39 @@ const deleteTask = async (req: Request, res: Response) => {
     }
 };
 
-export { createTask, getTasks, getTask, updateTask, deleteTask };
+const deleteTasks = async (req: Request, res: Response) => {
+    const parsedBody = DeleteTasksSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { taskIds } = parsedBody.data;
+
+    try {
+        const tasks = await prisma.task.findMany({
+            where: { id: { in: taskIds }, userId: req.user!.id },
+            select: { id: true },
+        });
+
+        if (tasks.length !== taskIds.length) {
+            return res
+                .status(404)
+                .json({ message: 'Tasks not found', code: 'TASK_NOT_FOUND' });
+        }
+
+        await prisma.task.deleteMany({ where: { id: { in: taskIds } } });
+
+        return res.status(204).send();
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res.status(404).json({ message: 'Tasks not found' });
+        }
+        return res.status(500).json({ message: 'Failed to delete tasks' });
+    }
+};
+
+export { createTask, getTasks, getTask, updateTask, deleteTask, deleteTasks };
