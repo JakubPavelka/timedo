@@ -1,4 +1,6 @@
-import { Priority } from '@timedo/shared/src/schemas/taskSchema';
+import clsx from 'clsx';
+import { Check } from 'lucide-react';
+import { Priority, Status } from '@timedo/shared/src/schemas/taskSchema';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
@@ -11,6 +13,7 @@ type TaskListItem = {
     id: string;
     title: string;
     priority: Priority;
+    status: Status;
     tags?: Tag[];
     project?: Omit<Project, '_count'>;
     selected?: boolean;
@@ -20,6 +23,7 @@ type TaskListItem = {
 export const TaskListItem = (props: TaskListItem) => {
     const { t } = useTranslation();
     const priority = props.priority.toLowerCase();
+    const isDone = props.status === Status.DONE;
 
     return (
         <div className={styles.TaskListItem}>
@@ -30,7 +34,14 @@ export const TaskListItem = (props: TaskListItem) => {
                     onChange={(e) => props.onSelectChange?.(props.id, e.target.checked)}
                 />
                 <div className={styles.TaskListItem__contentWrapper}>
-                    <span className={styles.TaskListItem__title}>{props.title}</span>
+                    <span
+                        className={clsx(
+                            styles.TaskListItem__title,
+                            isDone && styles['TaskListItem__title--finished']
+                        )}
+                    >
+                        {props.title}
+                    </span>
                     <div className={styles.TaskListItem__pillsWrapper}>
                         {props.project && (
                             <Pill variant={'basic'} color={props.project.color} dot>
@@ -53,6 +64,15 @@ export const TaskListItem = (props: TaskListItem) => {
                                 <span>{t(`Task.Priority.${priority}`)}</span>
                             </span>
                         </Pill>
+                        {isDone && (
+                            <Pill
+                                variant={'colored'}
+                                tone={'success'}
+                                icon={<Check width={12} height={12} />}
+                            >
+                                {t('TaskDetail.markAsDone')}
+                            </Pill>
+                        )}
                     </div>
                 </div>
             </div>

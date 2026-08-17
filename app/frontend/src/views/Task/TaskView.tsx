@@ -78,6 +78,7 @@ export const TaskView = () => {
                             <TaskListItem
                                 id={task.id}
                                 priority={task.priority}
+                                status={task.status}
                                 title={task.title}
                                 project={task.project ?? undefined}
                                 tags={task.tags}
