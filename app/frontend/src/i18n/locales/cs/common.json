@@ -233,7 +233,7 @@
             "remaining": "{{time}} zbývá",
             "startTimer": "Spustit časovač"
         },
-        "markAsDone": "Hotovo",
+        "markAsDone": "Hotové",
         "reopenTask": "Znovu otevřít",
         "deleteTask": "Smazat úkol",
         "deleteTaskModalTitle": "Smazat úkol?",
