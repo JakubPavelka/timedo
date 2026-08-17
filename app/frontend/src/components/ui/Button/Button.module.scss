@@ -63,6 +63,18 @@
     }
 }
 
+.Button--outline-success {
+    background-color: transparent;
+    color: var(--success);
+    outline: 1px solid var(--success);
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--success);
+        color: var(--white);
+    }
+}
+
 .Button__text {
     @include typography.text-sm;
     font-weight: 700;
