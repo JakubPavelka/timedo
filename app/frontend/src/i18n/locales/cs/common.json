@@ -233,10 +233,16 @@
             "remaining": "{{time}} zbývá",
             "startTimer": "Spustit časovač"
         },
+        "markAsDone": "Hotovo",
+        "reopenTask": "Znovu otevřít",
         "deleteTask": "Smazat úkol",
         "deleteTaskModalTitle": "Smazat úkol?",
         "deleteTaskModalDescription": "Tato akce je nevratná. Úkol a všechny jeho záznamy času budou trvale smazány.",
         "deleteTaskSuccess": "Úkol byl smazán",
-        "deleteTaskError": "Nepodařilo se smazat úkol, zkuste to prosím znovu"
+        "deleteTaskError": "Nepodařilo se smazat úkol, zkuste to prosím znovu",
+        "markAsDoneSuccess": "Úkol byl označen jako hotový",
+        "markAsDoneError": "Nepodařilo se označit úkol jako hotový, zkuste to prosím znovu",
+        "reopenTaskSuccess": "Úkol byl znovu otevřen",
+        "reopenTaskError": "Nepodařilo se znovu otevřít úkol, zkuste to prosím znovu"
     }
 }

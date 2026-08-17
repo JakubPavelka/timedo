@@ -233,10 +233,16 @@
             "remaining": "{{time}} left",
             "startTimer": "Start timer"
         },
+        "markAsDone": "Done",
+        "reopenTask": "Reopen task",
         "deleteTask": "Delete task",
         "deleteTaskModalTitle": "Delete task?",
         "deleteTaskModalDescription": "This action is irreversible. The task and all its time entries will be permanently deleted.",
         "deleteTaskSuccess": "Task deleted",
-        "deleteTaskError": "Failed to delete task, please try again"
+        "deleteTaskError": "Failed to delete task, please try again",
+        "markAsDoneSuccess": "Task marked as done",
+        "markAsDoneError": "Failed to mark task as done, please try again",
+        "reopenTaskSuccess": "Task reopened",
+        "reopenTaskError": "Failed to reopen task, please try again"
     }
 }
