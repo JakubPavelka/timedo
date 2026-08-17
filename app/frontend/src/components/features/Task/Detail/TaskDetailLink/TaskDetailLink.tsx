@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { LinkBaseSchema } from '@timedo/shared/src/schemas/linkSchema';
 import { useEditableField } from '@/hooks/useEditableField';
 import { useUpdateTask } from '@/hooks/api/useTask';
-import { ApiError } from '@/api/ApiError';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import { TaskDetailLinkItem } from './TaskDetailLinkItem';
 import { TaskDetailLinkEditRow } from './TaskDetailLinkEditRow';
 import styles from './TaskDetailLink.module.scss';
@@ -63,11 +63,7 @@ export const TaskDetailLink = (props: TaskDetailLinkProps) => {
                     toast.success(t('TaskDetail.addLinkSuccess'));
                 },
                 onError: (err) => {
-                    toast.error(
-                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                            ? t(`BackendErrors.${err.code}`)
-                            : t('TaskDetail.addLinkError')
-                    );
+                    toast.error(getErrorMessage(err, 'TaskDetail.addLinkError', t));
                 },
             }
         );

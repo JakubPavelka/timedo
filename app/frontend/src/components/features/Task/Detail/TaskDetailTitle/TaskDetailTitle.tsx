@@ -4,7 +4,7 @@ import { UpdateTaskSchema } from '@timedo/shared/src/schemas/taskSchema';
 import { Input } from '@/components/ui/Input/Input';
 import { useUpdateTask } from '@/hooks/api/useTask';
 import { toast } from 'sonner';
-import { ApiError } from '@/api/ApiError';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import styles from './TaskDetailTitle.module.scss';
 
 type TaskDetailTitleProps = {
@@ -57,11 +57,7 @@ export const TaskDetailTitle = (props: TaskDetailTitleProps) => {
                     toast.success(t('TaskDetail.updateTitleSuccess'));
                 },
                 onError: (err) => {
-                    toast.error(
-                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                            ? t(`BackendErrors.${err.code}`)
-                            : t('TaskDetail.updateTitleError')
-                    );
+                    toast.error(getErrorMessage(err, 'TaskDetail.updateTitleError', t));
                 },
             }
         );

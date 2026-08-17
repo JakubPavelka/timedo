@@ -7,7 +7,7 @@ import { Popover } from '@/components/ui/Popover/Popover';
 import { useTagStore } from '@/store/tagStore';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
 import { useUpdateTask } from '@/hooks/api/useTask';
-import { ApiError } from '@/api/ApiError';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import { LabelColorForm } from '@/components/features/Forms/LabelColorForm/LabelColorForm';
 import { TagSchema, type TagData } from '@timedo/shared/src/schemas/tagsSchema';
 import { useCreateTag } from '@/hooks/api/useTag';
@@ -57,11 +57,7 @@ export const TaskDetailTags = (props: TaskDetailTagsProps) => {
                     toast.success(t('TaskDetail.updateTagsSuccess'));
                 },
                 onError: (err) => {
-                    toast.error(
-                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                            ? t(`BackendErrors.${err.code}`)
-                            : t('TaskDetail.updateTagsError')
-                    );
+                    toast.error(getErrorMessage(err, 'TaskDetail.updateTagsError', t));
                 },
             }
         );
@@ -74,11 +70,7 @@ export const TaskDetailTags = (props: TaskDetailTagsProps) => {
                 setShowCreateTag(false);
             },
             onError: (err) => {
-                toast.error(
-                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                        ? t(`BackendErrors.${err.code}`)
-                        : t('Task.Modal.createTagError')
-                );
+                toast.error(getErrorMessage(err, 'Task.Modal.createTagError', t));
             },
         });
     };

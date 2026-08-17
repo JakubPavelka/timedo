@@ -16,7 +16,7 @@ import { TagSchema, type TagData } from '@timedo/shared/src/schemas/tagsSchema';
 import { useCreateProject } from '@/hooks/api/useProject';
 import { useCreateTag } from '@/hooks/api/useTag';
 import { toast } from 'sonner';
-import { ApiError } from '@/api/ApiError';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import { useProjectStore } from '@/store/projectStore';
 import { useTagStore } from '@/store/tagStore';
 import clsx from 'clsx';
@@ -115,11 +115,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                 setShowProjectCreateForm(false);
             },
             onError: (err) => {
-                toast.error(
-                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                        ? t(`BackendErrors.${err.code}`)
-                        : t('Task.Modal.createProjectError')
-                );
+                toast.error(getErrorMessage(err, 'Task.Modal.createProjectError', t));
             },
         });
     };
@@ -131,11 +127,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                 setShowTagCreateForm(false);
             },
             onError: (err) => {
-                toast.error(
-                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                        ? t(`BackendErrors.${err.code}`)
-                        : t('Task.Modal.createTagError')
-                );
+                toast.error(getErrorMessage(err, 'Task.Modal.createTagError', t));
             },
         });
     };

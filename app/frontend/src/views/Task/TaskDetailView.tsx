@@ -15,8 +15,8 @@ import { TaskDetailLink } from '@/components/features/Task/Detail/TaskDetailLink
 import { TaskDetailTags } from '@/components/features/Task/Detail/TaskDetailTags/TaskDetailTags';
 import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDetailProperties/TaskDetailProperties';
 import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDetailTimeTracking/TaskDetailTimeTracking';
-import { ApiError } from '@/api/ApiError';
 import { Pill } from '@/components/ui/Pill/Pill';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
@@ -42,11 +42,7 @@ export const TaskDetailView = () => {
                 navigate({ to: '/dashboard/tasks', replace: true });
             },
             onError: (err) =>
-                toast.error(
-                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                        ? t(`BackendErrors.${err.code}`)
-                        : t('TaskDetail.deleteTaskError')
-                ),
+                toast.error(getErrorMessage(err, 'TaskDetail.deleteTaskError', t)),
         });
     };
 
@@ -67,13 +63,13 @@ export const TaskDetailView = () => {
                 },
                 onError: (err) =>
                     toast.error(
-                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                            ? t(`BackendErrors.${err.code}`)
-                            : t(
-                                  isDone
-                                      ? 'TaskDetail.reopenTaskError'
-                                      : 'TaskDetail.markAsDoneError'
-                              )
+                        getErrorMessage(
+                            err,
+                            isDone
+                                ? 'TaskDetail.reopenTaskError'
+                                : 'TaskDetail.markAsDoneError',
+                            t
+                        )
                     ),
             }
         );

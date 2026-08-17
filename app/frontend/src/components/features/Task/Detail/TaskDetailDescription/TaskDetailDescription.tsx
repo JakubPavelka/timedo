@@ -3,7 +3,7 @@ import { useEditableField } from '@/hooks/useEditableField';
 import { UpdateTaskSchema } from '@timedo/shared/src/schemas/taskSchema';
 import { useUpdateTask } from '@/hooks/api/useTask';
 import { toast } from 'sonner';
-import { ApiError } from '@/api/ApiError';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import { Textarea } from '@/components/ui/Textarea/Textarea';
 import styles from './TaskDetailDescription.module.scss';
 import { Plus } from 'lucide-react';
@@ -59,9 +59,7 @@ export const TaskDetailDescription = (props: TaskDetailDescriptionProps) => {
                 },
                 onError: (err) => {
                     toast.error(
-                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                            ? t(`BackendErrors.${err.code}`)
-                            : t('TaskDetail.updateDescriptionError')
+                        getErrorMessage(err, 'TaskDetail.updateDescriptionError', t)
                     );
                 },
             }

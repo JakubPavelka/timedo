@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useUpdateTask } from '@/hooks/api/useTask';
 import { useProjectStore } from '@/store/projectStore';
 import { toast } from 'sonner';
-import { ApiError } from '@/api/ApiError';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import { LabelColorForm } from '@/components/features/Forms/LabelColorForm/LabelColorForm';
 import {
     ProjectSchema,
@@ -61,11 +61,7 @@ export const TaskDetailProject = (props: TaskDetailProjectProps) => {
                     toast.success(t('TaskDetail.updateProjectSuccess'));
                 },
                 onError: (err) => {
-                    toast.error(
-                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                            ? t(`BackendErrors.${err.code}`)
-                            : t('TaskDetail.updateProjectError')
-                    );
+                    toast.error(getErrorMessage(err, 'TaskDetail.updateProjectError', t));
                 },
             }
         );
@@ -78,11 +74,7 @@ export const TaskDetailProject = (props: TaskDetailProjectProps) => {
                 setShowCreateProject(false);
             },
             onError: (err) => {
-                toast.error(
-                    err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                        ? t(`BackendErrors.${err.code}`)
-                        : t('Task.Modal.createProjectError')
-                );
+                toast.error(getErrorMessage(err, 'Task.Modal.createProjectError', t));
             },
         });
     };

@@ -9,7 +9,7 @@ import { useRef } from 'react';
 import { useUpdateTask } from '@/hooks/api/useTask';
 import { PRIORITY } from '@/data/priorityData';
 import { toast } from 'sonner';
-import { ApiError } from '@/api/ApiError';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import styles from './TaskDetailPriority.module.scss';
 
 type TaskDetailPriorityProps = {
@@ -36,11 +36,7 @@ export const TaskDetailPriority = (props: TaskDetailPriorityProps) => {
                     toast.success(t('TaskDetail.updatePrioritySuccess'));
                 },
                 onError: (err) => {
-                    toast.error(
-                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                            ? t(`BackendErrors.${err.code}`)
-                            : t('TaskDetail.updatePriorityError')
-                    );
+                    toast.error(getErrorMessage(err, 'TaskDetail.updatePriorityError', t));
                 },
             }
         );

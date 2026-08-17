@@ -5,7 +5,7 @@ import { LinkBaseSchema } from '@timedo/shared/src/schemas/linkSchema';
 import { LinkItem } from '@/components/ui/LinkItem/LinkItem';
 import { useEditableField } from '@/hooks/useEditableField';
 import { useUpdateTask } from '@/hooks/api/useTask';
-import { ApiError } from '@/api/ApiError';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import { TaskDetailLinkEditRow } from './TaskDetailLinkEditRow';
 import styles from './TaskDetailLink.module.scss';
 
@@ -72,11 +72,7 @@ export const TaskDetailLinkItem = (props: TaskDetailLinkItemProps) => {
                     toast.success(t('TaskDetail.updateLinkSuccess'));
                 },
                 onError: (err) => {
-                    toast.error(
-                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                            ? t(`BackendErrors.${err.code}`)
-                            : t('TaskDetail.updateLinkError')
-                    );
+                    toast.error(getErrorMessage(err, 'TaskDetail.updateLinkError', t));
                 },
             }
         );
@@ -98,11 +94,7 @@ export const TaskDetailLinkItem = (props: TaskDetailLinkItemProps) => {
                     toast.success(t('TaskDetail.deleteLinkSuccess'));
                 },
                 onError: (err) => {
-                    toast.error(
-                        err instanceof ApiError && err.code !== 'UNKNOWN_ERROR'
-                            ? t(`BackendErrors.${err.code}`)
-                            : t('TaskDetail.deleteLinkError')
-                    );
+                    toast.error(getErrorMessage(err, 'TaskDetail.deleteLinkError', t));
                 },
             }
         );
