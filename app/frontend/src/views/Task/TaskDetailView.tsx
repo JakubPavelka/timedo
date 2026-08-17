@@ -128,7 +128,11 @@ export const TaskDetailView = () => {
                             />
                         )}
                         {isDone && (
-                            <Pill variant={'colored'} tone={'success'}>
+                            <Pill
+                                variant={'colored'}
+                                tone={'success'}
+                                icon={<Check width={12} height={12} />}
+                            >
                                 {t('TaskDetail.markAsDone')}
                             </Pill>
                         )}
