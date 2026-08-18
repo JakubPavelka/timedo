@@ -122,6 +122,7 @@ export const TaskHeader = (props: TaskHeader) => {
         return deleteTasks(Array.from(props.selectedTasks), {
             onSuccess: () => {
                 toast.success(t('Task.tasksDeleteSuccess'));
+                handleCloseDeleteModal();
             },
             onError: (err) =>
                 toast.error(getErrorMessage(err, 'Task.tasksDeleteError', t)),
