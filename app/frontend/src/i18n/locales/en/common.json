@@ -210,7 +210,10 @@
         "changeProject": "Change project",
         "changeTags": "Change tags",
         "updateTasksSuccess": "Tasks were successfully updated",
-        "updateTasksError": "Failed to update tasks, please try again"
+        "updateTasksError": "Failed to update tasks, please try again",
+        "taskActions": "Task actions",
+        "updateTaskSuccess": "Task was successfully updated",
+        "updateTaskError": "Failed to update task, please try again"
     },
     "TaskDetail": {
         "backToTasks": "Back to tasks",

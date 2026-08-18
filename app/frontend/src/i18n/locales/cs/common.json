@@ -210,7 +210,10 @@
         "changeProject": "Změnit projekt",
         "changeTags": "Změnit tagy",
         "updateTasksSuccess": "Úkoly byly úspěšně upraveny",
-        "updateTasksError": "Nepodařilo se upravit úkoly, zkuste to prosím znovu"
+        "updateTasksError": "Nepodařilo se upravit úkoly, zkuste to prosím znovu",
+        "taskActions": "Akce úkolu",
+        "updateTaskSuccess": "Úkol byl úspěšně upraven",
+        "updateTaskError": "Nepodařilo se upravit úkol, zkuste to prosím znovu"
     },
     "TaskDetail": {
         "backToTasks": "Zpět na úkoly",
