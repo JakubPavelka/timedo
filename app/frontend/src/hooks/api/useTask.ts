@@ -61,6 +61,7 @@ export const useUpdateTask = (taskId: string) => {
         mutationFn: (data: UpdateTaskData) => taskApi.updateTask(taskId, data),
         onSuccess: (updated) => {
             queryClient.setQueryData(['task', taskId], updated);
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },
     });
 };
