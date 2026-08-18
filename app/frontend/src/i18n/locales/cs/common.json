@@ -256,5 +256,8 @@
         "markAsDoneError": "Nepodařilo se označit úkol jako hotový, zkuste to prosím znovu",
         "reopenTaskSuccess": "Úkol byl znovu otevřen",
         "reopenTaskError": "Nepodařilo se znovu otevřít úkol, zkuste to prosím znovu"
+    },
+    "Pagination": {
+        "page": "Stránka"
     }
 }

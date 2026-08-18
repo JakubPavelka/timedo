@@ -256,5 +256,8 @@
         "markAsDoneError": "Failed to mark task as done, please try again",
         "reopenTaskSuccess": "Task reopened",
         "reopenTaskError": "Failed to reopen task, please try again"
+    },
+    "Pagination": {
+        "page": "Page"
     }
 }
