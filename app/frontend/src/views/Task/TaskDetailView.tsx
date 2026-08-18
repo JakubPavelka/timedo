@@ -39,7 +39,11 @@ export const TaskDetailView = () => {
         deleteTask(undefined, {
             onSuccess: () => {
                 toast.success(t('TaskDetail.deleteTaskSuccess'));
-                navigate({ to: '/dashboard/tasks', replace: true });
+                navigate({
+                    to: '/dashboard/tasks',
+                    search: (prev) => prev,
+                    replace: true,
+                });
             },
             onError: (err) =>
                 toast.error(getErrorMessage(err, 'TaskDetail.deleteTaskError', t)),
@@ -78,7 +82,11 @@ export const TaskDetailView = () => {
     return (
         <div className={styles.TaskDetailView}>
             <div className={styles.TaskDetailView__header}>
-                <Link to={'/dashboard/tasks'} className={styles.TaskDetailView__back}>
+                <Link
+                    to={'/dashboard/tasks'}
+                    search={(prev) => prev}
+                    className={styles.TaskDetailView__back}
+                >
                     <ArrowLeft width={16} height={16} />
                     <span>{t('TaskDetail.backToTasks')}</span>
                 </Link>
