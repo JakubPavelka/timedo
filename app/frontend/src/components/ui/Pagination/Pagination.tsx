@@ -8,6 +8,8 @@ type PaginationProps = {
     maxPage: string;
     onClickBack: () => void;
     onClickForward: () => void;
+    disableBack?: boolean;
+    disableForward?: boolean;
 };
 
 export const Pagination = (props: PaginationProps) => {
@@ -19,6 +21,7 @@ export const Pagination = (props: PaginationProps) => {
                 onClick={props.onClickBack}
                 className={styles.Pagination__button}
                 variant={'outline'}
+                disabled={props.disableBack}
             >
                 <ArrowLeft width={14} height={14} />
             </Button>
@@ -31,6 +34,7 @@ export const Pagination = (props: PaginationProps) => {
                 onClick={props.onClickForward}
                 className={styles.Pagination__button}
                 variant={'outline'}
+                disabled={props.disableForward}
             >
                 <ArrowRight width={14} height={14} />
             </Button>
