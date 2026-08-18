@@ -1,6 +1,6 @@
 import { TaskHeader } from '@/components/features/Task/TaskHeader/TaskHeader';
 import { NewTaskModal } from '@/components/features/Task/NewTaskModal/NewTaskModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from '@/components/ui/Modal/Modal';
 import { useCreateTask, useGetTasks } from '@/hooks/api/useTask';
 import type { TaskData } from '@timedo/shared/src/schemas/taskSchema';
@@ -39,8 +39,14 @@ export const TaskView = () => {
     const total = data?.total ?? 0;
     const currentPage = Math.floor(currentOffset / currentLimit) + 1;
     const maxPage = Math.max(Math.ceil(total / currentLimit), 1);
+    const lastPageOffset = (maxPage - 1) * currentLimit;
 
-    console.log(Math.floor(currentOffset / currentLimit) + 1);
+    useEffect(() => {
+        if (isPending || currentOffset <= lastPageOffset) {
+            return;
+        }
+        navigate({ search: (prev) => ({ ...prev, offset: lastPageOffset }) });
+    }, [isPending, currentOffset, lastPageOffset, navigate]);
 
     const handleModalOpen = () => setNewTaskModalOpen(true);
     const handleModalClose = () => setNewTaskModalOpen(false);
@@ -73,10 +79,7 @@ export const TaskView = () => {
         navigate({
             search: (prev) => ({
                 ...prev,
-                offset: Math.min(
-                    currentOffset + currentLimit,
-                    (maxPage - 1) * currentLimit
-                ),
+                offset: Math.min(currentOffset + currentLimit, lastPageOffset),
             }),
         });
     };
@@ -104,6 +107,7 @@ export const TaskView = () => {
                             className={styles.TaskView__taskLink}
                             key={task.id}
                             to={task.id}
+                            search={(prev) => prev}
                         >
                             <TaskListItem
                                 id={task.id}
@@ -141,6 +145,8 @@ export const TaskView = () => {
                     maxPage={String(maxPage)}
                     onClickBack={handleClickPaginationBack}
                     onClickForward={handleClickPaginationForward}
+                    disableBack={currentOffset <= 0}
+                    disableForward={currentOffset >= lastPageOffset}
                 />
             </div>
 
