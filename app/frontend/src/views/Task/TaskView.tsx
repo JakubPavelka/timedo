@@ -13,6 +13,7 @@ import { Link } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/index';
 import { FilePlus2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/Button/Button';
+import { Pagination } from '@/components/ui/Pagination/Pagination';
 import styles from './TaskView.module.scss';
 
 export const TaskView = () => {
@@ -21,19 +22,25 @@ export const TaskView = () => {
     const [selectedTaskIds, setSelectedTaskIds] = useState<Set<string>>(new Set());
     const tasks = useTaskStore((s) => s.tasks);
     const { mutate: createTask } = useCreateTask();
-    const { priority, status, project, search } = Route.useSearch();
+    const { priority, status, project, search, offset, limit } = Route.useSearch();
     const priorityFilter = priority ? priority.split(',') : undefined;
     const projectFilter = project ? project.split(',') : undefined;
-    const { isPending } = useGetTasks(
-        '20',
-        '0',
+    const navigate = Route.useNavigate();
+    const currentLimit = limit ?? 10;
+    const currentOffset = offset ?? 0;
+    const { isPending, data } = useGetTasks(
+        currentLimit,
+        currentOffset,
         priorityFilter,
         status,
         projectFilter,
         search
     );
+    const total = data?.total ?? 0;
+    const currentPage = Math.floor(currentOffset / currentLimit) + 1;
+    const maxPage = Math.max(Math.ceil(total / currentLimit), 1);
 
-    console.log(selectedTaskIds);
+    console.log(Math.floor(currentOffset / currentLimit) + 1);
 
     const handleModalOpen = () => setNewTaskModalOpen(true);
     const handleModalClose = () => setNewTaskModalOpen(false);
@@ -59,6 +66,27 @@ export const TaskView = () => {
             },
             onError: (err) =>
                 toast.error(getErrorMessage(err, 'Task.Modal.createError', t)),
+        });
+    };
+
+    const handleClickPaginationForward = () => {
+        navigate({
+            search: (prev) => ({
+                ...prev,
+                offset: Math.min(
+                    currentOffset + currentLimit,
+                    (maxPage - 1) * currentLimit
+                ),
+            }),
+        });
+    };
+
+    const handleClickPaginationBack = () => {
+        navigate({
+            search: (prev) => ({
+                ...prev,
+                offset: Math.max(currentOffset - currentLimit, 0),
+            }),
         });
     };
 
@@ -107,6 +135,14 @@ export const TaskView = () => {
                     </Button>
                 </div>
             )}
+            <div className={styles.TaskView__paginationWrapper}>
+                <Pagination
+                    currentPage={String(currentPage)}
+                    maxPage={String(maxPage)}
+                    onClickBack={handleClickPaginationBack}
+                    onClickForward={handleClickPaginationForward}
+                />
+            </div>
 
             {newTaskModalOpen && (
                 <Modal
