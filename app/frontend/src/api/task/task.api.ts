@@ -20,8 +20,8 @@ export const taskApi = {
         }
     },
     getTasks: async (
-        limit: string,
-        offset: string,
+        limit: number,
+        offset: number,
         priority: string[] | undefined,
         status: string | undefined,
         project: string[] | undefined,
@@ -31,7 +31,7 @@ export const taskApi = {
             const response = await apiClient.get('/api/task', {
                 params: { limit, offset, priority, status, project, search },
             });
-            return response.data.data;
+            return { tasks: response.data.data, total: response.data.total as number };
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');

@@ -122,48 +122,53 @@ const getTasks = async (req: Request, res: Response) => {
               ).map((task) => task.id)
             : undefined;
 
-        const tasks = await prisma.task.findMany({
-            where: {
-                userId: req.user!.id,
-                ...(priority?.length && { priority: { in: priority } }),
-                ...(status && { status }),
-                ...(project?.length && { projectId: { in: project } }),
-                ...(matchingTaskIds && { id: { in: matchingTaskIds } }),
-            },
-            orderBy: { createdAt: 'desc' },
-            take: limit,
-            skip: offset,
-            select: {
-                id: true,
-                description: true,
-                priority: true,
-                project: {
-                    select: {
-                        id: true,
-                        label: true,
-                        color: true,
-                    },
-                },
-                tags: {
-                    select: {
-                        id: true,
-                        label: true,
-                        color: true,
-                    },
-                },
-                title: true,
-                status: true,
-                links: {
-                    select: {
-                        id: true,
-                        label: true,
-                        url: true,
-                    },
-                },
-            },
-        });
+        const where = {
+            userId: req.user!.id,
+            ...(priority?.length && { priority: { in: priority } }),
+            ...(status && { status }),
+            ...(project?.length && { projectId: { in: project } }),
+            ...(matchingTaskIds && { id: { in: matchingTaskIds } }),
+        };
 
-        return res.status(200).json({ status: 'success', data: tasks });
+        const [tasks, total] = await Promise.all([
+            prisma.task.findMany({
+                where,
+                orderBy: { createdAt: 'desc' },
+                take: limit,
+                skip: offset,
+                select: {
+                    id: true,
+                    description: true,
+                    priority: true,
+                    project: {
+                        select: {
+                            id: true,
+                            label: true,
+                            color: true,
+                        },
+                    },
+                    tags: {
+                        select: {
+                            id: true,
+                            label: true,
+                            color: true,
+                        },
+                    },
+                    title: true,
+                    status: true,
+                    links: {
+                        select: {
+                            id: true,
+                            label: true,
+                            url: true,
+                        },
+                    },
+                },
+            }),
+            prisma.task.count({ where }),
+        ]);
+
+        return res.status(200).json({ status: 'success', data: tasks, total });
     } catch {
         return res.status(500).json({ message: 'Failed to get tasks' });
     }

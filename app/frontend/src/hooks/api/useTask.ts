@@ -19,8 +19,8 @@ export const useCreateTask = () => {
 };
 
 export const useGetTasks = (
-    limit: string,
-    offset: string,
+    limit: number,
+    offset: number,
     priority: string[] | undefined,
     status: string | undefined,
     project: string[] | undefined,
@@ -31,7 +31,7 @@ export const useGetTasks = (
     return useQuery({
         queryKey: ['tasks', limit, offset, priority, status, project, search],
         queryFn: async () => {
-            const tasks = await taskApi.getTasks(
+            const { tasks, total } = await taskApi.getTasks(
                 limit,
                 offset,
                 priority,
@@ -40,7 +40,7 @@ export const useGetTasks = (
                 search
             );
             setTasks(tasks);
-            return tasks;
+            return { tasks, total };
         },
         retry: false,
     });
