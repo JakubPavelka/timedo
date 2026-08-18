@@ -55,6 +55,9 @@
 }
 
 .Checkbox--round {
+    padding: 8px;
+    margin: -8px;
+
     .Checkbox__box {
         border-radius: 50%;
     }
