@@ -223,6 +223,7 @@ export const TaskHeader = (props: TaskHeader) => {
                                                 {proj.label}
                                             </span>
                                         }
+                                        size={'sm'}
                                         onChange={() => handleProjectToggle(proj.id)}
                                         checked={project.includes(proj.id)}
                                     />
