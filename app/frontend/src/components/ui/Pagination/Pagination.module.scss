@@ -1,0 +1,26 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+
+.Pagination {
+    @include layout.centerY;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.Pagination__text {
+    @include typography.text-sm(var(--text-2));
+}
+
+.Pagination__button {
+    padding: 8px;
+
+    &:hover span {
+        color: var(--text);
+    }
+}
+
+.Pagination__button span {
+    @include layout.centerXY;
+    color: var(--text-2);
+    transition: color 0.2s;
+}
