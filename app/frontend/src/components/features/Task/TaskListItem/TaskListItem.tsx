@@ -4,6 +4,7 @@ import { Priority, Status } from '@timedo/shared/src/schemas/taskSchema';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import { Pill, type PillTone, type PillVariant } from '@/components/ui/Pill/Pill';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
+import { TaskListItemActions } from '@/components/features/Task/TaskListItemActions/TaskListItemActions';
 import { useTranslation } from 'react-i18next';
 import type { Tag } from '@/store/tagStore';
 import type { Project } from '@/store/projectStore';
@@ -95,6 +96,10 @@ export const TaskListItem = (props: TaskListItem) => {
                     </div>
                 </div>
             </div>
+            <TaskListItemActions
+                taskId={props.id}
+                tagIds={props.tags?.map((tag) => tag.id) ?? []}
+            />
         </div>
     );
 };
