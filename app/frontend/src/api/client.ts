@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { authApi } from './auth/auth.api';
 import { useAuthStore } from '@/store/authStore';
+import { router } from '@/router';
 
 const baseURL = import.meta.env.VITE_API_URL;
 
@@ -11,6 +12,10 @@ export const apiClient = axios.create({
     },
     withCredentials: true,
 });
+
+let refreshPromise: ReturnType<typeof authApi.refresh> | null = null;
+
+const publicRoutes = ['/login', '/register'];
 
 apiClient.interceptors.response.use(
     (response) => response,
@@ -33,10 +38,16 @@ apiClient.interceptors.response.use(
             originalRequest._retry = true;
 
             try {
-                await authApi.refresh();
+                refreshPromise ??= authApi.refresh().finally(() => {
+                    refreshPromise = null;
+                });
+                await refreshPromise;
                 return apiClient(originalRequest);
             } catch (refreshError) {
                 useAuthStore.getState().setUser(null);
+                if (!publicRoutes.includes(router.state.location.pathname)) {
+                    router.navigate({ to: '/login', replace: true });
+                }
                 return Promise.reject(refreshError);
             }
         }

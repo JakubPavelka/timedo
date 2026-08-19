@@ -1,0 +1,61 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.TaskDetailLink {
+    @include layout.flexColumn;
+    gap: 10px;
+}
+
+.TaskDetailLink__addLinkWrapper {
+    @include layout.centerY;
+    @include typography.text-md;
+    gap: 8px;
+    transition: color 0.2s;
+    cursor: pointer;
+    max-width: fit-content;
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.TaskDetailLink__link {
+    width: 100%;
+}
+
+.TaskDetailLink__linksWrapper {
+    @include layout.flexColumn;
+    gap: 10px;
+}
+
+.TaskDetailView__linkWrapper {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.TaskDetailLink__editInputs {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.TaskDetailLink__editInput {
+    width: 50%;
+
+    input {
+        padding: 10px 12px;
+    }
+}
+
+.TaskDetailLink__actionIcon {
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.TaskDetailLink__error {
+    @include typography.text-error;
+}

@@ -1,0 +1,24 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+
+.TaskDetailDescription__text {
+    @include typography.text-md;
+    white-space: pre-wrap;
+    cursor: pointer;
+}
+
+.TaskDetailDescription__error {
+    @include typography.text-error;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+
+.TaskDetailDescription__emptyTextWrapper {
+    @include layout.centerY;
+    gap: 4px;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--accent);
+    }
+}

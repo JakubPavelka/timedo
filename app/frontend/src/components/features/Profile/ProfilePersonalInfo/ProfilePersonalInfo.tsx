@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/Card/Card';
 import { User, Edit, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { ProfileForm } from '../../forms/ProfileForm/ProfileForm';
+import { ProfileForm } from '../../Forms/ProfileForm/ProfileForm';
 import styles from './ProfilePersonalInfo.module.scss';
 import { useState } from 'react';
 import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';

@@ -5,18 +5,18 @@ import { Button } from '@/components/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { SidebarProfileButton } from './SidebarProfileButton/SidebarProfileButton';
 import { Link } from '@tanstack/react-router';
-import clsx from 'clsx';
+import { useProjectStore } from '@/store/projectStore';
+import sidebarButtonsData from '@/data/sidebarButtonsData';
 import styles from './Sidebar.module.scss';
 
 type SidebarProps = {
-    projects?: any[];
-    buttons: any[];
     onTimerClick?: () => void;
 };
 
 export const Sidebar = (props: SidebarProps) => {
     const { t } = useTranslation();
     const theme = useTheme((s) => s.theme);
+    const projects = useProjectStore((s) => s.projects);
 
     return (
         <div className={styles.Sidebar}>
@@ -37,14 +37,16 @@ export const Sidebar = (props: SidebarProps) => {
                 <p>{t('Sidebar.startFocus')}</p>
             </Button>
 
-            <div className={styles.Sidebar__buttonsWrapper}>
-                {props.buttons?.map((item, index) => {
+            <nav className={styles.Sidebar__buttonsWrapper}>
+                {sidebarButtonsData.map((item) => {
                     return (
                         <Link
                             to={item.view}
-                            key={`${item.text}-${index}`}
-                            className={clsx(styles.Sidebar__button)}
-                            activeProps={{ className: styles['--active'] }}
+                            key={item.view}
+                            className={styles.Sidebar__button}
+                            activeProps={{
+                                className: styles['Sidebar__button--active'],
+                            }}
                         >
                             <span className={styles.Sidebar__buttonIcon}>
                                 {item.icon}
@@ -53,7 +55,48 @@ export const Sidebar = (props: SidebarProps) => {
                         </Link>
                     );
                 })}
-            </div>
+            </nav>
+
+            {projects.length !== 0 && (
+                <div>
+                    <p className={styles.Sidebar__projectsTitle}>
+                        {t('Sidebar.projects')}
+                    </p>
+                    <ul className={styles.Sidebar__projectsList}>
+                        {projects.map((project) => {
+                            return (
+                                <li key={project.id}>
+                                    <button
+                                        className={styles.Sidebar__projectsButton}
+                                        type={'button'}
+                                    >
+                                        <span
+                                            className={
+                                                styles.Sidebar__projectsColorWrapper
+                                            }
+                                        >
+                                            <span
+                                                className={styles.Sidebar__projectsDot}
+                                                style={{
+                                                    backgroundColor: project.color,
+                                                }}
+                                            />
+                                            <span
+                                                className={styles.Sidebar__projectsText}
+                                            >
+                                                {project.label}
+                                            </span>
+                                        </span>
+                                        <span className={styles.Sidebar__projectsCount}>
+                                            {project._count.tasks}
+                                        </span>
+                                    </button>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            )}
 
             <div className={styles.Sidebar__profileWrapper}>
                 <SidebarProfileButton />

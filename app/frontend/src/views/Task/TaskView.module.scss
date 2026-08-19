@@ -1,0 +1,74 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.TaskView {
+    @include layout.flexColumn;
+    min-height: 100%;
+    padding: 24px;
+}
+
+.TaskView__selectAllWrapper {
+    max-width: fit-content;
+    padding: 14px;
+    border-radius: 10px;
+    margin-top: 16px;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--surface-2);
+    }
+}
+
+.TaskView__tasksWrapper {
+    @include layout.flexColumn;
+    gap: 4px;
+    margin-block: 16px;
+}
+
+.TaskView__taskLink:hover {
+    text-decoration: none;
+}
+
+.TaskView__emptyWrapper {
+    @include layout.centerX;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 120px;
+}
+
+.TaskView__emptyIcon {
+    @include layout.centerXY;
+    background-color: var(--accent-soft);
+    border-radius: 16px;
+    margin-inline: auto;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 16px;
+
+    svg {
+        color: var(--accent);
+    }
+}
+
+.TaskView__noTaskTitle {
+    @include typography.text-lg;
+}
+
+.TaskView__noTaskDescription {
+    @include typography.text-md(var(--text-2));
+}
+
+.TaskView__buttonWrapper {
+    @include layout.centerXY;
+    gap: 8px;
+}
+
+.TaskView__emptyWrapper button {
+    margin-inline: auto;
+    margin-top: 24px;
+}
+
+.TaskView__paginationWrapper {
+    margin-top: auto;
+    margin-left: auto;
+}

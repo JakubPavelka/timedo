@@ -3,10 +3,10 @@ import { useTranslation, Trans } from 'react-i18next';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useLogin } from '@/hooks/api/useAuth';
 import type { LoginData } from '@timedo/shared/src/schemas/authSchema';
-import { ApiAuthError } from '@/api/auth/auth.api';
+import { ApiError } from '@/api/ApiError';
 import { AuthRightSide } from '@/components/features/Auth/AuthRightSide/AuthRightSide';
 import { AuthHeaderLogo } from '@/components/features/Auth/AuthHeaderLogo/AuthHeaderLogo';
-import { LoginForm } from '@/components/features/forms/AuthForm/LoginForm';
+import { LoginForm } from '@/components/features/Forms/AuthForm/LoginForm';
 import styles from './AuthStyles.module.scss';
 
 export const LoginView = () => {
@@ -38,7 +38,7 @@ export const LoginView = () => {
                         />
                         {error && (
                             <p className={styles.AuthView__errorMessage}>
-                                {error instanceof ApiAuthError
+                                {error instanceof ApiError
                                     ? t(`BackendErrors.${error.code}`)
                                     : error.message}
                             </p>

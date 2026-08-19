@@ -1,11 +1,11 @@
-import { RegisterForm } from '@/components/features/forms/AuthForm/RegisterForm';
+import { RegisterForm } from '@/components/features/Forms/AuthForm/RegisterForm';
 import { AuthCard } from '@/components/features/Auth/AuthCard/AuthCard';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, useNavigate } from '@tanstack/react-router';
 import styles from './AuthStyles.module.scss';
 import { useRegister } from '@/hooks/api/useAuth';
 import type { RegisterData } from '@timedo/shared/src/schemas/authSchema';
-import { ApiAuthError } from '@/api/auth/auth.api';
+import { ApiError } from '@/api/ApiError';
 import { AuthRightSide } from '@/components/features/Auth/AuthRightSide/AuthRightSide';
 import { AuthHeaderLogo } from '@/components/features/Auth/AuthHeaderLogo/AuthHeaderLogo';
 
@@ -41,7 +41,7 @@ export const RegisterView = () => {
                         />
                         {error && (
                             <p className={styles.AuthView__errorMessage}>
-                                {error instanceof ApiAuthError
+                                {error instanceof ApiError
                                     ? t(`BackendErrors.${error.code}`)
                                     : error.message}
                             </p>

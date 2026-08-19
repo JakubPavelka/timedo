@@ -1,0 +1,89 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.TaskDetailTags {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.TaskDetailTags__popover {
+    @include layout.flexColumn;
+    min-width: 120px;
+    padding: 8px;
+    gap: 8px;
+}
+
+.TaskDetailTags__popover--createActive {
+    min-width: 250px;
+}
+
+.TaskDetailTags__tags {
+    @include layout.centerY;
+    gap: 8px;
+}
+
+.TaskDetailTags__checkboxWrapper {
+    @include layout.centerY;
+    gap: 8px;
+}
+
+.TaskDetailTags__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+    flex-shrink: 0;
+}
+
+.TaskDetailTags__tagIcon {
+    @include layout.centerXY;
+    background-color: var(--surface-2);
+    width: fit-content;
+    border-radius: 999px;
+    padding: 6px;
+    transition: background-color 0.2s;
+
+    svg {
+        color: var(--text-3);
+        transition: color 0.2s;
+    }
+}
+
+.TaskDetailTags__tagIconWrapper {
+    @include layout.centerY;
+    gap: 6px;
+    cursor: pointer;
+
+    &:hover .TaskDetailTags__tagIcon {
+        background-color: var(--surface-3);
+
+        svg {
+            color: var(--text-2);
+        }
+    }
+}
+
+.TaskDetailTags__tagIconWrapper p {
+    @include typography.text-sm(var(--text-2));
+}
+
+.TaskDetailTags__noTagsText {
+    @include typography.text-sm(var(--text-2));
+}
+
+.TaskDetailTags__createTagWrapper {
+    @include layout.centerY;
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    gap: 8px;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.TaskDetailTags__createTagText {
+    @include typography.text-sm(inherit);
+}

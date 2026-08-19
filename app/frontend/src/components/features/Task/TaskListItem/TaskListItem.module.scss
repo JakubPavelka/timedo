@@ -1,0 +1,44 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+
+.TaskListItem {
+    @include layout.spaceBetweenY;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--surface-2);
+        --actions-trigger-opacity: 1;
+    }
+}
+
+.TaskListItem__leftWrapper {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.TaskListItem__contentWrapper {
+    @include layout.flexColumn;
+    gap: 8px;
+}
+
+.TaskListItem__title {
+    @include typography.text-md;
+}
+
+.TaskListItem__title--finished {
+    color: var(--text-2);
+    text-decoration: line-through;
+}
+
+.TaskListItem__pillsWrapper {
+    @include layout.centerY;
+    gap: 8px;
+}
+
+.TaskListItem__priorityPill {
+    @include layout.centerXY;
+    gap: 5px;
+}

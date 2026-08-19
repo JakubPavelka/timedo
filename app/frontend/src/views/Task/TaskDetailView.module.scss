@@ -1,0 +1,80 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.TaskDetailView {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.TaskDetailView__header {
+    @include layout.spaceBetweenY;
+}
+
+.TaskDetailView__columns {
+    display: flex;
+    gap: 24px;
+}
+
+.TaskDetailView__left {
+    width: 70%;
+}
+
+.TaskDetailView__right {
+    @include layout.flexColumn;
+    width: 30%;
+    gap: 24px;
+}
+
+.TaskDetailView__back {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    max-width: fit-content;
+    gap: 4px;
+    transition: color 0.2s;
+
+    svg {
+        transition: transform 0.2s;
+    }
+
+    &:hover {
+        color: var(--text);
+
+        svg {
+            transform: translateX(-2px);
+        }
+    }
+}
+
+.TaskDetailView__headerActions {
+    @include layout.centerY;
+    gap: 16px;
+}
+
+.TaskDetailView__deleteButton {
+    @include layout.centerXY;
+    gap: 8px;
+}
+
+.TaskDetailView__badges {
+    @include layout.centerY;
+    gap: 8px;
+}
+
+.TaskDetailView__heading {
+    @include typography.text-sm(var(--text-2));
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.TaskDetailView__text {
+    @include typography.text-md;
+    font-weight: 400;
+}
+
+.TaskDetailView__linksWrapper {
+    @include layout.flexColumn;
+    gap: 4px;
+}

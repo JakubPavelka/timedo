@@ -6,12 +6,18 @@ import cors from 'cors';
 import { disconnectDB } from './db/db.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import taskRoutes from './routes/taskRoutes.js';
+import projectRoutes from './routes/projectRoutes.js';
+import tagRoutes from './routes/tagRoutes.js';
+import linkRoutes from './routes/linkRoutes.js';
 
 const PORT = 3001;
 
 dotenv.config();
 
 const app = express();
+
+app.set('query parser', 'extended');
 
 app.use(
     cors({
@@ -25,6 +31,10 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/task', taskRoutes);
+app.use('/api/project', projectRoutes);
+app.use('/api/tag', tagRoutes);
+app.use('/api/link', linkRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello world');

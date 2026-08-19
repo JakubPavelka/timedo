@@ -1,0 +1,67 @@
+@use 'styles/typography';
+
+.Pill {
+    --pill-color: var(--text-2);
+
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.Pill__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--pill-color);
+    flex-shrink: 0;
+}
+
+.Pill__icon {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: inherit;
+}
+
+.Pill__label {
+    @include typography.text-xs;
+    color: inherit;
+    font-weight: 500;
+}
+
+.Pill--basic {
+    background-color: var(--surface-3);
+    color: var(--text-2);
+}
+
+.Pill--colored {
+    background-color: color-mix(in srgb, var(--pill-color) 18%, var(--surface));
+    color: color-mix(in srgb, var(--pill-color) 55%, var(--text));
+}
+
+.Pill--accent {
+    --pill-color: var(--accent-text);
+}
+
+.Pill--success {
+    --pill-color: var(--success);
+}
+
+.Pill--danger {
+    --pill-color: var(--danger);
+}
+
+.Pill--warning {
+    --pill-color: var(--warning);
+}
+
+.Pill--highlight {
+    --pill-color: var(--highlight);
+}
+
+.Pill--info {
+    --pill-color: var(--info);
+}

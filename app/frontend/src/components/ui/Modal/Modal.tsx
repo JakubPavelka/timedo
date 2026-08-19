@@ -7,9 +7,15 @@ type ModalProps = {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    closeOnOverlayClick?: boolean;
 };
 
-export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+export const Modal = ({
+    isOpen,
+    onClose,
+    children,
+    closeOnOverlayClick = true,
+}: ModalProps) => {
     const overlayRef = useRef(null);
 
     useEffect(() => {
@@ -27,7 +33,7 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     }, [isOpen, onClose]);
 
     const handleOverlayClick = (e: MouseEvent) => {
-        if (e.target === overlayRef.current) {
+        if (closeOnOverlayClick && e.target === overlayRef.current) {
             onClose();
         }
     };

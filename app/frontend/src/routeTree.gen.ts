@@ -15,11 +15,12 @@ import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgottenPasswordRouteImport } from './routes/forgotten-password'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as DashboardTasksRouteImport } from './routes/dashboard/tasks'
 import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
 import { Route as DashboardOverviewRouteImport } from './routes/dashboard/overview'
 import { Route as DashboardFocusRouteImport } from './routes/dashboard/focus'
 import { Route as DashboardCalendarRouteImport } from './routes/dashboard/calendar'
+import { Route as DashboardTasksIndexRouteImport } from './routes/dashboard/tasks/index'
+import { Route as DashboardTasksTaskIdRouteImport } from './routes/dashboard/tasks/$taskId'
 
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
@@ -51,11 +52,6 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardTasksRoute = DashboardTasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => DashboardRoute,
-} as any)
 const DashboardProfileRoute = DashboardProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -76,6 +72,16 @@ const DashboardCalendarRoute = DashboardCalendarRouteImport.update({
   path: '/calendar',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardTasksIndexRoute = DashboardTasksIndexRouteImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardTasksTaskIdRoute = DashboardTasksTaskIdRouteImport.update({
+  id: '/tasks/$taskId',
+  path: '/tasks/$taskId',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteWithChildren
@@ -88,7 +94,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/focus': typeof DashboardFocusRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/profile': typeof DashboardProfileRoute
-  '/dashboard/tasks': typeof DashboardTasksRoute
+  '/dashboard/tasks/$taskId': typeof DashboardTasksTaskIdRoute
+  '/dashboard/tasks/': typeof DashboardTasksIndexRoute
 }
 export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRouteWithChildren
@@ -101,7 +108,8 @@ export interface FileRoutesByTo {
   '/dashboard/focus': typeof DashboardFocusRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/profile': typeof DashboardProfileRoute
-  '/dashboard/tasks': typeof DashboardTasksRoute
+  '/dashboard/tasks/$taskId': typeof DashboardTasksTaskIdRoute
+  '/dashboard/tasks': typeof DashboardTasksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -115,7 +123,8 @@ export interface FileRoutesById {
   '/dashboard/focus': typeof DashboardFocusRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/profile': typeof DashboardProfileRoute
-  '/dashboard/tasks': typeof DashboardTasksRoute
+  '/dashboard/tasks/$taskId': typeof DashboardTasksTaskIdRoute
+  '/dashboard/tasks/': typeof DashboardTasksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -130,7 +139,8 @@ export interface FileRouteTypes {
     | '/dashboard/focus'
     | '/dashboard/overview'
     | '/dashboard/profile'
-    | '/dashboard/tasks'
+    | '/dashboard/tasks/$taskId'
+    | '/dashboard/tasks/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/dashboard'
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/dashboard/focus'
     | '/dashboard/overview'
     | '/dashboard/profile'
+    | '/dashboard/tasks/$taskId'
     | '/dashboard/tasks'
   id:
     | '__root__'
@@ -156,7 +167,8 @@ export interface FileRouteTypes {
     | '/dashboard/focus'
     | '/dashboard/overview'
     | '/dashboard/profile'
-    | '/dashboard/tasks'
+    | '/dashboard/tasks/$taskId'
+    | '/dashboard/tasks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -212,13 +224,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/tasks': {
-      id: '/dashboard/tasks'
-      path: '/tasks'
-      fullPath: '/dashboard/tasks'
-      preLoaderRoute: typeof DashboardTasksRouteImport
-      parentRoute: typeof DashboardRoute
-    }
     '/dashboard/profile': {
       id: '/dashboard/profile'
       path: '/profile'
@@ -247,6 +252,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardCalendarRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/tasks/': {
+      id: '/dashboard/tasks/'
+      path: '/tasks'
+      fullPath: '/dashboard/tasks/'
+      preLoaderRoute: typeof DashboardTasksIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/tasks/$taskId': {
+      id: '/dashboard/tasks/$taskId'
+      path: '/tasks/$taskId'
+      fullPath: '/dashboard/tasks/$taskId'
+      preLoaderRoute: typeof DashboardTasksTaskIdRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
@@ -255,7 +274,8 @@ interface DashboardRouteChildren {
   DashboardFocusRoute: typeof DashboardFocusRoute
   DashboardOverviewRoute: typeof DashboardOverviewRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
-  DashboardTasksRoute: typeof DashboardTasksRoute
+  DashboardTasksTaskIdRoute: typeof DashboardTasksTaskIdRoute
+  DashboardTasksIndexRoute: typeof DashboardTasksIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
@@ -263,7 +283,8 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardFocusRoute: DashboardFocusRoute,
   DashboardOverviewRoute: DashboardOverviewRoute,
   DashboardProfileRoute: DashboardProfileRoute,
-  DashboardTasksRoute: DashboardTasksRoute,
+  DashboardTasksTaskIdRoute: DashboardTasksTaskIdRoute,
+  DashboardTasksIndexRoute: DashboardTasksIndexRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(

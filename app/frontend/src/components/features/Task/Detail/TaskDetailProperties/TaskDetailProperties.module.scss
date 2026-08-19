@@ -1,0 +1,36 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+
+.TaskDetailProperties {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background-color: var(--surface);
+    width: 100%;
+}
+
+.TaskDetailProperties__borderTop {
+    border-top: 1px solid var(--border);
+}
+
+.TaskDetailProperties__rowWrapper {
+    @include layout.spaceBetweenY;
+    padding-block: 10px;
+    gap: 16px;
+}
+
+.TaskDetailProperties__iconText {
+    @include typography.text-sm(var(--text-2));
+    @include layout.centerY;
+    gap: 6px;
+}
+
+.TaskDetailProperties__textWhite {
+    @include typography.text-md;
+}
+
+.TaskDetailProperties__textAlign {
+    @include typography.text-md;
+    @include layout.centerY;
+    gap: 8px;
+}

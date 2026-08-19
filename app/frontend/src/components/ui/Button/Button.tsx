@@ -9,7 +9,8 @@ type ButtonVariant =
     | 'secondary'
     | 'outline'
     | 'danger'
-    | 'outline-danger';
+    | 'outline-danger'
+    | 'outline-success';
 
 type ButtonProps = {
     haveRightArrow?: boolean;
@@ -46,11 +47,7 @@ export const Button = (props: ButtonProps) => {
             {...rest}
         >
             {havePlayIcon && (
-                <Play
-                    className={styles.Button_playIcon}
-                    width={10}
-                    height={10}
-                />
+                <Play className={styles.Button_playIcon} width={10} height={10} />
             )}
             <span className={styles.Button__text}>{children}</span>
             {isLoading ? (

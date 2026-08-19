@@ -4,7 +4,7 @@ import { ProfileAppPreferences } from '@/components/features/Profile/ProfileAppP
 import { ProfileConnectedAccounts } from '@/components/features/Profile/ProfileConnectedAccounts/ProfileConnectedAccounts';
 import { ProfileSecurity } from '@/components/features/Profile/ProfileSecurity/ProfileSecurity';
 import { useUpdateMe } from '@/hooks/api/useAuth';
-import { ApiAuthError } from '@/api/auth/auth.api';
+import { getErrorMessage } from '@/utils/getErrorMessage';
 import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -18,11 +18,7 @@ export const ProfileView = () => {
         return changeProfileData(data, {
             onSuccess: () => toast.success(t('General.changesSaved')),
             onError: (err) =>
-                toast.error(
-                    err instanceof ApiAuthError && err.code !== 'UNKNOWN_ERROR'
-                        ? t(`BackendErrors.${err.code}`)
-                        : t('Profile.PersonalInfo.updateError')
-                ),
+                toast.error(getErrorMessage(err, 'Profile.PersonalInfo.updateError', t)),
         });
     };
 
