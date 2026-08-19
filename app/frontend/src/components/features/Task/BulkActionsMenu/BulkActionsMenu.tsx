@@ -260,6 +260,7 @@ export const BulkActionsMenu = (props: BulkActionsMenuProps) => {
                     tags.map((tag) => (
                         <Checkbox
                             key={tag.id}
+                            size={'sm'}
                             className={styles.BulkActionsMenu__checkboxItem}
                             checked={checkedTagIds.includes(tag.id)}
                             onChange={() => handleToggleTag(tag.id)}

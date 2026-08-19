@@ -264,6 +264,7 @@ export const TaskListItemActionsMenu = (props: TaskListItemActionsMenuProps) => 
                     tags.map((tag) => (
                         <Checkbox
                             key={tag.id}
+                            size={'sm'}
                             className={styles.TaskListItemActionsMenu__checkboxItem}
                             checked={checkedTagIds.includes(tag.id)}
                             onChange={() => handleToggleTag(tag.id)}
