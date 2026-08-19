@@ -18,7 +18,8 @@
         "TOKEN_EXPIRED": "Vaše session vypršela, přihlaste se prosím znovu",
         "INVALID_TOKEN": "Vaše session je neplatná, přihlaste se prosím znovu",
         "REFRESH_TOKEN_INVALID": "Vaše session vypršela, přihlaste se prosím znovu",
-        "USER_NOT_FOUND": "Uživatel nebyl nalezen"
+        "USER_NOT_FOUND": "Uživatel nebyl nalezen",
+        "TIMER_ALREADY_RUNNING": "Už máte spuštěný jiný časovač"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",
