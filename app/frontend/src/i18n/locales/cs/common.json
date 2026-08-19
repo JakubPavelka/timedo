@@ -153,6 +153,7 @@
             "todo": "Nezahájené"
         },
         "newTask": "Nový úkol",
+        "selectAll": "Vybrat vše",
         "actions": "Hromadná akce ({{count}})",
         "Priority": {
             "lowPriority": "Nízká priorita",

@@ -2,7 +2,21 @@
 @use 'styles/typography';
 
 .TaskView {
+    @include layout.flexColumn;
+    min-height: 100%;
     padding: 24px;
+}
+
+.TaskView__selectAllWrapper {
+    max-width: fit-content;
+    padding: 14px;
+    border-radius: 10px;
+    margin-top: 16px;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--surface-2);
+    }
 }
 
 .TaskView__tasksWrapper {
@@ -55,5 +69,6 @@
 }
 
 .TaskView__paginationWrapper {
+    margin-top: auto;
     margin-left: auto;
 }

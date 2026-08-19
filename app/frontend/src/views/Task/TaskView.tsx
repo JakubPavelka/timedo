@@ -9,6 +9,7 @@ import { getErrorMessage } from '@/utils/getErrorMessage';
 import { useTranslation } from 'react-i18next';
 import { useTaskStore } from '@/store/taskStore';
 import { TaskListItem } from '@/components/features/Task/TaskListItem/TaskListItem';
+import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
 import { Link } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/index';
 import { FilePlus2, Plus } from 'lucide-react';
@@ -48,9 +49,23 @@ export const TaskView = () => {
         navigate({ search: (prev) => ({ ...prev, offset: lastPageOffset }) });
     }, [isPending, currentOffset, lastPageOffset, navigate]);
 
+    const visibleSelectedTaskIds = new Set(
+        tasks.filter((task) => selectedTaskIds.has(task.id)).map((task) => task.id)
+    );
+    const allTasksSelected =
+        tasks.length > 0 && tasks.length === visibleSelectedTaskIds.size;
+
     const handleModalOpen = () => setNewTaskModalOpen(true);
     const handleModalClose = () => setNewTaskModalOpen(false);
     const handleUnselectAll = () => setSelectedTaskIds(new Set());
+
+    const handleToggleSelectAll = () => {
+        if (allTasksSelected) {
+            setSelectedTaskIds(new Set());
+        } else {
+            setSelectedTaskIds(new Set(tasks.map((task) => task.id)));
+        }
+    };
 
     const handleSelectChange = (id: string, selected: boolean) => {
         setSelectedTaskIds((prev) => {
@@ -97,31 +112,39 @@ export const TaskView = () => {
         <div className={styles.TaskView}>
             <TaskHeader
                 onNewTaskClick={handleModalOpen}
-                selectedTasks={selectedTaskIds}
+                selectedTasks={visibleSelectedTaskIds}
                 onUnselectAll={handleUnselectAll}
             />
             {isPending ? null : tasks.length > 0 ? (
-                <div className={styles.TaskView__tasksWrapper}>
-                    {tasks.map((task) => (
-                        <Link
-                            className={styles.TaskView__taskLink}
-                            key={task.id}
-                            to={task.id}
-                            search={(prev) => prev}
-                        >
-                            <TaskListItem
-                                id={task.id}
-                                priority={task.priority}
-                                status={task.status}
-                                title={task.title}
-                                project={task.project ?? undefined}
-                                tags={task.tags}
-                                selected={selectedTaskIds.has(task.id)}
-                                onSelectChange={handleSelectChange}
-                            />
-                        </Link>
-                    ))}
-                </div>
+                <>
+                    <Checkbox
+                        className={styles.TaskView__selectAllWrapper}
+                        label={t('Task.selectAll')}
+                        checked={allTasksSelected}
+                        onChange={handleToggleSelectAll}
+                    />
+                    <div className={styles.TaskView__tasksWrapper}>
+                        {tasks.map((task) => (
+                            <Link
+                                className={styles.TaskView__taskLink}
+                                key={task.id}
+                                to={task.id}
+                                search={(prev) => prev}
+                            >
+                                <TaskListItem
+                                    id={task.id}
+                                    priority={task.priority}
+                                    status={task.status}
+                                    title={task.title}
+                                    project={task.project ?? undefined}
+                                    tags={task.tags}
+                                    selected={selectedTaskIds.has(task.id)}
+                                    onSelectChange={handleSelectChange}
+                                />
+                            </Link>
+                        ))}
+                    </div>
+                </>
             ) : (
                 <div className={styles.TaskView__emptyWrapper}>
                     <div className={styles.TaskView__emptyIcon}>
