@@ -141,3 +141,9 @@ export const updateLinkLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 15,
 });
+
+export const createTimeEntryLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 50,
+});
