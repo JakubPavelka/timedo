@@ -57,7 +57,8 @@
         "labelMin": "Name must contain at least one character",
         "labelMax": "Name cannot exceed 50 characters",
         "colorFormat": "Color must be a valid hex code (e.g. #FF0000)",
-        "invalidUrl": "Invalid URL"
+        "invalidUrl": "Invalid URL",
+        "plannedDurationRequired": "Planned duration is required for a pomodoro timer"
     },
     "RegisterForm": {
         "firstName": "First name",

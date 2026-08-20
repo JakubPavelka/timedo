@@ -57,7 +57,8 @@
         "labelMin": "Název musí obsahovat alespoň jeden znak",
         "labelMax": "Název nemůže obsahovat více než 50 znaků",
         "colorFormat": "Barva musí být platný hex kód (např. #FF0000)",
-        "invalidUrl": "Neplatná URL"
+        "invalidUrl": "Neplatná URL",
+        "plannedDurationRequired": "U pomodoro časovače je nutné zadat plánovanou délku"
     },
     "RegisterForm": {
         "firstName": "Jméno",
