@@ -6,6 +6,10 @@
     padding: 4px;
     border-radius: 10px;
     background-color: var(--surface-3);
+
+    &.--round {
+        border-radius: 9999px;
+    }
 }
 
 .SegmentedControl__text {
@@ -25,5 +29,9 @@
         font-weight: 600;
         background-color: var(--surface);
         border-color: var(--border);
+    }
+
+    &.--round {
+        border-radius: 9999px;
     }
 }
