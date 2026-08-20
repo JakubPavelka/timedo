@@ -54,3 +54,11 @@ $font-size-title: 28px;
     @include text-xs(var(--danger));
     margin-top: 4px;
 }
+
+@mixin text-stopwatch-time($color: var(--text)) {
+    font-size: 46px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    line-height: 56px;
+    color: $color;
+}
