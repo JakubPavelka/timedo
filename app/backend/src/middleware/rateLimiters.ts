@@ -147,3 +147,9 @@ export const createTimeEntryLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 50,
 });
+
+export const stopTimeEntryLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 50,
+});

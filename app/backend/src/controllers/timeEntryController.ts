@@ -1,7 +1,25 @@
 import { Request, Response } from 'express';
 import { prisma } from '../db/db.js';
-import { Prisma } from '../generated/prisma/client.js';
+import { Prisma, TimeEntry } from '../generated/prisma/client.js';
 import { EntryType, TimeEntrySchema } from '@timedo/shared/src/schemas/timeEntrySchema.js';
+
+const isExpiredPomodoro = (entry: TimeEntry) =>
+    entry.type === EntryType.POMODORO &&
+    entry.plannedDuration !== null &&
+    entry.startedAt.getTime() + entry.plannedDuration * 1000 <= Date.now();
+
+const computeStopValues = (entry: TimeEntry) => {
+    if (isExpiredPomodoro(entry)) {
+        return {
+            endedAt: new Date(entry.startedAt.getTime() + entry.plannedDuration! * 1000),
+            duration: entry.plannedDuration!,
+        };
+    }
+
+    const endedAt = new Date();
+    const duration = Math.floor((endedAt.getTime() - entry.startedAt.getTime()) / 1000);
+    return { endedAt, duration };
+};
 
 const startTimeEntry = async (req: Request, res: Response) => {
     const parsedBody = TimeEntrySchema.safeParse(req.body);
@@ -34,25 +52,15 @@ const startTimeEntry = async (req: Request, res: Response) => {
             });
 
             if (runningEntry) {
-                const isExpiredPomodoro =
-                    runningEntry.type === EntryType.POMODORO &&
-                    runningEntry.plannedDuration !== null &&
-                    runningEntry.startedAt.getTime() + runningEntry.plannedDuration * 1000 <=
-                        Date.now();
-
-                if (!isExpiredPomodoro) {
+                if (!isExpiredPomodoro(runningEntry)) {
                     return null;
                 }
 
+                const { endedAt, duration } = computeStopValues(runningEntry);
+
                 await tx.timeEntry.update({
                     where: { id: runningEntry.id },
-                    data: {
-                        endedAt: new Date(
-                            runningEntry.startedAt.getTime() +
-                                runningEntry.plannedDuration! * 1000,
-                        ),
-                        duration: runningEntry.plannedDuration,
-                    },
+                    data: { endedAt, duration },
                 });
             }
 
@@ -87,4 +95,30 @@ const startTimeEntry = async (req: Request, res: Response) => {
     }
 };
 
-export { startTimeEntry };
+const stopTimeEntry = async (req: Request, res: Response) => {
+    try {
+        const runningEntry = await prisma.timeEntry.findFirst({
+            where: { userId: req.user!.id, endedAt: null },
+        });
+
+        if (!runningEntry) {
+            return res.status(404).json({
+                message: 'No timer is running',
+                code: 'NO_RUNNING_TIMER',
+            });
+        }
+
+        const { endedAt, duration } = computeStopValues(runningEntry);
+
+        const timeEntry = await prisma.timeEntry.update({
+            where: { id: runningEntry.id },
+            data: { endedAt, duration },
+        });
+
+        return res.status(200).json({ status: 'success', data: timeEntry });
+    } catch {
+        return res.status(500).json({ message: 'Failed to stop timer' });
+    }
+};
+
+export { startTimeEntry, stopTimeEntry };
