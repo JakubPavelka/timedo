@@ -13,3 +13,18 @@ export const useCreateTimeEntry = () => {
         },
     });
 };
+
+export const useStopTimeEntry = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: timeEntryApi.stopTimeEntry,
+        onSuccess: (response) => {
+            if (response.data.taskId) {
+                queryClient.invalidateQueries({
+                    queryKey: ['task', response.data.taskId],
+                });
+            }
+        },
+    });
+};

@@ -15,4 +15,15 @@ export const timeEntryApi = {
             throw err;
         }
     },
+    stopTimeEntry: async () => {
+        try {
+            const response = await apiClient.post('/api/time-entry/stop');
+            return response.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
 };
