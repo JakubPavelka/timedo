@@ -270,6 +270,8 @@
         "stopwatch": "Stopky",
         "pomodoro": "Pomodoro",
         "worked": "Odpracováno",
-        "minutes": "min"
+        "minutes": "min",
+        "startError": "Nepodařilo se spustit časovač, zkuste to prosím znovu",
+        "stopError": "Nepodařilo se zastavit časovač, zkuste to prosím znovu"
     }
 }

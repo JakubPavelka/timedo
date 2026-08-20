@@ -270,6 +270,8 @@
         "stopwatch": "Stopwatch",
         "pomodoro": "Pomodoro",
         "worked": "Worked",
-        "minutes": "min"
+        "minutes": "min",
+        "startError": "Failed to start the timer, please try again",
+        "stopError": "Failed to stop the timer, please try again"
     }
 }
