@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-type TimerMode = 'stopwatch' | 'pomodoro';
+type TimerMode = 'STOPWATCH' | 'POMODORO';
 
 type TimerModeStore = {
     timerMode: TimerMode;
@@ -11,7 +11,7 @@ type TimerModeStore = {
 export const useTimerMode = create<TimerModeStore>()(
     persist(
         (set) => ({
-            timerMode: 'stopwatch',
+            timerMode: 'STOPWATCH',
             setTimerMode: (mode) => set({ timerMode: mode }),
         }),
         { name: 'timerMode' }

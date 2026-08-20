@@ -31,13 +31,13 @@ export const ProfileAppPreferences = () => {
     const timerSegmentedData = [
         {
             title: t('Profile.AppPreferences.Timer.stopwatch'),
-            isActive: timerMode === 'stopwatch',
-            onClick: () => setTimerMode('stopwatch'),
+            isActive: timerMode === 'STOPWATCH',
+            onClick: () => setTimerMode('STOPWATCH'),
         },
         {
             title: t('Profile.AppPreferences.Timer.pomodoro'),
-            isActive: timerMode === 'pomodoro',
-            onClick: () => setTimerMode('pomodoro'),
+            isActive: timerMode === 'POMODORO',
+            onClick: () => setTimerMode('POMODORO'),
         },
     ];
 
@@ -78,9 +78,7 @@ export const ProfileAppPreferences = () => {
                             height={16}
                         />
                     }
-                    rightActions={
-                        <SegmentedControl items={themeSegmentedData} />
-                    }
+                    rightActions={<SegmentedControl items={themeSegmentedData} />}
                 />
                 <IconItem
                     title={t('Profile.AppPreferences.Timer.title')}
@@ -92,15 +90,11 @@ export const ProfileAppPreferences = () => {
                             height={16}
                         />
                     }
-                    rightActions={
-                        <SegmentedControl items={timerSegmentedData} />
-                    }
+                    rightActions={<SegmentedControl items={timerSegmentedData} />}
                 />
                 <IconItem
                     title={t('Profile.AppPreferences.Language.title')}
-                    description={t(
-                        'Profile.AppPreferences.Language.description'
-                    )}
+                    description={t('Profile.AppPreferences.Language.description')}
                     icon={
                         <Globe
                             className={styles.ProfileAppPreferences__icon}
@@ -108,9 +102,7 @@ export const ProfileAppPreferences = () => {
                             height={16}
                         />
                     }
-                    rightActions={
-                        <SegmentedControl items={languageSegmentedData} />
-                    }
+                    rightActions={<SegmentedControl items={languageSegmentedData} />}
                 />
             </div>
         </Card>
