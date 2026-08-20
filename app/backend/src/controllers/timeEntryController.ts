@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import { prisma } from '../db/db.js';
 import { Prisma, TimeEntry } from '../generated/prisma/client.js';
-import { EntryType, TimeEntrySchema } from '@timedo/shared/src/schemas/timeEntrySchema.js';
+import {
+    EntryType,
+    TimeEntrySchema,
+} from '@timedo/shared/src/schemas/timeEntrySchema.js';
 
 const isExpiredPomodoro = (entry: TimeEntry) =>
     entry.type === EntryType.POMODORO &&
@@ -95,6 +98,27 @@ const startTimeEntry = async (req: Request, res: Response) => {
     }
 };
 
+const getActiveTimeEntry = async (req: Request, res: Response) => {
+    try {
+        const runningEntry = await prisma.timeEntry.findFirst({
+            where: { userId: req.user!.id, endedAt: null },
+        });
+
+        if (runningEntry && isExpiredPomodoro(runningEntry)) {
+            const { endedAt, duration } = computeStopValues(runningEntry);
+            await prisma.timeEntry.update({
+                where: { id: runningEntry.id },
+                data: { endedAt, duration },
+            });
+            return res.status(200).json({ status: 'success', data: null });
+        }
+
+        return res.status(200).json({ status: 'success', data: runningEntry });
+    } catch {
+        return res.status(500).json({ message: 'Failed to fetch active timer' });
+    }
+};
+
 const stopTimeEntry = async (req: Request, res: Response) => {
     try {
         const runningEntry = await prisma.timeEntry.findFirst({
@@ -121,4 +145,4 @@ const stopTimeEntry = async (req: Request, res: Response) => {
     }
 };
 
-export { startTimeEntry, stopTimeEntry };
+export { startTimeEntry, stopTimeEntry, getActiveTimeEntry };

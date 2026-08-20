@@ -153,3 +153,9 @@ export const stopTimeEntryLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 50,
 });
+
+export const readActiveTimeEntryLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 300,
+});
