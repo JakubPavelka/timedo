@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { prisma } from '../db/db.js';
 import { Prisma } from '../generated/prisma/client.js';
-import { TimeEntrySchema } from '@timedo/shared/src/schemas/timeEntrySchema.js';
+import { EntryType, TimeEntrySchema } from '@timedo/shared/src/schemas/timeEntrySchema.js';
 
 const startTimeEntry = async (req: Request, res: Response) => {
     const parsedBody = TimeEntrySchema.safeParse(req.body);
@@ -12,7 +12,7 @@ const startTimeEntry = async (req: Request, res: Response) => {
             code: 'VALIDATION_ERROR',
         });
     }
-    const { taskId, description } = parsedBody.data;
+    const { taskId, description, type, plannedDuration } = parsedBody.data;
 
     try {
         if (taskId) {
@@ -28,14 +28,52 @@ const startTimeEntry = async (req: Request, res: Response) => {
             }
         }
 
-        const timeEntry = await prisma.timeEntry.create({
-            data: {
-                userId: req.user!.id,
-                taskId,
-                description,
-                startedAt: new Date(),
-            },
+        const timeEntry = await prisma.$transaction(async (tx) => {
+            const runningEntry = await tx.timeEntry.findFirst({
+                where: { userId: req.user!.id, endedAt: null },
+            });
+
+            if (runningEntry) {
+                const isExpiredPomodoro =
+                    runningEntry.type === EntryType.POMODORO &&
+                    runningEntry.plannedDuration !== null &&
+                    runningEntry.startedAt.getTime() + runningEntry.plannedDuration * 1000 <=
+                        Date.now();
+
+                if (!isExpiredPomodoro) {
+                    return null;
+                }
+
+                await tx.timeEntry.update({
+                    where: { id: runningEntry.id },
+                    data: {
+                        endedAt: new Date(
+                            runningEntry.startedAt.getTime() +
+                                runningEntry.plannedDuration! * 1000,
+                        ),
+                        duration: runningEntry.plannedDuration,
+                    },
+                });
+            }
+
+            return tx.timeEntry.create({
+                data: {
+                    userId: req.user!.id,
+                    taskId,
+                    description,
+                    type,
+                    plannedDuration,
+                    startedAt: new Date(),
+                },
+            });
         });
+
+        if (!timeEntry) {
+            return res.status(409).json({
+                message: 'A timer is already running',
+                code: 'TIMER_ALREADY_RUNNING',
+            });
+        }
 
         return res.status(201).json({ status: 'success', data: timeEntry });
     } catch (err) {
