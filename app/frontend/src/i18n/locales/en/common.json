@@ -265,5 +265,11 @@
     },
     "Pagination": {
         "page": "Page"
+    },
+    "Focus": {
+        "stopwatch": "Stopwatch",
+        "pomodoro": "Pomodoro",
+        "worked": "Worked",
+        "minutes": "min"
     }
 }

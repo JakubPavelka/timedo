@@ -265,5 +265,11 @@
     },
     "Pagination": {
         "page": "Stránka"
+    },
+    "Focus": {
+        "stopwatch": "Stopky",
+        "pomodoro": "Pomodoro",
+        "worked": "Odpracováno",
+        "minutes": "min"
     }
 }
