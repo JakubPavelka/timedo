@@ -20,7 +20,7 @@ const createTask = async (req: Request, res: Response) => {
         });
     }
 
-    const { title, description, priority, projectId, status, tags, links } =
+    const { title, description, priority, projectId, status, tags, links, isTracked } =
         parsedBody.data;
 
     try {
@@ -53,6 +53,7 @@ const createTask = async (req: Request, res: Response) => {
                 description,
                 priority,
                 status,
+                isTracked,
                 projectId: projectId ?? undefined,
                 userId: req.user!.id,
                 tags: tags?.length ? { connect: tags.map((id) => ({ id })) } : undefined,
@@ -64,6 +65,7 @@ const createTask = async (req: Request, res: Response) => {
                 id: true,
                 description: true,
                 priority: true,
+                isTracked: true,
                 project: {
                     select: {
                         id: true,
@@ -140,6 +142,7 @@ const getTasks = async (req: Request, res: Response) => {
                     id: true,
                     description: true,
                     priority: true,
+                    isTracked: true,
                     project: {
                         select: {
                             id: true,
@@ -192,6 +195,7 @@ const getTask = async (req: Request, res: Response) => {
                 userId: true,
                 description: true,
                 priority: true,
+                isTracked: true,
                 project: {
                     select: {
                         id: true,
@@ -251,8 +255,16 @@ const updateTask = async (req: Request, res: Response) => {
             });
         }
 
-        const { title, description, priority, status, projectId, tags, links } =
-            parsedBody.data;
+        const {
+            title,
+            description,
+            priority,
+            status,
+            projectId,
+            tags,
+            links,
+            isTracked,
+        } = parsedBody.data;
 
         const task = await prisma.task.findUnique({ where: { id: taskId } });
 
@@ -290,6 +302,7 @@ const updateTask = async (req: Request, res: Response) => {
             data: {
                 title,
                 description,
+                isTracked,
                 status,
                 priority,
                 ...(projectId !== undefined && { projectId }),
@@ -305,6 +318,7 @@ const updateTask = async (req: Request, res: Response) => {
                 id: true,
                 description: true,
                 priority: true,
+                isTracked: true,
                 project: {
                     select: {
                         id: true,
