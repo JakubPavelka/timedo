@@ -94,10 +94,12 @@ model TimeEntry {
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   taskId      String?
   task        Task?     @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  type        EntryType @default(STOPWATCH)
+  plannedDuration Int?
   description String?
   startedAt   DateTime
-  endedAt     DateTime? // NULL = časovač běží
-  duration    Int? // v sekundách, dopočítá se při stopnutí
+  endedAt     DateTime?
+  duration    Int?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -115,4 +117,9 @@ enum Priority {
   LOW
   MEDIUM
   HIGH
+}
+
+enum EntryType {
+  STOPWATCH
+  POMODORO
 }
