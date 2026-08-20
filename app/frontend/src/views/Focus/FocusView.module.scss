@@ -1,0 +1,19 @@
+@use 'styles/mixins/layout';
+
+.FocusView {
+    padding: 24px;
+}
+
+.FocusView__stopwatchWrapper {
+    @include layout.centerY;
+    gap: 24px;
+    width: 100%;
+}
+
+.FocusView__stopwatchItem {
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    border-radius: 10px;
+    min-height: 400px;
+    width: 50%;
+}
