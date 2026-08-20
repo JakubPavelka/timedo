@@ -26,4 +26,15 @@ export const timeEntryApi = {
             throw err;
         }
     },
+    getActiveTimeEntry: async () => {
+        try {
+            const response = await apiClient.get('/api/time-entry/active');
+            return response.data.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
 };
