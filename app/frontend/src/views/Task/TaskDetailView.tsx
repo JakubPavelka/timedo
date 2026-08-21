@@ -38,19 +38,32 @@ export const TaskDetailView = () => {
     const handleOpenDeleteModal = () => setShowDeleteModal(true);
     const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
+    const buildToastMutationOptions = (
+        successKey: string,
+        errorKey: string,
+        onSuccess?: () => void
+    ) => ({
+        onSuccess: () => {
+            toast.success(t(successKey));
+            onSuccess?.();
+        },
+        onError: (err: unknown) => toast.error(getErrorMessage(err, errorKey, t)),
+    });
+
     const handleDeleteTask = () => {
-        deleteTask(undefined, {
-            onSuccess: () => {
-                toast.success(t('TaskDetail.deleteTaskSuccess'));
-                navigate({
-                    to: '/dashboard/tasks',
-                    search: (prev) => prev,
-                    replace: true,
-                });
-            },
-            onError: (err) =>
-                toast.error(getErrorMessage(err, 'TaskDetail.deleteTaskError', t)),
-        });
+        deleteTask(
+            undefined,
+            buildToastMutationOptions(
+                'TaskDetail.deleteTaskSuccess',
+                'TaskDetail.deleteTaskError',
+                () =>
+                    navigate({
+                        to: '/dashboard/tasks',
+                        search: (prev) => prev,
+                        replace: true,
+                    })
+            )
+        );
     };
 
     const isDone = task?.status === 'DONE';
@@ -70,11 +83,7 @@ export const TaskDetailView = () => {
     const handleToggleDone = () => {
         updateTask(
             { status: isDone ? 'TODO' : 'DONE' },
-            {
-                onSuccess: () => toast.success(t(doneToggleCopy.success)),
-                onError: (err) =>
-                    toast.error(getErrorMessage(err, doneToggleCopy.error, t)),
-            }
+            buildToastMutationOptions(doneToggleCopy.success, doneToggleCopy.error)
         );
     };
 
@@ -91,11 +100,10 @@ export const TaskDetailView = () => {
     const handleToggleTracking = () => {
         updateTask(
             { isTracked: !task?.isTracked },
-            {
-                onSuccess: () => toast.success(t(trackingToggleCopy.success)),
-                onError: (err) =>
-                    toast.error(getErrorMessage(err, trackingToggleCopy.error, t)),
-            }
+            buildToastMutationOptions(
+                trackingToggleCopy.success,
+                trackingToggleCopy.error
+            )
         );
     };
 
@@ -144,7 +152,7 @@ export const TaskDetailView = () => {
                     >
                         <div className={styles.TaskDetailView__settingsPopover}>
                             <div className={styles.TaskDetailView__settingsTimetrack}>
-                                <p>Měření času</p>
+                                <p>{t('TaskDetail.RightSide.timeTrackingLabel')}</p>
                                 <Switch
                                     checked={task?.isTracked}
                                     onChange={handleToggleTracking}
