@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Check, Trash2, X } from 'lucide-react';
+import { ArrowLeft, Check, Settings, Trash2, X } from 'lucide-react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/$taskId';
 import { useDeleteTask, useGetTask, useUpdateTask } from '@/hooks/api/useTask';
@@ -17,12 +17,15 @@ import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDeta
 import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDetailTimeTracking/TaskDetailTimeTracking';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { getErrorMessage } from '@/utils/getErrorMessage';
+import { TaskDetailTimeTrackingOff } from '@/components/features/Task/Detail/TaskDetailTimeTrackingOff/TaskDetailTimeTrackingOff';
 import styles from './TaskDetailView.module.scss';
+import { Popover } from '@/components/ui/Popover/Popover';
+import { Switch } from '@/components/ui/Switch/Switch';
 
 export const TaskDetailView = () => {
     const { t } = useTranslation();
     const { taskId } = Route.useParams();
-    const { data: task } = useGetTask(taskId);
+    const { data: task, isPending } = useGetTask(taskId);
     const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask(taskId);
     const { mutate: updateTask } = useUpdateTask(taskId);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -75,6 +78,27 @@ export const TaskDetailView = () => {
         );
     };
 
+    const trackingToggleCopy = task?.isTracked
+        ? {
+              success: 'TaskDetail.RightSide.timeTrackTurnOffSuccess',
+              error: 'TaskDetail.RightSide.timeTrackTurnOffError',
+          }
+        : {
+              success: 'TaskDetail.RightSide.timeTrackTurnOnSuccess',
+              error: 'TaskDetail.RightSide.timeTrackTurnOnError',
+          };
+
+    const handleToggleTracking = () => {
+        updateTask(
+            { isTracked: !task?.isTracked },
+            {
+                onSuccess: () => toast.success(t(trackingToggleCopy.success)),
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, trackingToggleCopy.error, t)),
+            }
+        );
+    };
+
     return (
         <div className={styles.TaskDetailView}>
             <div className={styles.TaskDetailView__header}>
@@ -106,6 +130,28 @@ export const TaskDetailView = () => {
                             <span>{t('TaskDetail.deleteTask')}</span>
                         </span>
                     </Button>
+                    <Popover
+                        align={'right'}
+                        trigger={
+                            <div
+                                className={styles.TaskDetailView__settingsIcon}
+                                role={'button'}
+                                tabIndex={0}
+                            >
+                                <Settings width={16} height={16} />
+                            </div>
+                        }
+                    >
+                        <div className={styles.TaskDetailView__settingsPopover}>
+                            <div className={styles.TaskDetailView__settingsTimetrack}>
+                                <p>Měření času</p>
+                                <Switch
+                                    checked={task?.isTracked}
+                                    onChange={handleToggleTracking}
+                                />
+                            </div>
+                        </div>
+                    </Popover>
                 </div>
             </div>
             <div className={styles.TaskDetailView__columns}>
@@ -152,11 +198,16 @@ export const TaskDetailView = () => {
                     )}
                 </div>
                 <div className={styles.TaskDetailView__right}>
-                    <TaskDetailTimeTracking
-                        workedMinutes={96}
-                        estimateMinutes={180}
-                        onTimerClick={handleTimerClick}
-                    />
+                    {isPending ? null : task?.isTracked ? (
+                        <TaskDetailTimeTracking
+                            workedMinutes={96}
+                            estimateMinutes={180}
+                            onTimerClick={handleTimerClick}
+                        />
+                    ) : (
+                        <TaskDetailTimeTrackingOff onClick={handleToggleTracking} />
+                    )}
+
                     <TaskDetailProperties
                         priority={task?.priority ?? 'LOW'}
                         project={task?.project?.label ?? ''}

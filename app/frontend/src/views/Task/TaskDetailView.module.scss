@@ -78,3 +78,41 @@
     @include layout.flexColumn;
     gap: 4px;
 }
+
+.TaskDetailView__timeTrackOffWrapper {
+    @include layout.spaceBetweenY;
+    gap: 8px;
+}
+
+.TaskDetailView__settingsIcon {
+    @include layout.centerXY;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    svg {
+        color: var(--text-2);
+    }
+
+    &:hover {
+        background-color: var(--surface-2);
+        border-color: var(--border-focused);
+    }
+}
+
+.TaskDetailView__settingsPopover {
+    padding: 8px;
+}
+
+.TaskDetailView__settingsTimetrack {
+    @include layout.spaceBetweenY;
+    gap: 16px;
+}
+
+.TaskDetailView__settingsTimetrack p {
+    @include typography.text-sm;
+    white-space: nowrap;
+}
