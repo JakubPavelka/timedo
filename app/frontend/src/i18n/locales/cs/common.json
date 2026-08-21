@@ -254,6 +254,7 @@
             "startTimer": "Spustit časovač",
             "timeTrackOff": "Na tomto úkolu je vypnuté měření času",
             "turnOn": "Zapnout",
+            "turnOff": "Vypnout měření času",
             "timeTrackTurnOnSuccess": "Měření času bylo zapnuto",
             "timeTrackTurnOnError": "Nepodařilo se zapnout měření času, zkuste to prosím znovu",
             "timeTrackTurnOffSuccess": "Měření času bylo vypnuto",
