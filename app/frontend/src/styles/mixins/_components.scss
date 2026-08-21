@@ -1,0 +1,10 @@
+@mixin box-base {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background-color: var(--surface);
+    width: 100%;
+    gap: 16px;
+}
