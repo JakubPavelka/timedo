@@ -22,6 +22,7 @@ import { useTagStore } from '@/store/tagStore';
 import clsx from 'clsx';
 import { LinkItem } from '@/components/ui/LinkItem/LinkItem';
 import { PRIORITY } from '@/data/priorityData';
+import { Switch } from '@/components/ui/Switch/Switch';
 import styles from './NewTaskModal.module.scss';
 
 type NewTaskModalProps = {
@@ -57,6 +58,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
         handleSubmit,
         getValues,
         setValue,
+        register,
         formState: { errors },
     } = useForm<TaskData>({
         resolver: zodResolver(TaskSchema),
@@ -66,6 +68,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
             description: '',
             priority: 'LOW',
             links: [],
+            isTracked: true,
         },
     });
 
@@ -194,6 +197,19 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                             {t(errors.description.message!)}
                         </p>
                     )}
+                </div>
+
+                {/* TIME TRACKING */}
+                <div className={styles.NewTaskModal__switchWrapper}>
+                    <div>
+                        <p className={styles.NewTaskModal__labelText}>
+                            {t('Task.Modal.timeTrack')}
+                        </p>
+                        <p className={styles.NewTaskModal__labelDescription}>
+                            {t('Task.Modal.timeTrackDescription')}
+                        </p>
+                    </div>
+                    <Switch {...register('isTracked')} />
                 </div>
 
                 {/* PROJECT */}

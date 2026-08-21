@@ -119,3 +119,12 @@
 .NewTaskModal__createdLinkItemWrapper {
     margin-block: 4px;
 }
+
+.NewTaskModal__labelDescription {
+    @include typography.text-sm(var(--text-3));
+    font-weight: 400;
+}
+
+.NewTaskModal__switchWrapper {
+    @include layout.spaceBetweenY;
+}
