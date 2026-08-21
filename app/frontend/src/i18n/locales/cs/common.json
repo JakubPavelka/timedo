@@ -200,7 +200,9 @@
             "links": "Odkazy",
             "addLink": "Přidat odkaz",
             "linkName": "Název linku",
-            "linkUrl": "URL linku"
+            "linkUrl": "URL linku",
+            "timeTrack": "Sledovat čas",
+            "timeTrackDescription": "Úkol půjde spustit v časovači"
         },
         "tasksDeleteSuccess": "Úkoly byly úspěšně smazány",
         "tasksDeleteError": "Nepodařilo se smazat úkoly, zkuste to prosím znovu",

@@ -200,7 +200,9 @@
             "links": "Links",
             "addLink": "Add link",
             "linkName": "Link name",
-            "linkUrl": "Link URL"
+            "linkUrl": "Link URL",
+            "timeTrack": "Track time",
+            "timeTrackDescription": "The task will be startable in the timer"
         },
         "tasksDeleteSuccess": "Tasks were successfully deleted",
         "tasksDeleteError": "Failed to delete tasks, please try again",
