@@ -52,29 +52,25 @@ export const TaskDetailView = () => {
 
     const isDone = task?.status === 'DONE';
 
+    const doneToggleCopy = isDone
+        ? {
+              label: 'TaskDetail.reopenTask',
+              success: 'TaskDetail.reopenTaskSuccess',
+              error: 'TaskDetail.reopenTaskError',
+          }
+        : {
+              label: 'TaskDetail.markAsDone',
+              success: 'TaskDetail.markAsDoneSuccess',
+              error: 'TaskDetail.markAsDoneError',
+          };
+
     const handleToggleDone = () => {
         updateTask(
             { status: isDone ? 'TODO' : 'DONE' },
             {
-                onSuccess: () => {
-                    toast.success(
-                        t(
-                            isDone
-                                ? 'TaskDetail.reopenTaskSuccess'
-                                : 'TaskDetail.markAsDoneSuccess'
-                        )
-                    );
-                },
+                onSuccess: () => toast.success(t(doneToggleCopy.success)),
                 onError: (err) =>
-                    toast.error(
-                        getErrorMessage(
-                            err,
-                            isDone
-                                ? 'TaskDetail.reopenTaskError'
-                                : 'TaskDetail.markAsDoneError',
-                            t
-                        )
-                    ),
+                    toast.error(getErrorMessage(err, doneToggleCopy.error, t)),
             }
         );
     };
@@ -95,15 +91,9 @@ export const TaskDetailView = () => {
                         variant={isDone ? 'outline' : 'outline-success'}
                         onClick={handleToggleDone}
                     >
-                        <span className={styles.TaskDetailView__deleteButton}>
+                        <span className={styles.TaskDetailView__buttonContent}>
                             <Check width={16} height={16} />
-                            <span>
-                                {t(
-                                    isDone
-                                        ? 'TaskDetail.reopenTask'
-                                        : 'TaskDetail.markAsDone'
-                                )}
-                            </span>
+                            <span>{t(doneToggleCopy.label)}</span>
                         </span>
                     </Button>
                     <Button
@@ -111,7 +101,7 @@ export const TaskDetailView = () => {
                         onClick={handleOpenDeleteModal}
                         isLoading={isDeleting}
                     >
-                        <span className={styles.TaskDetailView__deleteButton}>
+                        <span className={styles.TaskDetailView__buttonContent}>
                             <X width={16} height={16} />
                             <span>{t('TaskDetail.deleteTask')}</span>
                         </span>
