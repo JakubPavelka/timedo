@@ -1,12 +1,10 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
+@use 'styles/mixins/components';
 
 .TaskDetailProperties {
-    padding: 16px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background-color: var(--surface);
-    width: 100%;
+    @include components.box-base;
+    gap: 0;
 }
 
 .TaskDetailProperties__borderTop {

@@ -1,14 +1,9 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
+@use 'styles/mixins/components';
 
 .TaskDetailTimeTracking {
-    @include layout.flexColumn;
-    padding: 16px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background-color: var(--surface);
-    width: 100%;
-    gap: 16px;
+    @include components.box-base;
 }
 
 .TaskDetailTimeTracking__header {
@@ -35,7 +30,9 @@
     height: 100%;
     border-radius: 4px;
     background-color: var(--success);
-    transition: width 0.2s, background-color 0.2s;
+    transition:
+        width 0.2s,
+        background-color 0.2s;
 }
 
 .TaskDetailTimeTracking__progressBar--over {
