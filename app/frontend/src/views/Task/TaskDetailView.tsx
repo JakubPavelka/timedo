@@ -203,6 +203,7 @@ export const TaskDetailView = () => {
                             workedMinutes={96}
                             estimateMinutes={180}
                             onTimerClick={handleTimerClick}
+                            onTurnOffTracking={handleToggleTracking}
                         />
                     ) : (
                         <TaskDetailTimeTrackingOff onClick={handleToggleTracking} />
