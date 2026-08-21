@@ -255,7 +255,9 @@
             "timeTrackOff": "Na tomto úkolu je vypnuté měření času",
             "turnOn": "Zapnout",
             "timeTrackTurnOnSuccess": "Měření času bylo zapnuto",
-            "timeTrackTurnOnError": "Nepodařilo se zapnout měření času, zkuste to prosím znovu"
+            "timeTrackTurnOnError": "Nepodařilo se zapnout měření času, zkuste to prosím znovu",
+            "timeTrackTurnOffSuccess": "Měření času bylo vypnuto",
+            "timeTrackTurnOffError": "Nepodařilo se vypnout měření času, zkuste to prosím znovu"
         },
         "markAsDone": "Hotové",
         "reopenTask": "Znovu otevřít",

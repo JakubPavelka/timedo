@@ -255,7 +255,9 @@
             "timeTrackOff": "Time tracking is turned off for this task",
             "turnOn": "Turn on",
             "timeTrackTurnOnSuccess": "Time tracking turned on",
-            "timeTrackTurnOnError": "Failed to turn on time tracking, please try again"
+            "timeTrackTurnOnError": "Failed to turn on time tracking, please try again",
+            "timeTrackTurnOffSuccess": "Time tracking turned off",
+            "timeTrackTurnOffError": "Failed to turn off time tracking, please try again"
         },
         "markAsDone": "Done",
         "reopenTask": "Reopen task",
