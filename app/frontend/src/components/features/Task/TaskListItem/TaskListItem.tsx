@@ -1,5 +1,6 @@
+import { type MouseEvent } from 'react';
 import clsx from 'clsx';
-import { Check, Circle, CircleDot } from 'lucide-react';
+import { Check, Circle, CircleDot, Play } from 'lucide-react';
 import { Priority, Status } from '@timedo/shared/src/schemas/taskSchema';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import { Pill, type PillTone, type PillVariant } from '@/components/ui/Pill/Pill';
@@ -18,7 +19,9 @@ type TaskListItem = {
     tags?: Tag[];
     project?: Omit<Project, '_count'>;
     selected?: boolean;
+    isTracked?: boolean;
     onSelectChange?: (id: string, selected: boolean) => void;
+    onTrackClick?: (id: string) => void;
 };
 
 const STATUS_PILL: Record<
@@ -46,6 +49,12 @@ export const TaskListItem = (props: TaskListItem) => {
     const priority = props.priority.toLowerCase();
     const isDone = props.status === Status.DONE;
     const statusPill = STATUS_PILL[props.status];
+
+    const handleTrackClick = (e: MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        props.onTrackClick?.(props.id);
+    };
 
     return (
         <div className={styles.TaskListItem}>
@@ -96,10 +105,23 @@ export const TaskListItem = (props: TaskListItem) => {
                     </div>
                 </div>
             </div>
-            <TaskListItemActions
-                taskId={props.id}
-                tagIds={props.tags?.map((tag) => tag.id) ?? []}
-            />
+            <div className={styles.TaskListItem__rightWrapper}>
+                {props.isTracked && (
+                    <div
+                        className={styles.TaskListItem__rightIcon}
+                        onClick={handleTrackClick}
+                        role={'button'}
+                        tabIndex={0}
+                        aria-label={t('TaskDetail.RightSide.startTimer')}
+                    >
+                        <Play width={16} height={16} />
+                    </div>
+                )}
+                <TaskListItemActions
+                    taskId={props.id}
+                    tagIds={props.tags?.map((tag) => tag.id) ?? []}
+                />
+            </div>
         </div>
     );
 };

@@ -139,6 +139,7 @@ export const TaskView = () => {
                                     project={task.project ?? undefined}
                                     tags={task.tags}
                                     selected={selectedTaskIds.has(task.id)}
+                                    isTracked={task.isTracked}
                                     onSelectChange={handleSelectChange}
                                 />
                             </Link>
