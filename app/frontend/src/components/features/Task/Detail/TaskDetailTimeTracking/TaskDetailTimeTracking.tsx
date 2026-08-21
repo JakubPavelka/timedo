@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import { Power } from 'lucide-react';
 import { Button } from '@/components/ui/Button/Button';
 import styles from './TaskDetailTimeTracking.module.scss';
 
@@ -7,6 +8,7 @@ type TaskDetailTimeTrackingProps = {
     workedMinutes: number;
     estimateMinutes: number;
     onTimerClick: () => void;
+    onTurnOffTracking: () => void;
 };
 
 const MINUTES_PER_DAY = 24 * 60;
@@ -54,11 +56,21 @@ export const TaskDetailTimeTracking = (props: TaskDetailTimeTrackingProps) => {
                 <p className={styles.TaskDetailTimeTracking__time}>
                     {formatDuration(props.workedMinutes)}
                 </p>
-                <p className={styles.TaskDetailTimeTracking__estimate}>
-                    {t('TaskDetail.RightSide.estimateOf', {
-                        time: formatDuration(props.estimateMinutes),
-                    })}
-                </p>
+                <div className={styles.TaskDetailTimeTracking__headerRight}>
+                    <p className={styles.TaskDetailTimeTracking__estimate}>
+                        {t('TaskDetail.RightSide.estimateOf', {
+                            time: formatDuration(props.estimateMinutes),
+                        })}
+                    </p>
+                    <button
+                        type={'button'}
+                        className={styles.TaskDetailTimeTracking__toggleOff}
+                        onClick={props.onTurnOffTracking}
+                        aria-label={t('TaskDetail.RightSide.turnOff')}
+                    >
+                        <Power width={16} height={16} />
+                    </button>
+                </div>
             </div>
             <div className={styles.TaskDetailTimeTracking__progressTrack}>
                 <div
