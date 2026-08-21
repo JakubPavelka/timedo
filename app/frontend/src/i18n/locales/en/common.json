@@ -202,7 +202,7 @@
             "linkName": "Link name",
             "linkUrl": "Link URL",
             "timeTrack": "Track time",
-            "timeTrackDescription": "The task will be startable in the timer"
+            "timeTrackDescription": "Time can be tracked on this task"
         },
         "tasksDeleteSuccess": "Tasks were successfully deleted",
         "tasksDeleteError": "Failed to delete tasks, please try again",
@@ -251,7 +251,11 @@
             "estimateOf": "/ {{time}} estimate",
             "percentOfEstimate": "{{percent}}% of estimate",
             "remaining": "{{time}} left",
-            "startTimer": "Start timer"
+            "startTimer": "Start timer",
+            "timeTrackOff": "Time tracking is turned off for this task",
+            "turnOn": "Turn on",
+            "timeTrackTurnOnSuccess": "Time tracking turned on",
+            "timeTrackTurnOnError": "Failed to turn on time tracking, please try again"
         },
         "markAsDone": "Done",
         "reopenTask": "Reopen task",
