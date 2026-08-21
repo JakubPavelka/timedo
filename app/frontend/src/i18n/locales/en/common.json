@@ -253,6 +253,7 @@
             "remaining": "{{time}} left",
             "startTimer": "Start timer",
             "timeTrackOff": "Time tracking is turned off for this task",
+            "timeTrackingLabel": "Time tracking",
             "turnOn": "Turn on",
             "turnOff": "Turn off time tracking",
             "timeTrackTurnOnSuccess": "Time tracking turned on",

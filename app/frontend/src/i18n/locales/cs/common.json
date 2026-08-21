@@ -253,6 +253,7 @@
             "remaining": "{{time}} zbývá",
             "startTimer": "Spustit časovač",
             "timeTrackOff": "Na tomto úkolu je vypnuté měření času",
+            "timeTrackingLabel": "Měření času",
             "turnOn": "Zapnout",
             "turnOff": "Vypnout měření času",
             "timeTrackTurnOnSuccess": "Měření času bylo zapnuto",
