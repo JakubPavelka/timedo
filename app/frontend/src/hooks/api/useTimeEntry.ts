@@ -16,6 +16,7 @@ export const useCreateTimeEntry = () => {
             queryClient.invalidateQueries({ queryKey: ['activeTimeEntry'] });
             if (variables.taskId) {
                 queryClient.invalidateQueries({ queryKey: ['task', variables.taskId] });
+                queryClient.invalidateQueries({ queryKey: ['tasks'] });
             }
         },
     });
@@ -32,6 +33,7 @@ export const useStopTimeEntry = () => {
                 queryClient.invalidateQueries({
                     queryKey: ['task', response.data.taskId],
                 });
+                queryClient.invalidateQueries({ queryKey: ['tasks'] });
             }
         },
     });

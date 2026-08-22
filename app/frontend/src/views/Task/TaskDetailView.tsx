@@ -18,21 +18,34 @@ import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDe
 import { Pill } from '@/components/ui/Pill/Pill';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { TaskDetailTimeTrackingOff } from '@/components/features/Task/Detail/TaskDetailTimeTrackingOff/TaskDetailTimeTrackingOff';
-import styles from './TaskDetailView.module.scss';
 import { Popover } from '@/components/ui/Popover/Popover';
 import { Switch } from '@/components/ui/Switch/Switch';
+import { useTimerMode } from '@/hooks/useTimerMode';
+import { EntryType } from '@timedo/shared/src/schemas/timeEntrySchema';
+import { useCreateTimeEntry } from '@/hooks/api/useTimeEntry';
+import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
     const { t } = useTranslation();
     const { taskId } = Route.useParams();
+    const setTimerMode = useTimerMode((s) => s.setTimerMode);
     const { data: task, isPending } = useGetTask(taskId);
     const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask(taskId);
     const { mutate: updateTask } = useUpdateTask(taskId);
+    const { mutate: createTimeEntry } = useCreateTimeEntry();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
 
-    const handleTimerClick = () => {
-        console.log('start timer');
+    const handleTimerClick = (taskId: string) => {
+        setTimerMode(EntryType.STOPWATCH);
+        createTimeEntry(
+            { taskId, type: EntryType.STOPWATCH },
+            {
+                onSuccess: () => navigate({ to: '/dashboard/focus' }),
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.startError', t)),
+            }
+        );
     };
 
     const handleOpenDeleteModal = () => setShowDeleteModal(true);
@@ -208,9 +221,9 @@ export const TaskDetailView = () => {
                 <div className={styles.TaskDetailView__right}>
                     {isPending ? null : task?.isTracked ? (
                         <TaskDetailTimeTracking
-                            workedSeconds={96 * 60}
+                            workedSeconds={task.workedTime}
                             estimateSeconds={180 * 60}
-                            onTimerClick={handleTimerClick}
+                            onTimerClick={() => handleTimerClick(taskId)}
                             onTurnOffTracking={handleToggleTracking}
                         />
                     ) : (

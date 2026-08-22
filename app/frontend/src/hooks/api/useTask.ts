@@ -59,8 +59,8 @@ export const useUpdateTask = (taskId: string) => {
 
     return useMutation({
         mutationFn: (data: UpdateTaskData) => taskApi.updateTask(taskId, data),
-        onSuccess: (updated) => {
-            queryClient.setQueryData(['task', taskId], updated);
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['task', taskId] });
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },
     });

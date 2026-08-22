@@ -23,6 +23,7 @@ export type Task = {
         label: string;
         url: string;
     }[];
+    workedTime: number;
 };
 
 type TaskStore = {
