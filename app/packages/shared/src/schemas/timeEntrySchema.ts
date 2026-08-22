@@ -13,9 +13,12 @@ export const TimeEntrySchema = z
         type: z.enum(EntryType).default(EntryType.STOPWATCH),
         plannedDuration: z.number().int().positive().optional(),
     })
-    .refine((data) => data.type !== EntryType.POMODORO || data.plannedDuration !== undefined, {
-        message: 'Validation.plannedDurationRequired',
-        path: ['plannedDuration'],
-    });
+    .refine(
+        (data) => data.type !== EntryType.POMODORO || data.plannedDuration !== undefined,
+        {
+            message: 'Validation.plannedDurationRequired',
+            path: ['plannedDuration'],
+        }
+    );
 
 export type TimeEntryData = z.infer<typeof TimeEntrySchema>;
