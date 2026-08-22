@@ -154,7 +154,7 @@ export const TaskDetailView = () => {
                             <div className={styles.TaskDetailView__settingsTimetrack}>
                                 <p>{t('TaskDetail.RightSide.timeTrackingLabel')}</p>
                                 <Switch
-                                    checked={task?.isTracked}
+                                    checked={Boolean(task?.isTracked)}
                                     onChange={handleToggleTracking}
                                 />
                             </div>
@@ -208,8 +208,8 @@ export const TaskDetailView = () => {
                 <div className={styles.TaskDetailView__right}>
                     {isPending ? null : task?.isTracked ? (
                         <TaskDetailTimeTracking
-                            workedMinutes={96}
-                            estimateMinutes={180}
+                            workedSeconds={96 * 60}
+                            estimateSeconds={180 * 60}
                             onTimerClick={handleTimerClick}
                             onTurnOffTracking={handleToggleTracking}
                         />

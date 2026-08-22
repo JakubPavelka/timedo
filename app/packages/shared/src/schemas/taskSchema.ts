@@ -33,7 +33,9 @@ export const TaskSchema = z.object({
 
 export type TaskData = z.infer<typeof TaskSchema>;
 
-export const UpdateTaskSchema = TaskSchema.partial();
+export const UpdateTaskSchema = TaskSchema.omit({ isTracked: true })
+    .partial()
+    .extend({ isTracked: z.boolean().optional() });
 
 export type UpdateTaskData = z.infer<typeof UpdateTaskSchema>;
 

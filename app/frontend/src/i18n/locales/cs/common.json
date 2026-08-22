@@ -19,7 +19,8 @@
         "INVALID_TOKEN": "Vaše session je neplatná, přihlaste se prosím znovu",
         "REFRESH_TOKEN_INVALID": "Vaše session vypršela, přihlaste se prosím znovu",
         "USER_NOT_FOUND": "Uživatel nebyl nalezen",
-        "TIMER_ALREADY_RUNNING": "Už máte spuštěný jiný časovač"
+        "TIMER_ALREADY_RUNNING": "Už máte spuštěný jiný časovač",
+        "NO_RUNNING_TIMER": "Žádný časovač neběží"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",

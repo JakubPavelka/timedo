@@ -5,8 +5,7 @@
 }
 
 .FocusView__stopwatchWrapper {
-    @include layout.centerY;
-    gap: 24px;
+    @include layout.centerXY;
     width: 100%;
 }
 
@@ -15,5 +14,6 @@
     background-color: var(--surface);
     border-radius: 10px;
     min-height: 400px;
-    width: 50%;
+    width: 100%;
+    max-width: 480px;
 }

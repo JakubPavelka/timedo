@@ -10,11 +10,14 @@ import { useTranslation } from 'react-i18next';
 import { useTaskStore } from '@/store/taskStore';
 import { TaskListItem } from '@/components/features/Task/TaskListItem/TaskListItem';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/index';
 import { FilePlus2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/Button/Button';
 import { Pagination } from '@/components/ui/Pagination/Pagination';
+import { useCreateTimeEntry } from '@/hooks/api/useTimeEntry';
+import { EntryType } from '@timedo/shared/src/schemas/timeEntrySchema';
+import { useTimerMode } from '@/hooks/useTimerMode';
 import styles from './TaskView.module.scss';
 
 export const TaskView = () => {
@@ -23,10 +26,13 @@ export const TaskView = () => {
     const [selectedTaskIds, setSelectedTaskIds] = useState<Set<string>>(new Set());
     const tasks = useTaskStore((s) => s.tasks);
     const { mutate: createTask } = useCreateTask();
+    const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { priority, status, project, search, offset, limit } = Route.useSearch();
     const priorityFilter = priority ? priority.split(',') : undefined;
     const projectFilter = project ? project.split(',') : undefined;
     const navigate = Route.useNavigate();
+    const navigateGlobal = useNavigate();
+    const setTimerMode = useTimerMode((s) => s.setTimerMode);
     const currentLimit = limit ?? 10;
     const currentOffset = offset ?? 0;
     const { isPending, data } = useGetTasks(
@@ -108,6 +114,18 @@ export const TaskView = () => {
         });
     };
 
+    const handleTrackClick = (taskId: string) => {
+        setTimerMode(EntryType.STOPWATCH);
+        createTimeEntry(
+            { taskId, type: EntryType.STOPWATCH },
+            {
+                onSuccess: () => navigateGlobal({ to: '/dashboard/focus' }),
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.startError', t)),
+            }
+        );
+    };
+
     return (
         <div className={styles.TaskView}>
             <TaskHeader
@@ -141,6 +159,7 @@ export const TaskView = () => {
                                     selected={selectedTaskIds.has(task.id)}
                                     isTracked={task.isTracked}
                                     onSelectChange={handleSelectChange}
+                                    onTrackClick={handleTrackClick}
                                 />
                             </Link>
                         ))}

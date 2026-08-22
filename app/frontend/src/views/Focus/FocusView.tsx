@@ -43,10 +43,9 @@ export const FocusView = () => {
                             isRunning ? handleStopTimeEntry : handleCreateTimeEntry
                         }
                         isRunning={isRunning}
+                        startedAt={activeEntry?.startedAt}
+                        plannedDuration={activeEntry?.plannedDuration}
                     />
-                </div>
-                <div className={styles.FocusView__stopwatchItem}>
-                    <FocusStopwatch />
                 </div>
             </div>
         </div>

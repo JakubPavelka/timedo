@@ -88,6 +88,11 @@ model Link {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+/// POZOR: DB obsahuje navíc partial unique index "TimeEntry_userId_running_unique"
+/// (ON "TimeEntry"("userId") WHERE "endedAt" IS NULL) z migrace
+/// 20260819142756_added_time_entry. Prisma DSL neumí filtrované unique indexy
+/// vyjádřit, takže tu není vidět. Před dalším `prisma migrate dev` na tomto
+/// modelu zkontroluj vygenerovanou SQL, ať se index omylem nesmaže.
 model TimeEntry {
   id          String    @id @default(cuid())
   userId      String

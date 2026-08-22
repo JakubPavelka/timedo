@@ -2,13 +2,12 @@ import { Request, Response } from 'express';
 import { prisma } from '../db/db.js';
 import {
     TaskSchema,
+    UpdateTaskSchema,
     GetTasksQuerySchema,
     DeleteTasksSchema,
     UpdateTasksSchema,
 } from '@timedo/shared/src/schemas/taskSchema.js';
 import { Prisma } from '../generated/prisma/client.js';
-
-const UpdateTaskSchema = TaskSchema.partial();
 
 const createTask = async (req: Request, res: Response) => {
     const parsedBody = TaskSchema.safeParse(req.body);
@@ -302,9 +301,9 @@ const updateTask = async (req: Request, res: Response) => {
             data: {
                 title,
                 description,
-                isTracked,
                 status,
                 priority,
+                ...(isTracked !== undefined && { isTracked }),
                 ...(projectId !== undefined && { projectId }),
                 ...(tags !== undefined && { tags: { set: tags.map((id) => ({ id })) } }),
                 ...(links !== undefined && {

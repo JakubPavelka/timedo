@@ -1,15 +1,19 @@
 import { SegmentedControl } from '@/components/ui/SegmentedControl/SegmentedControl';
 import { useTranslation } from 'react-i18next';
 import { useTimerMode } from '@/hooks/useTimerMode';
-import { Pause, Play, RotateCcw, Square } from 'lucide-react';
+import { useElapsedSeconds } from '@/hooks/useElapsedSeconds';
+import { formatDuration } from '@/utils/formatDuration';
+import { Play, RotateCcw, Square } from 'lucide-react';
 import clsx from 'clsx';
 import styles from './FocusStopwatch.module.scss';
+
+const DEFAULT_POMODORO_DURATION = 50 * 60;
 
 type FocusStopwatchType = {
     isRunning: boolean;
     onTrackClick: () => void;
-    onResetClick: () => void;
-    onSaveAndResetClick: () => void;
+    startedAt?: string | Date;
+    plannedDuration?: number;
 };
 
 const ICON_SIZE = 16;
@@ -18,6 +22,12 @@ export const FocusStopwatch = (props: FocusStopwatchType) => {
     const { t } = useTranslation();
     const timerType = useTimerMode((s) => s.timerMode);
     const setTimerType = useTimerMode((s) => s.setTimerMode);
+    const elapsedSeconds = useElapsedSeconds(props.startedAt, props.isRunning);
+    const plannedDuration = props.plannedDuration ?? DEFAULT_POMODORO_DURATION;
+    const displaySeconds =
+        timerType === 'STOPWATCH'
+            ? elapsedSeconds
+            : Math.max(plannedDuration - elapsedSeconds, 0);
 
     const stopwatchTypeSegmentedData = [
         {
@@ -55,9 +65,13 @@ export const FocusStopwatch = (props: FocusStopwatchType) => {
                             ? t('Focus.stopwatch')
                             : t('Focus.pomodoro')}
                     </p>
-                    <p className={styles.FocusStopwatch__stopwatchTime}>00:00</p>
+                    <p className={styles.FocusStopwatch__stopwatchTime}>
+                        {formatDuration(displaySeconds)}
+                    </p>
                     <p className={styles.FocusStopwatch__stopwatchText}>
-                        {timerType === 'STOPWATCH' ? t('Focus.worked') : `/ 50:00`}
+                        {timerType === 'STOPWATCH'
+                            ? t('Focus.worked')
+                            : `/ ${formatDuration(plannedDuration)}`}
                     </p>
                 </div>
             </div>
@@ -70,7 +84,7 @@ export const FocusStopwatch = (props: FocusStopwatchType) => {
                     className={styles.FocusStopwatch__startButton}
                 >
                     {props.isRunning ? (
-                        <Pause width={ICON_SIZE} height={ICON_SIZE} />
+                        <Square width={ICON_SIZE} height={ICON_SIZE} />
                     ) : (
                         <Play width={ICON_SIZE} height={ICON_SIZE} />
                     )}
