@@ -139,7 +139,16 @@ const stopTimeEntry = async (req: Request, res: Response) => {
             data: { endedAt, duration },
         });
 
-        return res.status(200).json({ status: 'success', data: timeEntry });
+        let workedTime: number | undefined;
+        if (timeEntry.taskId) {
+            const timeAggregate = await prisma.timeEntry.aggregate({
+                where: { taskId: timeEntry.taskId, userId: req.user!.id },
+                _sum: { duration: true },
+            });
+            workedTime = timeAggregate._sum.duration ?? 0;
+        }
+
+        return res.status(200).json({ status: 'success', data: { ...timeEntry, workedTime } });
     } catch {
         return res.status(500).json({ message: 'Failed to stop timer' });
     }
