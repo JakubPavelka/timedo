@@ -148,10 +148,24 @@ const stopTimeEntry = async (req: Request, res: Response) => {
             workedTime = timeAggregate._sum.duration ?? 0;
         }
 
-        return res.status(200).json({ status: 'success', data: { ...timeEntry, workedTime } });
+        return res
+            .status(200)
+            .json({ status: 'success', data: { ...timeEntry, workedTime } });
     } catch {
         return res.status(500).json({ message: 'Failed to stop timer' });
     }
 };
 
-export { startTimeEntry, stopTimeEntry, getActiveTimeEntry };
+const getAllTimeEntries = async (req: Request, res: Response) => {
+    try {
+        const allEntries = await prisma.timeEntry.findMany({
+            where: { userId: req.user!.id, endedAt: { not: null } },
+        });
+
+        return res.status(200).json({ status: 'success', data: allEntries });
+    } catch {
+        return res.status(500).json({ message: 'Failed to get time entries' });
+    }
+};
+
+export { startTimeEntry, stopTimeEntry, getActiveTimeEntry, getAllTimeEntries };
