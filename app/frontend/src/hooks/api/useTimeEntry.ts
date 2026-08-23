@@ -29,6 +29,7 @@ export const useStopTimeEntry = () => {
         mutationFn: timeEntryApi.stopTimeEntry,
         onSuccess: (response) => {
             queryClient.invalidateQueries({ queryKey: ['activeTimeEntry'] });
+            queryClient.invalidateQueries({ queryKey: ['timeEntries'] });
             if (response.data.taskId) {
                 queryClient.invalidateQueries({
                     queryKey: ['task', response.data.taskId],
@@ -38,3 +39,9 @@ export const useStopTimeEntry = () => {
         },
     });
 };
+
+export const useGetTimeEntries = () =>
+    useQuery({
+        queryKey: ['timeEntries'],
+        queryFn: timeEntryApi.getTimeEntries,
+    });
