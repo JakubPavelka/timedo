@@ -20,3 +20,8 @@
     @include layout.centerY;
     gap: 16px;
 }
+
+.Header__buttonWrapper {
+    @include layout.centerXY;
+    gap: 8px;
+}

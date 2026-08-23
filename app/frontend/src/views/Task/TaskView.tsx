@@ -1,9 +1,8 @@
 import { TaskHeader } from '@/components/features/Task/TaskHeader/TaskHeader';
-import { NewTaskModal } from '@/components/features/Task/NewTaskModal/NewTaskModal';
+import { NewTaskDialog } from '@/components/features/Task/NewTaskDialog/NewTaskDialog';
 import { useEffect, useState } from 'react';
-import { Modal } from '@/components/ui/Modal/Modal';
-import { useCreateTask, useGetTasks } from '@/hooks/api/useTask';
-import type { TaskData } from '@timedo/shared/src/schemas/taskSchema';
+import { useGetTasks } from '@/hooks/api/useTask';
+import { useNewTaskModal } from '@/hooks/useNewTaskModal';
 import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { useTranslation } from 'react-i18next';
@@ -22,10 +21,14 @@ import styles from './TaskView.module.scss';
 
 export const TaskView = () => {
     const { t } = useTranslation();
-    const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
+    const {
+        isOpen: newTaskModalOpen,
+        openModal,
+        closeModal,
+        handleCreateTask,
+    } = useNewTaskModal();
     const [selectedTaskIds, setSelectedTaskIds] = useState<Set<string>>(new Set());
     const tasks = useTaskStore((s) => s.tasks);
-    const { mutate: createTask } = useCreateTask();
     const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { priority, status, project, search, offset, limit } = Route.useSearch();
     const priorityFilter = priority ? priority.split(',') : undefined;
@@ -61,8 +64,6 @@ export const TaskView = () => {
     const allTasksSelected =
         tasks.length > 0 && tasks.length === visibleSelectedTaskIds.size;
 
-    const handleModalOpen = () => setNewTaskModalOpen(true);
-    const handleModalClose = () => setNewTaskModalOpen(false);
     const handleUnselectAll = () => setSelectedTaskIds(new Set());
 
     const handleToggleSelectAll = () => {
@@ -82,17 +83,6 @@ export const TaskView = () => {
                 next.delete(id);
             }
             return next;
-        });
-    };
-
-    const handleCreateTask = (data: TaskData) => {
-        return createTask(data, {
-            onSuccess: () => {
-                toast.success(t('Task.Modal.createSuccess'));
-                setNewTaskModalOpen(false);
-            },
-            onError: (err) =>
-                toast.error(getErrorMessage(err, 'Task.Modal.createError', t)),
         });
     };
 
@@ -129,7 +119,7 @@ export const TaskView = () => {
     return (
         <div className={styles.TaskView}>
             <TaskHeader
-                onNewTaskClick={handleModalOpen}
+                onNewTaskClick={openModal}
                 selectedTasks={visibleSelectedTaskIds}
                 onUnselectAll={handleUnselectAll}
             />
@@ -174,7 +164,7 @@ export const TaskView = () => {
                     <p className={styles.TaskView__noTaskDescription}>
                         {t('Task.noTasksDescription')}
                     </p>
-                    <Button onClick={handleModalOpen}>
+                    <Button onClick={openModal}>
                         <span className={styles.TaskView__buttonWrapper}>
                             <Plus width={16} height={16} />
                             <span>{t('Task.newTask')}</span>
@@ -193,18 +183,11 @@ export const TaskView = () => {
                 />
             </div>
 
-            {newTaskModalOpen && (
-                <Modal
-                    isOpen={newTaskModalOpen}
-                    onClose={handleModalClose}
-                    closeOnOverlayClick={false}
-                >
-                    <NewTaskModal
-                        onSubmit={handleCreateTask}
-                        onClose={handleModalClose}
-                    />
-                </Modal>
-            )}
+            <NewTaskDialog
+                isOpen={newTaskModalOpen}
+                onClose={closeModal}
+                onSubmit={handleCreateTask}
+            />
         </div>
     );
 };
