@@ -1,5 +1,5 @@
 @use 'styles/typography';
-@use 'styles/colors';
+@use 'styles/mixins/layout';
 
 .Header {
     display: flex;
@@ -14,4 +14,9 @@
 .Header__title {
     @include typography.text-lg(var(--text));
     font-weight: 700;
+}
+
+.Header__rightSide {
+    @include layout.centerY;
+    gap: 16px;
 }
