@@ -160,6 +160,14 @@ const getAllTimeEntries = async (req: Request, res: Response) => {
     try {
         const allEntries = await prisma.timeEntry.findMany({
             where: { userId: req.user!.id, endedAt: { not: null } },
+            include: {
+                task: {
+                    select: {
+                        title: true,
+                        project: { select: { label: true, color: true } },
+                    },
+                },
+            },
         });
 
         return res.status(200).json({ status: 'success', data: allEntries });

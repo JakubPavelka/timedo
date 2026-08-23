@@ -3,6 +3,19 @@ import { apiClient } from '../client';
 import { ApiError } from '../ApiError';
 import type { TimeEntryData } from '@timedo/shared/src/schemas/timeEntrySchema';
 
+export type TimeEntryWithTask = {
+    id: string;
+    taskId: string | null;
+    description: string | null;
+    startedAt: string;
+    endedAt: string | null;
+    duration: number | null;
+    task: {
+        title: string;
+        project: { label: string; color: string } | null;
+    } | null;
+};
+
 export const timeEntryApi = {
     createTimeEntry: async (data: TimeEntryData) => {
         try {
@@ -37,7 +50,7 @@ export const timeEntryApi = {
             throw err;
         }
     },
-    getTimeEntries: async () => {
+    getTimeEntries: async (): Promise<TimeEntryWithTask[]> => {
         try {
             const response = await apiClient.get('/api/time-entry/entries');
             return response.data.data;
