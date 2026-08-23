@@ -3,20 +3,29 @@ import {
     useCreateTimeEntry,
     useActiveTimeEntry,
     useStopTimeEntry,
+    useGetTimeEntries,
 } from '@/hooks/api/useTimeEntry';
 import { useTimerMode } from '@/hooks/useTimerMode';
 import { useTranslation } from 'react-i18next';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { toast } from 'sonner';
 import styles from './FocusView.module.scss';
+import { FocusTimeEntryHistory } from '@/components/features/Focus/FocusTimeEntryHistory/FocusTimeEntryHistory';
+import { mapTimeEntryToHistoryItem } from '@/utils/mapTimeEntryToHistoryItem';
 
 export const FocusView = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const timerMode = useTimerMode((s) => s.timerMode);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { mutate: stopTimeEntry } = useStopTimeEntry();
     const { data: activeEntry } = useActiveTimeEntry();
+    const { data: allTimeEntries } = useGetTimeEntries();
     const isRunning = !!activeEntry;
+
+    const timeEntryHistoryItems =
+        allTimeEntries?.map((entry) =>
+            mapTimeEntryToHistoryItem(entry, t, i18n.language)
+        ) ?? [];
 
     const handleCreateTimeEntry = () => {
         return createTimeEntry(
@@ -48,6 +57,7 @@ export const FocusView = () => {
                     />
                 </div>
             </div>
+            <FocusTimeEntryHistory timeEntries={timeEntryHistoryItems} />
         </div>
     );
 };
