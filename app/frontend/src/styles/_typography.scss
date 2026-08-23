@@ -70,3 +70,11 @@ $font-size-title: 28px;
     line-height: 16px;
     color: $color;
 }
+
+@mixin text-sm-mono($color: var(--text)) {
+    font-size: $font-size-sm;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    line-height: 20px;
+    color: $color;
+}
