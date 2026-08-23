@@ -284,5 +284,8 @@
         "minutes": "min",
         "startError": "Failed to start the timer, please try again",
         "stopError": "Failed to stop the timer, please try again"
+    },
+    "Header": {
+        "activeTimer": "Go to running timer"
     }
 }
