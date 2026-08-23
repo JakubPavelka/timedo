@@ -15,8 +15,18 @@ export const useElapsedSeconds = (
         const tick = () => setElapsedSeconds(Math.floor((Date.now() - startTime) / 1000));
 
         tick();
-        const interval = setInterval(tick, 1000);
-        return () => clearInterval(interval);
+
+        let interval: ReturnType<typeof setInterval> | undefined;
+        const msUntilNextSecond = 1000 - ((Date.now() - startTime) % 1000);
+        const alignTimeout = setTimeout(() => {
+            tick();
+            interval = setInterval(tick, 1000);
+        }, msUntilNextSecond);
+
+        return () => {
+            clearTimeout(alignTimeout);
+            clearInterval(interval);
+        };
     }, [startedAt, isRunning]);
 
     return elapsedSeconds;
