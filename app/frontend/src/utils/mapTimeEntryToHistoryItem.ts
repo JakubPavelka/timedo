@@ -29,7 +29,7 @@ export const mapTimeEntryToHistoryItem = (
     t: TFunction,
     locale: string
 ): FocusTimeEntryHistoryItemProps => {
-    const startedAt = DateTime.fromISO(entry.startedAt, { locale });
+    const startedAt = DateTime.fromISO(entry.startedAt, { locale, zone: 'local' });
 
     return {
         id: entry.id,
