@@ -1,0 +1,22 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+@use 'styles/mixins/components';
+
+.FocusTimeEntryHistory {
+    @include components.box-base;
+}
+
+.FocusTimeEntryHistory__searchInput {
+    max-width: 250px;
+    width: 100%;
+    min-width: 0;
+}
+
+.FocusTimeEntryHistory__title {
+    @include typography.text-md;
+    font-weight: 700;
+}
+
+.FocusTimeEntryHistory__headerWrapper {
+    @include layout.spaceBetweenY;
+}
