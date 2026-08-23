@@ -283,7 +283,14 @@
         "worked": "Worked",
         "minutes": "min",
         "startError": "Failed to start the timer, please try again",
-        "stopError": "Failed to stop the timer, please try again"
+        "stopError": "Failed to stop the timer, please try again",
+        "History": {
+            "historyTracking": "Tracking history",
+            "searchPlaceholder": "Search history...",
+            "untrackedTime": "Untracked time",
+            "today": "Today",
+            "yesterday": "Yesterday"
+        }
     },
     "Header": {
         "activeTimer": "Go to running timer"

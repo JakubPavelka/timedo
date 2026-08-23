@@ -283,7 +283,14 @@
         "worked": "Odpracováno",
         "minutes": "min",
         "startError": "Nepodařilo se spustit časovač, zkuste to prosím znovu",
-        "stopError": "Nepodařilo se zastavit časovač, zkuste to prosím znovu"
+        "stopError": "Nepodařilo se zastavit časovač, zkuste to prosím znovu",
+        "History": {
+            "historyTracking": "Historie sledování",
+            "searchPlaceholder": "Hledat v historii...",
+            "untrackedTime": "Čas bez úkolu",
+            "today": "Dnes",
+            "yesterday": "Včera"
+        }
     },
     "Header": {
         "activeTimer": "Přejít na běžící časovač"
