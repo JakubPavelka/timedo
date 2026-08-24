@@ -6,7 +6,6 @@ import { formatDurationShort } from './formatDurationShort';
 
 const formatDateGroup = (startedAt: DateTime, t: TFunction) => {
     const now = DateTime.now();
-    console.log(now);
     const yesterday = now.minus({ days: 1 });
 
     if (startedAt.hasSame(now, 'day')) {
