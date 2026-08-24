@@ -5,6 +5,7 @@ import {
     EntryType,
     TimeEntrySchema,
     DeleteTimeEntrySchema,
+    GetTimeEntryQuerySchema,
 } from '@timedo/shared/src/schemas/timeEntrySchema.js';
 
 const isExpiredPomodoro = (entry: TimeEntry) =>
@@ -157,24 +158,60 @@ const stopTimeEntry = async (req: Request, res: Response) => {
     }
 };
 
-const getAllTimeEntries = async (req: Request, res: Response) => {
+const getTimeEntries = async (req: Request, res: Response) => {
+    const parsedQuery = GetTimeEntryQuerySchema.safeParse(req.query);
+
+    if (!parsedQuery.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { limit, search } = parsedQuery.data;
+
     try {
-        const allEntries = await prisma.timeEntry.findMany({
-            where: { userId: req.user!.id, endedAt: { not: null } },
-            orderBy: {
-                createdAt: 'desc',
-            },
-            include: {
-                task: {
-                    select: {
-                        title: true,
-                        project: { select: { label: true, color: true } },
+        const matchingEntryIds = search
+            ? (
+                  await prisma.$queryRaw<{ id: string }[]>`
+                      SELECT te.id FROM "TimeEntry" te
+                      LEFT JOIN "Task" t ON t.id = te."taskId"
+                      WHERE te."userId" = ${req.user!.id}
+                        AND te."endedAt" IS NOT NULL
+                        AND (
+                            unaccent(COALESCE(t.title, '')) ILIKE unaccent(${'%' + search + '%'})
+                            OR unaccent(COALESCE(te.description, '')) ILIKE unaccent(${'%' + search + '%'})
+                        )
+                  `
+              ).map((entry) => entry.id)
+            : undefined;
+
+        const where = {
+            userId: req.user!.id,
+            endedAt: { not: null },
+            ...(matchingEntryIds && { id: { in: matchingEntryIds } }),
+        };
+
+        const [entries, total] = await Promise.all([
+            prisma.timeEntry.findMany({
+                where,
+                orderBy: {
+                    createdAt: 'desc',
+                },
+                take: limit,
+                include: {
+                    task: {
+                        select: {
+                            title: true,
+                            project: { select: { label: true, color: true } },
+                        },
                     },
                 },
-            },
-        });
+            }),
+            prisma.timeEntry.count({ where }),
+        ]);
 
-        return res.status(200).json({ status: 'success', data: allEntries });
+        return res.status(200).json({ status: 'success', data: entries, total });
     } catch {
         return res.status(500).json({ message: 'Failed to get time entries' });
     }
@@ -212,6 +249,6 @@ export {
     startTimeEntry,
     stopTimeEntry,
     getActiveTimeEntry,
-    getAllTimeEntries,
+    getTimeEntries,
     deleteTimeEntry,
 };
