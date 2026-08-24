@@ -1,7 +1,9 @@
 import { Input } from '@/components/ui/Input/Input';
+import { Button } from '@/components/ui/Button/Button';
 import { Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import {
     FocusTimeEntryHistoryItem,
     type FocusTimeEntryHistoryItemProps,
@@ -10,12 +12,21 @@ import styles from './FocusTimeEntryHistory.module.scss';
 
 type FocusTimeEntryHistoryProps = {
     timeEntries: FocusTimeEntryHistoryItemProps[];
+    hasMore?: boolean;
+    onSearchChange?: (search: string) => void;
+    onLoadMoreClick?: () => void;
     onDeleteClick?: (id: string) => Promise<void>;
 };
 
 export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
     const { t } = useTranslation();
     const [searchText, setSearchText] = useState('');
+    const debouncedSearchText = useDebouncedValue(searchText, 500);
+
+    useEffect(() => {
+        props.onSearchChange?.(debouncedSearchText);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debouncedSearchText]);
 
     const handleDeleteClick = (id: string) => () => {
         return props.onDeleteClick?.(id) ?? Promise.resolve();
@@ -30,7 +41,7 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
                 <div className={styles.FocusTimeEntryHistory__searchInput}>
                     <Input
                         id={'task-search'}
-                        placeholder={t('Task.searchTasks')}
+                        placeholder={t('Focus.History.searchPlaceholder')}
                         prefixIcon={<Search width={16} height={16} />}
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
@@ -44,6 +55,16 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
                     onDeleteClick={handleDeleteClick(entry.id)}
                 />
             ))}
+            {props.hasMore && (
+                <Button
+                    variant={'outline'}
+                    fullWidth
+                    onClick={props.onLoadMoreClick}
+                    className={styles.FocusTimeEntryHistory__loadMoreButton}
+                >
+                    <p>{t('Focus.History.loadMore')}</p>
+                </Button>
+            )}
         </div>
     );
 };

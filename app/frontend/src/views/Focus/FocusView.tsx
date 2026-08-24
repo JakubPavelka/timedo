@@ -10,9 +10,12 @@ import { useTimerMode } from '@/hooks/useTimerMode';
 import { useTranslation } from 'react-i18next';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { toast } from 'sonner';
+import { useCallback, useState } from 'react';
 import styles from './FocusView.module.scss';
 import { FocusTimeEntryHistory } from '@/components/features/Focus/FocusTimeEntryHistory/FocusTimeEntryHistory';
 import { mapTimeEntryToHistoryItem } from '@/utils/mapTimeEntryToHistoryItem';
+
+const PAGE_SIZE = 5;
 
 export const FocusView = () => {
     const { t, i18n } = useTranslation();
@@ -21,13 +24,23 @@ export const FocusView = () => {
     const { mutate: stopTimeEntry } = useStopTimeEntry();
     const { mutateAsync: deleteTimeEntry } = useDeleteTimeEntry();
     const { data: activeEntry } = useActiveTimeEntry();
-    const { data: allTimeEntries } = useGetTimeEntries();
+    const [search, setSearch] = useState('');
+    const [limit, setLimit] = useState(PAGE_SIZE);
+    const { data: timeEntriesData } = useGetTimeEntries(limit, search || undefined);
     const isRunning = !!activeEntry;
 
     const timeEntryHistoryItems =
-        allTimeEntries?.map((entry) =>
+        timeEntriesData?.entries.map((entry) =>
             mapTimeEntryToHistoryItem(entry, t, i18n.language)
         ) ?? [];
+    const hasMore = timeEntryHistoryItems.length < (timeEntriesData?.total ?? 0);
+
+    const handleSearchChange = useCallback((value: string) => {
+        setSearch(value);
+        setLimit(PAGE_SIZE);
+    }, []);
+
+    const handleLoadMoreClick = () => setLimit((prev) => prev + PAGE_SIZE);
 
     const handleCreateTimeEntry = () => {
         return createTimeEntry(
@@ -71,6 +84,9 @@ export const FocusView = () => {
             </div>
             <FocusTimeEntryHistory
                 timeEntries={timeEntryHistoryItems}
+                hasMore={hasMore}
+                onSearchChange={handleSearchChange}
+                onLoadMoreClick={handleLoadMoreClick}
                 onDeleteClick={handleDeleteTimeEntry}
             />
         </div>

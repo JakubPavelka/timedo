@@ -20,3 +20,7 @@
 .FocusTimeEntryHistory__headerWrapper {
     @include layout.spaceBetweenY;
 }
+
+.FocusTimeEntryHistory__loadMoreButton {
+    margin-top: 16px;
+}
