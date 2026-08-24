@@ -22,3 +22,9 @@ export const TimeEntrySchema = z
     );
 
 export type TimeEntryData = z.infer<typeof TimeEntrySchema>;
+
+export const DeleteTimeEntrySchema = z.object({
+    id: z.string(),
+});
+
+export type DeleteTimeEntryData = z.infer<typeof DeleteTimeEntrySchema>;
