@@ -30,6 +30,7 @@ export const SegmentedControl = (props: SegmentedControlProps) => {
             {props.items.map((item, index) => (
                 <button
                     key={index}
+                    disabled={props.disabled}
                     className={clsx(
                         styles.SegmentedControl__text,
                         item.isActive && styles['SegmentedControl__text--active'],

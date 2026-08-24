@@ -1,6 +1,5 @@
 import { SectionHeader } from '@/components/ui/SectionHeader/SectionHeader';
 import { SlidersHorizontal, Sun, Timer, Globe } from 'lucide-react';
-import styles from './ProfileAppPreferences.module.scss';
 import { Card } from '@/components/ui/Card/Card';
 import { useTranslation } from 'react-i18next';
 import { IconItem } from '@/components/ui/IconItem/IconItem';
@@ -8,12 +7,16 @@ import { SegmentedControl } from '@/components/ui/SegmentedControl/SegmentedCont
 import { useTheme } from '@/hooks/useTheme';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTimerMode } from '@/hooks/useTimerMode';
+import { useActiveTimeEntry } from '@/hooks/api/useTimeEntry';
+import styles from './ProfileAppPreferences.module.scss';
 
 export const ProfileAppPreferences = () => {
     const { t } = useTranslation();
     const { theme, setTheme } = useTheme();
     const { language, setLanguage } = useLanguage();
     const { timerMode, setTimerMode } = useTimerMode();
+    const { data: activeEntry } = useActiveTimeEntry();
+    const isRunning = !!activeEntry;
 
     const themeSegmentedData = [
         {
@@ -90,7 +93,12 @@ export const ProfileAppPreferences = () => {
                             height={16}
                         />
                     }
-                    rightActions={<SegmentedControl items={timerSegmentedData} />}
+                    rightActions={
+                        <SegmentedControl
+                            disabled={isRunning}
+                            items={timerSegmentedData}
+                        />
+                    }
                 />
                 <IconItem
                     title={t('Profile.AppPreferences.Language.title')}
