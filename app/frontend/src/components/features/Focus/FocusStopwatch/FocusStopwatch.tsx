@@ -45,7 +45,11 @@ export const FocusStopwatch = (props: FocusStopwatchType) => {
     return (
         <div className={styles.FocusStopwatch}>
             <div className={styles.FocusStopwatch__segmentedControl}>
-                <SegmentedControl variant={'round'} items={stopwatchTypeSegmentedData} />
+                <SegmentedControl
+                    disabled={props.isRunning}
+                    variant={'round'}
+                    items={stopwatchTypeSegmentedData}
+                />
             </div>
             <div className={styles.FocusStopwatch__stopwatch}>
                 <div className={styles.FocusStopwatch__stopwatchCircle}>
