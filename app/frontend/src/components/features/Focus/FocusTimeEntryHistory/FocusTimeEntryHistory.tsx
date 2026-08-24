@@ -10,11 +10,16 @@ import styles from './FocusTimeEntryHistory.module.scss';
 
 type FocusTimeEntryHistoryProps = {
     timeEntries: FocusTimeEntryHistoryItemProps[];
+    onDeleteClick?: (id: string) => void;
 };
 
 export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
     const { t } = useTranslation();
     const [searchText, setSearchText] = useState('');
+
+    const handleDeleteClick = (id: string) => () => {
+        props.onDeleteClick?.(id);
+    };
 
     return (
         <div className={styles.FocusTimeEntryHistory}>
@@ -33,7 +38,11 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
                 </div>
             </div>
             {props.timeEntries?.map((entry) => (
-                <FocusTimeEntryHistoryItem key={entry.id} {...entry} />
+                <FocusTimeEntryHistoryItem
+                    key={entry.id}
+                    {...entry}
+                    onDeleteClick={handleDeleteClick(entry.id)}
+                />
             ))}
         </div>
     );

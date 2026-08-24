@@ -1,6 +1,7 @@
 import styles from './FocusTimeEntryHistoryItem.module.scss';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { Link } from '@tanstack/react-router';
+import { Trash } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export type FocusTimeEntryHistoryItemProps = {
@@ -13,10 +14,17 @@ export type FocusTimeEntryHistoryItemProps = {
     estimatedTime?: string;
     description?: string;
     project?: { label: string; color: string };
+    onDeleteClick?: () => void;
 };
 
 export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps) => {
     const { t } = useTranslation();
+
+    const handleDeleteClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        props?.onDeleteClick?.();
+    };
 
     const content = (
         <>
@@ -45,15 +53,20 @@ export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps)
                     )}
                 </div>
             </div>
-            <div className={styles.FocusTimeEntryHistoryItem__statsWrapper}>
-                <p className={styles.FocusTimeEntryHistoryItem__delta}>
-                    {props.timeTracked}
-                </p>
-                {props.estimatedTime && (
-                    <p className={styles.FocusTimeEntryHistoryItem__progressLabel}>
-                        {props.timeTracked} / {props.estimatedTime}
+            <div className={styles.FocusTimeEntryHistoryItem__rightSide}>
+                <div className={styles.FocusTimeEntryHistoryItem__statsWrapper}>
+                    <p className={styles.FocusTimeEntryHistoryItem__delta}>
+                        {props.timeTracked}
                     </p>
-                )}
+                    {props.estimatedTime && (
+                        <p className={styles.FocusTimeEntryHistoryItem__progressLabel}>
+                            {props.timeTracked} / {props.estimatedTime}
+                        </p>
+                    )}
+                </div>
+                <div onClick={handleDeleteClick} role={'button'} tabIndex={0}>
+                    <Trash width={16} height={16} />
+                </div>
             </div>
         </>
     );

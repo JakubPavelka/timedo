@@ -4,6 +4,7 @@ import {
     useActiveTimeEntry,
     useStopTimeEntry,
     useGetTimeEntries,
+    useDeleteTimeEntry,
 } from '@/hooks/api/useTimeEntry';
 import { useTimerMode } from '@/hooks/useTimerMode';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +19,7 @@ export const FocusView = () => {
     const timerMode = useTimerMode((s) => s.timerMode);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { mutate: stopTimeEntry } = useStopTimeEntry();
+    const { mutate: deleteTimeEntry } = useDeleteTimeEntry();
     const { data: activeEntry } = useActiveTimeEntry();
     const { data: allTimeEntries } = useGetTimeEntries();
     const isRunning = !!activeEntry;
@@ -43,6 +45,14 @@ export const FocusView = () => {
         });
     };
 
+    const handleDeleteTimeEntry = (id: string) => {
+        return deleteTimeEntry(id, {
+            onSuccess: () => toast.success(t('Focus.timeEntryDeleteSuccess')),
+            onError: (err) =>
+                toast.error(getErrorMessage(err, 'Focus.timeEntryDeleteError', t)),
+        });
+    };
+
     return (
         <div className={styles.FocusView}>
             <div className={styles.FocusView__stopwatchWrapper}>
@@ -57,7 +67,10 @@ export const FocusView = () => {
                     />
                 </div>
             </div>
-            <FocusTimeEntryHistory timeEntries={timeEntryHistoryItems} />
+            <FocusTimeEntryHistory
+                timeEntries={timeEntryHistoryItems}
+                onDeleteClick={handleDeleteTimeEntry}
+            />
         </div>
     );
 };

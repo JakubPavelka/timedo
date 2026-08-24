@@ -72,3 +72,18 @@
     display: flex;
     gap: 32px;
 }
+
+.FocusTimeEntryHistoryItem__rightSide {
+    @include layout.centerY;
+    gap: 16px;
+
+    svg {
+        color: var(--text-2);
+        transition: color 0.2s;
+
+        &:hover {
+            color: var(--danger);
+            cursor: pointer;
+        }
+    }
+}

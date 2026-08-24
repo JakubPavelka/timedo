@@ -285,6 +285,8 @@
         "minutes": "min",
         "startError": "Nepodařilo se spustit časovač, zkuste to prosím znovu",
         "stopError": "Nepodařilo se zastavit časovač, zkuste to prosím znovu",
+        "timeEntryDeleteError": "Nepodařilo se smazat záznam, zkuste to prosím znovu",
+        "timeEntryDeleteSuccess": "Záznam byl smazán",
         "History": {
             "historyTracking": "Historie sledování",
             "searchPlaceholder": "Hledat v historii...",

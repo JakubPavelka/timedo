@@ -285,6 +285,8 @@
         "minutes": "min",
         "startError": "Failed to start the timer, please try again",
         "stopError": "Failed to stop the timer, please try again",
+        "timeEntryDeleteError": "Failed to delete the time entry, please try again",
+        "timeEntryDeleteSuccess": "Time entry deleted",
         "History": {
             "historyTracking": "Tracking history",
             "searchPlaceholder": "Search history...",
