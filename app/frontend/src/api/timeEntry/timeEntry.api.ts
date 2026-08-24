@@ -50,10 +50,15 @@ export const timeEntryApi = {
             throw err;
         }
     },
-    getTimeEntries: async (): Promise<TimeEntryWithTask[]> => {
+    getTimeEntries: async (
+        limit: number,
+        search?: string
+    ): Promise<{ entries: TimeEntryWithTask[]; total: number }> => {
         try {
-            const response = await apiClient.get('/api/time-entry/entries');
-            return response.data.data;
+            const response = await apiClient.get('/api/time-entry/entries', {
+                params: { limit, search },
+            });
+            return { entries: response.data.data, total: response.data.total as number };
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');

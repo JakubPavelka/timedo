@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+    keepPreviousData,
+    useMutation,
+    useQuery,
+    useQueryClient,
+} from '@tanstack/react-query';
 import { timeEntryApi } from '@/api/timeEntry/timeEntry.api';
 
 export const useActiveTimeEntry = () =>
@@ -40,10 +45,11 @@ export const useStopTimeEntry = () => {
     });
 };
 
-export const useGetTimeEntries = () =>
+export const useGetTimeEntries = (limit: number, search?: string) =>
     useQuery({
-        queryKey: ['timeEntries'],
-        queryFn: timeEntryApi.getTimeEntries,
+        queryKey: ['timeEntries', limit, search],
+        queryFn: () => timeEntryApi.getTimeEntries(limit, search),
+        placeholderData: keepPreviousData,
     });
 
 export const useDeleteTimeEntry = () => {
