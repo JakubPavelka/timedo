@@ -20,7 +20,8 @@
         "REFRESH_TOKEN_INVALID": "Your session has expired, please sign in again",
         "USER_NOT_FOUND": "User not found",
         "TIMER_ALREADY_RUNNING": "You already have another timer running",
-        "NO_RUNNING_TIMER": "There is no timer running"
+        "NO_RUNNING_TIMER": "There is no timer running",
+        "ENTRY_NOT_FOUND": "Time entry not found"
     },
     "General": {
         "timeUnderControl": "Your time under control",

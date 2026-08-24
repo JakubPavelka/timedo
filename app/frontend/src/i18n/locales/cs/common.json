@@ -20,7 +20,8 @@
         "REFRESH_TOKEN_INVALID": "Vaše session vypršela, přihlaste se prosím znovu",
         "USER_NOT_FOUND": "Uživatel nebyl nalezen",
         "TIMER_ALREADY_RUNNING": "Už máte spuštěný jiný časovač",
-        "NO_RUNNING_TIMER": "Žádný časovač neběží"
+        "NO_RUNNING_TIMER": "Žádný časovač neběží",
+        "ENTRY_NOT_FOUND": "Časový záznam nebyl nalezen"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",
