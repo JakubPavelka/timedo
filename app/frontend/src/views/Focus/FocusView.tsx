@@ -19,7 +19,7 @@ export const FocusView = () => {
     const timerMode = useTimerMode((s) => s.timerMode);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { mutate: stopTimeEntry } = useStopTimeEntry();
-    const { mutate: deleteTimeEntry } = useDeleteTimeEntry();
+    const { mutateAsync: deleteTimeEntry } = useDeleteTimeEntry();
     const { data: activeEntry } = useActiveTimeEntry();
     const { data: allTimeEntries } = useGetTimeEntries();
     const isRunning = !!activeEntry;
@@ -45,12 +45,14 @@ export const FocusView = () => {
         });
     };
 
-    const handleDeleteTimeEntry = (id: string) => {
-        return deleteTimeEntry(id, {
-            onSuccess: () => toast.success(t('Focus.timeEntryDeleteSuccess')),
-            onError: (err) =>
-                toast.error(getErrorMessage(err, 'Focus.timeEntryDeleteError', t)),
-        });
+    const handleDeleteTimeEntry = async (id: string) => {
+        try {
+            await deleteTimeEntry(id);
+            toast.success(t('Focus.timeEntryDeleteSuccess'));
+        } catch (err) {
+            toast.error(getErrorMessage(err, 'Focus.timeEntryDeleteError', t));
+            throw err;
+        }
     };
 
     return (

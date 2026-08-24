@@ -10,7 +10,7 @@ import styles from './FocusTimeEntryHistory.module.scss';
 
 type FocusTimeEntryHistoryProps = {
     timeEntries: FocusTimeEntryHistoryItemProps[];
-    onDeleteClick?: (id: string) => void;
+    onDeleteClick?: (id: string) => Promise<void>;
 };
 
 export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
@@ -18,7 +18,7 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
     const [searchText, setSearchText] = useState('');
 
     const handleDeleteClick = (id: string) => () => {
-        props.onDeleteClick?.(id);
+        return props.onDeleteClick?.(id) ?? Promise.resolve();
     };
 
     return (

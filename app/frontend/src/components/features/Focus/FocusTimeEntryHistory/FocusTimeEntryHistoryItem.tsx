@@ -16,7 +16,7 @@ export type FocusTimeEntryHistoryItemProps = {
     estimatedTime?: string;
     description?: string;
     project?: { label: string; color: string };
-    onDeleteClick?: () => void;
+    onDeleteClick?: () => Promise<void>;
 };
 
 export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps) => {
@@ -31,9 +31,13 @@ export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps)
 
     const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
-    const handleConfirmDelete = () => {
-        props?.onDeleteClick?.();
-        handleCloseDeleteModal();
+    const handleConfirmDelete = async () => {
+        try {
+            await props?.onDeleteClick?.();
+            handleCloseDeleteModal();
+        } catch {
+            //
+        }
     };
 
     const content = (
