@@ -61,4 +61,15 @@ export const timeEntryApi = {
             throw err;
         }
     },
+    deleteTimeEntry: async (id: string) => {
+        try {
+            const response = await apiClient.delete('/api/time-entry', { data: { id } });
+            return response.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
 };

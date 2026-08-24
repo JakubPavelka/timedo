@@ -45,3 +45,20 @@ export const useGetTimeEntries = () =>
         queryKey: ['timeEntries'],
         queryFn: timeEntryApi.getTimeEntries,
     });
+
+export const useDeleteTimeEntry = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: timeEntryApi.deleteTimeEntry,
+        onSuccess: (response) => {
+            queryClient.invalidateQueries({ queryKey: ['timeEntries'] });
+            if (response.data.taskId) {
+                queryClient.invalidateQueries({
+                    queryKey: ['task', response.data.taskId],
+                });
+                queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            }
+        },
+    });
+};
