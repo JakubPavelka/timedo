@@ -1,6 +1,8 @@
 @use 'styles/mixins/layout';
 
 .FocusView {
+    @include layout.flexColumn;
+    gap: 24px;
     padding: 24px;
 }
 

@@ -3,10 +3,9 @@
 @use 'styles/mixins/components';
 
 .FocusTimeEntryHistoryItem {
+    @include layout.spaceBetweenY;
     padding-block: 24px;
     border-bottom: 1px solid var(--border);
-
-    @include layout.spaceBetweenY;
     align-items: flex-start;
     gap: 16px;
 
@@ -67,4 +66,9 @@
 
 .FocusTimeEntryHistoryItem__progressLabel {
     @include typography.text-sm-mono(var(--text-3));
+}
+
+.FocusTimeEntryHistoryItem__flex {
+    display: flex;
+    gap: 32px;
 }
