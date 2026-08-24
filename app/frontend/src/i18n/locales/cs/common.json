@@ -292,7 +292,8 @@
             "searchPlaceholder": "Hledat v historii...",
             "untrackedTime": "Čas bez úkolu",
             "today": "Dnes",
-            "yesterday": "Včera"
+            "yesterday": "Včera",
+            "loadMore": "Načíst další"
         },
         "timeEntryDeleteModalTitle": "Smazat záznam?",
         "timeEntryDeleteModalDescription": "Tato akce je nevratná. Záznam bude trvale smazán."

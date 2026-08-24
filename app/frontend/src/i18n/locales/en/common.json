@@ -292,7 +292,8 @@
             "searchPlaceholder": "Search history...",
             "untrackedTime": "Untracked time",
             "today": "Today",
-            "yesterday": "Yesterday"
+            "yesterday": "Yesterday",
+            "loadMore": "Load more"
         },
         "timeEntryDeleteModalTitle": "Delete time entry?",
         "timeEntryDeleteModalDescription": "This action is irreversible. The time entry will be permanently deleted."
