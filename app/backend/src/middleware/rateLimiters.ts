@@ -165,3 +165,9 @@ export const readTimeEntriesLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 300,
 });
+
+export const deleteTimeEntryLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 100,
+});

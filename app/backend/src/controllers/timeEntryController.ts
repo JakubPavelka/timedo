@@ -4,6 +4,7 @@ import { Prisma, TimeEntry } from '../generated/prisma/client.js';
 import {
     EntryType,
     TimeEntrySchema,
+    DeleteTimeEntrySchema,
 } from '@timedo/shared/src/schemas/timeEntrySchema.js';
 
 const isExpiredPomodoro = (entry: TimeEntry) =>
@@ -179,4 +180,38 @@ const getAllTimeEntries = async (req: Request, res: Response) => {
     }
 };
 
-export { startTimeEntry, stopTimeEntry, getActiveTimeEntry, getAllTimeEntries };
+const deleteTimeEntry = async (req: Request, res: Response) => {
+    const parsedBody = DeleteTimeEntrySchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    try {
+        const deletedEntry = await prisma.timeEntry.delete({
+            where: { userId: req.user!.id, id: parsedBody.data.id },
+        });
+
+        return res
+            .status(200)
+            .json({ status: 'success', data: { taskId: deletedEntry.taskId } });
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res
+                .status(404)
+                .json({ message: 'Time entry not found', code: 'ENTRY_NOT_FOUND' });
+        }
+        return res.status(500).json({ message: 'Failed to delete time entry' });
+    }
+};
+
+export {
+    startTimeEntry,
+    stopTimeEntry,
+    getActiveTimeEntry,
+    getAllTimeEntries,
+    deleteTimeEntry,
+};
