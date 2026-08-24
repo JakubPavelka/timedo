@@ -293,7 +293,9 @@
             "untrackedTime": "Untracked time",
             "today": "Today",
             "yesterday": "Yesterday"
-        }
+        },
+        "timeEntryDeleteModalTitle": "Delete time entry?",
+        "timeEntryDeleteModalDescription": "This action is irreversible. The time entry will be permanently deleted."
     },
     "Header": {
         "activeTimer": "Go to running timer"

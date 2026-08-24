@@ -293,7 +293,9 @@
             "untrackedTime": "Čas bez úkolu",
             "today": "Dnes",
             "yesterday": "Včera"
-        }
+        },
+        "timeEntryDeleteModalTitle": "Smazat záznam?",
+        "timeEntryDeleteModalDescription": "Tato akce je nevratná. Záznam bude trvale smazán."
     },
     "Header": {
         "activeTimer": "Přejít na běžící časovač"

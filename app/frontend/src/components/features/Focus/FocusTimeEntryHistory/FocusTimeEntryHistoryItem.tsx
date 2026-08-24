@@ -1,8 +1,10 @@
-import styles from './FocusTimeEntryHistoryItem.module.scss';
+import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { Link } from '@tanstack/react-router';
 import { Trash } from 'lucide-react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import styles from './FocusTimeEntryHistoryItem.module.scss';
 
 export type FocusTimeEntryHistoryItemProps = {
     id: string;
@@ -19,11 +21,19 @@ export type FocusTimeEntryHistoryItemProps = {
 
 export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps) => {
     const { t } = useTranslation();
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const handleDeleteClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
+        setShowDeleteModal(true);
+    };
+
+    const handleCloseDeleteModal = () => setShowDeleteModal(false);
+
+    const handleConfirmDelete = () => {
         props?.onDeleteClick?.();
+        handleCloseDeleteModal();
     };
 
     const content = (
@@ -72,14 +82,35 @@ export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps)
     );
 
     return (
-        <li className={styles.FocusTimeEntryHistoryItem}>
-            {props.taskId ? (
-                <Link to="/dashboard/tasks/$taskId" params={{ taskId: props.taskId }}>
-                    {content}
-                </Link>
-            ) : (
-                content
+        <>
+            <li className={styles.FocusTimeEntryHistoryItem}>
+                {props.taskId ? (
+                    <Link to="/dashboard/tasks/$taskId" params={{ taskId: props.taskId }}>
+                        {content}
+                    </Link>
+                ) : (
+                    content
+                )}
+            </li>
+            {showDeleteModal && (
+                <ConfirmModal
+                    isOpen={showDeleteModal}
+                    onClose={handleCloseDeleteModal}
+                    onConfirm={handleConfirmDelete}
+                    variant={'danger'}
+                    title={t('Focus.timeEntryDeleteModalTitle')}
+                    description={t('Focus.timeEntryDeleteModalDescription')}
+                    icon={
+                        <Trash
+                            className={styles.FocusTimeEntryHistoryItem__deleteModalIcon}
+                            width={18}
+                            height={18}
+                        />
+                    }
+                    confirmText={t('General.delete')}
+                    confirmIcon={<Trash width={16} height={16} />}
+                />
             )}
-        </li>
+        </>
     );
 };

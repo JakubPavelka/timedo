@@ -73,6 +73,10 @@
     gap: 32px;
 }
 
+.FocusTimeEntryHistoryItem__deleteModalIcon {
+    color: var(--danger);
+}
+
 .FocusTimeEntryHistoryItem__rightSide {
     @include layout.centerY;
     gap: 16px;
