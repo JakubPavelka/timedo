@@ -296,7 +296,17 @@
             "loadMore": "Načíst další"
         },
         "timeEntryDeleteModalTitle": "Smazat záznam?",
-        "timeEntryDeleteModalDescription": "Tato akce je nevratná. Záznam bude trvale smazán."
+        "timeEntryDeleteModalDescription": "Tato akce je nevratná. Záznam bude trvale smazán.",
+        "currentlyWatching": "Právě sleduji",
+        "untrackedTime": "Čas bez úkolu",
+        "description": "Poznámka",
+        "descriptionPlaceholder": "Přidejte poznámku",
+        "assignToTask": "Přiřadit k úkolu",
+        "selectTask": "Vyberte úkol",
+        "updateDescriptionSuccess": "Poznámka byla uložena",
+        "updateDescriptionError": "Nepodařilo se uložit poznámku, zkuste to prosím znovu",
+        "assignToTaskSuccess": "Úkol byl přiřazen",
+        "assignToTaskError": "Nepodařilo se přiřadit úkol, zkuste to prosím znovu"
     },
     "Header": {
         "activeTimer": "Přejít na běžící časovač"

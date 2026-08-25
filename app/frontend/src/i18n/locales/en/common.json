@@ -290,13 +290,23 @@
         "History": {
             "historyTracking": "Tracking history",
             "searchPlaceholder": "Search history...",
-            "untrackedTime": "Untracked time",
+            "untrackedTime": "Time without task",
             "today": "Today",
             "yesterday": "Yesterday",
             "loadMore": "Load more"
         },
         "timeEntryDeleteModalTitle": "Delete time entry?",
-        "timeEntryDeleteModalDescription": "This action is irreversible. The time entry will be permanently deleted."
+        "timeEntryDeleteModalDescription": "This action is irreversible. The time entry will be permanently deleted.",
+        "currentlyWatching": "Currently tracking",
+        "untrackedTime": "Time without task",
+        "description": "Note",
+        "descriptionPlaceholder": "Add a note",
+        "assignToTask": "Assign to task",
+        "selectTask": "Select task",
+        "updateDescriptionSuccess": "Note updated",
+        "updateDescriptionError": "Failed to update the note, please try again",
+        "assignToTaskSuccess": "Task assigned",
+        "assignToTaskError": "Failed to assign the task, please try again"
     },
     "Header": {
         "activeTimer": "Go to running timer"
