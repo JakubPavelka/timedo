@@ -29,5 +29,5 @@ export const useElapsedSeconds = (
         };
     }, [startedAt, isRunning]);
 
-    return elapsedSeconds;
+    return isRunning ? elapsedSeconds : 0;
 };
