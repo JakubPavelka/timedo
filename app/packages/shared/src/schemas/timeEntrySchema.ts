@@ -23,6 +23,13 @@ export const TimeEntrySchema = z
 
 export type TimeEntryData = z.infer<typeof TimeEntrySchema>;
 
+export const UpdateTimeEntrySchema = z.object({
+    taskId: z.string().nullable().optional(),
+    description: z.string().optional(),
+});
+
+export type UpdateTimeEntryData = z.infer<typeof UpdateTimeEntrySchema>;
+
 export const DeleteTimeEntrySchema = z.object({
     id: z.string(),
 });
