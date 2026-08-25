@@ -4,6 +4,8 @@
 
 .FocusTaskDetail {
     @include components.box-base;
+    height: stretch;
+    width: 100%;
 }
 
 .FocusTaskDetail__sectionText {

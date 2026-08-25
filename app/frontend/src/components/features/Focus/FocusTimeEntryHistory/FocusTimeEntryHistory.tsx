@@ -16,6 +16,7 @@ type FocusTimeEntryHistoryProps = {
     onSearchChange?: (search: string) => void;
     onLoadMoreClick?: () => void;
     onDeleteClick?: (id: string) => Promise<void>;
+    onItemClick?: (id: string) => void;
 };
 
 export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
@@ -53,6 +54,7 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
                     key={entry.id}
                     {...entry}
                     onDeleteClick={handleDeleteClick(entry.id)}
+                    onItemClick={() => props.onItemClick?.(entry.id)}
                 />
             ))}
             {props.hasMore && (

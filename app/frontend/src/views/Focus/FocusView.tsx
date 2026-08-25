@@ -20,6 +20,7 @@ const PAGE_SIZE = 5;
 
 export const FocusView = () => {
     const { t, i18n } = useTranslation();
+    const [timeEntryDetailId, setTimeEntryDetailId] = useState<string | undefined>();
     const timerMode = useTimerMode((s) => s.timerMode);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { mutate: stopTimeEntry } = useStopTimeEntry();
@@ -35,6 +36,10 @@ export const FocusView = () => {
             mapTimeEntryToHistoryItem(entry, t, i18n.language)
         ) ?? [];
     const hasMore = timeEntryHistoryItems.length < (timeEntriesData?.total ?? 0);
+
+    const selectedEntry = timeEntryDetailId
+        ? timeEntriesData?.entries.find((entry) => entry.id === timeEntryDetailId)
+        : activeEntry;
 
     const handleSearchChange = useCallback((value: string) => {
         setSearch(value);
@@ -84,9 +89,10 @@ export const FocusView = () => {
                 </div>
                 <div className={styles.FocusView__taskDetailWrapper}>
                     <FocusTaskDetail
-                        id={activeEntry?.id}
-                        taskId={activeEntry?.taskId}
-                        description={activeEntry?.description ?? undefined}
+                        key={selectedEntry?.id}
+                        id={selectedEntry?.id}
+                        taskId={selectedEntry?.taskId}
+                        description={selectedEntry?.description ?? undefined}
                     />
                 </div>
             </div>
@@ -96,6 +102,7 @@ export const FocusView = () => {
                 onSearchChange={handleSearchChange}
                 onLoadMoreClick={handleLoadMoreClick}
                 onDeleteClick={handleDeleteTimeEntry}
+                onItemClick={setTimeEntryDetailId}
             />
         </div>
     );

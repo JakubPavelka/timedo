@@ -1,6 +1,5 @@
 import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { Pill } from '@/components/ui/Pill/Pill';
-import { Link } from '@tanstack/react-router';
 import { Trash } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +16,7 @@ export type FocusTimeEntryHistoryItemProps = {
     description?: string;
     project?: { label: string; color: string };
     onDeleteClick?: () => Promise<void>;
+    onItemClick?: (id: string) => void;
 };
 
 export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps) => {
@@ -40,61 +40,58 @@ export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps)
         }
     };
 
-    const content = (
-        <>
-            <div className={styles.FocusTimeEntryHistoryItem__flex}>
-                <div className={styles.FocusTimeEntryHistoryItem__dateWrapper}>
-                    <p className={styles.FocusTimeEntryHistoryItem__date}>{props.date}</p>
-                    <p className={styles.FocusTimeEntryHistoryItem__time}>
-                        {props.timeStartedAt}
-                    </p>
-                </div>
-                <div className={styles.FocusTimeEntryHistoryItem__titleWrapper}>
-                    <div className={styles.FocusTimeEntryHistoryItem__pillWrapper}>
-                        <p className={styles.FocusTimeEntryHistoryItem__title}>
-                            {props.title ?? t('Focus.History.untrackedTime')}
-                        </p>
-                        {props.project && (
-                            <Pill dot color={props.project.color}>
-                                {props.project.label}
-                            </Pill>
-                        )}
-                    </div>
-                    {props.description && (
-                        <p className={styles.FocusTimeEntryHistoryItem__description}>
-                            {props.description}
-                        </p>
-                    )}
-                </div>
-            </div>
-            <div className={styles.FocusTimeEntryHistoryItem__rightSide}>
-                <div className={styles.FocusTimeEntryHistoryItem__statsWrapper}>
-                    <p className={styles.FocusTimeEntryHistoryItem__delta}>
-                        {props.timeTracked}
-                    </p>
-                    {props.estimatedTime && (
-                        <p className={styles.FocusTimeEntryHistoryItem__progressLabel}>
-                            {props.timeTracked} / {props.estimatedTime}
-                        </p>
-                    )}
-                </div>
-                <div onClick={handleDeleteClick} role={'button'} tabIndex={0}>
-                    <Trash width={16} height={16} />
-                </div>
-            </div>
-        </>
-    );
-
     return (
         <>
-            <li className={styles.FocusTimeEntryHistoryItem}>
-                {props.taskId ? (
-                    <Link to="/dashboard/tasks/$taskId" params={{ taskId: props.taskId }}>
-                        {content}
-                    </Link>
-                ) : (
-                    content
-                )}
+            <li
+                onClick={() => props.onItemClick?.(props.id)}
+                className={styles.FocusTimeEntryHistoryItem}
+            >
+                <div className={styles.FocusTimeEntryHistoryItem__flex}>
+                    <div className={styles.FocusTimeEntryHistoryItem__dateWrapper}>
+                        <p className={styles.FocusTimeEntryHistoryItem__date}>
+                            {props.date}
+                        </p>
+                        <p className={styles.FocusTimeEntryHistoryItem__time}>
+                            {props.timeStartedAt}
+                        </p>
+                    </div>
+                    <div className={styles.FocusTimeEntryHistoryItem__titleWrapper}>
+                        <div className={styles.FocusTimeEntryHistoryItem__pillWrapper}>
+                            <p className={styles.FocusTimeEntryHistoryItem__title}>
+                                {props.title ?? t('Focus.History.untrackedTime')}
+                            </p>
+                            {props.project && (
+                                <Pill dot color={props.project.color}>
+                                    {props.project.label}
+                                </Pill>
+                            )}
+                        </div>
+                        {props.description && (
+                            <p className={styles.FocusTimeEntryHistoryItem__description}>
+                                {props.description}
+                            </p>
+                        )}
+                    </div>
+                </div>
+                <div className={styles.FocusTimeEntryHistoryItem__rightSide}>
+                    <div className={styles.FocusTimeEntryHistoryItem__statsWrapper}>
+                        <p className={styles.FocusTimeEntryHistoryItem__delta}>
+                            {props.timeTracked}
+                        </p>
+                        {props.estimatedTime && (
+                            <p
+                                className={
+                                    styles.FocusTimeEntryHistoryItem__progressLabel
+                                }
+                            >
+                                {props.timeTracked} / {props.estimatedTime}
+                            </p>
+                        )}
+                    </div>
+                    <div onClick={handleDeleteClick} role={'button'} tabIndex={0}>
+                        <Trash width={16} height={16} />
+                    </div>
+                </div>
             </li>
             {showDeleteModal && (
                 <ConfirmModal

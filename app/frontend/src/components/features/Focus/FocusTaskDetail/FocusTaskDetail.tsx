@@ -5,7 +5,7 @@ import { useEditableField } from '@/hooks/useEditableField';
 import { useTaskStore } from '@/store/taskStore';
 import { useGetTasks } from '@/hooks/api/useTask';
 import { useUpdateTimeEntry } from '@/hooks/api/useTimeEntry';
-import { Select, type SelectOption } from '@/components/ui/Select/Select';
+import { Select } from '@/components/ui/Select/Select';
 import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import styles from './FocusTaskDetail.module.scss';
@@ -14,7 +14,6 @@ const TASK_OPTIONS_LIMIT = 100;
 
 type FocusTaskDetailProps = {
     id?: string;
-    title?: string;
     taskId?: string | null;
     description?: string;
 };
@@ -24,11 +23,11 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
     const { mutate: updateTimeEntry, isPending } = useUpdateTimeEntry();
     useGetTasks(TASK_OPTIONS_LIMIT, 0, undefined, undefined, undefined, undefined);
     const tasks = useTaskStore((s) => s.tasks);
-    const taskOptions: SelectOption[] = tasks.map((task) => ({
+    const taskOptions = tasks.map((task) => ({
         value: task.id,
         label: task.title,
-        color: task.project?.color,
     }));
+    const selectedTask = tasks.find((task) => task.id === props.taskId);
 
     const { draft, setDraft, error, validate } = useEditableField({
         schema: z.string(),
@@ -87,7 +86,7 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
                 {t('Focus.currentlyWatching')}
             </p>
             <p className={styles.FocusTaskDetail__title}>
-                {props.title ?? t('Focus.untrackedTime')}
+                {selectedTask?.title ?? t('Focus.untrackedTime')}
             </p>
 
             <p className={styles.FocusTaskDetail__sectionText}>
