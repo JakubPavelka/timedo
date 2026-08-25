@@ -1,0 +1,23 @@
+@use 'styles/mixins/layout';
+@use 'styles/mixins/components';
+@use 'styles/typography';
+
+.FocusTaskDetail {
+    @include components.box-base;
+}
+
+.FocusTaskDetail__sectionText {
+    @include typography.text-sm(var(--text-2));
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.FocusTaskDetail__title {
+    @include typography.text-title;
+}
+
+.FocusTaskDetail__error {
+    @include typography.text-error;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
