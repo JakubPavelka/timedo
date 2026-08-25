@@ -8,6 +8,8 @@ import { useUpdateTimeEntry } from '@/hooks/api/useTimeEntry';
 import { Select } from '@/components/ui/Select/Select';
 import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
+import { Pill } from '@/components/ui/Pill/Pill';
+import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
 import styles from './FocusTaskDetail.module.scss';
 
 const TASK_OPTIONS_LIMIT = 100;
@@ -90,6 +92,29 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
                     {selectedTask?.title ?? t('Focus.untrackedTime')}
                 </p>
             </span>
+
+            {props.taskId && (
+                <span className={styles.FocusTaskDetail__pillWrapper}>
+                    {selectedTask?.project?.label && (
+                        <Pill dot color={selectedTask.project.color}>
+                            {selectedTask.project.label}
+                        </Pill>
+                    )}
+                    {selectedTask?.priority && (
+                        <Pill>
+                            <span className={styles.FocusTaskDetail__pill}>
+                                <PriorityIcon level={selectedTask.priority} />
+                                <span>
+                                    {t(
+                                        `Task.Priority.${selectedTask.priority.toLowerCase()}`
+                                    )}
+                                </span>
+                            </span>
+                        </Pill>
+                    )}
+                </span>
+            )}
+
             <span>
                 <p className={styles.FocusTaskDetail__sectionText}>
                     {t('Focus.description')}

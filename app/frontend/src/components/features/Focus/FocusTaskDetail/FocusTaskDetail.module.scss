@@ -22,3 +22,13 @@
     margin-top: -8px;
     margin-bottom: 8px;
 }
+
+.FocusTaskDetail__pill {
+    @include layout.centerXY;
+    gap: 5px;
+}
+
+.FocusTaskDetail__pillWrapper {
+    @include layout.centerY;
+    gap: 8px;
+}
