@@ -24,6 +24,7 @@ export const TimeEntrySchema = z
 export type TimeEntryData = z.infer<typeof TimeEntrySchema>;
 
 export const UpdateTimeEntrySchema = z.object({
+    id: z.string(),
     taskId: z.string().nullable().optional(),
     description: z.string().optional(),
 });
