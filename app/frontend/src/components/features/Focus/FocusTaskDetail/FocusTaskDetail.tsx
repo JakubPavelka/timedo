@@ -84,7 +84,7 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
         <div className={styles.FocusTaskDetail}>
             <span>
                 <p className={styles.FocusTaskDetail__sectionText}>
-                    {t('Focus.currentlyWatching')}
+                    {t('Focus.recordDetail')}
                 </p>
                 <p className={styles.FocusTaskDetail__title}>
                     {selectedTask?.title ?? t('Focus.untrackedTime')}

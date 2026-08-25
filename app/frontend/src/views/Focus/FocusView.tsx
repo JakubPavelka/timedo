@@ -50,7 +50,7 @@ export const FocusView = () => {
 
     const handleCreateTimeEntry = () => {
         return createTimeEntry(
-            { type: timerMode },
+            { type: timerMode, taskId: selectedEntry?.taskId ?? undefined },
             {
                 onError: (err) =>
                     toast.error(getErrorMessage(err, 'Focus.startError', t)),
