@@ -10,8 +10,7 @@
 
 .FocusTaskDetail__sectionText {
     @include typography.text-sm(var(--text-2));
-    margin-bottom: 6px;
-    text-transform: uppercase;
+    margin-bottom: 8px;
 }
 
 .FocusTaskDetail__title {

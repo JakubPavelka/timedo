@@ -306,7 +306,8 @@
         "updateDescriptionSuccess": "Note updated",
         "updateDescriptionError": "Failed to update the note, please try again",
         "assignToTaskSuccess": "Task assigned",
-        "assignToTaskError": "Failed to assign the task, please try again"
+        "assignToTaskError": "Failed to assign the task, please try again",
+        "withoutTask": "Without task"
     },
     "Header": {
         "activeTimer": "Go to running timer"

@@ -71,7 +71,7 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
         }
 
         updateTimeEntry(
-            { id: props.id, taskId },
+            { id: props.id, taskId: taskId === '' ? null : taskId },
             {
                 onSuccess: () => toast.success(t('Focus.assignToTaskSuccess')),
                 onError: (err) =>
@@ -82,36 +82,44 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
 
     return (
         <div className={styles.FocusTaskDetail}>
-            <p className={styles.FocusTaskDetail__sectionText}>
-                {t('Focus.currentlyWatching')}
-            </p>
-            <p className={styles.FocusTaskDetail__title}>
-                {selectedTask?.title ?? t('Focus.untrackedTime')}
-            </p>
+            <span>
+                <p className={styles.FocusTaskDetail__sectionText}>
+                    {t('Focus.currentlyWatching')}
+                </p>
+                <p className={styles.FocusTaskDetail__title}>
+                    {selectedTask?.title ?? t('Focus.untrackedTime')}
+                </p>
+            </span>
+            <span>
+                <p className={styles.FocusTaskDetail__sectionText}>
+                    {t('Focus.description')}
+                </p>
+                <Textarea
+                    value={draft}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    onBlur={handleSubmitDescription}
+                    placeholder={t('Focus.descriptionPlaceholder')}
+                    variant={'filled'}
+                    disabled={isPending}
+                />
+                {error && <p className={styles.FocusTaskDetail__error}>{t(error)}</p>}
+            </span>
 
-            <p className={styles.FocusTaskDetail__sectionText}>
-                {t('Focus.description')}
-            </p>
-            <Textarea
-                value={draft}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                onBlur={handleSubmitDescription}
-                placeholder={t('Focus.descriptionPlaceholder')}
-                variant={'filled'}
-                disabled={isPending}
-            />
-            {error && <p className={styles.FocusTaskDetail__error}>{t(error)}</p>}
-
-            <p className={styles.FocusTaskDetail__sectionText}>
-                {t('Focus.assignToTask')}
-            </p>
-            <Select
-                options={taskOptions}
-                value={props.taskId ?? undefined}
-                onChange={handleAssignTask}
-                placeholder={t('Focus.selectTask')}
-            />
+            <span>
+                <p className={styles.FocusTaskDetail__sectionText}>
+                    {t('Focus.assignToTask')}
+                </p>
+                <Select
+                    options={[
+                        { value: '', label: t('Focus.withoutTask') },
+                        ...taskOptions,
+                    ]}
+                    value={props.taskId ?? ''}
+                    onChange={handleAssignTask}
+                    placeholder={t('Focus.selectTask')}
+                />
+            </span>
         </div>
     );
 };
