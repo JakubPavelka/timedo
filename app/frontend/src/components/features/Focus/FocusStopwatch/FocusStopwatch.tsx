@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useTimerMode } from '@/hooks/useTimerMode';
 import { useElapsedSeconds } from '@/hooks/useElapsedSeconds';
 import { formatDuration } from '@/utils/formatDuration';
-import { Play, RotateCcw, Square } from 'lucide-react';
+import { Play, Square } from 'lucide-react';
 import clsx from 'clsx';
 import styles from './FocusStopwatch.module.scss';
 
@@ -80,26 +80,18 @@ export const FocusStopwatch = (props: FocusStopwatchType) => {
                 </div>
             </div>
             <div className={styles.FocusStopwatch__stopwatchButtons}>
-                <button className={styles.FocusStopwatch__sideButton}>
-                    <RotateCcw width={ICON_SIZE} height={ICON_SIZE} />
-                </button>
                 <button
                     onClick={props.onTrackClick}
-                    className={styles.FocusStopwatch__startButton}
+                    className={clsx(
+                        styles.FocusStopwatch__startButton,
+                        props.isRunning && styles['FocusStopwatch__startButton--running']
+                    )}
                 >
                     {props.isRunning ? (
                         <Square width={ICON_SIZE} height={ICON_SIZE} />
                     ) : (
                         <Play width={ICON_SIZE} height={ICON_SIZE} />
                     )}
-                </button>
-                <button
-                    className={clsx(
-                        styles.FocusStopwatch__sideButton,
-                        styles['FocusStopwatch__sideButton--filled']
-                    )}
-                >
-                    <Square width={12} height={12} />
                 </button>
             </div>
         </div>
