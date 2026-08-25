@@ -45,6 +45,23 @@ export const useStopTimeEntry = () => {
     });
 };
 
+export const useUpdateTimeEntry = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: timeEntryApi.updateTimeEntry,
+        onSuccess: (response) => {
+            queryClient.invalidateQueries({ queryKey: ['activeTimeEntry'] });
+            queryClient.invalidateQueries({ queryKey: ['timeEntries'] });
+            if (response.data.taskId) {
+                queryClient.invalidateQueries({
+                    queryKey: ['task', response.data.taskId],
+                });
+            }
+        },
+    });
+};
+
 export const useGetTimeEntries = (limit: number, search?: string) =>
     useQuery({
         queryKey: ['timeEntries', limit, search],

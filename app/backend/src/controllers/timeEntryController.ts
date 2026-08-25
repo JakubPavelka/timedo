@@ -4,6 +4,7 @@ import { Prisma, TimeEntry } from '../generated/prisma/client.js';
 import {
     EntryType,
     TimeEntrySchema,
+    UpdateTimeEntrySchema,
     DeleteTimeEntrySchema,
     GetTimeEntryQuerySchema,
 } from '@timedo/shared/src/schemas/timeEntrySchema.js';
@@ -158,6 +159,57 @@ const stopTimeEntry = async (req: Request, res: Response) => {
     }
 };
 
+const updateTimeEntry = async (req: Request, res: Response) => {
+    const parsedBody = UpdateTimeEntrySchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { taskId, description, id } = parsedBody.data;
+
+    try {
+        const entry = await prisma.timeEntry.findFirst({
+            where: { id: id, userId: req.user!.id },
+        });
+
+        if (!entry) {
+            return res.status(404).json({
+                message: 'Entry not found',
+                code: 'ENTRY_NOT_FOUND',
+            });
+        }
+
+        if (taskId) {
+            const task = await prisma.task.findUnique({
+                where: { id: taskId, userId: req.user!.id },
+                select: { id: true },
+            });
+
+            if (!task) {
+                return res
+                    .status(404)
+                    .json({ message: 'Task not found', code: 'TASK_NOT_FOUND' });
+            }
+        }
+
+        const timeEntry = await prisma.timeEntry.update({
+            where: { id: id },
+            data: {
+                ...(taskId !== undefined && { taskId }),
+                ...(description !== undefined && { description }),
+            },
+        });
+
+        return res.status(200).json({ status: 'success', data: timeEntry });
+    } catch {
+        return res.status(500).json({ message: 'Failed to update time entry' });
+    }
+};
+
 const getTimeEntries = async (req: Request, res: Response) => {
     const parsedQuery = GetTimeEntryQuerySchema.safeParse(req.query);
 
@@ -249,6 +301,7 @@ export {
     startTimeEntry,
     stopTimeEntry,
     getActiveTimeEntry,
+    updateTimeEntry,
     getTimeEntries,
     deleteTimeEntry,
 };
