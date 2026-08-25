@@ -297,7 +297,7 @@
         },
         "timeEntryDeleteModalTitle": "Smazat záznam?",
         "timeEntryDeleteModalDescription": "Tato akce je nevratná. Záznam bude trvale smazán.",
-        "currentlyWatching": "Právě sleduji",
+        "recordDetail": "Detail záznamu",
         "untrackedTime": "Čas bez úkolu",
         "description": "Poznámka",
         "descriptionPlaceholder": "Přidejte poznámku",

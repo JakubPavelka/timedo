@@ -297,7 +297,7 @@
         },
         "timeEntryDeleteModalTitle": "Delete time entry?",
         "timeEntryDeleteModalDescription": "This action is irreversible. The time entry will be permanently deleted.",
-        "currentlyWatching": "Currently tracking",
+        "recordDetail": "Record detail",
         "untrackedTime": "Time without task",
         "description": "Note",
         "descriptionPlaceholder": "Add a note",
