@@ -308,6 +308,7 @@
         "timeEntryDeleteModalTitle": "Delete time entry?",
         "timeEntryDeleteModalDescription": "This action is irreversible. The time entry will be permanently deleted.",
         "recordDetail": "Record detail",
+        "taskDetail": "Detail",
         "untrackedTime": "Time without task",
         "description": "Note",
         "descriptionPlaceholder": "Add a note",

@@ -308,6 +308,7 @@
         "timeEntryDeleteModalTitle": "Smazat záznam?",
         "timeEntryDeleteModalDescription": "Tato akce je nevratná. Záznam bude trvale smazán.",
         "recordDetail": "Detail záznamu",
+        "taskDetail": "Detail",
         "untrackedTime": "Čas bez úkolu",
         "description": "Poznámka",
         "descriptionPlaceholder": "Přidejte poznámku",

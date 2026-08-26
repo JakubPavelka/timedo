@@ -8,6 +8,27 @@
     width: 100%;
 }
 
+.FocusTaskDetail__headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.FocusTaskDetail__taskLink {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    flex-shrink: 0;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--surface-2);
+    }
+}
+
 .FocusTaskDetail__sectionText {
     @include typography.text-sm(var(--text-2));
     margin-bottom: 8px;

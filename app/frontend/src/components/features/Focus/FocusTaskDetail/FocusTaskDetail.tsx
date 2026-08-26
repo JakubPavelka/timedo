@@ -1,4 +1,6 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from '@tanstack/react-router';
+import { ChevronRight } from 'lucide-react';
 import { z } from 'zod';
 import { Textarea } from '@/components/ui/Textarea/Textarea';
 import { useEditableField } from '@/hooks/useEditableField';
@@ -86,13 +88,25 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
 
     return (
         <div className={styles.FocusTaskDetail}>
-            <span>
-                <p className={styles.FocusTaskDetail__sectionText}>
-                    {t('Focus.recordDetail')}
-                </p>
-                <p className={styles.FocusTaskDetail__title}>
-                    {selectedTask?.title ?? t('Focus.untrackedTime')}
-                </p>
+            <span className={styles.FocusTaskDetail__headerRow}>
+                <span>
+                    <p className={styles.FocusTaskDetail__sectionText}>
+                        {t('Focus.recordDetail')}
+                    </p>
+                    <p className={styles.FocusTaskDetail__title}>
+                        {selectedTask?.title ?? t('Focus.untrackedTime')}
+                    </p>
+                </span>
+                {props.taskId && (
+                    <Link
+                        to={'/dashboard/tasks/$taskId'}
+                        params={{ taskId: props.taskId }}
+                        className={styles.FocusTaskDetail__taskLink}
+                    >
+                        <span>{t('Focus.taskDetail')}</span>
+                        <ChevronRight width={16} height={16} />
+                    </Link>
+                )}
             </span>
 
             {props.taskId && (
