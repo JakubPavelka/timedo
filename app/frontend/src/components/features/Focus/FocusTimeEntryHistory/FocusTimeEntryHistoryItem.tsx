@@ -75,7 +75,7 @@ export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps)
                 </div>
                 <div className={styles.FocusTimeEntryHistoryItem__rightSide}>
                     <div className={styles.FocusTimeEntryHistoryItem__statsWrapper}>
-                        <p className={styles.FocusTimeEntryHistoryItem__delta}>
+                        <p className={styles.FocusTimeEntryHistoryItem__trackedTime}>
                             {props.timeTracked}
                         </p>
                         {props.taskTotalTime && (

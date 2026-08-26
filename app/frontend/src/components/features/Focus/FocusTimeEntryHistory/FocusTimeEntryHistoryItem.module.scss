@@ -55,13 +55,13 @@
     text-align: right;
 }
 
-.FocusTimeEntryHistoryItem__delta {
-    @include typography.text-sm(var(--accent));
+.FocusTimeEntryHistoryItem__trackedTime {
+    @include typography.text-sm-mono(var(--accent));
     font-weight: 700;
 }
 
 .FocusTimeEntryHistoryItem__progressLabel {
-    @include typography.text-sm-mono(var(--text-3));
+    @include typography.text-xs-mono(var(--text-3));
 }
 
 .FocusTimeEntryHistoryItem__flex {
