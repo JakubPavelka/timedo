@@ -19,8 +19,17 @@ const createTask = async (req: Request, res: Response) => {
         });
     }
 
-    const { title, description, priority, projectId, status, tags, links, isTracked } =
-        parsedBody.data;
+    const {
+        title,
+        description,
+        priority,
+        projectId,
+        status,
+        tags,
+        links,
+        isTracked,
+        estimatedTime,
+    } = parsedBody.data;
 
     try {
         if (projectId) {
@@ -53,6 +62,7 @@ const createTask = async (req: Request, res: Response) => {
                 priority,
                 status,
                 isTracked,
+                estimatedTime,
                 projectId: projectId ?? undefined,
                 userId: req.user!.id,
                 tags: tags?.length ? { connect: tags.map((id) => ({ id })) } : undefined,
@@ -65,6 +75,7 @@ const createTask = async (req: Request, res: Response) => {
                 description: true,
                 priority: true,
                 isTracked: true,
+                estimatedTime: true,
                 project: {
                     select: {
                         id: true,
@@ -142,6 +153,7 @@ const getTasks = async (req: Request, res: Response) => {
                     description: true,
                     priority: true,
                     isTracked: true,
+                    estimatedTime: true,
                     project: {
                         select: {
                             id: true,
@@ -217,6 +229,7 @@ const getTask = async (req: Request, res: Response) => {
                     description: true,
                     priority: true,
                     isTracked: true,
+                    estimatedTime: true,
                     project: {
                         select: {
                             id: true,
@@ -293,6 +306,7 @@ const updateTask = async (req: Request, res: Response) => {
             tags,
             links,
             isTracked,
+            estimatedTime,
         } = parsedBody.data;
 
         const task = await prisma.task.findUnique({ where: { id: taskId } });
@@ -333,6 +347,7 @@ const updateTask = async (req: Request, res: Response) => {
                 description,
                 status,
                 priority,
+                estimatedTime,
                 ...(isTracked !== undefined && { isTracked }),
                 ...(projectId !== undefined && { projectId }),
                 ...(tags !== undefined && { tags: { set: tags.map((id) => ({ id })) } }),
@@ -348,6 +363,7 @@ const updateTask = async (req: Request, res: Response) => {
                 description: true,
                 priority: true,
                 isTracked: true,
+                estimatedTime: true,
                 project: {
                     select: {
                         id: true,

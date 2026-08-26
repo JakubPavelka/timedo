@@ -60,7 +60,8 @@
         "labelMax": "Name cannot exceed 50 characters",
         "colorFormat": "Color must be a valid hex code (e.g. #FF0000)",
         "invalidUrl": "Invalid URL",
-        "plannedDurationRequired": "Planned duration is required for a pomodoro timer"
+        "plannedDurationRequired": "Planned duration is required for a pomodoro timer",
+        "estimatedTimeInvalid": "Enter a valid number of hours"
     },
     "RegisterForm": {
         "firstName": "First name",
@@ -204,7 +205,10 @@
             "linkName": "Link name",
             "linkUrl": "Link URL",
             "timeTrack": "Track time",
-            "timeTrackDescription": "Time can be tracked on this task"
+            "timeTrackDescription": "Time can be tracked on this task",
+            "estimatedTime": "Estimated time",
+            "inHours": "Enter the estimate in hours",
+            "estimatedTimePlaceholder": "E.g. 2.5"
         },
         "tasksDeleteSuccess": "Tasks were successfully deleted",
         "tasksDeleteError": "Failed to delete tasks, please try again",

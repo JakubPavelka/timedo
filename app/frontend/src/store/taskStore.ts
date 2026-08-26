@@ -24,6 +24,7 @@ export type Task = {
         url: string;
     }[];
     workedTime: number;
+    estimatedTime: number | null;
 };
 
 type TaskStore = {

@@ -29,6 +29,7 @@ export const TaskSchema = z.object({
     tags: z.array(z.string()).optional(),
     links: z.array(LinkBaseSchema).optional(),
     isTracked: z.boolean().default(true).optional(),
+    estimatedTime: z.number('Validation.estimatedTimeInvalid').optional(),
 });
 
 export type TaskData = z.infer<typeof TaskSchema>;

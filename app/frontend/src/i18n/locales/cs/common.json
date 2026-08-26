@@ -60,7 +60,8 @@
         "labelMax": "Název nemůže obsahovat více než 50 znaků",
         "colorFormat": "Barva musí být platný hex kód (např. #FF0000)",
         "invalidUrl": "Neplatná URL",
-        "plannedDurationRequired": "U pomodoro časovače je nutné zadat plánovanou délku"
+        "plannedDurationRequired": "U pomodoro časovače je nutné zadat plánovanou délku",
+        "estimatedTimeInvalid": "Zadejte platný počet hodin"
     },
     "RegisterForm": {
         "firstName": "Jméno",
@@ -204,7 +205,10 @@
             "linkName": "Název linku",
             "linkUrl": "URL linku",
             "timeTrack": "Měřit čas",
-            "timeTrackDescription": "Na úkolu půjde měřit čas"
+            "timeTrackDescription": "Na úkolu půjde měřit čas",
+            "estimatedTime": "Odhadovaný čas",
+            "inHours": "Zapište odhad v hodinách",
+            "estimatedTimePlaceholder": "Např. 2.5"
         },
         "tasksDeleteSuccess": "Úkoly byly úspěšně smazány",
         "tasksDeleteError": "Nepodařilo se smazat úkoly, zkuste to prosím znovu",

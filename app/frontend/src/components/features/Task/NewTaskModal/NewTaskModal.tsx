@@ -73,6 +73,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
     });
 
     const links = useWatch({ control, name: 'links' }) ?? [];
+    const isTrackedWatch = useWatch({ control, name: 'isTracked' });
 
     const handleShowProjectCreateForm = () => setShowProjectCreateForm(true);
     const handleHideProjectCreateForm = () => setShowProjectCreateForm(false);
@@ -110,7 +111,15 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
         );
     };
 
-    const handleOnSubmit = handleSubmit((data) => props.onSubmit(data));
+    const handleOnSubmit = handleSubmit((data) =>
+        props.onSubmit({
+            ...data,
+            estimatedTime:
+                data.estimatedTime !== undefined
+                    ? Math.round(data.estimatedTime * 60 * 60)
+                    : undefined,
+        })
+    );
     const handleCreateProject = (data: ProjectData) => {
         return createProject(data, {
             onSuccess: () => {
@@ -211,6 +220,42 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                     </div>
                     <Switch {...register('isTracked')} />
                 </div>
+
+                {/* ESTIMATED TIME */}
+                {isTrackedWatch && (
+                    <div className={styles.NewTaskModal__switchWrapper}>
+                        <div>
+                            <p className={styles.NewTaskModal__labelText}>
+                                {t('Task.Modal.estimatedTime')}
+                            </p>
+                            <p className={styles.NewTaskModal__labelDescription}>
+                                {t('Task.Modal.inHours')}
+                            </p>
+                        </div>
+                        <div className={styles.NewTaskModal__estimatedErrorWrapper}>
+                            <Input
+                                {...register('estimatedTime', {
+                                    setValueAs: (value) => {
+                                        if (value === '') {
+                                            return undefined;
+                                        }
+                                        return Number(String(value).replace(',', '.'));
+                                    },
+                                })}
+                                className={styles.NewTaskModal__estimatedInput}
+                                placeholder={t('Task.Modal.estimatedTimePlaceholder')}
+                                type={'text'}
+                                inputMode={'decimal'}
+                                variant={'filled'}
+                            />
+                            {errors.estimatedTime && (
+                                <p className={styles.NewTaskModal__errorText}>
+                                    {t(errors.estimatedTime.message!)}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                )}
 
                 {/* PROJECT */}
                 <div className={styles.NewTaskModal__halfInputWrapper}>

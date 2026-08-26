@@ -128,3 +128,16 @@
 .NewTaskModal__switchWrapper {
     @include layout.spaceBetweenY;
 }
+
+.NewTaskModal__estimatedInput {
+    max-width: 90px;
+
+    input {
+        text-align: center;
+    }
+}
+
+.NewTaskModal__estimatedErrorWrapper {
+    @include layout.flexColumn;
+    align-items: flex-end;
+}
