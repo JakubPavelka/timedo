@@ -221,8 +221,9 @@ export const TaskDetailView = () => {
                 <div className={styles.TaskDetailView__right}>
                     {isPending ? null : task?.isTracked ? (
                         <TaskDetailTimeTracking
+                            taskId={taskId}
                             workedSeconds={task.workedTime}
-                            estimateSeconds={180 * 60}
+                            estimateSeconds={task.estimatedTime ?? null}
                             onTimerClick={() => handleTimerClick(taskId)}
                             onTurnOffTracking={handleToggleTracking}
                         />
