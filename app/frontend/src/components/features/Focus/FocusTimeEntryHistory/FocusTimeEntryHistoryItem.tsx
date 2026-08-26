@@ -13,6 +13,7 @@ export type FocusTimeEntryHistoryItemProps = {
     title?: string;
     taskId?: string;
     taskTotalTime?: string;
+    taskEstimatedTime?: string;
     description?: string;
     project?: { label: string; color: string };
     onDeleteClick?: () => Promise<void>;
@@ -84,7 +85,9 @@ export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps)
                                     styles.FocusTimeEntryHistoryItem__progressLabel
                                 }
                             >
-                                {`/ ${props.taskTotalTime}`}
+                                {props.taskEstimatedTime
+                                    ? `${props.taskTotalTime} / ${props.taskEstimatedTime}`
+                                    : props.taskTotalTime}
                             </p>
                         )}
                     </div>

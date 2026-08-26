@@ -256,6 +256,7 @@ const getTimeEntries = async (req: Request, res: Response) => {
                         select: {
                             title: true,
                             project: { select: { label: true, color: true } },
+                            estimatedTime: true,
                         },
                     },
                 },

@@ -61,7 +61,7 @@
 }
 
 .FocusTimeEntryHistoryItem__progressLabel {
-    @include typography.text-xs-mono(var(--text-3));
+    @include typography.text-sm-mono(var(--text-3));
 }
 
 .FocusTimeEntryHistoryItem__flex {

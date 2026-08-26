@@ -42,5 +42,8 @@ export const mapTimeEntryToHistoryItem = (
         taskTotalTime: entry.task
             ? formatDurationShort(entry.task.workedTime)
             : undefined,
+        taskEstimatedTime: entry.task?.estimatedTime
+            ? formatDurationShort(entry.task.estimatedTime)
+            : undefined,
     };
 };
