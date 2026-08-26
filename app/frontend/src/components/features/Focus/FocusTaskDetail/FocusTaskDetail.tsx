@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { PriorityIcon } from '@/components/ui/PriorityIcon/PriorityIcon';
+import { formatDurationShort } from '@/utils/formatDurationShort';
 import styles from './FocusTaskDetail.module.scss';
 
 const TASK_OPTIONS_LIMIT = 100;
@@ -113,6 +114,17 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
                         </Pill>
                     )}
                 </span>
+            )}
+
+            {(selectedTask?.workedTime ?? 0) > 0 && (
+                <div className={styles.FocusTaskDetail__timeSquare}>
+                    <p className={styles.FocusTaskDetail__squareTime}>
+                        {formatDurationShort(selectedTask?.workedTime ?? 0)}
+                    </p>
+                    <p className={styles.FocusTaskDetail__squareText}>
+                        {t('Focus.total')}
+                    </p>
+                </div>
             )}
 
             <span>

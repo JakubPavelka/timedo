@@ -307,7 +307,10 @@
         "updateDescriptionError": "Failed to update the note, please try again",
         "assignToTaskSuccess": "Task assigned",
         "assignToTaskError": "Failed to assign the task, please try again",
-        "withoutTask": "Without task"
+        "withoutTask": "Without task",
+        "thisEntry": "This entry",
+        "total": "Total",
+        "estimate": "Estimate"
     },
     "Header": {
         "activeTimer": "Go to running timer"

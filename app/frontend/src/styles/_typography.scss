@@ -78,3 +78,10 @@ $font-size-title: 28px;
     line-height: 20px;
     color: $color;
 }
+
+@mixin text-lg-mono($color: var(--text)) {
+    font-size: $font-size-lg;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 24px;
+    color: $color;
+}

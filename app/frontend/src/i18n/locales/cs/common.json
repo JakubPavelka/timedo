@@ -307,7 +307,10 @@
         "updateDescriptionError": "Nepodařilo se uložit poznámku, zkuste to prosím znovu",
         "assignToTaskSuccess": "Úkol byl přiřazen",
         "assignToTaskError": "Nepodařilo se přiřadit úkol, zkuste to prosím znovu",
-        "withoutTask": "Bez úkolu"
+        "withoutTask": "Bez úkolu",
+        "thisEntry": "Tento záznam",
+        "total": "Celkem",
+        "estimate": "Odhad"
     },
     "Header": {
         "activeTimer": "Přejít na běžící časovač"

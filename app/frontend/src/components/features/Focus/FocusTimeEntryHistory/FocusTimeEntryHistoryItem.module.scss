@@ -6,16 +6,12 @@
     @include layout.spaceBetweenY;
     padding-block: 24px;
     border-bottom: 1px solid var(--border);
-    align-items: flex-start;
     gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
 
-    > a {
-        @include layout.spaceBetweenY;
-        align-items: flex-start;
-        gap: 16px;
-        width: 100%;
-        text-decoration: none;
-        color: inherit;
+    &:hover {
+        border-bottom-color: var(--border-strong);
     }
 }
 
@@ -48,7 +44,7 @@
 
 .FocusTimeEntryHistoryItem__titleWrapper {
     @include layout.flexColumn;
-    gap: 16px;
+    gap: 2px;
 }
 
 .FocusTimeEntryHistoryItem__statsWrapper {
@@ -69,7 +65,7 @@
 }
 
 .FocusTimeEntryHistoryItem__flex {
-    display: flex;
+    @include layout.centerY;
     gap: 32px;
 }
 
