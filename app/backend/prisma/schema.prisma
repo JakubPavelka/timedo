@@ -39,21 +39,22 @@ model RefreshToken {
 }
 
 model Task {
-  id          String      @id @default(cuid())
-  userId      String
-  tags        TaskTag[]
-  priority    Priority    @default(LOW)
-  title       String
-  description String?
-  links       Link[]
-  status      Status      @default(TODO)
-  isTracked   Boolean     @default(true)
-  timeEntries TimeEntry[]
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  projectId   String?
-  project     Project?    @relation(fields: [projectId], references: [id], onDelete: SetNull)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id            String      @id @default(cuid())
+  userId        String
+  tags          TaskTag[]
+  priority      Priority    @default(LOW)
+  title         String
+  description   String?
+  links         Link[]
+  status        Status      @default(TODO)
+  isTracked     Boolean     @default(true)
+  timeEntries   TimeEntry[]
+  estimatedTime Int?
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId     String?
+  project       Project?    @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model Project {
@@ -94,19 +95,19 @@ model Link {
 /// vyjádřit, takže tu není vidět. Před dalším `prisma migrate dev` na tomto
 /// modelu zkontroluj vygenerovanou SQL, ať se index omylem nesmaže.
 model TimeEntry {
-  id          String    @id @default(cuid())
-  userId      String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  taskId      String?
-  task        Task?     @relation(fields: [taskId], references: [id], onDelete: SetNull)
-  type        EntryType @default(STOPWATCH)
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId          String?
+  task            Task?     @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  type            EntryType @default(STOPWATCH)
   plannedDuration Int?
-  description String?
-  startedAt   DateTime
-  endedAt     DateTime?
-  duration    Int?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  description     String?
+  startedAt       DateTime
+  endedAt         DateTime?
+  duration        Int?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   @@index([userId, endedAt])
   @@index([taskId])
