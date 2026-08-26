@@ -39,5 +39,8 @@ export const mapTimeEntryToHistoryItem = (
         date: formatDateGroup(startedAt, t),
         timeStartedAt: startedAt.toLocaleString(DateTime.TIME_SIMPLE),
         timeTracked: `+${formatDurationShort(entry.duration ?? 0)}`,
+        taskTotalTime: entry.task
+            ? formatDurationShort(entry.task.workedTime)
+            : undefined,
     };
 };

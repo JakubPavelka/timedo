@@ -12,7 +12,7 @@ export type FocusTimeEntryHistoryItemProps = {
     date: string;
     title?: string;
     taskId?: string;
-    estimatedTime?: string;
+    taskTotalTime?: string;
     description?: string;
     project?: { label: string; color: string };
     onDeleteClick?: () => Promise<void>;
@@ -78,13 +78,13 @@ export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps)
                         <p className={styles.FocusTimeEntryHistoryItem__delta}>
                             {props.timeTracked}
                         </p>
-                        {props.estimatedTime && (
+                        {props.taskTotalTime && (
                             <p
                                 className={
                                     styles.FocusTimeEntryHistoryItem__progressLabel
                                 }
                             >
-                                {props.timeTracked} / {props.estimatedTime}
+                                {`/ ${props.taskTotalTime}`}
                             </p>
                         )}
                     </div>

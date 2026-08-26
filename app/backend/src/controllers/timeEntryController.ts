@@ -263,7 +263,39 @@ const getTimeEntries = async (req: Request, res: Response) => {
             prisma.timeEntry.count({ where }),
         ]);
 
-        return res.status(200).json({ status: 'success', data: entries, total });
+        const taskIds = [
+            ...new Set(
+                entries
+                    .map((entry) => entry.taskId)
+                    .filter((taskId): taskId is string => !!taskId)
+            ),
+        ];
+
+        const workedTimeByTask = taskIds.length
+            ? await prisma.timeEntry.groupBy({
+                  by: ['taskId'],
+                  where: { taskId: { in: taskIds }, userId: req.user!.id },
+                  _sum: { duration: true },
+              })
+            : [];
+
+        const workedTimeMap = new Map(
+            workedTimeByTask.map((entry) => [entry.taskId, entry._sum.duration ?? 0])
+        );
+
+        const entriesWithTaskWorkedTime = entries.map((entry) => ({
+            ...entry,
+            task: entry.task
+                ? {
+                      ...entry.task,
+                      workedTime: workedTimeMap.get(entry.taskId!) ?? 0,
+                  }
+                : null,
+        }));
+
+        return res
+            .status(200)
+            .json({ status: 'success', data: entriesWithTaskWorkedTime, total });
     } catch {
         return res.status(500).json({ message: 'Failed to get time entries' });
     }

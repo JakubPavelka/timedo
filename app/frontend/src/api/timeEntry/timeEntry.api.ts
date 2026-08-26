@@ -16,6 +16,7 @@ export type TimeEntryWithTask = {
     task: {
         title: string;
         project: { label: string; color: string } | null;
+        workedTime: number;
     } | null;
 };
 
