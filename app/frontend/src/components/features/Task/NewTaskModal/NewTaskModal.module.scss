@@ -119,3 +119,25 @@
 .NewTaskModal__createdLinkItemWrapper {
     margin-block: 4px;
 }
+
+.NewTaskModal__labelDescription {
+    @include typography.text-sm(var(--text-3));
+    font-weight: 400;
+}
+
+.NewTaskModal__switchWrapper {
+    @include layout.spaceBetweenY;
+}
+
+.NewTaskModal__estimatedInput {
+    max-width: 90px;
+
+    input {
+        text-align: center;
+    }
+}
+
+.NewTaskModal__estimatedErrorWrapper {
+    @include layout.flexColumn;
+    align-items: flex-end;
+}

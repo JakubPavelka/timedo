@@ -1,0 +1,24 @@
+@use 'styles/mixins/layout';
+
+.FocusView {
+    @include layout.flexColumn;
+    gap: 24px;
+    padding: 32px;
+}
+
+.FocusView__topWrapper {
+    display: flex;
+    gap: 24px;
+}
+
+.FocusView__taskDetailWrapper {
+    width: 50%;
+}
+
+.FocusView__stopwatchItem {
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    border-radius: 10px;
+    min-height: 400px;
+    width: 50%;
+}

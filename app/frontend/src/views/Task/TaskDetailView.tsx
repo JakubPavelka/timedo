@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Check, Trash2, X } from 'lucide-react';
+import { ArrowLeft, Check, Settings, Trash2, X } from 'lucide-react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/$taskId';
 import { useDeleteTask, useGetTask, useUpdateTask } from '@/hooks/api/useTask';
@@ -17,65 +17,106 @@ import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDeta
 import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDetailTimeTracking/TaskDetailTimeTracking';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { getErrorMessage } from '@/utils/getErrorMessage';
+import { TaskDetailTimeTrackingOff } from '@/components/features/Task/Detail/TaskDetailTimeTrackingOff/TaskDetailTimeTrackingOff';
+import { Popover } from '@/components/ui/Popover/Popover';
+import { Switch } from '@/components/ui/Switch/Switch';
+import { useTimerMode } from '@/hooks/useTimerMode';
+import { EntryType } from '@timedo/shared/src/schemas/timeEntrySchema';
+import { useCreateTimeEntry } from '@/hooks/api/useTimeEntry';
 import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
     const { t } = useTranslation();
     const { taskId } = Route.useParams();
-    const { data: task } = useGetTask(taskId);
+    const setTimerMode = useTimerMode((s) => s.setTimerMode);
+    const { data: task, isPending } = useGetTask(taskId);
     const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask(taskId);
     const { mutate: updateTask } = useUpdateTask(taskId);
+    const { mutate: createTimeEntry } = useCreateTimeEntry();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
 
-    const handleTimerClick = () => {
-        console.log('start timer');
+    const handleTimerClick = (taskId: string) => {
+        setTimerMode(EntryType.STOPWATCH);
+        createTimeEntry(
+            { taskId, type: EntryType.STOPWATCH },
+            {
+                onSuccess: () => navigate({ to: '/dashboard/focus' }),
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.startError', t)),
+            }
+        );
     };
 
     const handleOpenDeleteModal = () => setShowDeleteModal(true);
     const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
+    const buildToastMutationOptions = (
+        successKey: string,
+        errorKey: string,
+        onSuccess?: () => void
+    ) => ({
+        onSuccess: () => {
+            toast.success(t(successKey));
+            onSuccess?.();
+        },
+        onError: (err: unknown) => toast.error(getErrorMessage(err, errorKey, t)),
+    });
+
     const handleDeleteTask = () => {
-        deleteTask(undefined, {
-            onSuccess: () => {
-                toast.success(t('TaskDetail.deleteTaskSuccess'));
-                navigate({
-                    to: '/dashboard/tasks',
-                    search: (prev) => prev,
-                    replace: true,
-                });
-            },
-            onError: (err) =>
-                toast.error(getErrorMessage(err, 'TaskDetail.deleteTaskError', t)),
-        });
+        deleteTask(
+            undefined,
+            buildToastMutationOptions(
+                'TaskDetail.deleteTaskSuccess',
+                'TaskDetail.deleteTaskError',
+                () =>
+                    navigate({
+                        to: '/dashboard/tasks',
+                        search: (prev) => prev,
+                        replace: true,
+                    })
+            )
+        );
     };
 
     const isDone = task?.status === 'DONE';
 
+    const doneToggleCopy = isDone
+        ? {
+              label: 'TaskDetail.reopenTask',
+              success: 'TaskDetail.reopenTaskSuccess',
+              error: 'TaskDetail.reopenTaskError',
+          }
+        : {
+              label: 'TaskDetail.markAsDone',
+              success: 'TaskDetail.markAsDoneSuccess',
+              error: 'TaskDetail.markAsDoneError',
+          };
+
     const handleToggleDone = () => {
         updateTask(
             { status: isDone ? 'TODO' : 'DONE' },
-            {
-                onSuccess: () => {
-                    toast.success(
-                        t(
-                            isDone
-                                ? 'TaskDetail.reopenTaskSuccess'
-                                : 'TaskDetail.markAsDoneSuccess'
-                        )
-                    );
-                },
-                onError: (err) =>
-                    toast.error(
-                        getErrorMessage(
-                            err,
-                            isDone
-                                ? 'TaskDetail.reopenTaskError'
-                                : 'TaskDetail.markAsDoneError',
-                            t
-                        )
-                    ),
-            }
+            buildToastMutationOptions(doneToggleCopy.success, doneToggleCopy.error)
+        );
+    };
+
+    const trackingToggleCopy = task?.isTracked
+        ? {
+              success: 'TaskDetail.RightSide.timeTrackTurnOffSuccess',
+              error: 'TaskDetail.RightSide.timeTrackTurnOffError',
+          }
+        : {
+              success: 'TaskDetail.RightSide.timeTrackTurnOnSuccess',
+              error: 'TaskDetail.RightSide.timeTrackTurnOnError',
+          };
+
+    const handleToggleTracking = () => {
+        updateTask(
+            { isTracked: !task?.isTracked },
+            buildToastMutationOptions(
+                trackingToggleCopy.success,
+                trackingToggleCopy.error
+            )
         );
     };
 
@@ -95,15 +136,9 @@ export const TaskDetailView = () => {
                         variant={isDone ? 'outline' : 'outline-success'}
                         onClick={handleToggleDone}
                     >
-                        <span className={styles.TaskDetailView__deleteButton}>
+                        <span className={styles.TaskDetailView__buttonContent}>
                             <Check width={16} height={16} />
-                            <span>
-                                {t(
-                                    isDone
-                                        ? 'TaskDetail.reopenTask'
-                                        : 'TaskDetail.markAsDone'
-                                )}
-                            </span>
+                            <span>{t(doneToggleCopy.label)}</span>
                         </span>
                     </Button>
                     <Button
@@ -111,11 +146,33 @@ export const TaskDetailView = () => {
                         onClick={handleOpenDeleteModal}
                         isLoading={isDeleting}
                     >
-                        <span className={styles.TaskDetailView__deleteButton}>
+                        <span className={styles.TaskDetailView__buttonContent}>
                             <X width={16} height={16} />
                             <span>{t('TaskDetail.deleteTask')}</span>
                         </span>
                     </Button>
+                    <Popover
+                        align={'right'}
+                        trigger={
+                            <div
+                                className={styles.TaskDetailView__settingsIcon}
+                                role={'button'}
+                                tabIndex={0}
+                            >
+                                <Settings width={16} height={16} />
+                            </div>
+                        }
+                    >
+                        <div className={styles.TaskDetailView__settingsPopover}>
+                            <div className={styles.TaskDetailView__settingsTimetrack}>
+                                <p>{t('TaskDetail.RightSide.timeTrackingLabel')}</p>
+                                <Switch
+                                    checked={Boolean(task?.isTracked)}
+                                    onChange={handleToggleTracking}
+                                />
+                            </div>
+                        </div>
+                    </Popover>
                 </div>
             </div>
             <div className={styles.TaskDetailView__columns}>
@@ -162,11 +219,18 @@ export const TaskDetailView = () => {
                     )}
                 </div>
                 <div className={styles.TaskDetailView__right}>
-                    <TaskDetailTimeTracking
-                        workedMinutes={96}
-                        estimateMinutes={180}
-                        onTimerClick={handleTimerClick}
-                    />
+                    {isPending ? null : task?.isTracked ? (
+                        <TaskDetailTimeTracking
+                            taskId={taskId}
+                            workedSeconds={task.workedTime}
+                            estimateSeconds={task.estimatedTime ?? null}
+                            onTimerClick={() => handleTimerClick(taskId)}
+                            onTurnOffTracking={handleToggleTracking}
+                        />
+                    ) : (
+                        <TaskDetailTimeTrackingOff onClick={handleToggleTracking} />
+                    )}
+
                     <TaskDetailProperties
                         priority={task?.priority ?? 'LOW'}
                         project={task?.project?.label ?? ''}

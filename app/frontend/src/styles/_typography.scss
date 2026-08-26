@@ -54,3 +54,34 @@ $font-size-title: 28px;
     @include text-xs(var(--danger));
     margin-top: 4px;
 }
+
+@mixin text-stopwatch-time($color: var(--text)) {
+    font-size: 46px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    line-height: 56px;
+    color: $color;
+}
+
+@mixin text-xs-mono($color: var(--text)) {
+    font-size: $font-size-xs;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    line-height: 16px;
+    color: $color;
+}
+
+@mixin text-sm-mono($color: var(--text)) {
+    font-size: $font-size-sm;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    line-height: 20px;
+    color: $color;
+}
+
+@mixin text-lg-mono($color: var(--text)) {
+    font-size: $font-size-lg;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 24px;
+    color: $color;
+}

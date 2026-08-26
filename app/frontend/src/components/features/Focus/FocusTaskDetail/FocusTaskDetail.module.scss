@@ -1,0 +1,75 @@
+@use 'styles/mixins/layout';
+@use 'styles/mixins/components';
+@use 'styles/typography';
+
+.FocusTaskDetail {
+    @include components.box-base;
+    height: stretch;
+    width: 100%;
+}
+
+.FocusTaskDetail__headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.FocusTaskDetail__taskLink {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    flex-shrink: 0;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--surface-2);
+    }
+}
+
+.FocusTaskDetail__sectionText {
+    @include typography.text-sm(var(--text-2));
+    margin-bottom: 8px;
+}
+
+.FocusTaskDetail__title {
+    @include typography.text-title;
+}
+
+.FocusTaskDetail__error {
+    @include typography.text-error;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+
+.FocusTaskDetail__pill {
+    @include layout.centerXY;
+    gap: 5px;
+}
+
+.FocusTaskDetail__pillWrapper {
+    @include layout.centerY;
+    gap: 8px;
+}
+
+.FocusTaskDetail__timeSquares {
+    display: flex;
+    gap: 12px;
+}
+
+.FocusTaskDetail__timeSquare {
+    padding: 16px;
+    background-color: var(--surface-2);
+    border-radius: 10px;
+    width: fit-content;
+}
+
+.FocusTaskDetail__squareText {
+    @include typography.text-sm(var(--text-2));
+}
+
+.FocusTaskDetail__squareTime {
+    @include typography.text-lg-mono;
+}

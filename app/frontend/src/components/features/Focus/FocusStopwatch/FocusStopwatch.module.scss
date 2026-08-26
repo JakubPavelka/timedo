@@ -1,0 +1,102 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+
+.FocusStopwatch {
+    @include layout.flexColumn;
+    align-items: center;
+    gap: 26px;
+    padding: 24px;
+}
+
+.FocusStopwatch__segmentedControl {
+    width: fit-content;
+    margin-inline: auto;
+}
+
+.FocusStopwatch__stopwatchTime {
+    @include typography.text-stopwatch-time;
+}
+
+.FocusStopwatch__stopwatchText {
+    @include typography.text-xs-mono(var(--text-2));
+}
+
+.FocusStopwatch__stopwatchType {
+    @include typography.text-xs(var(--text-2));
+    text-transform: uppercase;
+}
+
+.FocusStopwatch__stopwatchCircle {
+    @include layout.centerXY;
+    position: relative;
+    flex-direction: column;
+    background-color: var(--surface);
+    border: 8px solid var(--border);
+    width: 260px;
+    height: 260px;
+    border-radius: 999px;
+}
+
+.FocusStopwatch__activeCircleTrack {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.FocusStopwatch__activeCircleTrack--running {
+    opacity: 1;
+    animation: FocusStopwatch-spin 4s linear infinite;
+}
+
+.FocusStopwatch__activeCircle {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    margin-left: -9px;
+    background-color: var(--accent);
+    border-radius: 999px;
+    width: 18px;
+    height: 18px;
+}
+
+@keyframes FocusStopwatch-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.FocusStopwatch__stopwatchButtons {
+    @include layout.centerY;
+    gap: 16px;
+}
+
+.FocusStopwatch__startButton {
+    @include layout.centerXY;
+    width: 64px;
+    height: 64px;
+    background-color: var(--accent);
+    border-radius: 999px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--accent-text);
+    }
+
+    svg {
+        color: var(--white);
+        fill: var(--white);
+    }
+
+    &--running {
+        background-color: var(--danger);
+
+        &:hover {
+            background-color: var(--danger-hover);
+        }
+    }
+}

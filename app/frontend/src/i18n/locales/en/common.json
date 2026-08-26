@@ -18,7 +18,10 @@
         "TOKEN_EXPIRED": "Your session has expired, please sign in again",
         "INVALID_TOKEN": "Your session is invalid, please sign in again",
         "REFRESH_TOKEN_INVALID": "Your session has expired, please sign in again",
-        "USER_NOT_FOUND": "User not found"
+        "USER_NOT_FOUND": "User not found",
+        "TIMER_ALREADY_RUNNING": "You already have another timer running",
+        "NO_RUNNING_TIMER": "There is no timer running",
+        "ENTRY_NOT_FOUND": "Time entry not found"
     },
     "General": {
         "timeUnderControl": "Your time under control",
@@ -56,7 +59,9 @@
         "labelMin": "Name must contain at least one character",
         "labelMax": "Name cannot exceed 50 characters",
         "colorFormat": "Color must be a valid hex code (e.g. #FF0000)",
-        "invalidUrl": "Invalid URL"
+        "invalidUrl": "Invalid URL",
+        "plannedDurationRequired": "Planned duration is required for a pomodoro timer",
+        "estimatedTimeInvalid": "Enter a valid number of hours"
     },
     "RegisterForm": {
         "firstName": "First name",
@@ -198,7 +203,12 @@
             "links": "Links",
             "addLink": "Add link",
             "linkName": "Link name",
-            "linkUrl": "Link URL"
+            "linkUrl": "Link URL",
+            "timeTrack": "Track time",
+            "timeTrackDescription": "Time can be tracked on this task",
+            "estimatedTime": "Estimated time",
+            "inHours": "Enter the estimate in hours",
+            "estimatedTimePlaceholder": "E.g. 2.5"
         },
         "tasksDeleteSuccess": "Tasks were successfully deleted",
         "tasksDeleteError": "Failed to delete tasks, please try again",
@@ -236,18 +246,32 @@
         "deleteLinkSuccess": "Link deleted",
         "addLinkError": "Failed to add link, please try again",
         "addLinkSuccess": "Link added",
+        "addEstimateError": "Failed to add estimate, please try again",
+        "addEstimateSuccess": "Estimate added",
+        "updateEstimateError": "Failed to update estimate, please try again",
+        "updateEstimateSuccess": "Estimate updated",
         "updateTagsError": "Failed to update tags, please try again",
         "updateTagsSuccess": "Tags updated",
         "RightSide": {
             "priority": "Priority",
             "project": "Project",
             "estimate": "Estimate",
+            "addEstimate": "Add estimate",
+            "editEstimate": "Edit estimate",
             "term": "Due date",
             "hoursWorked": "Worked",
             "estimateOf": "/ {{time}} estimate",
             "percentOfEstimate": "{{percent}}% of estimate",
             "remaining": "{{time}} left",
-            "startTimer": "Start timer"
+            "startTimer": "Start timer",
+            "timeTrackOff": "Time tracking is turned off for this task",
+            "timeTrackingLabel": "Time tracking",
+            "turnOn": "Turn on",
+            "turnOff": "Turn off time tracking",
+            "timeTrackTurnOnSuccess": "Time tracking turned on",
+            "timeTrackTurnOnError": "Failed to turn on time tracking, please try again",
+            "timeTrackTurnOffSuccess": "Time tracking turned off",
+            "timeTrackTurnOffError": "Failed to turn off time tracking, please try again"
         },
         "markAsDone": "Done",
         "reopenTask": "Reopen task",
@@ -263,5 +287,43 @@
     },
     "Pagination": {
         "page": "Page"
+    },
+    "Focus": {
+        "stopwatch": "Stopwatch",
+        "pomodoro": "Pomodoro",
+        "worked": "Worked",
+        "minutes": "min",
+        "startError": "Failed to start the timer, please try again",
+        "stopError": "Failed to stop the timer, please try again",
+        "timeEntryDeleteError": "Failed to delete the time entry, please try again",
+        "timeEntryDeleteSuccess": "Time entry deleted",
+        "History": {
+            "historyTracking": "Tracking history",
+            "searchPlaceholder": "Search history...",
+            "untrackedTime": "Time without task",
+            "today": "Today",
+            "yesterday": "Yesterday",
+            "loadMore": "Load more"
+        },
+        "timeEntryDeleteModalTitle": "Delete time entry?",
+        "timeEntryDeleteModalDescription": "This action is irreversible. The time entry will be permanently deleted.",
+        "recordDetail": "Record detail",
+        "taskDetail": "Detail",
+        "untrackedTime": "Time without task",
+        "description": "Note",
+        "descriptionPlaceholder": "Add a note",
+        "assignToTask": "Assign to task",
+        "selectTask": "Select task",
+        "updateDescriptionSuccess": "Note updated",
+        "updateDescriptionError": "Failed to update the note, please try again",
+        "assignToTaskSuccess": "Task assigned",
+        "assignToTaskError": "Failed to assign the task, please try again",
+        "withoutTask": "Without task",
+        "thisEntry": "This entry",
+        "total": "Total",
+        "estimate": "Estimate"
+    },
+    "Header": {
+        "activeTimer": "Go to running timer"
     }
 }

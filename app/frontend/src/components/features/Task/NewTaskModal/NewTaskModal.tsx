@@ -22,6 +22,7 @@ import { useTagStore } from '@/store/tagStore';
 import clsx from 'clsx';
 import { LinkItem } from '@/components/ui/LinkItem/LinkItem';
 import { PRIORITY } from '@/data/priorityData';
+import { Switch } from '@/components/ui/Switch/Switch';
 import styles from './NewTaskModal.module.scss';
 
 type NewTaskModalProps = {
@@ -57,6 +58,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
         handleSubmit,
         getValues,
         setValue,
+        register,
         formState: { errors },
     } = useForm<TaskData>({
         resolver: zodResolver(TaskSchema),
@@ -66,10 +68,12 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
             description: '',
             priority: 'LOW',
             links: [],
+            isTracked: true,
         },
     });
 
     const links = useWatch({ control, name: 'links' }) ?? [];
+    const isTrackedWatch = useWatch({ control, name: 'isTracked' });
 
     const handleShowProjectCreateForm = () => setShowProjectCreateForm(true);
     const handleHideProjectCreateForm = () => setShowProjectCreateForm(false);
@@ -107,7 +111,15 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
         );
     };
 
-    const handleOnSubmit = handleSubmit((data) => props.onSubmit(data));
+    const handleOnSubmit = handleSubmit((data) =>
+        props.onSubmit({
+            ...data,
+            estimatedTime:
+                data.estimatedTime !== undefined
+                    ? Math.round(data.estimatedTime * 60 * 60)
+                    : undefined,
+        })
+    );
     const handleCreateProject = (data: ProjectData) => {
         return createProject(data, {
             onSuccess: () => {
@@ -195,6 +207,55 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                         </p>
                     )}
                 </div>
+
+                {/* TIME TRACKING */}
+                <div className={styles.NewTaskModal__switchWrapper}>
+                    <div>
+                        <p className={styles.NewTaskModal__labelText}>
+                            {t('Task.Modal.timeTrack')}
+                        </p>
+                        <p className={styles.NewTaskModal__labelDescription}>
+                            {t('Task.Modal.timeTrackDescription')}
+                        </p>
+                    </div>
+                    <Switch {...register('isTracked')} />
+                </div>
+
+                {/* ESTIMATED TIME */}
+                {isTrackedWatch && (
+                    <div className={styles.NewTaskModal__switchWrapper}>
+                        <div>
+                            <p className={styles.NewTaskModal__labelText}>
+                                {t('Task.Modal.estimatedTime')}
+                            </p>
+                            <p className={styles.NewTaskModal__labelDescription}>
+                                {t('Task.Modal.inHours')}
+                            </p>
+                        </div>
+                        <div className={styles.NewTaskModal__estimatedErrorWrapper}>
+                            <Input
+                                {...register('estimatedTime', {
+                                    setValueAs: (value) => {
+                                        if (value === '') {
+                                            return undefined;
+                                        }
+                                        return Number(String(value).replace(',', '.'));
+                                    },
+                                })}
+                                className={styles.NewTaskModal__estimatedInput}
+                                placeholder={t('Task.Modal.estimatedTimePlaceholder')}
+                                type={'text'}
+                                inputMode={'decimal'}
+                                variant={'filled'}
+                            />
+                            {errors.estimatedTime && (
+                                <p className={styles.NewTaskModal__errorText}>
+                                    {t(errors.estimatedTime.message!)}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                )}
 
                 {/* PROJECT */}
                 <div className={styles.NewTaskModal__halfInputWrapper}>

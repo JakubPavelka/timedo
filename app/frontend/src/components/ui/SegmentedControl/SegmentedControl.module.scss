@@ -6,6 +6,15 @@
     padding: 4px;
     border-radius: 10px;
     background-color: var(--surface-3);
+
+    &--round {
+        border-radius: 9999px;
+    }
+
+    &--disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
 }
 
 .SegmentedControl__text {
@@ -20,10 +29,18 @@
         border-color 0.3s,
         color 0.3s;
 
-    &.--active {
+    &--active {
         color: var(--text);
         font-weight: 600;
         background-color: var(--surface);
         border-color: var(--border);
+    }
+
+    &--round {
+        border-radius: 9999px;
+    }
+
+    &--disabled {
+        cursor: not-allowed;
     }
 }

@@ -2,13 +2,12 @@ import { Request, Response } from 'express';
 import { prisma } from '../db/db.js';
 import {
     TaskSchema,
+    UpdateTaskSchema,
     GetTasksQuerySchema,
     DeleteTasksSchema,
     UpdateTasksSchema,
 } from '@timedo/shared/src/schemas/taskSchema.js';
 import { Prisma } from '../generated/prisma/client.js';
-
-const UpdateTaskSchema = TaskSchema.partial();
 
 const createTask = async (req: Request, res: Response) => {
     const parsedBody = TaskSchema.safeParse(req.body);
@@ -20,8 +19,17 @@ const createTask = async (req: Request, res: Response) => {
         });
     }
 
-    const { title, description, priority, projectId, status, tags, links } =
-        parsedBody.data;
+    const {
+        title,
+        description,
+        priority,
+        projectId,
+        status,
+        tags,
+        links,
+        isTracked,
+        estimatedTime,
+    } = parsedBody.data;
 
     try {
         if (projectId) {
@@ -53,6 +61,8 @@ const createTask = async (req: Request, res: Response) => {
                 description,
                 priority,
                 status,
+                isTracked,
+                estimatedTime,
                 projectId: projectId ?? undefined,
                 userId: req.user!.id,
                 tags: tags?.length ? { connect: tags.map((id) => ({ id })) } : undefined,
@@ -64,6 +74,8 @@ const createTask = async (req: Request, res: Response) => {
                 id: true,
                 description: true,
                 priority: true,
+                isTracked: true,
+                estimatedTime: true,
                 project: {
                     select: {
                         id: true,
@@ -140,6 +152,8 @@ const getTasks = async (req: Request, res: Response) => {
                     id: true,
                     description: true,
                     priority: true,
+                    isTracked: true,
+                    estimatedTime: true,
                     project: {
                         select: {
                             id: true,
@@ -168,7 +182,28 @@ const getTasks = async (req: Request, res: Response) => {
             prisma.task.count({ where }),
         ]);
 
-        return res.status(200).json({ status: 'success', data: tasks, total });
+        const taskIds = tasks.map((task) => task.id);
+
+        const workedTimeByTask = taskIds.length
+            ? await prisma.timeEntry.groupBy({
+                  by: ['taskId'],
+                  where: { taskId: { in: taskIds }, userId: req.user!.id },
+                  _sum: { duration: true },
+              })
+            : [];
+
+        const workedTimeMap = new Map(
+            workedTimeByTask.map((entry) => [entry.taskId, entry._sum.duration ?? 0])
+        );
+
+        const tasksWithWorkedTime = tasks.map((task) => ({
+            ...task,
+            workedTime: workedTimeMap.get(task.id) ?? 0,
+        }));
+
+        return res
+            .status(200)
+            .json({ status: 'success', data: tasksWithWorkedTime, total });
     } catch {
         return res.status(500).json({ message: 'Failed to get tasks' });
     }
@@ -185,38 +220,46 @@ const getTask = async (req: Request, res: Response) => {
     }
 
     try {
-        const task = await prisma.task.findUnique({
-            where: { id: taskId },
-            select: {
-                id: true,
-                userId: true,
-                description: true,
-                priority: true,
-                project: {
-                    select: {
-                        id: true,
-                        label: true,
-                        color: true,
+        const [task, timeAggregate] = await Promise.all([
+            prisma.task.findUnique({
+                where: { id: taskId },
+                select: {
+                    id: true,
+                    userId: true,
+                    description: true,
+                    priority: true,
+                    isTracked: true,
+                    estimatedTime: true,
+                    project: {
+                        select: {
+                            id: true,
+                            label: true,
+                            color: true,
+                        },
+                    },
+                    tags: {
+                        select: {
+                            id: true,
+                            label: true,
+                            color: true,
+                        },
+                    },
+                    title: true,
+                    status: true,
+                    links: {
+                        select: {
+                            id: true,
+                            label: true,
+                            url: true,
+                        },
                     },
                 },
-                tags: {
-                    select: {
-                        id: true,
-                        label: true,
-                        color: true,
-                    },
-                },
-                title: true,
-                status: true,
-                links: {
-                    select: {
-                        id: true,
-                        label: true,
-                        url: true,
-                    },
-                },
-            },
-        });
+            }),
+            prisma.timeEntry.aggregate({
+                where: { taskId, userId: req.user!.id },
+                _sum: { duration: true },
+            }),
+        ]);
 
         if (!task || task.userId !== req.user!.id) {
             return res.status(404).json({ message: 'Task not found' });
@@ -225,7 +268,10 @@ const getTask = async (req: Request, res: Response) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { userId, ...taskData } = task;
 
-        return res.status(200).json({ status: 'success', data: taskData });
+        return res.status(200).json({
+            status: 'success',
+            data: { ...taskData, workedTime: timeAggregate._sum.duration ?? 0 },
+        });
     } catch {
         return res.status(500).json({ message: 'Failed to get task' });
     }
@@ -251,8 +297,17 @@ const updateTask = async (req: Request, res: Response) => {
             });
         }
 
-        const { title, description, priority, status, projectId, tags, links } =
-            parsedBody.data;
+        const {
+            title,
+            description,
+            priority,
+            status,
+            projectId,
+            tags,
+            links,
+            isTracked,
+            estimatedTime,
+        } = parsedBody.data;
 
         const task = await prisma.task.findUnique({ where: { id: taskId } });
 
@@ -292,6 +347,8 @@ const updateTask = async (req: Request, res: Response) => {
                 description,
                 status,
                 priority,
+                estimatedTime,
+                ...(isTracked !== undefined && { isTracked }),
                 ...(projectId !== undefined && { projectId }),
                 ...(tags !== undefined && { tags: { set: tags.map((id) => ({ id })) } }),
                 ...(links !== undefined && {
@@ -305,6 +362,8 @@ const updateTask = async (req: Request, res: Response) => {
                 id: true,
                 description: true,
                 priority: true,
+                isTracked: true,
+                estimatedTime: true,
                 project: {
                     select: {
                         id: true,

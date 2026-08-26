@@ -13,86 +13,119 @@ datasource db {
 }
 
 model User {
-    id            String         @id @default(cuid())
-    email         String         @unique
-    firstName     String
-    lastName      String?
-    passwordHashed  String
-    refreshTokens RefreshToken[]
-    tasks         Task[]
-    projects Project[]
-    taskTags      TaskTag[]
-    links         Link[]
-    createdAt     DateTime       @default(now())
-    updatedAt     DateTime       @updatedAt
-    termsAcceptedAt DateTime
+  id              String         @id @default(cuid())
+  email           String         @unique
+  firstName       String
+  lastName        String?
+  passwordHashed  String
+  refreshTokens   RefreshToken[]
+  tasks           Task[]
+  projects        Project[]
+  taskTags        TaskTag[]
+  links           Link[]
+  timeEntries     TimeEntry[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  termsAcceptedAt DateTime
 }
 
 model RefreshToken {
-    id        String   @id @default(cuid())
-    token     String   @unique
-    userId    String
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    expiresAt DateTime
-    createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
 model Task {
-    id        String   @id @default(cuid())
-    userId    String
-    tags      TaskTag[]
-    priority  Priority @default(LOW)
-    title     String
-    description String?
-    links     Link[]
-    status    Status   @default(TODO)
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    projectId String?
-    project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
-    createdAt DateTime @default(now())
-    updatedAt     DateTime       @updatedAt
+  id            String      @id @default(cuid())
+  userId        String
+  tags          TaskTag[]
+  priority      Priority    @default(LOW)
+  title         String
+  description   String?
+  links         Link[]
+  status        Status      @default(TODO)
+  isTracked     Boolean     @default(true)
+  timeEntries   TimeEntry[]
+  estimatedTime Int?
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId     String?
+  project       Project?    @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model Project {
-    id        String   @id @default(cuid())
-    userId    String
-    label     String
-    color     String
-    tasks     Task[]
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String
+  label  String
+  color  String
+  tasks  Task[]
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([userId, label])
+  @@unique([userId, label])
 }
 
 model TaskTag {
-    id        String   @id @default(cuid())
-    userId    String
-    label     String
-    color     String
-    tasks     Task[]
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String
+  label  String
+  color  String
+  tasks  Task[]
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([userId, label])
+  @@unique([userId, label])
 }
 
 model Link {
-    id        String   @id @default(cuid())
-    label     String
-    url       String
-    taskId    String
-    task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
-    userId    String
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  label  String
+  url    String
+  taskId String
+  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// POZOR: DB obsahuje navíc partial unique index "TimeEntry_userId_running_unique"
+/// (ON "TimeEntry"("userId") WHERE "endedAt" IS NULL) z migrace
+/// 20260819142756_added_time_entry. Prisma DSL neumí filtrované unique indexy
+/// vyjádřit, takže tu není vidět. Před dalším `prisma migrate dev` na tomto
+/// modelu zkontroluj vygenerovanou SQL, ať se index omylem nesmaže.
+model TimeEntry {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId          String?
+  task            Task?     @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  type            EntryType @default(STOPWATCH)
+  plannedDuration Int?
+  description     String?
+  startedAt       DateTime
+  endedAt         DateTime?
+  duration        Int?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([userId, endedAt])
+  @@index([taskId])
 }
 
 enum Status {
-    TODO
-    ACTIVE
-    DONE
+  TODO
+  ACTIVE
+  DONE
 }
 
 enum Priority {
-    LOW
-    MEDIUM
-    HIGH
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum EntryType {
+  STOPWATCH
+  POMODORO
 }

@@ -28,11 +28,15 @@ export const TaskSchema = z.object({
     projectId: z.string().nullable().optional(),
     tags: z.array(z.string()).optional(),
     links: z.array(LinkBaseSchema).optional(),
+    isTracked: z.boolean().default(true).optional(),
+    estimatedTime: z.number('Validation.estimatedTimeInvalid').optional(),
 });
 
 export type TaskData = z.infer<typeof TaskSchema>;
 
-export const UpdateTaskSchema = TaskSchema.partial();
+export const UpdateTaskSchema = TaskSchema.omit({ isTracked: true })
+    .partial()
+    .extend({ isTracked: z.boolean().optional() });
 
 export type UpdateTaskData = z.infer<typeof UpdateTaskSchema>;
 

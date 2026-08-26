@@ -7,6 +7,7 @@ export type Task = {
     description: string | null;
     status: Status;
     priority: Priority;
+    isTracked: boolean;
     project: {
         id: string;
         label: string;
@@ -22,6 +23,8 @@ export type Task = {
         label: string;
         url: string;
     }[];
+    workedTime: number;
+    estimatedTime: number | null;
 };
 
 type TaskStore = {

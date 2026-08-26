@@ -1,0 +1,89 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+@use 'styles/mixins/components';
+
+.FocusTimeEntryHistoryItem {
+    @include layout.spaceBetweenY;
+    padding-block: 24px;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        border-bottom-color: var(--border-strong);
+    }
+}
+
+.FocusTimeEntryHistoryItem__dateWrapper {
+    @include layout.flexColumn;
+}
+
+.FocusTimeEntryHistoryItem__date {
+    @include typography.text-sm(var(--text-2));
+    font-weight: 600;
+}
+
+.FocusTimeEntryHistoryItem__time {
+    @include typography.text-sm-mono(var(--text-3));
+}
+
+.FocusTimeEntryHistoryItem__title {
+    @include typography.text-sm;
+    font-weight: 700;
+}
+
+.FocusTimeEntryHistoryItem__description {
+    @include typography.text-sm(var(--text-2));
+}
+
+.FocusTimeEntryHistoryItem__pillWrapper {
+    @include layout.centerY;
+    gap: 16px;
+}
+
+.FocusTimeEntryHistoryItem__titleWrapper {
+    @include layout.flexColumn;
+    gap: 2px;
+}
+
+.FocusTimeEntryHistoryItem__statsWrapper {
+    @include layout.flexColumn;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.FocusTimeEntryHistoryItem__trackedTime {
+    @include typography.text-sm-mono(var(--accent));
+    font-weight: 700;
+}
+
+.FocusTimeEntryHistoryItem__progressLabel {
+    @include typography.text-sm-mono(var(--text-3));
+}
+
+.FocusTimeEntryHistoryItem__flex {
+    @include layout.centerY;
+    gap: 32px;
+}
+
+.FocusTimeEntryHistoryItem__deleteModalIcon {
+    color: var(--danger);
+}
+
+.FocusTimeEntryHistoryItem__rightSide {
+    @include layout.centerY;
+    gap: 16px;
+
+    svg {
+        color: var(--text-2);
+        transition: color 0.2s;
+
+        &:hover {
+            color: var(--danger);
+            cursor: pointer;
+        }
+    }
+}

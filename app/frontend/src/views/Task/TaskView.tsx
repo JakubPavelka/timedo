@@ -1,32 +1,41 @@
 import { TaskHeader } from '@/components/features/Task/TaskHeader/TaskHeader';
-import { NewTaskModal } from '@/components/features/Task/NewTaskModal/NewTaskModal';
+import { NewTaskDialog } from '@/components/features/Task/NewTaskDialog/NewTaskDialog';
 import { useEffect, useState } from 'react';
-import { Modal } from '@/components/ui/Modal/Modal';
-import { useCreateTask, useGetTasks } from '@/hooks/api/useTask';
-import type { TaskData } from '@timedo/shared/src/schemas/taskSchema';
+import { useGetTasks } from '@/hooks/api/useTask';
+import { useNewTaskModal } from '@/hooks/useNewTaskModal';
 import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { useTranslation } from 'react-i18next';
 import { useTaskStore } from '@/store/taskStore';
 import { TaskListItem } from '@/components/features/Task/TaskListItem/TaskListItem';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/index';
 import { FilePlus2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/Button/Button';
 import { Pagination } from '@/components/ui/Pagination/Pagination';
+import { useCreateTimeEntry } from '@/hooks/api/useTimeEntry';
+import { EntryType } from '@timedo/shared/src/schemas/timeEntrySchema';
+import { useTimerMode } from '@/hooks/useTimerMode';
 import styles from './TaskView.module.scss';
 
 export const TaskView = () => {
     const { t } = useTranslation();
-    const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
+    const {
+        isOpen: newTaskModalOpen,
+        openModal,
+        closeModal,
+        handleCreateTask,
+    } = useNewTaskModal();
     const [selectedTaskIds, setSelectedTaskIds] = useState<Set<string>>(new Set());
     const tasks = useTaskStore((s) => s.tasks);
-    const { mutate: createTask } = useCreateTask();
+    const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { priority, status, project, search, offset, limit } = Route.useSearch();
     const priorityFilter = priority ? priority.split(',') : undefined;
     const projectFilter = project ? project.split(',') : undefined;
     const navigate = Route.useNavigate();
+    const navigateGlobal = useNavigate();
+    const setTimerMode = useTimerMode((s) => s.setTimerMode);
     const currentLimit = limit ?? 10;
     const currentOffset = offset ?? 0;
     const { isPending, data } = useGetTasks(
@@ -55,8 +64,6 @@ export const TaskView = () => {
     const allTasksSelected =
         tasks.length > 0 && tasks.length === visibleSelectedTaskIds.size;
 
-    const handleModalOpen = () => setNewTaskModalOpen(true);
-    const handleModalClose = () => setNewTaskModalOpen(false);
     const handleUnselectAll = () => setSelectedTaskIds(new Set());
 
     const handleToggleSelectAll = () => {
@@ -79,17 +86,6 @@ export const TaskView = () => {
         });
     };
 
-    const handleCreateTask = (data: TaskData) => {
-        return createTask(data, {
-            onSuccess: () => {
-                toast.success(t('Task.Modal.createSuccess'));
-                setNewTaskModalOpen(false);
-            },
-            onError: (err) =>
-                toast.error(getErrorMessage(err, 'Task.Modal.createError', t)),
-        });
-    };
-
     const handleClickPaginationForward = () => {
         navigate({
             search: (prev) => ({
@@ -108,10 +104,22 @@ export const TaskView = () => {
         });
     };
 
+    const handleTrackClick = (taskId: string) => {
+        setTimerMode(EntryType.STOPWATCH);
+        createTimeEntry(
+            { taskId, type: EntryType.STOPWATCH },
+            {
+                onSuccess: () => navigateGlobal({ to: '/dashboard/focus' }),
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.startError', t)),
+            }
+        );
+    };
+
     return (
         <div className={styles.TaskView}>
             <TaskHeader
-                onNewTaskClick={handleModalOpen}
+                onNewTaskClick={openModal}
                 selectedTasks={visibleSelectedTaskIds}
                 onUnselectAll={handleUnselectAll}
             />
@@ -139,7 +147,9 @@ export const TaskView = () => {
                                     project={task.project ?? undefined}
                                     tags={task.tags}
                                     selected={selectedTaskIds.has(task.id)}
+                                    isTracked={task.isTracked}
                                     onSelectChange={handleSelectChange}
+                                    onTrackClick={handleTrackClick}
                                 />
                             </Link>
                         ))}
@@ -154,7 +164,7 @@ export const TaskView = () => {
                     <p className={styles.TaskView__noTaskDescription}>
                         {t('Task.noTasksDescription')}
                     </p>
-                    <Button onClick={handleModalOpen}>
+                    <Button onClick={openModal}>
                         <span className={styles.TaskView__buttonWrapper}>
                             <Plus width={16} height={16} />
                             <span>{t('Task.newTask')}</span>
@@ -173,18 +183,11 @@ export const TaskView = () => {
                 />
             </div>
 
-            {newTaskModalOpen && (
-                <Modal
-                    isOpen={newTaskModalOpen}
-                    onClose={handleModalClose}
-                    closeOnOverlayClick={false}
-                >
-                    <NewTaskModal
-                        onSubmit={handleCreateTask}
-                        onClose={handleModalClose}
-                    />
-                </Modal>
-            )}
+            <NewTaskDialog
+                isOpen={newTaskModalOpen}
+                onClose={closeModal}
+                onSubmit={handleCreateTask}
+            />
         </div>
     );
 };
