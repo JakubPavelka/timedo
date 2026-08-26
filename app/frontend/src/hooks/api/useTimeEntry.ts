@@ -53,6 +53,7 @@ export const useUpdateTimeEntry = () => {
         onSuccess: (response) => {
             queryClient.invalidateQueries({ queryKey: ['activeTimeEntry'] });
             queryClient.invalidateQueries({ queryKey: ['timeEntries'] });
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
             if (response.data.taskId) {
                 queryClient.invalidateQueries({
                     queryKey: ['task', response.data.taskId],
