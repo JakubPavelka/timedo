@@ -46,10 +46,11 @@ export const useGetTasks = (
     });
 };
 
-export const useGetTask = (taskId: string) => {
+export const useGetTask = (taskId: string | null | undefined) => {
     return useQuery({
         queryKey: ['task', taskId],
-        queryFn: (): Promise<Task> => taskApi.getTask(taskId),
+        queryFn: (): Promise<Task> => taskApi.getTask(taskId as string),
+        enabled: !!taskId,
         retry: false,
     });
 };

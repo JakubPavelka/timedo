@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { Textarea } from '@/components/ui/Textarea/Textarea';
 import { useEditableField } from '@/hooks/useEditableField';
 import { useTaskStore } from '@/store/taskStore';
-import { useGetTasks } from '@/hooks/api/useTask';
+import { useGetTasks, useGetTask } from '@/hooks/api/useTask';
 import { useUpdateTimeEntry } from '@/hooks/api/useTimeEntry';
 import { Select } from '@/components/ui/Select/Select';
 import { toast } from 'sonner';
@@ -31,7 +31,7 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
         value: task.id,
         label: task.title,
     }));
-    const selectedTask = tasks.find((task) => task.id === props.taskId);
+    const { data: selectedTask } = useGetTask(props.taskId);
 
     const { draft, setDraft, error, validate } = useEditableField({
         schema: z.string(),
