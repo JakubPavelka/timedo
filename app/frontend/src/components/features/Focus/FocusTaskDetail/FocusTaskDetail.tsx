@@ -19,6 +19,7 @@ type FocusTaskDetailProps = {
     id?: string;
     taskId?: string | null;
     description?: string;
+    duration?: number;
 };
 
 export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
@@ -116,15 +117,29 @@ export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
                 </span>
             )}
 
-            {(selectedTask?.workedTime ?? 0) > 0 && (
-                <div className={styles.FocusTaskDetail__timeSquare}>
-                    <p className={styles.FocusTaskDetail__squareTime}>
-                        {formatDurationShort(selectedTask?.workedTime ?? 0)}
-                    </p>
-                    <p className={styles.FocusTaskDetail__squareText}>
-                        {t('Focus.total')}
-                    </p>
-                </div>
+            {((props.duration ?? 0) > 0 || (selectedTask?.workedTime ?? 0) > 0) && (
+                <span className={styles.FocusTaskDetail__timeSquares}>
+                    {(props.duration ?? 0) > 0 && (
+                        <div className={styles.FocusTaskDetail__timeSquare}>
+                            <p className={styles.FocusTaskDetail__squareTime}>
+                                {formatDurationShort(props.duration ?? 0)}
+                            </p>
+                            <p className={styles.FocusTaskDetail__squareText}>
+                                {t('Focus.thisEntry')}
+                            </p>
+                        </div>
+                    )}
+                    {(selectedTask?.workedTime ?? 0) > 0 && (
+                        <div className={styles.FocusTaskDetail__timeSquare}>
+                            <p className={styles.FocusTaskDetail__squareTime}>
+                                {formatDurationShort(selectedTask?.workedTime ?? 0)}
+                            </p>
+                            <p className={styles.FocusTaskDetail__squareText}>
+                                {t('Focus.total')}
+                            </p>
+                        </div>
+                    )}
+                </span>
             )}
 
             <span>

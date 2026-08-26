@@ -93,6 +93,7 @@ export const FocusView = () => {
                         id={selectedEntry?.id}
                         taskId={selectedEntry?.taskId}
                         description={selectedEntry?.description ?? undefined}
+                        duration={selectedEntry?.duration ?? undefined}
                     />
                 </div>
             </div>

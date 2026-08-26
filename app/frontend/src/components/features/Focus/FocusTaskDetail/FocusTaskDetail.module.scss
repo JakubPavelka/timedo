@@ -33,6 +33,11 @@
     gap: 8px;
 }
 
+.FocusTaskDetail__timeSquares {
+    display: flex;
+    gap: 12px;
+}
+
 .FocusTaskDetail__timeSquare {
     padding: 16px;
     background-color: var(--surface-2);
