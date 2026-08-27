@@ -1,8 +1,8 @@
 import { ProgressCard } from '@/components/ui/ProgressCard/ProgressCard';
 import { useGetTagsWithTasks } from '@/hooks/api/useTag';
-import styles from './TagsView.module.scss';
 import { AddCard } from '@/components/ui/AddCard/AddCard';
 import { useTranslation } from 'react-i18next';
+import styles from './TagsView.module.scss';
 
 export const TagsView = () => {
     const { t } = useTranslation();
