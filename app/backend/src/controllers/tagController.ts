@@ -71,4 +71,45 @@ const getTags = async (req: Request, res: Response) => {
     }
 };
 
-export { createTag, getTags };
+const getTagsWithTasks = async (req: Request, res: Response) => {
+    try {
+        const tags = await prisma.taskTag.findMany({
+            where: { userId: req.user!.id },
+            select: {
+                id: true,
+                label: true,
+                color: true,
+                tasks: {
+                    select: {
+                        status: true,
+                        timeEntries: {
+                            select: { duration: true },
+                        },
+                    },
+                },
+            },
+        });
+
+        const data = tags.map(({ tasks, ...tag }) => {
+            const totalTasks = tasks.length;
+            const tasksDone = tasks.filter((task) => task.status === 'DONE').length;
+            const duration = tasks.reduce(
+                (taskSum, task) =>
+                    taskSum +
+                    task.timeEntries.reduce(
+                        (entrySum, entry) => entrySum + (entry.duration ?? 0),
+                        0
+                    ),
+                0
+            );
+
+            return { ...tag, totalTasks, tasksDone, duration };
+        });
+
+        return res.status(200).json({ status: 'success', data });
+    } catch {
+        return res.status(500).json({ message: 'Failed to get tags' });
+    }
+};
+
+export { createTag, getTags, getTagsWithTasks };

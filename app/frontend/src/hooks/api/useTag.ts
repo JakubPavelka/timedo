@@ -24,3 +24,11 @@ export const useGetTags = () => {
         retry: false,
     });
 };
+
+export const useGetTagsWithTasks = () => {
+    return useQuery({
+        queryKey: ['tags', 'with-tasks'],
+        queryFn: tagApi.getTagsWithTasks,
+        retry: false,
+    });
+};
