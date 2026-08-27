@@ -14,6 +14,8 @@ const titlePaths: Record<string, string> = {
     '/dashboard/calendar': 'Sidebar.calendar',
     '/dashboard/overview': 'Sidebar.overview',
     '/dashboard/profile': 'Sidebar.profile',
+    '/dashboard/projects': 'Projects.projects',
+    '/dashboard/tags': 'Tags.tags',
 };
 
 export const DashboardLayout = () => {
