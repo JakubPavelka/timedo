@@ -48,7 +48,9 @@ export const tagApi = {
     },
     updateTag: async (data: UpdateTagData) => {
         try {
-            const response = await apiClient.patch('/api/tag', data);
+            const response = await apiClient.patch<{
+                data: Pick<Tag, 'id' | 'label' | 'color'>;
+            }>('/api/tag', data);
             return response.data.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {

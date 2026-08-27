@@ -12,9 +12,14 @@ export type Tag = {
 type TagStore = {
     tags: Tag[];
     setTags: (tags: Tag[]) => void;
+    updateTag: (tag: Pick<Tag, 'id' | 'label' | 'color'>) => void;
 };
 
 export const useTagStore = create<TagStore>()((set) => ({
     tags: [],
     setTags: (tags) => set({ tags }),
+    updateTag: (tag) =>
+        set((state) => ({
+            tags: state.tags.map((t) => (t.id === tag.id ? { ...t, ...tag } : t)),
+        })),
 }));

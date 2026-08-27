@@ -136,6 +136,7 @@ const updateTag = async (req: Request, res: Response) => {
                 color,
             },
             select: {
+                id: true,
                 label: true,
                 color: true,
             },
