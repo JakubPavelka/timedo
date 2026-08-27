@@ -6,3 +6,9 @@ export const TagSchema = z.object({
 });
 
 export type TagData = z.infer<typeof TagSchema>;
+
+export const UpdateTagSchema = TagSchema.extend({
+    id: z.string(),
+});
+
+export type UpdateTagData = z.infer<typeof UpdateTagSchema>;
