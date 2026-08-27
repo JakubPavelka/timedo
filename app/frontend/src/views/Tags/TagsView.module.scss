@@ -1,0 +1,9 @@
+.TagsView {
+    padding: 32px;
+}
+
+.TagsView__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+}
