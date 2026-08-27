@@ -7,6 +7,8 @@ import { SidebarProfileButton } from './SidebarProfileButton/SidebarProfileButto
 import { Link } from '@tanstack/react-router';
 import { useProjectStore } from '@/store/projectStore';
 import sidebarButtonsData from '@/data/sidebarButtonsData';
+import { ChevronRight } from 'lucide-react';
+import { useTagStore } from '@/store/tagStore';
 import styles from './Sidebar.module.scss';
 
 type SidebarProps = {
@@ -17,6 +19,7 @@ export const Sidebar = (props: SidebarProps) => {
     const { t } = useTranslation();
     const theme = useTheme((s) => s.theme);
     const projects = useProjectStore((s) => s.projects);
+    const tags = useTagStore((s) => s.tags);
 
     return (
         <div className={styles.Sidebar}>
@@ -56,39 +59,86 @@ export const Sidebar = (props: SidebarProps) => {
                     );
                 })}
             </nav>
-
-            {projects.length !== 0 && (
+            <div className={styles.Sidebar__scrollableWrapper}>
+                {projects.length !== 0 && (
+                    <div>
+                        <Link
+                            to={'/dashboard/projects'}
+                            className={styles.Sidebar__subTitleWrapper}
+                        >
+                            <span className={styles.Sidebar__subTitle}>
+                                {t('Sidebar.projects')}
+                            </span>
+                            <ChevronRight width={16} height={16} />
+                        </Link>
+                        <ul className={styles.Sidebar__itemList}>
+                            {projects.map((project) => {
+                                return (
+                                    <li key={project.id}>
+                                        <button
+                                            className={styles.Sidebar__itemButton}
+                                            type={'button'}
+                                        >
+                                            <span
+                                                className={
+                                                    styles.Sidebar__itemColorWrapper
+                                                }
+                                            >
+                                                <span
+                                                    className={styles.Sidebar__itemDot}
+                                                    style={{
+                                                        backgroundColor: project.color,
+                                                    }}
+                                                />
+                                                <span
+                                                    className={styles.Sidebar__itemText}
+                                                >
+                                                    {project.label}
+                                                </span>
+                                            </span>
+                                            <span className={styles.Sidebar__itemCount}>
+                                                {project._count.tasks}
+                                            </span>
+                                        </button>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                )}
                 <div>
-                    <p className={styles.Sidebar__projectsTitle}>
-                        {t('Sidebar.projects')}
-                    </p>
-                    <ul className={styles.Sidebar__projectsList}>
-                        {projects.map((project) => {
+                    <Link
+                        to={'/dashboard/tags'}
+                        className={styles.Sidebar__subTitleWrapper}
+                    >
+                        <span className={styles.Sidebar__subTitle}>
+                            {t('Sidebar.tags')}
+                        </span>
+                        <ChevronRight width={16} height={16} />
+                    </Link>
+                    <ul className={styles.Sidebar__itemList}>
+                        {tags.map((tag) => {
                             return (
-                                <li key={project.id}>
+                                <li key={tag.id}>
                                     <button
-                                        className={styles.Sidebar__projectsButton}
+                                        className={styles.Sidebar__itemButton}
                                         type={'button'}
                                     >
                                         <span
-                                            className={
-                                                styles.Sidebar__projectsColorWrapper
-                                            }
+                                            className={styles.Sidebar__itemColorWrapper}
                                         >
                                             <span
-                                                className={styles.Sidebar__projectsDot}
+                                                className={styles.Sidebar__itemDot}
                                                 style={{
-                                                    backgroundColor: project.color,
+                                                    backgroundColor: tag.color,
                                                 }}
                                             />
-                                            <span
-                                                className={styles.Sidebar__projectsText}
-                                            >
-                                                {project.label}
+                                            <span className={styles.Sidebar__itemText}>
+                                                {tag.label}
                                             </span>
                                         </span>
-                                        <span className={styles.Sidebar__projectsCount}>
-                                            {project._count.tasks}
+                                        <span className={styles.Sidebar__itemCount}>
+                                            {tag._count.tasks}
                                         </span>
                                     </button>
                                 </li>
@@ -96,7 +146,7 @@ export const Sidebar = (props: SidebarProps) => {
                         })}
                     </ul>
                 </div>
-            )}
+            </div>
 
             <div className={styles.Sidebar__profileWrapper}>
                 <SidebarProfileButton />
