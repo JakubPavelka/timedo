@@ -1,5 +1,5 @@
 import { apiClient } from '../client';
-import type { TagData } from '@timedo/shared/src/schemas/tagsSchema';
+import type { TagData, UpdateTagData } from '@timedo/shared/src/schemas/tagsSchema';
 import type { Tag } from '@/store/tagStore';
 import axios from 'axios';
 import { ApiError } from '../ApiError';
@@ -38,6 +38,17 @@ export const tagApi = {
             const response = await apiClient.get<{ data: TagWithTasks[] }>(
                 '/api/tag/with-tasks'
             );
+            return response.data.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+    updateTag: async (data: UpdateTagData) => {
+        try {
+            const response = await apiClient.patch('/api/tag', data);
             return response.data.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {

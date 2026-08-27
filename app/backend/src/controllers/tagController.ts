@@ -1,6 +1,7 @@
 import { prisma } from '../db/db.js';
 import { Response, Request } from 'express';
-import { TagSchema } from '@timedo/shared/src/schemas/tagsSchema.js';
+import { Prisma } from '../generated/prisma/client.js';
+import { TagSchema, UpdateTagSchema } from '@timedo/shared/src/schemas/tagsSchema.js';
 
 const createTag = async (req: Request, res: Response) => {
     try {
@@ -48,7 +49,7 @@ const createTag = async (req: Request, res: Response) => {
             },
         });
 
-        return res.status(201).json({ status: 'success', data: { tag } });
+        return res.status(201).json({ status: 'success', data: tag });
     } catch {
         return res.status(500).json({ message: 'Failed to create tags' });
     }
@@ -115,4 +116,44 @@ const getTagsWithTasks = async (req: Request, res: Response) => {
     }
 };
 
-export { createTag, getTags, getTagsWithTasks };
+const updateTag = async (req: Request, res: Response) => {
+    const parsedBody = UpdateTagSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { color, id, label } = parsedBody.data;
+
+    try {
+        const tag = await prisma.taskTag.update({
+            where: { id: id, userId: req.user!.id },
+            data: {
+                label,
+                color,
+            },
+            select: {
+                label: true,
+                color: true,
+            },
+        });
+
+        return res.status(200).json({ status: 'success', data: tag });
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res.status(404).json({ message: 'Tag not found' });
+        }
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+            return res.status(400).json({
+                message: 'Tag already exists',
+                code: 'TAG_ALREADY_EXISTS',
+            });
+        }
+        return res.status(500).json({ message: 'Failed to update tag' });
+    }
+};
+
+export { createTag, getTags, getTagsWithTasks, updateTag };

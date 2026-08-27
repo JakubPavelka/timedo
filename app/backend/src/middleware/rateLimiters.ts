@@ -177,3 +177,9 @@ export const updateTimeEntryLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 100,
 });
+
+export const updateTagLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 30,
+});

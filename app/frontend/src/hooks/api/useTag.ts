@@ -32,3 +32,16 @@ export const useGetTagsWithTasks = () => {
         retry: false,
     });
 };
+
+export const useUpdateTag = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: tagApi.updateTag,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['tags'] });
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['task'] });
+        },
+    });
+};
