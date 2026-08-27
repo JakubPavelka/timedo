@@ -16,7 +16,7 @@ export const Priority = {
 export type Priority = (typeof Priority)[keyof typeof Priority];
 
 export const TaskSchema = z.object({
-    title: z.string().min(1, 'Validation.titleMin').max(255, 'Validation.titleMax'),
+    title: z.string().trim().min(1, 'Validation.titleMin').max(255, 'Validation.titleMax'),
     description: z
         .string()
         .min(1, 'Validation.descriptionMin')
