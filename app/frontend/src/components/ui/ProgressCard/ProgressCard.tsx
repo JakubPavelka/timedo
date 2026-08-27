@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Pencil } from 'lucide-react';
+import { Pencil, Trash } from 'lucide-react';
 import { formatDuration } from '@/utils/formatDuration';
 import styles from './ProgressCard.module.scss';
 
@@ -9,7 +9,8 @@ type ProgressCardProps = {
     tasksDone?: number;
     totalTasks?: number;
     duration?: number;
-    onEditClick?: () => void;
+    onEdit?: () => void;
+    onDelete?: () => void;
     onClick?: () => void;
 };
 
@@ -30,9 +31,26 @@ export const ProgressCard = (props: ProgressCardProps) => {
                     />
                     <p className={styles.ProgressCard__title}>{props.title}</p>
                 </div>
-                <span onClick={props.onEditClick} className={styles.ProgressCard__edit}>
-                    <Pencil width={16} height={16} />
-                </span>
+                {(!!props.onDelete || !!props.onEdit) && (
+                    <div className={styles.ProgressCard__actionsWrapper}>
+                        {!!props.onDelete && (
+                            <span
+                                onClick={props.onDelete}
+                                className={styles.ProgressCard__delete}
+                            >
+                                <Trash width={16} height={16} />
+                            </span>
+                        )}
+                        {!!props.onEdit && (
+                            <span
+                                onClick={props.onEdit}
+                                className={styles.ProgressCard__edit}
+                            >
+                                <Pencil width={16} height={16} />
+                            </span>
+                        )}
+                    </div>
+                )}
             </div>
             <div className={styles.ProgressCard__progressTrack}>
                 <div
