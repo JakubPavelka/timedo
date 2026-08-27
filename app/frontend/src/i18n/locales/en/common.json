@@ -101,6 +101,7 @@
         "calendar": "Calendar",
         "overview": "Overview",
         "projects": "PROJECTS",
+        "tags": "TAGS",
         "profile": "Profile"
     },
     "Profile": {
@@ -345,6 +346,10 @@
             "description": "Name the tag and choose a color.",
             "name": "Tag name",
             "color": "Color"
+        },
+        "DeleteModal": {
+            "title": "Delete tag?",
+            "description": "This action is irreversible. The tag will be permanently deleted and removed from all tasks it's assigned to."
         }
     }
 }

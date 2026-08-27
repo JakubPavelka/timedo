@@ -101,6 +101,7 @@
         "calendar": "Kalendář",
         "overview": "Přehled",
         "projects": "PROJEKTY",
+        "tags": "TAGY",
         "profile": "Profil"
     },
     "Profile": {
@@ -345,6 +346,10 @@
             "description": "Pojmenuj tag a vyber barvu.",
             "name": "Název tagu",
             "color": "Barva"
+        },
+        "DeleteModal": {
+            "title": "Smazat tag?",
+            "description": "Tato akce je nevratná. Tag bude trvale smazán a odebrán ze všech úkolů, kde je přiřazený."
         }
     }
 }
