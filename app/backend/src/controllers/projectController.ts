@@ -74,4 +74,45 @@ const getProjects = async (req: Request, res: Response) => {
     }
 };
 
-export { createProject, getProjects };
+const getProjectsWithTasks = async (req: Request, res: Response) => {
+    try {
+        const projects = await prisma.project.findMany({
+            where: { userId: req.user!.id },
+            select: {
+                id: true,
+                label: true,
+                color: true,
+                tasks: {
+                    select: {
+                        status: true,
+                        timeEntries: {
+                            select: { duration: true },
+                        },
+                    },
+                },
+            },
+        });
+
+        const data = projects.map(({ tasks, ...project }) => {
+            const totalTasks = tasks.length;
+            const tasksDone = tasks.filter((task) => task.status === 'DONE').length;
+            const duration = tasks.reduce(
+                (taskSum, task) =>
+                    taskSum +
+                    task.timeEntries.reduce(
+                        (entrySum, entry) => entrySum + (entry.duration ?? 0),
+                        0
+                    ),
+                0
+            );
+
+            return { ...project, totalTasks, tasksDone, duration };
+        });
+
+        return res.status(200).json({ status: 'success', data });
+    } catch {
+        return res.status(500).json({ message: 'Failed to get projects' });
+    }
+};
+
+export { createProject, getProjects, getProjectsWithTasks };

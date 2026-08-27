@@ -1,7 +1,14 @@
 import { apiClient } from '../client';
 import type { ProjectData } from '@timedo/shared/src/schemas/projectSchema';
+import type { Project } from '@/store/projectStore';
 import axios from 'axios';
 import { ApiError } from '../ApiError';
+
+export type ProjectWithTasks = Omit<Project, '_count'> & {
+    tasksDone: number;
+    totalTasks: number;
+    duration: number;
+};
 
 export const projectApi = {
     createProject: async (data: ProjectData) => {
@@ -10,9 +17,7 @@ export const projectApi = {
             return response.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiError(
-                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
-                );
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }
@@ -23,9 +28,20 @@ export const projectApi = {
             return response.data.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiError(
-                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
-                );
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+    getProjectsWithTasks: async () => {
+        try {
+            const response = await apiClient.get<{ data: ProjectWithTasks[] }>(
+                '/api/project/with-tasks'
+            );
+            return response.data.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }

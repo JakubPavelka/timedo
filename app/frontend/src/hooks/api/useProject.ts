@@ -24,3 +24,11 @@ export const useGetProjects = () => {
         retry: false,
     });
 };
+
+export const useGetProjectsWithTasks = () => {
+    return useQuery({
+        queryKey: ['projects', 'with-tasks'],
+        queryFn: projectApi.getProjectsWithTasks,
+        retry: false,
+    });
+};
