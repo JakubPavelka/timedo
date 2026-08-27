@@ -325,5 +325,26 @@
     },
     "Header": {
         "activeTimer": "Přejít na běžící časovač"
+    },
+    "ProgressCard": {
+        "done": "{{tasksDone}}/{{allTasks}} hotovo"
+    },
+    "Projects": {
+        "projects": "Projekty",
+        "newProject": "Nový projekt",
+        "CreateModal": {
+            "description": "Pojmenuj projekt a vyber barvu.",
+            "name": "Název projektu",
+            "color": "Barva"
+        }
+    },
+    "Tags": {
+        "tags": "Tagy",
+        "newTag": "Nový tag",
+        "CreateModal": {
+            "description": "Pojmenuj tag a vyber barvu.",
+            "name": "Název tagu",
+            "color": "Barva"
+        }
     }
 }

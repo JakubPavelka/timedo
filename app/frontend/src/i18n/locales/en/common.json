@@ -325,5 +325,26 @@
     },
     "Header": {
         "activeTimer": "Go to running timer"
+    },
+    "ProgressCard": {
+        "done": "{{tasksDone}}/{{allTasks}} done"
+    },
+    "Projects": {
+        "projects": "Projects",
+        "newProject": "New project",
+        "CreateModal": {
+            "description": "Name the project and choose a color.",
+            "name": "Project name",
+            "color": "Color"
+        }
+    },
+    "Tags": {
+        "tags": "Tags",
+        "newTag": "New tag",
+        "CreateModal": {
+            "description": "Name the tag and choose a color.",
+            "name": "Tag name",
+            "color": "Color"
+        }
     }
 }
