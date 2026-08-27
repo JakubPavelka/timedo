@@ -1,7 +1,14 @@
 import { apiClient } from '../client';
 import type { TagData } from '@timedo/shared/src/schemas/tagsSchema';
+import type { Tag } from '@/store/tagStore';
 import axios from 'axios';
 import { ApiError } from '../ApiError';
+
+export type TagWithTasks = Tag & {
+    tasksDone: number;
+    totalTasks: number;
+    duration: number;
+};
 
 export const tagApi = {
     createTag: async (data: TagData) => {
@@ -17,7 +24,7 @@ export const tagApi = {
     },
     getTags: async () => {
         try {
-            const response = await apiClient.get('/api/tag');
+            const response = await apiClient.get<{ data: Tag[] }>('/api/tag');
             return response.data.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
@@ -28,7 +35,9 @@ export const tagApi = {
     },
     getTagsWithTasks: async () => {
         try {
-            const response = await apiClient.get('/api/tag/with-tasks');
+            const response = await apiClient.get<{ data: TagWithTasks[] }>(
+                '/api/tag/with-tasks'
+            );
             return response.data.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
