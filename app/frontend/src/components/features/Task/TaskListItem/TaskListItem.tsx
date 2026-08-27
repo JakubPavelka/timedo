@@ -16,7 +16,7 @@ type TaskListItem = {
     title: string;
     priority: Priority;
     status: Status;
-    tags?: Tag[];
+    tags?: Omit<Tag, '_count'>[];
     project?: Omit<Project, '_count'>;
     selected?: boolean;
     isTracked?: boolean;
