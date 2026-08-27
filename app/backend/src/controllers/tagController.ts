@@ -62,6 +62,9 @@ const getTags = async (req: Request, res: Response) => {
                 id: true,
                 label: true,
                 color: true,
+                _count: {
+                    select: { tasks: true },
+                },
             },
         });
 
