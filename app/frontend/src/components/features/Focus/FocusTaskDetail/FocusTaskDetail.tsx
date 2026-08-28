@@ -27,7 +27,15 @@ type FocusTaskDetailProps = {
 export const FocusTaskDetail = (props: FocusTaskDetailProps) => {
     const { t } = useTranslation();
     const { mutate: updateTimeEntry, isPending } = useUpdateTimeEntry();
-    useGetTasks(TASK_OPTIONS_LIMIT, 0, undefined, undefined, undefined, undefined);
+    useGetTasks(
+        TASK_OPTIONS_LIMIT,
+        0,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+    );
     const tasks = useTaskStore((s) => s.tasks);
     const taskOptions = tasks.map((task) => ({
         value: task.id,

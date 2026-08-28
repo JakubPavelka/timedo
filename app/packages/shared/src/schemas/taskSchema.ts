@@ -16,7 +16,11 @@ export const Priority = {
 export type Priority = (typeof Priority)[keyof typeof Priority];
 
 export const TaskSchema = z.object({
-    title: z.string().trim().min(1, 'Validation.titleMin').max(255, 'Validation.titleMax'),
+    title: z
+        .string()
+        .trim()
+        .min(1, 'Validation.titleMin')
+        .max(255, 'Validation.titleMax'),
     description: z
         .string()
         .min(1, 'Validation.descriptionMin')
@@ -46,6 +50,7 @@ export const GetTasksQuerySchema = z.object({
     priority: z.array(z.enum(Priority)).optional(),
     status: z.enum(Status).optional(),
     project: z.array(z.string()).optional(),
+    tag: z.array(z.string()).optional(),
     search: z.string().optional(),
 });
 

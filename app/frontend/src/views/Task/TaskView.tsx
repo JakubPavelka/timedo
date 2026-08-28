@@ -30,9 +30,10 @@ export const TaskView = () => {
     const [selectedTaskIds, setSelectedTaskIds] = useState<Set<string>>(new Set());
     const tasks = useTaskStore((s) => s.tasks);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
-    const { priority, status, project, search, offset, limit } = Route.useSearch();
+    const { priority, status, project, search, tag, offset, limit } = Route.useSearch();
     const priorityFilter = priority ? priority.split(',') : undefined;
     const projectFilter = project ? project.split(',') : undefined;
+    const tagFilter = tag ? tag.split(',') : undefined;
     const navigate = Route.useNavigate();
     const navigateGlobal = useNavigate();
     const setTimerMode = useTimerMode((s) => s.setTimerMode);
@@ -44,7 +45,8 @@ export const TaskView = () => {
         priorityFilter,
         status,
         projectFilter,
-        search
+        search,
+        tagFilter
     );
     const total = data?.total ?? 0;
     const currentPage = Math.floor(currentOffset / currentLimit) + 1;

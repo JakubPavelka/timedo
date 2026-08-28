@@ -9,6 +9,7 @@ import { useProjectStore } from '@/store/projectStore';
 import sidebarButtonsData from '@/data/sidebarButtonsData';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useTagStore } from '@/store/tagStore';
+import { useNavigate } from '@tanstack/react-router';
 import styles from './Sidebar.module.scss';
 
 type SidebarProps = {
@@ -20,6 +21,21 @@ export const Sidebar = (props: SidebarProps) => {
     const theme = useTheme((s) => s.theme);
     const projects = useProjectStore((s) => s.projects);
     const tags = useTagStore((s) => s.tags);
+    const navigateGlobal = useNavigate();
+
+    const handleFilterTag = (tagId: string) => {
+        navigateGlobal({
+            to: '/dashboard/tasks',
+            search: { tag: tagId },
+        });
+    };
+
+    const handleFilterProject = (projectId: string) => {
+        navigateGlobal({
+            to: '/dashboard/tasks',
+            search: { project: projectId },
+        });
+    };
 
     return (
         <div className={styles.Sidebar}>
@@ -77,6 +93,7 @@ export const Sidebar = (props: SidebarProps) => {
                                     <button
                                         className={styles.Sidebar__itemButton}
                                         type={'button'}
+                                        onClick={() => handleFilterProject(project.id)}
                                     >
                                         <span
                                             className={styles.Sidebar__itemColorWrapper}
@@ -126,6 +143,7 @@ export const Sidebar = (props: SidebarProps) => {
                                     <button
                                         className={styles.Sidebar__itemButton}
                                         type={'button'}
+                                        onClick={() => handleFilterTag(tag.id)}
                                     >
                                         <span
                                             className={styles.Sidebar__itemColorWrapper}
