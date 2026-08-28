@@ -16,9 +16,10 @@ type LabelColorModalProps = {
     description: string;
     nameLabel: string;
     colorLabel: string;
-    defaultValues: LabelColorData;
     onSubmit: (data: LabelColorData) => void;
     onClose: () => void;
+    defaultValues?: LabelColorData;
+    creating?: boolean;
 };
 
 export const LabelColorModal = (props: LabelColorModalProps) => {
@@ -40,9 +41,7 @@ export const LabelColorModal = (props: LabelColorModalProps) => {
         <Modal isOpen={props.isOpen} onClose={props.onClose}>
             <form className={styles.LabelColorModal} onSubmit={onSubmitHandler}>
                 <p className={styles.LabelColorModal__title}>{props.title}</p>
-                <p className={styles.LabelColorModal__description}>
-                    {props.description}
-                </p>
+                <p className={styles.LabelColorModal__description}>{props.description}</p>
 
                 <div className={styles.LabelColorModal__field}>
                     <label
@@ -81,6 +80,11 @@ export const LabelColorModal = (props: LabelColorModalProps) => {
                             <ColorField value={value} onChange={onChange} size={'md'} />
                         )}
                     />
+                    {errors.color && (
+                        <span className={styles.LabelColorModal__errorText}>
+                            {t(errors.color.message!)}
+                        </span>
+                    )}
                 </div>
 
                 <div className={styles.LabelColorModal__divider} />
@@ -89,7 +93,9 @@ export const LabelColorModal = (props: LabelColorModalProps) => {
                     <Button variant={'outline'} onClick={props.onClose}>
                         {t('General.cancel')}
                     </Button>
-                    <Button type={'submit'}>{t('General.saveChanges')}</Button>
+                    <Button type={'submit'}>
+                        {t(props.creating ? 'General.create' : 'General.saveChanges')}
+                    </Button>
                 </div>
             </form>
         </Modal>
