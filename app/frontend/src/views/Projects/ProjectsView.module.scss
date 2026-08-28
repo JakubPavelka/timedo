@@ -8,3 +8,7 @@
     grid-auto-rows: minmax(116px, auto);
     gap: 24px;
 }
+
+.ProjectsView__deleteIcon {
+    color: var(--danger);
+}
