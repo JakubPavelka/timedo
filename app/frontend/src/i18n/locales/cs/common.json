@@ -344,6 +344,12 @@
             "description": "Tato akce je nevratná. Projekt bude trvale smazán a odebrán ze všech úkolů, kde je přiřazený.",
             "success": "Projekt byl úspěšně smazán",
             "error": "Nepodařilo se smazat projekt, zkuste to prosím znovu"
+        },
+        "EditModal": {
+            "title": "Upravit projekt",
+            "description": "Změň název nebo barvu projektu.",
+            "success": "Projekt byl úspěšně upraven",
+            "error": "Nepodařilo se upravit projekt, zkuste to prosím znovu"
         }
     },
     "Tags": {
@@ -359,6 +365,12 @@
             "description": "Tato akce je nevratná. Tag bude trvale smazán a odebrán ze všech úkolů, kde je přiřazený.",
             "success": "Tag byl úspěšně smazán",
             "error": "Nepodařilo se smazat tag, zkuste to prosím znovu"
+        },
+        "EditModal": {
+            "title": "Upravit tag",
+            "description": "Změň název nebo barvu tagu.",
+            "success": "Tag byl úspěšně upraven",
+            "error": "Nepodařilo se upravit tag, zkuste to prosím znovu"
         }
     }
 }

@@ -344,6 +344,12 @@
             "description": "This action is irreversible. The project will be permanently deleted and removed from all tasks it's assigned to.",
             "success": "Project was successfully deleted",
             "error": "Failed to delete project, please try again"
+        },
+        "EditModal": {
+            "title": "Edit project",
+            "description": "Change the name or color of the project.",
+            "success": "Project was successfully updated",
+            "error": "Failed to update project, please try again"
         }
     },
     "Tags": {
@@ -359,6 +365,12 @@
             "description": "This action is irreversible. The tag will be permanently deleted and removed from all tasks it's assigned to.",
             "success": "Tag was successfully deleted",
             "error": "Failed to delete tag, please try again"
+        },
+        "EditModal": {
+            "title": "Edit tag",
+            "description": "Change the name or color of the tag.",
+            "success": "Tag was successfully updated",
+            "error": "Failed to update tag, please try again"
         }
     }
 }
