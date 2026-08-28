@@ -65,6 +65,8 @@ export const useUpdateTask = (taskId: string) => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['task', taskId] });
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['tags'] });
+            queryClient.invalidateQueries({ queryKey: ['projects'] });
         },
     });
 };
@@ -77,6 +79,8 @@ export const useDeleteTask = (taskId: string) => {
         onSuccess: () => {
             queryClient.removeQueries({ queryKey: ['task', taskId] });
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['tags'] });
+            queryClient.invalidateQueries({ queryKey: ['projects'] });
         },
     });
 };
@@ -91,6 +95,8 @@ export const useDeleteTasks = () => {
                 queryClient.removeQueries({ queryKey: ['task', taskId] })
             );
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['tags'] });
+            queryClient.invalidateQueries({ queryKey: ['projects'] });
         },
     });
 };
@@ -111,6 +117,8 @@ export const useUpdateTasks = () => {
                 queryClient.invalidateQueries({ queryKey: ['task', taskId] })
             );
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['tags'] });
+            queryClient.invalidateQueries({ queryKey: ['projects'] });
         },
     });
 };
