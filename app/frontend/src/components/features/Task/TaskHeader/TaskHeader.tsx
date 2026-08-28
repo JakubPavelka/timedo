@@ -198,37 +198,48 @@ export const TaskHeader = (props: TaskHeader) => {
                                     onChange={() => handlePriorityToggle('HIGH')}
                                 />
                             </div>
+                            {projects.length > 0 && (
+                                <>
+                                    <div className={styles.TaskHeader__filterDivider} />
 
-                            <div className={styles.TaskHeader__filterDivider} />
-
-                            <p className={styles.TaskHeader__filterTitle}>
-                                {t('Task.Modal.project')}
-                            </p>
-                            <div className={styles.TaskHeader__filterProjectWrapper}>
-                                {projects.map((proj) => (
-                                    <Checkbox
-                                        key={proj.id}
-                                        label={
-                                            <span
-                                                className={
-                                                    styles.TaskHeader__filterProjectItem
-                                                }
-                                            >
-                                                <span
-                                                    style={{ background: proj.color }}
-                                                    className={
-                                                        styles.TaskHeader__filterProjectDot
-                                                    }
-                                                />
-                                                {proj.label}
-                                            </span>
+                                    <p className={styles.TaskHeader__filterTitle}>
+                                        {t('Task.Modal.project')}
+                                    </p>
+                                    <div
+                                        className={
+                                            styles.TaskHeader__filterProjectWrapper
                                         }
-                                        size={'sm'}
-                                        onChange={() => handleProjectToggle(proj.id)}
-                                        checked={project.includes(proj.id)}
-                                    />
-                                ))}
-                            </div>
+                                    >
+                                        {projects.map((proj) => (
+                                            <Checkbox
+                                                key={proj.id}
+                                                label={
+                                                    <span
+                                                        className={
+                                                            styles.TaskHeader__filterProjectItem
+                                                        }
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                background: proj.color,
+                                                            }}
+                                                            className={
+                                                                styles.TaskHeader__filterProjectDot
+                                                            }
+                                                        />
+                                                        {proj.label}
+                                                    </span>
+                                                }
+                                                size={'sm'}
+                                                onChange={() =>
+                                                    handleProjectToggle(proj.id)
+                                                }
+                                                checked={project.includes(proj.id)}
+                                            />
+                                        ))}
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </Filter>
                 </div>
