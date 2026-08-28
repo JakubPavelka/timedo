@@ -51,6 +51,8 @@ export const TaskHeader = (props: TaskHeader) => {
     }
     const debouncedSearch = useDebouncedValue(searchInput, 500);
 
+    const activeFilters = priority.length + project.length + tag.length;
+
     const handlePriorityToggle = (level: 'LOW' | 'MEDIUM' | 'HIGH') => {
         const nextPriority = priority.includes(level)
             ? priority.filter((p) => p !== level)
@@ -162,7 +164,7 @@ export const TaskHeader = (props: TaskHeader) => {
 
                     <SegmentedControl items={statusSegmentedData} />
 
-                    <Filter>
+                    <Filter activeFilters={activeFilters}>
                         <div className={styles.TaskHeader__filterMenu}>
                             <p className={styles.TaskHeader__filterTitle}>
                                 {t('Task.Modal.priority')}
