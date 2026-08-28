@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/Button/Button';
 import { Modal } from '@/components/ui/Modal/Modal';
 import type { LabelColorData } from '@/components/features/Forms/LabelColorForm/LabelColorForm';
 import { ColorField } from '@/components/ui/ColorField/ColorField';
-import styles from './EditLabelColorModal.module.scss';
+import styles from './LabelColorModal.module.scss';
 
-type EditLabelColorModalProps = {
+type LabelColorModalProps = {
     isOpen: boolean;
     schema: ZodType<LabelColorData, LabelColorData>;
     title: string;
@@ -21,7 +21,7 @@ type EditLabelColorModalProps = {
     onClose: () => void;
 };
 
-export const EditLabelColorModal = (props: EditLabelColorModalProps) => {
+export const LabelColorModal = (props: LabelColorModalProps) => {
     const { t } = useTranslation();
 
     const {
@@ -38,16 +38,16 @@ export const EditLabelColorModal = (props: EditLabelColorModalProps) => {
 
     return (
         <Modal isOpen={props.isOpen} onClose={props.onClose}>
-            <form className={styles.EditLabelColorModal} onSubmit={onSubmitHandler}>
-                <p className={styles.EditLabelColorModal__title}>{props.title}</p>
-                <p className={styles.EditLabelColorModal__description}>
+            <form className={styles.LabelColorModal} onSubmit={onSubmitHandler}>
+                <p className={styles.LabelColorModal__title}>{props.title}</p>
+                <p className={styles.LabelColorModal__description}>
                     {props.description}
                 </p>
 
-                <div className={styles.EditLabelColorModal__field}>
+                <div className={styles.LabelColorModal__field}>
                     <label
-                        className={styles.EditLabelColorModal__label}
-                        htmlFor={'edit-label-color-modal-input'}
+                        className={styles.LabelColorModal__label}
+                        htmlFor={'label-color-modal-input'}
                     >
                         {props.nameLabel}
                     </label>
@@ -56,7 +56,7 @@ export const EditLabelColorModal = (props: EditLabelColorModalProps) => {
                         control={control}
                         render={({ field: { onChange, value } }) => (
                             <Input
-                                id={'edit-label-color-modal-input'}
+                                id={'label-color-modal-input'}
                                 variant={'filled'}
                                 value={value}
                                 onChange={onChange}
@@ -64,14 +64,14 @@ export const EditLabelColorModal = (props: EditLabelColorModalProps) => {
                         )}
                     />
                     {errors.label && (
-                        <span className={styles.EditLabelColorModal__errorText}>
+                        <span className={styles.LabelColorModal__errorText}>
                             {t(errors.label.message!)}
                         </span>
                     )}
                 </div>
 
-                <div className={styles.EditLabelColorModal__field}>
-                    <span className={styles.EditLabelColorModal__label}>
+                <div className={styles.LabelColorModal__field}>
+                    <span className={styles.LabelColorModal__label}>
                         {props.colorLabel}
                     </span>
                     <Controller
@@ -83,9 +83,9 @@ export const EditLabelColorModal = (props: EditLabelColorModalProps) => {
                     />
                 </div>
 
-                <div className={styles.EditLabelColorModal__divider} />
+                <div className={styles.LabelColorModal__divider} />
 
-                <div className={styles.EditLabelColorModal__buttonsWrapper}>
+                <div className={styles.LabelColorModal__buttonsWrapper}>
                     <Button variant={'outline'} onClick={props.onClose}>
                         {t('General.cancel')}
                     </Button>
