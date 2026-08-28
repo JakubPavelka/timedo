@@ -164,3 +164,15 @@
         background-color: var(--text-3);
     }
 }
+
+.Sidebar__emptyListLink {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    padding: 7px 13px;
+    gap: 8px;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--text);
+    }
+}

@@ -7,7 +7,7 @@ import { SidebarProfileButton } from './SidebarProfileButton/SidebarProfileButto
 import { Link } from '@tanstack/react-router';
 import { useProjectStore } from '@/store/projectStore';
 import sidebarButtonsData from '@/data/sidebarButtonsData';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Plus } from 'lucide-react';
 import { useTagStore } from '@/store/tagStore';
 import styles from './Sidebar.module.scss';
 
@@ -60,52 +60,55 @@ export const Sidebar = (props: SidebarProps) => {
                 })}
             </nav>
             <div className={styles.Sidebar__scrollableWrapper}>
-                {projects.length !== 0 && (
-                    <div>
-                        <Link
-                            to={'/dashboard/projects'}
-                            className={styles.Sidebar__subTitleWrapper}
-                        >
-                            <span className={styles.Sidebar__subTitle}>
-                                {t('Sidebar.projects')}
-                            </span>
-                            <ChevronRight width={16} height={16} />
-                        </Link>
-                        <ul className={styles.Sidebar__itemList}>
-                            {projects.map((project) => {
-                                return (
-                                    <li key={project.id}>
-                                        <button
-                                            className={styles.Sidebar__itemButton}
-                                            type={'button'}
+                <div>
+                    <Link
+                        to={'/dashboard/projects'}
+                        className={styles.Sidebar__subTitleWrapper}
+                    >
+                        <span className={styles.Sidebar__subTitle}>
+                            {t('Sidebar.projects')}
+                        </span>
+                        <ChevronRight width={16} height={16} />
+                    </Link>
+                    <ul className={styles.Sidebar__itemList}>
+                        {projects.map((project) => {
+                            return (
+                                <li key={project.id}>
+                                    <button
+                                        className={styles.Sidebar__itemButton}
+                                        type={'button'}
+                                    >
+                                        <span
+                                            className={styles.Sidebar__itemColorWrapper}
                                         >
                                             <span
-                                                className={
-                                                    styles.Sidebar__itemColorWrapper
-                                                }
-                                            >
-                                                <span
-                                                    className={styles.Sidebar__itemDot}
-                                                    style={{
-                                                        backgroundColor: project.color,
-                                                    }}
-                                                />
-                                                <span
-                                                    className={styles.Sidebar__itemText}
-                                                >
-                                                    {project.label}
-                                                </span>
+                                                className={styles.Sidebar__itemDot}
+                                                style={{
+                                                    backgroundColor: project.color,
+                                                }}
+                                            />
+                                            <span className={styles.Sidebar__itemText}>
+                                                {project.label}
                                             </span>
-                                            <span className={styles.Sidebar__itemCount}>
-                                                {project._count.tasks}
-                                            </span>
-                                        </button>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                )}
+                                        </span>
+                                        <span className={styles.Sidebar__itemCount}>
+                                            {project._count.tasks}
+                                        </span>
+                                    </button>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    {projects.length === 0 && (
+                        <Link
+                            to={'/dashboard/projects'}
+                            className={styles.Sidebar__emptyListLink}
+                        >
+                            <span>{t('Sidebar.addProject')}</span>
+                            <Plus width={16} height={16} />
+                        </Link>
+                    )}
+                </div>
                 <div>
                     <Link
                         to={'/dashboard/tags'}
@@ -145,6 +148,15 @@ export const Sidebar = (props: SidebarProps) => {
                             );
                         })}
                     </ul>
+                    {tags.length === 0 && (
+                        <Link
+                            to={'/dashboard/tags'}
+                            className={styles.Sidebar__emptyListLink}
+                        >
+                            <span>{t('Sidebar.addTag')}</span>
+                            <Plus width={16} height={16} />
+                        </Link>
+                    )}
                 </div>
             </div>
 
