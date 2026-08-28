@@ -1,5 +1,10 @@
 import { ProgressCard } from '@/components/ui/ProgressCard/ProgressCard';
-import { useDeleteTag, useGetTagsWithTasks, useUpdateTag } from '@/hooks/api/useTag';
+import {
+    useCreateTag,
+    useDeleteTag,
+    useGetTagsWithTasks,
+    useUpdateTag,
+} from '@/hooks/api/useTag';
 import { AddCard } from '@/components/ui/AddCard/AddCard';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
@@ -7,23 +12,28 @@ import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { Trash } from 'lucide-react';
 import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
-import { EditLabelColorModal } from '@/components/ui/Modal/EditLabelColorModal/EditLabelColorModal';
+import { LabelColorModal } from '@/components/ui/Modal/LabelColorModal/LabelColorModal';
 import { TagSchema, type TagData } from '@timedo/shared/src/schemas/tagsSchema';
 import type { TagWithTasks } from '@/api/tag/tag.api';
+import { PRESET_COLORS } from '@/data/labelColorData';
 import styles from './TagsView.module.scss';
 
 export const TagsView = () => {
     const { t } = useTranslation();
     const [deletingTagId, setDeletingTagId] = useState<string | null>(null);
     const [editingTag, setEditingTag] = useState<TagWithTasks | null>(null);
+    const [showCreateModal, setShowCreateModal] = useState(false);
     const { data: tags } = useGetTagsWithTasks();
     const { mutate: deleteTag } = useDeleteTag();
     const { mutate: updateTag } = useUpdateTag();
+    const { mutate: createTag } = useCreateTag();
 
     const handleShowEditModal = (tag: TagWithTasks) => setEditingTag(tag);
     const handleHideEditModal = () => setEditingTag(null);
     const handleShowDeleteModal = (tagId: string) => setDeletingTagId(tagId);
     const handleHideDeleteModal = () => setDeletingTagId(null);
+    const handleShowCreateModal = () => setShowCreateModal(true);
+    const handleHideCreateModal = () => setShowCreateModal(false);
 
     const handleTagDelete = () => {
         if (!deletingTagId) {
@@ -58,6 +68,17 @@ export const TagsView = () => {
         );
     };
 
+    const handleTagCreate = (data: TagData) => {
+        createTag(data, {
+            onSuccess: () => {
+                toast.success(t('Tags.CreateModal.success'));
+                handleHideCreateModal();
+            },
+            onError: (err) =>
+                toast.error(getErrorMessage(err, 'Tags.CreateModal.error', t)),
+        });
+    };
+
     return (
         <>
             <div className={styles.TagsView}>
@@ -74,7 +95,7 @@ export const TagsView = () => {
                             onEdit={() => handleShowEditModal(tag)}
                         />
                     ))}
-                    <AddCard text={t('Tags.newTag')} onClick={() => console.log('xd')} />
+                    <AddCard text={t('Tags.newTag')} onClick={handleShowCreateModal} />
                 </div>
             </div>
             {!!deletingTagId && (
@@ -97,7 +118,7 @@ export const TagsView = () => {
                 />
             )}
             {!!editingTag && (
-                <EditLabelColorModal
+                <LabelColorModal
                     isOpen={!!editingTag}
                     onClose={handleHideEditModal}
                     onSubmit={handleTagUpdate}
@@ -107,6 +128,20 @@ export const TagsView = () => {
                     nameLabel={t('Tags.CreateModal.name')}
                     colorLabel={t('Tags.CreateModal.color')}
                     defaultValues={{ label: editingTag.label, color: editingTag.color }}
+                />
+            )}
+            {showCreateModal && (
+                <LabelColorModal
+                    isOpen={showCreateModal}
+                    onClose={handleHideCreateModal}
+                    onSubmit={handleTagCreate}
+                    schema={TagSchema}
+                    title={t('Tags.CreateModal.title')}
+                    description={t('Tags.CreateModal.description')}
+                    nameLabel={t('Tags.CreateModal.name')}
+                    colorLabel={t('Tags.CreateModal.color')}
+                    defaultValues={{ label: '', color: PRESET_COLORS[0] }}
+                    creating
                 />
             )}
         </>
