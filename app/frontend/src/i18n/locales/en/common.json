@@ -335,9 +335,12 @@
         "projects": "Projects",
         "newProject": "New project",
         "CreateModal": {
+            "title": "Create project",
             "description": "Name the project and choose a color.",
             "name": "Project name",
-            "color": "Color"
+            "color": "Color",
+            "success": "Project was successfully created",
+            "error": "Failed to create project, please try again"
         },
         "DeleteModal": {
             "title": "Delete project?",
@@ -356,9 +359,12 @@
         "tags": "Tags",
         "newTag": "New tag",
         "CreateModal": {
+            "title": "Create tag",
             "description": "Name the tag and choose a color.",
             "name": "Tag name",
-            "color": "Color"
+            "color": "Color",
+            "success": "Tag was successfully created",
+            "error": "Failed to create tag, please try again"
         },
         "DeleteModal": {
             "title": "Delete tag?",

@@ -335,9 +335,12 @@
         "projects": "Projekty",
         "newProject": "Nový projekt",
         "CreateModal": {
+            "title": "Vytvořit projekt",
             "description": "Pojmenuj projekt a vyber barvu.",
             "name": "Název projektu",
-            "color": "Barva"
+            "color": "Barva",
+            "success": "Projekt byl úspěšně vytvořen",
+            "error": "Nepodařilo se vytvořit projekt, zkuste to prosím znovu"
         },
         "DeleteModal": {
             "title": "Smazat projekt?",
@@ -356,9 +359,12 @@
         "tags": "Tagy",
         "newTag": "Nový tag",
         "CreateModal": {
+            "title": "Vytvořit tag",
             "description": "Pojmenuj tag a vyber barvu.",
             "name": "Název tagu",
-            "color": "Barva"
+            "color": "Barva",
+            "success": "Tag byl úspěšně vytvořen",
+            "error": "Nepodařilo se vytvořit tag, zkuste to prosím znovu"
         },
         "DeleteModal": {
             "title": "Smazat tag?",
