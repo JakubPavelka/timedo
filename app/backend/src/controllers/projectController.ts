@@ -77,6 +77,7 @@ const getProjects = async (req: Request, res: Response) => {
                     select: { tasks: true },
                 },
             },
+            orderBy: { createdAt: 'desc' },
         });
 
         return res.status(200).json({ status: 'success', data: projects });
@@ -102,6 +103,7 @@ const getProjectsWithTasks = async (req: Request, res: Response) => {
                     },
                 },
             },
+            orderBy: { createdAt: 'desc' },
         });
 
         const data = projects.map(({ tasks, ...project }) => {

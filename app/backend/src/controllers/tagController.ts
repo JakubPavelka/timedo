@@ -77,6 +77,7 @@ const getTags = async (req: Request, res: Response) => {
                     select: { tasks: true },
                 },
             },
+            orderBy: { createdAt: 'desc' },
         });
 
         return res.status(200).json({ status: 'success', data: tags });
@@ -102,6 +103,7 @@ const getTagsWithTasks = async (req: Request, res: Response) => {
                     },
                 },
             },
+            orderBy: { createdAt: 'desc' },
         });
 
         const data = tags.map(({ tasks, ...tag }) => {
