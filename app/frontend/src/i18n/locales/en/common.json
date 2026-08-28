@@ -10,6 +10,7 @@
         "PROJECTS_LIMIT_REACHED": "You have reached the maximum limit of projects",
         "TAG_ALREADY_EXISTS": "A tag with this name already exists",
         "TAGS_LIMIT_REACHED": "You have reached the maximum limit of tags",
+        "TAG_NOT_FOUND": "Tag not found",
         "NO_TASKID": "Task ID is missing",
         "NO_LINKID": "Link ID is missing",
         "TASK_NOT_FOUND": "Task not found",
@@ -337,6 +338,12 @@
             "description": "Name the project and choose a color.",
             "name": "Project name",
             "color": "Color"
+        },
+        "DeleteModal": {
+            "title": "Delete project?",
+            "description": "This action is irreversible. The project will be permanently deleted and removed from all tasks it's assigned to.",
+            "success": "Project was successfully deleted",
+            "error": "Failed to delete project, please try again"
         }
     },
     "Tags": {
@@ -349,7 +356,9 @@
         },
         "DeleteModal": {
             "title": "Delete tag?",
-            "description": "This action is irreversible. The tag will be permanently deleted and removed from all tasks it's assigned to."
+            "description": "This action is irreversible. The tag will be permanently deleted and removed from all tasks it's assigned to.",
+            "success": "Tag was successfully deleted",
+            "error": "Failed to delete tag, please try again"
         }
     }
 }
