@@ -189,3 +189,15 @@ export const deleteTagLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 30,
 });
+
+export const updateProjectLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 30,
+});
+
+export const deleteProjectLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 30,
+});

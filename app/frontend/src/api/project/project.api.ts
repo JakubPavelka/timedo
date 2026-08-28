@@ -1,5 +1,8 @@
 import { apiClient } from '../client';
-import type { ProjectData } from '@timedo/shared/src/schemas/projectSchema';
+import type {
+    ProjectData,
+    UpdateProjectData,
+} from '@timedo/shared/src/schemas/projectSchema';
 import type { Project } from '@/store/projectStore';
 import axios from 'axios';
 import { ApiError } from '../ApiError';
@@ -39,6 +42,31 @@ export const projectApi = {
                 '/api/project/with-tasks'
             );
             return response.data.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+    updateProject: async (data: UpdateProjectData) => {
+        try {
+            const response = await apiClient.patch<{
+                data: Pick<Project, 'id' | 'label' | 'color'>;
+            }>('/api/project', data);
+            return response.data.data;
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+    deleteProject: async (tagId: string) => {
+        try {
+            await apiClient.delete('/api/project', {
+                data: { id: tagId },
+            });
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');

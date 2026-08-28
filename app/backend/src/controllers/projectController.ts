@@ -1,6 +1,11 @@
 import { prisma } from '../db/db.js';
 import { Response, Request } from 'express';
-import { ProjectSchema } from '@timedo/shared/src/schemas/projectSchema.js';
+import { Prisma } from '../generated/prisma/client.js';
+import {
+    ProjectSchema,
+    DeleteProjectSchema,
+    UpdateProjectSchema,
+} from '@timedo/shared/src/schemas/projectSchema.js';
 
 const createProject = async (req: Request, res: Response) => {
     try {
@@ -48,8 +53,14 @@ const createProject = async (req: Request, res: Response) => {
             },
         });
 
-        return res.status(201).json({ status: 'success', data: { project } });
-    } catch {
+        return res.status(201).json({ status: 'success', data: project });
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+            return res.status(400).json({
+                message: 'Project already exists',
+                code: 'PROJECT_ALREADY_EXISTS',
+            });
+        }
         return res.status(500).json({ message: 'Failed to create project' });
     }
 };
@@ -115,4 +126,81 @@ const getProjectsWithTasks = async (req: Request, res: Response) => {
     }
 };
 
-export { createProject, getProjects, getProjectsWithTasks };
+const updateProject = async (req: Request, res: Response) => {
+    const parsedBody = UpdateProjectSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { color, id, label } = parsedBody.data;
+
+    try {
+        const project = await prisma.project.update({
+            where: { id: id, userId: req.user!.id },
+            data: {
+                label,
+                color,
+            },
+            select: {
+                id: true,
+                label: true,
+                color: true,
+            },
+        });
+
+        return res.status(200).json({ status: 'success', data: project });
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+            return res.status(400).json({
+                message: 'Project already exists',
+                code: 'PROJECT_ALREADY_EXISTS',
+            });
+        }
+        return res.status(500).json({ message: 'Failed to update project' });
+    }
+};
+
+const deleteProject = async (req: Request, res: Response) => {
+    const parsedBody = DeleteProjectSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { id } = parsedBody.data;
+
+    try {
+        const project = await prisma.project.findFirst({
+            where: { id: id, userId: req.user!.id },
+        });
+
+        if (!project) {
+            return res
+                .status(404)
+                .json({ message: 'Project not found', code: 'PROJECT_NOT_FOUND' });
+        }
+
+        await prisma.project.delete({
+            where: { id: id },
+        });
+
+        return res.status(204).send();
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+        return res.status(500).json({ message: 'Failed to delete project' });
+    }
+};
+
+export { createProject, getProjects, getProjectsWithTasks, updateProject, deleteProject };
