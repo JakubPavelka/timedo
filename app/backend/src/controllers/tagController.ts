@@ -1,7 +1,11 @@
 import { prisma } from '../db/db.js';
 import { Response, Request } from 'express';
 import { Prisma } from '../generated/prisma/client.js';
-import { TagSchema, UpdateTagSchema } from '@timedo/shared/src/schemas/tagsSchema.js';
+import {
+    TagSchema,
+    UpdateTagSchema,
+    DeleteTagSchema,
+} from '@timedo/shared/src/schemas/tagsSchema.js';
 
 const createTag = async (req: Request, res: Response) => {
     try {
@@ -50,7 +54,13 @@ const createTag = async (req: Request, res: Response) => {
         });
 
         return res.status(201).json({ status: 'success', data: tag });
-    } catch {
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+            return res.status(400).json({
+                message: 'Tag already exists',
+                code: 'TAG_ALREADY_EXISTS',
+            });
+        }
         return res.status(500).json({ message: 'Failed to create tags' });
     }
 };
@@ -157,4 +167,40 @@ const updateTag = async (req: Request, res: Response) => {
     }
 };
 
-export { createTag, getTags, getTagsWithTasks, updateTag };
+const deleteTag = async (req: Request, res: Response) => {
+    const parsedBody = DeleteTagSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { id } = parsedBody.data;
+
+    try {
+        const tag = await prisma.taskTag.findFirst({
+            where: { id: id, userId: req.user!.id },
+        });
+
+        if (!tag) {
+            return res
+                .status(404)
+                .json({ message: 'Tag not found', code: 'TAG_NOT_FOUND' });
+        }
+
+        await prisma.taskTag.delete({
+            where: { id: id },
+        });
+
+        return res.status(204).send();
+    } catch (err) {
+        if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+            return res.status(404).json({ message: 'Tag not found' });
+        }
+        return res.status(500).json({ message: 'Failed to delete tag' });
+    }
+};
+
+export { createTag, getTags, getTagsWithTasks, updateTag, deleteTag };

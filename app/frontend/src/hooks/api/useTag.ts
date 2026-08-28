@@ -48,3 +48,19 @@ export const useUpdateTag = () => {
         },
     });
 };
+
+export const useDeleteTag = () => {
+    const queryClient = useQueryClient();
+
+    const deleteTag = useTagStore((s) => s.deleteTag);
+
+    return useMutation({
+        mutationFn: tagApi.deleteTag,
+        onSuccess: (_, tagId) => {
+            deleteTag(tagId);
+            queryClient.invalidateQueries({ queryKey: ['tags'] });
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['task'] });
+        },
+    });
+};

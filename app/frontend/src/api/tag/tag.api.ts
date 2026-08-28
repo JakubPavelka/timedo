@@ -59,4 +59,16 @@ export const tagApi = {
             throw err;
         }
     },
+    deleteTag: async (tagId: string) => {
+        try {
+            await apiClient.delete('/api/tag', {
+                data: { id: tagId },
+            });
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
 };
