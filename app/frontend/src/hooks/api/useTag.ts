@@ -55,7 +55,7 @@ export const useDeleteTag = () => {
     const deleteTag = useTagStore((s) => s.deleteTag);
 
     return useMutation({
-        mutationFn: tagApi.deleteTag,
+        mutationFn: (tagId: string) => tagApi.deleteTag(tagId),
         onSuccess: (_, tagId) => {
             deleteTag(tagId);
             queryClient.invalidateQueries({ queryKey: ['tags'] });
