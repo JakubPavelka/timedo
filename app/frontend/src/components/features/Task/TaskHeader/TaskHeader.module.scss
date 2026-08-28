@@ -42,19 +42,22 @@
 }
 
 .TaskHeader__filterPriorityWrapper,
-.TaskHeader__filterProjectWrapper {
+.TaskHeader__filterProjectWrapper,
+.TaskHeader__filterTagWrapper {
     @include layout.flexColumn;
     gap: 8px;
 }
 
 .TaskHeader__filterProjectItem,
-.TaskHeader__filterPriorityItem {
+.TaskHeader__filterPriorityItem,
+.TaskHeader__filterTagItem {
     @include layout.centerY;
     @include typography.text-sm(var(--text-2));
     gap: 8px;
 }
 
-.TaskHeader__filterProjectDot {
+.TaskHeader__filterProjectDot,
+.TaskHeader__filterTagDot {
     width: 8px;
     height: 8px;
     border-radius: 999px;

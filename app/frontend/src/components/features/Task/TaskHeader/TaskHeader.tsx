@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { BulkActionsMenu } from '@/components/features/Task/BulkActionsMenu/BulkActionsMenu';
+import { useTagStore } from '@/store/tagStore';
 import styles from './TaskHeader.module.scss';
 
 type TaskHeader = {
@@ -27,16 +28,19 @@ type TaskHeader = {
 export const TaskHeader = (props: TaskHeader) => {
     const { t } = useTranslation();
     const projects = useProjectStore((s) => s.projects);
+    const tags = useTagStore((s) => s.tags);
     const { mutate: deleteTasks } = useDeleteTasks();
     const {
         status,
         priority: priorityParam,
         project: projectParam,
+        tag: tagParam,
         search,
     } = Route.useSearch();
     const navigate = Route.useNavigate();
     const priority = priorityParam ? priorityParam.split(',') : [];
     const project = projectParam ? projectParam.split(',') : [];
+    const tag = tagParam ? tagParam.split(',') : [];
     const [searchInput, setSearchInput] = useState(search ?? '');
     const [prevSearch, setPrevSearch] = useState(search);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -69,6 +73,19 @@ export const TaskHeader = (props: TaskHeader) => {
             search: (prev) => ({
                 ...prev,
                 project: nextProject.join(',') || undefined,
+            }),
+        });
+    };
+
+    const handleTagToggle = (tagId: string) => {
+        const nextTag = tag.includes(tagId)
+            ? tag.filter((p) => p !== tagId)
+            : [...tag, tagId];
+
+        navigate({
+            search: (prev) => ({
+                ...prev,
+                tag: nextTag.join(',') || undefined,
             }),
         });
     };
@@ -235,6 +252,45 @@ export const TaskHeader = (props: TaskHeader) => {
                                                     handleProjectToggle(proj.id)
                                                 }
                                                 checked={project.includes(proj.id)}
+                                            />
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                            {tags.length > 0 && (
+                                <>
+                                    <div className={styles.TaskHeader__filterDivider} />
+
+                                    <p className={styles.TaskHeader__filterTitle}>
+                                        {t('Task.Modal.tags')}
+                                    </p>
+                                    <div className={styles.TaskHeader__filterTagWrapper}>
+                                        {tags.map((singleTag) => (
+                                            <Checkbox
+                                                key={singleTag.id}
+                                                label={
+                                                    <span
+                                                        className={
+                                                            styles.TaskHeader__filterTagItem
+                                                        }
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                background:
+                                                                    singleTag.color,
+                                                            }}
+                                                            className={
+                                                                styles.TaskHeader__filterTagDot
+                                                            }
+                                                        />
+                                                        {singleTag.label}
+                                                    </span>
+                                                }
+                                                size={'sm'}
+                                                onChange={() =>
+                                                    handleTagToggle(singleTag.id)
+                                                }
+                                                checked={tag.includes(singleTag.id)}
                                             />
                                         ))}
                                     </div>
