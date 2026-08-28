@@ -1,5 +1,5 @@
 import { ProgressCard } from '@/components/ui/ProgressCard/ProgressCard';
-import { useDeleteTag, useGetTagsWithTasks } from '@/hooks/api/useTag';
+import { useDeleteTag, useGetTagsWithTasks, useUpdateTag } from '@/hooks/api/useTag';
 import { AddCard } from '@/components/ui/AddCard/AddCard';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
@@ -7,19 +7,21 @@ import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { Trash } from 'lucide-react';
 import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
+import { EditLabelColorModal } from '@/components/ui/Modal/EditLabelColorModal/EditLabelColorModal';
+import { TagSchema, type TagData } from '@timedo/shared/src/schemas/tagsSchema';
+import type { TagWithTasks } from '@/api/tag/tag.api';
 import styles from './TagsView.module.scss';
 
 export const TagsView = () => {
     const { t } = useTranslation();
-    const [showEditModal, setShowEditModal] = useState(false);
     const [deletingTagId, setDeletingTagId] = useState<string | null>(null);
+    const [editingTag, setEditingTag] = useState<TagWithTasks | null>(null);
     const { data: tags } = useGetTagsWithTasks();
     const { mutate: deleteTag } = useDeleteTag();
+    const { mutate: updateTag } = useUpdateTag();
 
-    console.log(deletingTagId);
-
-    const handleShowEditModal = () => setShowEditModal(true);
-    const handleHideEditModal = () => setShowEditModal(false);
+    const handleShowEditModal = (tag: TagWithTasks) => setEditingTag(tag);
+    const handleHideEditModal = () => setEditingTag(null);
     const handleShowDeleteModal = (tagId: string) => setDeletingTagId(tagId);
     const handleHideDeleteModal = () => setDeletingTagId(null);
 
@@ -38,6 +40,24 @@ export const TagsView = () => {
         });
     };
 
+    const handleTagUpdate = (data: TagData) => {
+        if (!editingTag) {
+            return;
+        }
+
+        updateTag(
+            { ...data, id: editingTag.id },
+            {
+                onSuccess: () => {
+                    toast.success(t('Tags.EditModal.success'));
+                    handleHideEditModal();
+                },
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Tags.EditModal.error', t)),
+            }
+        );
+    };
+
     return (
         <>
             <div className={styles.TagsView}>
@@ -51,7 +71,7 @@ export const TagsView = () => {
                             totalTasks={tag.totalTasks}
                             duration={tag.duration}
                             onDelete={() => handleShowDeleteModal(tag.id)}
-                            onEdit={handleShowEditModal}
+                            onEdit={() => handleShowEditModal(tag)}
                         />
                     ))}
                     <AddCard text={t('Tags.newTag')} onClick={() => console.log('xd')} />
@@ -74,6 +94,19 @@ export const TagsView = () => {
                             height={18}
                         />
                     }
+                />
+            )}
+            {!!editingTag && (
+                <EditLabelColorModal
+                    isOpen={!!editingTag}
+                    onClose={handleHideEditModal}
+                    onSubmit={handleTagUpdate}
+                    schema={TagSchema}
+                    title={t('Tags.EditModal.title')}
+                    description={t('Tags.EditModal.description')}
+                    nameLabel={t('Tags.CreateModal.name')}
+                    colorLabel={t('Tags.CreateModal.color')}
+                    defaultValues={{ label: editingTag.label, color: editingTag.color }}
                 />
             )}
         </>
