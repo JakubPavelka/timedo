@@ -8,6 +8,7 @@
         "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu",
         "PROJECT_ALREADY_EXISTS": "Projekt s tímto názvem již existuje",
         "PROJECTS_LIMIT_REACHED": "Dosáhli jste maximálního počtu projektů",
+        "PROJECT_NOT_FOUND": "Projekt nebyl nalezen",
         "TAG_ALREADY_EXISTS": "Tag s tímto názvem již existuje",
         "TAGS_LIMIT_REACHED": "Dosáhli jste maximálního počtu tagů",
         "TAG_NOT_FOUND": "Tag nebyl nalezen",
