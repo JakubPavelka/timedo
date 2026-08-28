@@ -103,7 +103,9 @@
         "calendar": "Kalendář",
         "overview": "Přehled",
         "projects": "PROJEKTY",
+        "addProject": "Přidat projekt",
         "tags": "TAGY",
+        "addTag": "Přidat tag",
         "profile": "Profil"
     },
     "Profile": {
