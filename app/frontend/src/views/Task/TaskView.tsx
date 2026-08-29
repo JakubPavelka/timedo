@@ -150,6 +150,8 @@ export const TaskView = () => {
                                     tags={task.tags}
                                     selected={selectedTaskIds.has(task.id)}
                                     isTracked={task.isTracked}
+                                    workedTime={task.workedTime}
+                                    estimatedTime={task.estimatedTime}
                                     onSelectChange={handleSelectChange}
                                     onTrackClick={handleTrackClick}
                                 />

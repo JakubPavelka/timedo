@@ -9,6 +9,7 @@ import { TaskListItemActions } from '@/components/features/Task/TaskListItemActi
 import { useTranslation } from 'react-i18next';
 import type { Tag } from '@/store/tagStore';
 import type { Project } from '@/store/projectStore';
+import { formatDurationShort } from '@/utils/formatDurationShort';
 import styles from './TaskListItem.module.scss';
 
 type TaskListItem = {
@@ -20,6 +21,8 @@ type TaskListItem = {
     project?: Omit<Project, '_count'>;
     selected?: boolean;
     isTracked?: boolean;
+    workedTime?: number;
+    estimatedTime?: number | null;
     onSelectChange?: (id: string, selected: boolean) => void;
     onTrackClick?: (id: string) => void;
 };
@@ -49,6 +52,14 @@ export const TaskListItem = (props: TaskListItem) => {
     const priority = props.priority.toLowerCase();
     const isDone = props.status === Status.DONE;
     const statusPill = STATUS_PILL[props.status];
+
+    const workedTime = props.workedTime ?? 0;
+    const hasEstimate = !!props.estimatedTime && props.estimatedTime > 0;
+    const progressPercent = hasEstimate
+        ? Math.min(100, Math.round((workedTime / props.estimatedTime!) * 100))
+        : 0;
+    const isOverEstimate = hasEstimate && workedTime > props.estimatedTime!;
+    const showProgress = workedTime > 0 || hasEstimate;
 
     const handleTrackClick = (e: MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -106,6 +117,26 @@ export const TaskListItem = (props: TaskListItem) => {
                 </div>
             </div>
             <div className={styles.TaskListItem__rightWrapper}>
+                {showProgress && (
+                    <div className={styles.TaskListItem__progressWrapper}>
+                        <p className={styles.TaskListItem__progressTime}>
+                            {hasEstimate
+                                ? `${formatDurationShort(workedTime)} / ${formatDurationShort(props.estimatedTime!)}`
+                                : formatDurationShort(workedTime)}
+                        </p>
+                        {hasEstimate && (
+                            <div className={styles.TaskListItem__progressTrack}>
+                                <div
+                                    className={clsx(styles.TaskListItem__progressBar, {
+                                        [styles['TaskListItem__progressBar--over']]:
+                                            isOverEstimate,
+                                    })}
+                                    style={{ width: `${progressPercent}%` }}
+                                />
+                            </div>
+                        )}
+                    </div>
+                )}
                 {props.isTracked && (
                     <div
                         className={styles.TaskListItem__rightIcon}

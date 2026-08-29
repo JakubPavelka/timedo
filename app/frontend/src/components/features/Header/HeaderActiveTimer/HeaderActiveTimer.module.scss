@@ -1,9 +1,17 @@
+@use 'styles/typography';
+
 .HeaderActiveTimer {
     display: inline-flex;
 
     [class*='Pill__dot'] {
         animation: HeaderActiveTimer-pulse 1.6s ease-in-out infinite;
     }
+}
+
+.HeaderActiveTimer__time {
+    @include typography.text-sm-mono;
+    color: inherit;
+    font-weight: 600;
 }
 
 @keyframes HeaderActiveTimer-pulse {
