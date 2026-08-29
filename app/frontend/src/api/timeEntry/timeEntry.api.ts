@@ -68,11 +68,12 @@ export const timeEntryApi = {
     },
     getTimeEntries: async (
         limit: number,
-        search?: string
+        search?: string,
+        taskId?: string
     ): Promise<{ entries: TimeEntryWithTask[]; total: number }> => {
         try {
             const response = await apiClient.get('/api/time-entry/entries', {
-                params: { limit, search },
+                params: { limit, search, taskId },
             });
             return { entries: response.data.data, total: response.data.total as number };
         } catch (err) {

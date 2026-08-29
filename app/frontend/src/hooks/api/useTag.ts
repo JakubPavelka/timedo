@@ -24,3 +24,43 @@ export const useGetTags = () => {
         retry: false,
     });
 };
+
+export const useGetTagsWithTasks = () => {
+    return useQuery({
+        queryKey: ['tags', 'with-tasks'],
+        queryFn: tagApi.getTagsWithTasks,
+        retry: false,
+    });
+};
+
+export const useUpdateTag = () => {
+    const queryClient = useQueryClient();
+
+    const updateTag = useTagStore((s) => s.updateTag);
+
+    return useMutation({
+        mutationFn: tagApi.updateTag,
+        onSuccess: (data) => {
+            updateTag(data);
+            queryClient.invalidateQueries({ queryKey: ['tags'] });
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['task'] });
+        },
+    });
+};
+
+export const useDeleteTag = () => {
+    const queryClient = useQueryClient();
+
+    const deleteTag = useTagStore((s) => s.deleteTag);
+
+    return useMutation({
+        mutationFn: (tagId: string) => tagApi.deleteTag(tagId),
+        onSuccess: (_, tagId) => {
+            deleteTag(tagId);
+            queryClient.invalidateQueries({ queryKey: ['tags'] });
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['task'] });
+        },
+    });
+};

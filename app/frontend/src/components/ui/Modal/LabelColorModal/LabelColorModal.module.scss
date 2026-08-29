@@ -1,0 +1,66 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.LabelColorModal {
+    @include layout.flexColumn;
+    padding: 24px;
+    border-radius: 20px;
+    background-color: var(--surface);
+    width: min(440px, 90vw);
+}
+
+.LabelColorModal__title {
+    @include typography.text-xl;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.LabelColorModal__closeButton {
+    @include layout.centerXY;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background-color: var(--surface-2);
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        color: var(--text);
+        border-color: var(--border-strong);
+    }
+}
+
+.LabelColorModal__description {
+    @include typography.text-md(var(--text-2));
+    margin-bottom: 20px;
+}
+
+.LabelColorModal__field {
+    @include layout.flexColumn;
+    margin-bottom: 20px;
+}
+
+.LabelColorModal__label {
+    @include typography.text-sm(var(--text-2));
+    font-weight: 600;
+    margin-bottom: 8px;
+    width: max-content;
+}
+
+.LabelColorModal__errorText {
+    @include typography.text-error;
+    margin-top: 4px;
+}
+
+.LabelColorModal__divider {
+    border-top: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+
+.LabelColorModal__buttonsWrapper {
+    @include layout.centerY;
+    justify-content: flex-end;
+    gap: 8px;
+}

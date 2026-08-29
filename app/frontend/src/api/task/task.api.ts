@@ -25,11 +25,12 @@ export const taskApi = {
         priority: string[] | undefined,
         status: string | undefined,
         project: string[] | undefined,
-        search: string | undefined
+        search: string | undefined,
+        tag: string[] | undefined
     ) => {
         try {
             const response = await apiClient.get('/api/task', {
-                params: { limit, offset, priority, status, project, search },
+                params: { limit, offset, priority, status, project, search, tag },
             });
             return { tasks: response.data.data, total: response.data.total as number };
         } catch (err) {

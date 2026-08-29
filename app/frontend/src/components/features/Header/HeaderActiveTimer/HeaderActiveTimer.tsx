@@ -24,7 +24,9 @@ export const HeaderActiveTimer = () => {
             aria-label={t('Header.activeTimer')}
         >
             <Pill variant={'colored'} tone={'accent'} dot>
-                {formatDuration(elapsedSeconds)}
+                <span className={styles.HeaderActiveTimer__time}>
+                    {formatDuration(elapsedSeconds)}
+                </span>
             </Pill>
         </Link>
     );

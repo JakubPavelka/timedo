@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const LinkBaseSchema = z.object({
-    label: z.string().min(1, 'Validation.labelMin').max(50, 'Validation.labelMax'),
+    label: z.string().trim().min(1, 'Validation.labelMin').max(50, 'Validation.labelMax'),
     url: z.url('Validation.invalidUrl'),
 });
 

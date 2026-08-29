@@ -1,0 +1,92 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+
+.TaskDetailTimeEntries__heading {
+    @include typography.text-sm(var(--text-2));
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.TaskDetailTimeEntries {
+    @include layout.flexColumn;
+    gap: 20px;
+}
+
+.TaskDetailTimeEntries__item {
+    @include layout.centerY;
+    gap: 12px;
+
+    &:hover {
+        --actions-trigger-opacity: 1;
+    }
+}
+
+.TaskDetailTimeEntries__icon {
+    flex-shrink: 0;
+    color: var(--text-2);
+}
+
+.TaskDetailTimeEntries__main {
+    @include layout.flexColumn;
+    gap: 2px;
+    flex-shrink: 0;
+    width: 220px;
+}
+
+.TaskDetailTimeEntries__dateTime {
+    @include typography.text-sm(var(--text-2));
+    white-space: nowrap;
+}
+
+.TaskDetailTimeEntries__description {
+    @include typography.text-sm(var(--text-2));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.TaskDetailTimeEntries__track {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--surface-3);
+    overflow: hidden;
+}
+
+.TaskDetailTimeEntries__bar {
+    height: 100%;
+    border-radius: 2px;
+    background-color: var(--accent);
+}
+
+.TaskDetailTimeEntries__duration {
+    @include typography.text-sm-mono;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.TaskDetailTimeEntries__deleteIcon {
+    @include layout.centerXY;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    color: var(--text-2);
+    cursor: pointer;
+    opacity: var(--actions-trigger-opacity, 0);
+    transition:
+        opacity 0.15s,
+        background-color 0.2s,
+        color 0.2s;
+
+    &:hover {
+        background-color: var(--surface-3);
+        color: var(--danger);
+    }
+
+    &:focus-visible {
+        opacity: 1;
+    }
+}

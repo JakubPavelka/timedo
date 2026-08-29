@@ -3,6 +3,7 @@ import { ArrowLeft, Check, Settings, Trash2, X } from 'lucide-react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/$taskId';
 import { useDeleteTask, useGetTask, useUpdateTask } from '@/hooks/api/useTask';
+import { useDelayedPending } from '@/hooks/useDelayedPending';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/Button/Button';
@@ -15,14 +16,17 @@ import { TaskDetailLink } from '@/components/features/Task/Detail/TaskDetailLink
 import { TaskDetailTags } from '@/components/features/Task/Detail/TaskDetailTags/TaskDetailTags';
 import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDetailProperties/TaskDetailProperties';
 import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDetailTimeTracking/TaskDetailTimeTracking';
+import { TaskDetailTimeEntries } from '@/components/features/Task/Detail/TaskDetailTimeEntries/TaskDetailTimeEntries';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { TaskDetailTimeTrackingOff } from '@/components/features/Task/Detail/TaskDetailTimeTrackingOff/TaskDetailTimeTrackingOff';
+import { TaskDetailSkeleton } from '@/components/features/Task/Detail/TaskDetailSkeleton/TaskDetailSkeleton';
 import { Popover } from '@/components/ui/Popover/Popover';
 import { Switch } from '@/components/ui/Switch/Switch';
 import { useTimerMode } from '@/hooks/useTimerMode';
 import { EntryType } from '@timedo/shared/src/schemas/timeEntrySchema';
 import { useCreateTimeEntry } from '@/hooks/api/useTimeEntry';
+import { formatDurationShort } from '@/utils/formatDurationShort';
 import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
@@ -30,6 +34,7 @@ export const TaskDetailView = () => {
     const { taskId } = Route.useParams();
     const setTimerMode = useTimerMode((s) => s.setTimerMode);
     const { data: task, isPending } = useGetTask(taskId);
+    const showSkeleton = useDelayedPending(isPending, 150);
     const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask(taskId);
     const { mutate: updateTask } = useUpdateTask(taskId);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
@@ -78,6 +83,14 @@ export const TaskDetailView = () => {
             )
         );
     };
+
+    if (showSkeleton) {
+        return <TaskDetailSkeleton />;
+    }
+
+    if (isPending) {
+        return null;
+    }
 
     const isDone = task?.status === 'DONE';
 
@@ -217,9 +230,10 @@ export const TaskDetailView = () => {
                     {task?.links !== undefined && (
                         <TaskDetailLink taskId={taskId} links={task?.links ?? []} />
                     )}
+                    <TaskDetailTimeEntries taskId={taskId} />
                 </div>
                 <div className={styles.TaskDetailView__right}>
-                    {isPending ? null : task?.isTracked ? (
+                    {task?.isTracked ? (
                         <TaskDetailTimeTracking
                             taskId={taskId}
                             workedSeconds={task.workedTime}
@@ -234,6 +248,16 @@ export const TaskDetailView = () => {
                     <TaskDetailProperties
                         priority={task?.priority ?? 'LOW'}
                         project={task?.project?.label ?? ''}
+                        estimate={
+                            task?.estimatedTime
+                                ? formatDurationShort(task.estimatedTime)
+                                : undefined
+                        }
+                        timeWorked={
+                            task?.workedTime
+                                ? formatDurationShort(task.workedTime)
+                                : undefined
+                        }
                     />
                 </div>
             </div>

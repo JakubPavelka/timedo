@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/Input/Input';
 import { SegmentedControl } from '@/components/ui/SegmentedControl/SegmentedControl';
 import { Button } from '@/components/ui/Button/Button';
-import { Plus, Search, Trash2 } from 'lucide-react';
+import { Plus, Search, Trash2, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Filter } from '@/components/ui/Filter/Filter';
 import { useProjectStore } from '@/store/projectStore';
@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { BulkActionsMenu } from '@/components/features/Task/BulkActionsMenu/BulkActionsMenu';
+import { useTagStore } from '@/store/tagStore';
 import styles from './TaskHeader.module.scss';
 
 type TaskHeader = {
@@ -27,16 +28,19 @@ type TaskHeader = {
 export const TaskHeader = (props: TaskHeader) => {
     const { t } = useTranslation();
     const projects = useProjectStore((s) => s.projects);
+    const tags = useTagStore((s) => s.tags);
     const { mutate: deleteTasks } = useDeleteTasks();
     const {
         status,
         priority: priorityParam,
         project: projectParam,
+        tag: tagParam,
         search,
     } = Route.useSearch();
     const navigate = Route.useNavigate();
     const priority = priorityParam ? priorityParam.split(',') : [];
     const project = projectParam ? projectParam.split(',') : [];
+    const tag = tagParam ? tagParam.split(',') : [];
     const [searchInput, setSearchInput] = useState(search ?? '');
     const [prevSearch, setPrevSearch] = useState(search);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -46,6 +50,8 @@ export const TaskHeader = (props: TaskHeader) => {
         setSearchInput(search ?? '');
     }
     const debouncedSearch = useDebouncedValue(searchInput, 500);
+
+    const activeFilters = priority.length + project.length + tag.length;
 
     const handlePriorityToggle = (level: 'LOW' | 'MEDIUM' | 'HIGH') => {
         const nextPriority = priority.includes(level)
@@ -73,6 +79,19 @@ export const TaskHeader = (props: TaskHeader) => {
         });
     };
 
+    const handleTagToggle = (tagId: string) => {
+        const nextTag = tag.includes(tagId)
+            ? tag.filter((p) => p !== tagId)
+            : [...tag, tagId];
+
+        navigate({
+            search: (prev) => ({
+                ...prev,
+                tag: nextTag.join(',') || undefined,
+            }),
+        });
+    };
+
     const handleStatusChange = (nextStatus: string | undefined) => {
         navigate({ search: (prev) => ({ ...prev, status: nextStatus }) });
     };
@@ -87,6 +106,8 @@ export const TaskHeader = (props: TaskHeader) => {
         bulkActionsPopoverRef.current?.close();
         props.onUnselectAll();
     };
+
+    const handleClearSearch = () => setSearchInput('');
 
     useEffect(() => {
         navigate({
@@ -140,12 +161,21 @@ export const TaskHeader = (props: TaskHeader) => {
                             prefixIcon={<Search width={16} height={16} />}
                             value={searchInput}
                             onChange={(e) => setSearchInput(e.target.value)}
+                            suffixIcon={
+                                searchInput.length > 0 && (
+                                    <X
+                                        width={12}
+                                        height={12}
+                                        onClick={handleClearSearch}
+                                    />
+                                )
+                            }
                         />
                     </div>
 
                     <SegmentedControl items={statusSegmentedData} />
 
-                    <Filter>
+                    <Filter activeFilters={activeFilters}>
                         <div className={styles.TaskHeader__filterMenu}>
                             <p className={styles.TaskHeader__filterTitle}>
                                 {t('Task.Modal.priority')}
@@ -198,37 +228,87 @@ export const TaskHeader = (props: TaskHeader) => {
                                     onChange={() => handlePriorityToggle('HIGH')}
                                 />
                             </div>
+                            {projects.length > 0 && (
+                                <>
+                                    <div className={styles.TaskHeader__filterDivider} />
 
-                            <div className={styles.TaskHeader__filterDivider} />
-
-                            <p className={styles.TaskHeader__filterTitle}>
-                                {t('Task.Modal.project')}
-                            </p>
-                            <div className={styles.TaskHeader__filterProjectWrapper}>
-                                {projects.map((proj) => (
-                                    <Checkbox
-                                        key={proj.id}
-                                        label={
-                                            <span
-                                                className={
-                                                    styles.TaskHeader__filterProjectItem
-                                                }
-                                            >
-                                                <span
-                                                    style={{ background: proj.color }}
-                                                    className={
-                                                        styles.TaskHeader__filterProjectDot
-                                                    }
-                                                />
-                                                {proj.label}
-                                            </span>
+                                    <p className={styles.TaskHeader__filterTitle}>
+                                        {t('Task.Modal.project')}
+                                    </p>
+                                    <div
+                                        className={
+                                            styles.TaskHeader__filterProjectWrapper
                                         }
-                                        size={'sm'}
-                                        onChange={() => handleProjectToggle(proj.id)}
-                                        checked={project.includes(proj.id)}
-                                    />
-                                ))}
-                            </div>
+                                    >
+                                        {projects.map((proj) => (
+                                            <Checkbox
+                                                key={proj.id}
+                                                label={
+                                                    <span
+                                                        className={
+                                                            styles.TaskHeader__filterProjectItem
+                                                        }
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                background: proj.color,
+                                                            }}
+                                                            className={
+                                                                styles.TaskHeader__filterProjectDot
+                                                            }
+                                                        />
+                                                        {proj.label}
+                                                    </span>
+                                                }
+                                                size={'sm'}
+                                                onChange={() =>
+                                                    handleProjectToggle(proj.id)
+                                                }
+                                                checked={project.includes(proj.id)}
+                                            />
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                            {tags.length > 0 && (
+                                <>
+                                    <div className={styles.TaskHeader__filterDivider} />
+
+                                    <p className={styles.TaskHeader__filterTitle}>
+                                        {t('Task.Modal.tags')}
+                                    </p>
+                                    <div className={styles.TaskHeader__filterTagWrapper}>
+                                        {tags.map((singleTag) => (
+                                            <Checkbox
+                                                key={singleTag.id}
+                                                label={
+                                                    <span
+                                                        className={
+                                                            styles.TaskHeader__filterTagItem
+                                                        }
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                background:
+                                                                    singleTag.color,
+                                                            }}
+                                                            className={
+                                                                styles.TaskHeader__filterTagDot
+                                                            }
+                                                        />
+                                                        {singleTag.label}
+                                                    </span>
+                                                }
+                                                size={'sm'}
+                                                onChange={() =>
+                                                    handleTagToggle(singleTag.id)
+                                                }
+                                                checked={tag.includes(singleTag.id)}
+                                            />
+                                        ))}
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </Filter>
                 </div>

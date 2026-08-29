@@ -1,6 +1,6 @@
 import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { Pill } from '@/components/ui/Pill/Pill';
-import { Trash } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './FocusTimeEntryHistoryItem.module.scss';
@@ -91,8 +91,14 @@ export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps)
                             </p>
                         )}
                     </div>
-                    <div onClick={handleDeleteClick} role={'button'} tabIndex={0}>
-                        <Trash width={16} height={16} />
+                    <div
+                        className={styles.FocusTimeEntryHistoryItem__deleteIcon}
+                        onClick={handleDeleteClick}
+                        role={'button'}
+                        tabIndex={0}
+                        aria-label={t('General.delete')}
+                    >
+                        <Trash2 width={16} height={16} />
                     </div>
                 </div>
             </li>
@@ -105,14 +111,14 @@ export const FocusTimeEntryHistoryItem = (props: FocusTimeEntryHistoryItemProps)
                     title={t('Focus.timeEntryDeleteModalTitle')}
                     description={t('Focus.timeEntryDeleteModalDescription')}
                     icon={
-                        <Trash
+                        <Trash2
                             className={styles.FocusTimeEntryHistoryItem__deleteModalIcon}
                             width={18}
                             height={18}
                         />
                     }
                     confirmText={t('General.delete')}
-                    confirmIcon={<Trash width={16} height={16} />}
+                    confirmIcon={<Trash2 width={16} height={16} />}
                 />
             )}
         </>

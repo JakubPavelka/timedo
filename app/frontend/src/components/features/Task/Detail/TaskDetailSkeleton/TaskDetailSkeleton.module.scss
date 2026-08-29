@@ -1,0 +1,43 @@
+@use 'styles/mixins/layout';
+
+.TaskDetailSkeleton {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.TaskDetailSkeleton__header {
+    @include layout.spaceBetweenY;
+}
+
+.TaskDetailSkeleton__headerActions {
+    @include layout.centerY;
+    gap: 16px;
+}
+
+.TaskDetailSkeleton__columns {
+    display: flex;
+    gap: 24px;
+}
+
+.TaskDetailSkeleton__left {
+    @include layout.flexColumn;
+    width: 70%;
+    gap: 12px;
+}
+
+.TaskDetailSkeleton__right {
+    @include layout.flexColumn;
+    width: 30%;
+    gap: 24px;
+}
+
+.TaskDetailSkeleton__row {
+    @include layout.centerY;
+    gap: 8px;
+}
+
+.TaskDetailSkeleton__label {
+    margin-top: 12px;
+}

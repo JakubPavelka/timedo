@@ -58,23 +58,25 @@ model Task {
 }
 
 model Project {
-  id     String @id @default(cuid())
-  userId String
-  label  String
-  color  String
-  tasks  Task[]
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  label     String
+  color     String
+  tasks     Task[]
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 
   @@unique([userId, label])
 }
 
 model TaskTag {
-  id     String @id @default(cuid())
-  userId String
-  label  String
-  color  String
-  tasks  Task[]
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  label     String
+  color     String
+  tasks     Task[]
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 
   @@unique([userId, label])
 }

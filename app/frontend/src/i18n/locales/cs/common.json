@@ -8,8 +8,10 @@
         "UNKNOWN_ERROR": "Něco se pokazilo, zkuste to prosím znovu",
         "PROJECT_ALREADY_EXISTS": "Projekt s tímto názvem již existuje",
         "PROJECTS_LIMIT_REACHED": "Dosáhli jste maximálního počtu projektů",
+        "PROJECT_NOT_FOUND": "Projekt nebyl nalezen",
         "TAG_ALREADY_EXISTS": "Tag s tímto názvem již existuje",
         "TAGS_LIMIT_REACHED": "Dosáhli jste maximálního počtu tagů",
+        "TAG_NOT_FOUND": "Tag nebyl nalezen",
         "NO_TASKID": "Chybí ID úkolu",
         "NO_LINKID": "Chybí ID odkazu",
         "TASK_NOT_FOUND": "Úkol nebyl nalezen",
@@ -101,6 +103,9 @@
         "calendar": "Kalendář",
         "overview": "Přehled",
         "projects": "PROJEKTY",
+        "addProject": "Přidat projekt",
+        "tags": "TAGY",
+        "addTag": "Přidat tag",
         "profile": "Profil"
     },
     "Profile": {
@@ -325,5 +330,56 @@
     },
     "Header": {
         "activeTimer": "Přejít na běžící časovač"
+    },
+    "ProgressCard": {
+        "done": "{{tasksDone}}/{{allTasks}} hotovo"
+    },
+    "Projects": {
+        "projects": "Projekty",
+        "newProject": "Nový projekt",
+        "CreateModal": {
+            "title": "Vytvořit projekt",
+            "description": "Pojmenuj projekt a vyber barvu.",
+            "name": "Název projektu",
+            "color": "Barva",
+            "success": "Projekt byl úspěšně vytvořen",
+            "error": "Nepodařilo se vytvořit projekt, zkuste to prosím znovu"
+        },
+        "DeleteModal": {
+            "title": "Smazat projekt?",
+            "description": "Tato akce je nevratná. Projekt bude trvale smazán a odebrán ze všech úkolů, kde je přiřazený.",
+            "success": "Projekt byl úspěšně smazán",
+            "error": "Nepodařilo se smazat projekt, zkuste to prosím znovu"
+        },
+        "EditModal": {
+            "title": "Upravit projekt",
+            "description": "Změň název nebo barvu projektu.",
+            "success": "Projekt byl úspěšně upraven",
+            "error": "Nepodařilo se upravit projekt, zkuste to prosím znovu"
+        }
+    },
+    "Tags": {
+        "tags": "Tagy",
+        "newTag": "Nový tag",
+        "CreateModal": {
+            "title": "Vytvořit tag",
+            "description": "Pojmenuj tag a vyber barvu.",
+            "name": "Název tagu",
+            "color": "Barva",
+            "success": "Tag byl úspěšně vytvořen",
+            "error": "Nepodařilo se vytvořit tag, zkuste to prosím znovu"
+        },
+        "DeleteModal": {
+            "title": "Smazat tag?",
+            "description": "Tato akce je nevratná. Tag bude trvale smazán a odebrán ze všech úkolů, kde je přiřazený.",
+            "success": "Tag byl úspěšně smazán",
+            "error": "Nepodařilo se smazat tag, zkuste to prosím znovu"
+        },
+        "EditModal": {
+            "title": "Upravit tag",
+            "description": "Změň název nebo barvu tagu.",
+            "success": "Tag byl úspěšně upraven",
+            "error": "Nepodařilo se upravit tag, zkuste to prosím znovu"
+        }
     }
 }

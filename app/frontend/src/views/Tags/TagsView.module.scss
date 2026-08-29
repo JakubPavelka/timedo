@@ -1,0 +1,14 @@
+.TagsView {
+    padding: 32px;
+}
+
+.TagsView__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(116px, auto);
+    gap: 24px;
+}
+
+.TagsView__deleteIcon {
+    color: var(--danger);
+}

@@ -1,0 +1,14 @@
+.ProjectsView {
+    padding: 32px;
+}
+
+.ProjectsView__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(116px, auto);
+    gap: 24px;
+}
+
+.ProjectsView__deleteIcon {
+    color: var(--danger);
+}

@@ -66,41 +66,86 @@
     @include layout.centerXY;
 }
 
-.Sidebar__projectsTitle {
-    @include typography.text-xs(var(--text-3));
-    margin: 18px 0 4px 0;
-    padding-inline: 13px;
+.Sidebar__subTitleWrapper {
+    @include layout.spaceBetweenY;
+    padding: 7px 13px;
+    margin: 11px 0 0 0;
+    gap: 12px;
+    transition: all 0.2s;
+
+    svg {
+        color: var(--text-3);
+        transition: color 0.2s;
+    }
+
+    &:hover {
+        .Sidebar__subTitle {
+            color: var(--text);
+        }
+
+        svg {
+            color: var(--text);
+        }
+    }
 }
 
-.Sidebar__projectsButton {
+.Sidebar__subTitle {
+    @include typography.text-xs(var(--text-3));
+    transition: color 0.2s;
+}
+
+.Sidebar__itemButton {
     @include layout.spaceBetweenY;
+    gap: 8px;
     width: 100%;
     border: 0;
-    padding-block: 8px;
+    padding: 8px 13px;
     background-color: transparent;
+    border-radius: 10px;
     color: inherit;
     cursor: pointer;
+    transition:
+        color 0.2s,
+        background-color 0.2s;
+
+    &:hover {
+        background-color: var(--surface-3);
+        color: var(--text);
+        text-decoration: none;
+
+        svg {
+            color: var(--text);
+        }
+
+        .Sidebar__itemText {
+            color: var(--text);
+        }
+    }
 }
 
-.Sidebar__projectsList {
+.Sidebar__itemList {
     list-style: none;
 }
 
-.Sidebar__projectsText {
+.Sidebar__itemText {
     @include typography.text-sm(var(--text-2));
+    transition: color 0.2s;
 }
 
-.Sidebar__projectsCount {
+.Sidebar__itemCount {
     @include typography.text-xs(var(--text-3));
+    padding: 2px 8px;
+    background-color: var(--surface-3);
+    border-radius: 999px;
     font-weight: 700;
 }
 
-.Sidebar__projectsColorWrapper {
+.Sidebar__itemColorWrapper {
     @include layout.centerY;
     gap: 12px;
 }
 
-.Sidebar__projectsDot {
+.Sidebar__itemDot {
     height: 8px;
     width: 8px;
     border-radius: 999px;
@@ -110,4 +155,42 @@
     margin-top: auto;
     padding-top: 16px;
     border-top: 1px solid var(--border-strong);
+}
+
+.Sidebar__scrollableWrapper {
+    overflow: scroll;
+    padding-right: 6px;
+    margin-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar:hover {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--border-strong);
+        border-radius: 999px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: var(--text-3);
+    }
+}
+
+.Sidebar__emptyListLink {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    padding: 7px 13px;
+    gap: 8px;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--text);
+    }
 }

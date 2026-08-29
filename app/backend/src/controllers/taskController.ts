@@ -121,7 +121,7 @@ const getTasks = async (req: Request, res: Response) => {
         });
     }
 
-    const { limit, offset, priority, status, project, search } = parsedQuery.data;
+    const { limit, offset, priority, status, project, search, tag } = parsedQuery.data;
 
     try {
         const matchingTaskIds = search
@@ -139,6 +139,7 @@ const getTasks = async (req: Request, res: Response) => {
             ...(priority?.length && { priority: { in: priority } }),
             ...(status && { status }),
             ...(project?.length && { projectId: { in: project } }),
+            ...(tag?.length && { tags: { some: { id: { in: tag } } } }),
             ...(matchingTaskIds && { id: { in: matchingTaskIds } }),
         };
 

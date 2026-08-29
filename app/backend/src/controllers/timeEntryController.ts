@@ -220,7 +220,7 @@ const getTimeEntries = async (req: Request, res: Response) => {
         });
     }
 
-    const { limit, search } = parsedQuery.data;
+    const { limit, search, taskId } = parsedQuery.data;
 
     try {
         const matchingEntryIds = search
@@ -241,6 +241,7 @@ const getTimeEntries = async (req: Request, res: Response) => {
         const where = {
             userId: req.user!.id,
             endedAt: { not: null },
+            ...(taskId && { taskId }),
             ...(matchingEntryIds && { id: { in: matchingEntryIds } }),
         };
 

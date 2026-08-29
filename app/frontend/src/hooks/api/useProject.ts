@@ -24,3 +24,43 @@ export const useGetProjects = () => {
         retry: false,
     });
 };
+
+export const useGetProjectsWithTasks = () => {
+    return useQuery({
+        queryKey: ['projects', 'with-tasks'],
+        queryFn: projectApi.getProjectsWithTasks,
+        retry: false,
+    });
+};
+
+export const useUpdateProject = () => {
+    const queryClient = useQueryClient();
+
+    const updateProject = useProjectStore((s) => s.updateProject);
+
+    return useMutation({
+        mutationFn: projectApi.updateProject,
+        onSuccess: (data) => {
+            updateProject(data);
+            queryClient.invalidateQueries({ queryKey: ['projects'] });
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['task'] });
+        },
+    });
+};
+
+export const useDeleteProject = () => {
+    const queryClient = useQueryClient();
+
+    const deleteProject = useProjectStore((s) => s.deleteProject);
+
+    return useMutation({
+        mutationFn: (projectId: string) => projectApi.deleteProject(projectId),
+        onSuccess: (_, projectId) => {
+            deleteProject(projectId);
+            queryClient.invalidateQueries({ queryKey: ['projects'] });
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['task'] });
+        },
+    });
+};

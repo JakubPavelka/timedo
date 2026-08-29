@@ -15,6 +15,8 @@ import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgottenPasswordRouteImport } from './routes/forgotten-password'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DashboardTagsRouteImport } from './routes/dashboard/tags'
+import { Route as DashboardProjectsRouteImport } from './routes/dashboard/projects'
 import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
 import { Route as DashboardOverviewRouteImport } from './routes/dashboard/overview'
 import { Route as DashboardFocusRouteImport } from './routes/dashboard/focus'
@@ -51,6 +53,16 @@ const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardTagsRoute = DashboardTagsRouteImport.update({
+  id: '/tags',
+  path: '/tags',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProjectsRoute = DashboardProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardProfileRoute = DashboardProfileRouteImport.update({
   id: '/profile',
@@ -94,6 +106,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/focus': typeof DashboardFocusRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/projects': typeof DashboardProjectsRoute
+  '/dashboard/tags': typeof DashboardTagsRoute
   '/dashboard/tasks/$taskId': typeof DashboardTasksTaskIdRoute
   '/dashboard/tasks/': typeof DashboardTasksIndexRoute
 }
@@ -108,6 +122,8 @@ export interface FileRoutesByTo {
   '/dashboard/focus': typeof DashboardFocusRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/projects': typeof DashboardProjectsRoute
+  '/dashboard/tags': typeof DashboardTagsRoute
   '/dashboard/tasks/$taskId': typeof DashboardTasksTaskIdRoute
   '/dashboard/tasks': typeof DashboardTasksIndexRoute
 }
@@ -123,6 +139,8 @@ export interface FileRoutesById {
   '/dashboard/focus': typeof DashboardFocusRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/projects': typeof DashboardProjectsRoute
+  '/dashboard/tags': typeof DashboardTagsRoute
   '/dashboard/tasks/$taskId': typeof DashboardTasksTaskIdRoute
   '/dashboard/tasks/': typeof DashboardTasksIndexRoute
 }
@@ -139,6 +157,8 @@ export interface FileRouteTypes {
     | '/dashboard/focus'
     | '/dashboard/overview'
     | '/dashboard/profile'
+    | '/dashboard/projects'
+    | '/dashboard/tags'
     | '/dashboard/tasks/$taskId'
     | '/dashboard/tasks/'
   fileRoutesByTo: FileRoutesByTo
@@ -153,6 +173,8 @@ export interface FileRouteTypes {
     | '/dashboard/focus'
     | '/dashboard/overview'
     | '/dashboard/profile'
+    | '/dashboard/projects'
+    | '/dashboard/tags'
     | '/dashboard/tasks/$taskId'
     | '/dashboard/tasks'
   id:
@@ -167,6 +189,8 @@ export interface FileRouteTypes {
     | '/dashboard/focus'
     | '/dashboard/overview'
     | '/dashboard/profile'
+    | '/dashboard/projects'
+    | '/dashboard/tags'
     | '/dashboard/tasks/$taskId'
     | '/dashboard/tasks/'
   fileRoutesById: FileRoutesById
@@ -224,6 +248,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/tags': {
+      id: '/dashboard/tags'
+      path: '/tags'
+      fullPath: '/dashboard/tags'
+      preLoaderRoute: typeof DashboardTagsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/projects': {
+      id: '/dashboard/projects'
+      path: '/projects'
+      fullPath: '/dashboard/projects'
+      preLoaderRoute: typeof DashboardProjectsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/profile': {
       id: '/dashboard/profile'
       path: '/profile'
@@ -274,6 +312,8 @@ interface DashboardRouteChildren {
   DashboardFocusRoute: typeof DashboardFocusRoute
   DashboardOverviewRoute: typeof DashboardOverviewRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardProjectsRoute: typeof DashboardProjectsRoute
+  DashboardTagsRoute: typeof DashboardTagsRoute
   DashboardTasksTaskIdRoute: typeof DashboardTasksTaskIdRoute
   DashboardTasksIndexRoute: typeof DashboardTasksIndexRoute
 }
@@ -283,6 +323,8 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardFocusRoute: DashboardFocusRoute,
   DashboardOverviewRoute: DashboardOverviewRoute,
   DashboardProfileRoute: DashboardProfileRoute,
+  DashboardProjectsRoute: DashboardProjectsRoute,
+  DashboardTagsRoute: DashboardTagsRoute,
   DashboardTasksTaskIdRoute: DashboardTasksTaskIdRoute,
   DashboardTasksIndexRoute: DashboardTasksIndexRoute,
 }

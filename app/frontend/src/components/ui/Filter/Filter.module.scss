@@ -1,7 +1,22 @@
 @use 'styles/mixins/layout';
+@use 'styles/typography';
 
 .Filter__buttonWrapper {
     @include layout.centerXY;
     gap: 8px;
     font-weight: 400;
+}
+
+.Filter__activeButton {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.Filter__activeFiltersCount {
+    @include layout.centerXY;
+    @include typography.text-xs(var(--white));
+    width: 20px;
+    height: 20px;
+    background-color: var(--accent);
+    border-radius: 999px;
 }

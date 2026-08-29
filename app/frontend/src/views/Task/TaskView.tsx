@@ -2,12 +2,14 @@ import { TaskHeader } from '@/components/features/Task/TaskHeader/TaskHeader';
 import { NewTaskDialog } from '@/components/features/Task/NewTaskDialog/NewTaskDialog';
 import { useEffect, useState } from 'react';
 import { useGetTasks } from '@/hooks/api/useTask';
+import { useDelayedPending } from '@/hooks/useDelayedPending';
 import { useNewTaskModal } from '@/hooks/useNewTaskModal';
 import { toast } from 'sonner';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { useTranslation } from 'react-i18next';
 import { useTaskStore } from '@/store/taskStore';
 import { TaskListItem } from '@/components/features/Task/TaskListItem/TaskListItem';
+import { TaskListItemSkeleton } from '@/components/features/Task/TaskListItemSkeleton/TaskListItemSkeleton';
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/index';
@@ -30,9 +32,10 @@ export const TaskView = () => {
     const [selectedTaskIds, setSelectedTaskIds] = useState<Set<string>>(new Set());
     const tasks = useTaskStore((s) => s.tasks);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
-    const { priority, status, project, search, offset, limit } = Route.useSearch();
+    const { priority, status, project, search, tag, offset, limit } = Route.useSearch();
     const priorityFilter = priority ? priority.split(',') : undefined;
     const projectFilter = project ? project.split(',') : undefined;
+    const tagFilter = tag ? tag.split(',') : undefined;
     const navigate = Route.useNavigate();
     const navigateGlobal = useNavigate();
     const setTimerMode = useTimerMode((s) => s.setTimerMode);
@@ -44,8 +47,10 @@ export const TaskView = () => {
         priorityFilter,
         status,
         projectFilter,
-        search
+        search,
+        tagFilter
     );
+    const showSkeleton = useDelayedPending(isPending);
     const total = data?.total ?? 0;
     const currentPage = Math.floor(currentOffset / currentLimit) + 1;
     const maxPage = Math.max(Math.ceil(total / currentLimit), 1);
@@ -123,7 +128,13 @@ export const TaskView = () => {
                 selectedTasks={visibleSelectedTaskIds}
                 onUnselectAll={handleUnselectAll}
             />
-            {isPending ? null : tasks.length > 0 ? (
+            {showSkeleton ? (
+                <div className={styles.TaskView__tasksWrapper}>
+                    {Array.from({ length: currentLimit }).map((_, index) => (
+                        <TaskListItemSkeleton key={index} />
+                    ))}
+                </div>
+            ) : isPending ? null : tasks.length > 0 ? (
                 <>
                     <Checkbox
                         className={styles.TaskView__selectAllWrapper}
@@ -148,6 +159,8 @@ export const TaskView = () => {
                                     tags={task.tags}
                                     selected={selectedTaskIds.has(task.id)}
                                     isTracked={task.isTracked}
+                                    workedTime={task.workedTime}
+                                    estimatedTime={task.estimatedTime}
                                     onSelectChange={handleSelectChange}
                                     onTrackClick={handleTrackClick}
                                 />

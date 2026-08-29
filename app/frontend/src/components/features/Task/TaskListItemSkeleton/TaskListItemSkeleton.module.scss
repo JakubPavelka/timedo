@@ -1,0 +1,22 @@
+@use 'styles/mixins/layout';
+
+.TaskListItemSkeleton {
+    @include layout.spaceBetweenY;
+    padding: 14px;
+    border-radius: 10px;
+}
+
+.TaskListItemSkeleton__leftWrapper {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.TaskListItemSkeleton__contentWrapper {
+    @include layout.flexColumn;
+    gap: 8px;
+}
+
+.TaskListItemSkeleton__pillsWrapper {
+    @include layout.centerY;
+    gap: 8px;
+}

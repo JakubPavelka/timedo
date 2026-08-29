@@ -1,0 +1,17 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+
+.AddCard {
+    @include layout.centerXY;
+    @include typography.text-md(var(--text-3));
+    gap: 8px;
+    background-color: transparent;
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+
+    &:hover {
+        border-color: var(--border-focused);
+    }
+}
