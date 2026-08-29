@@ -63,10 +63,10 @@ export const useUpdateTimeEntry = () => {
     });
 };
 
-export const useGetTimeEntries = (limit: number, search?: string) =>
+export const useGetTimeEntries = (limit: number, search?: string, taskId?: string) =>
     useQuery({
-        queryKey: ['timeEntries', limit, search],
-        queryFn: () => timeEntryApi.getTimeEntries(limit, search),
+        queryKey: ['timeEntries', limit, search, taskId],
+        queryFn: () => timeEntryApi.getTimeEntries(limit, search, taskId),
         placeholderData: keepPreviousData,
     });
 

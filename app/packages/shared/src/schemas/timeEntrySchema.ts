@@ -40,6 +40,7 @@ export type DeleteTimeEntryData = z.infer<typeof DeleteTimeEntrySchema>;
 export const GetTimeEntryQuerySchema = z.object({
     limit: z.coerce.number().int().min(1).max(100).default(5),
     search: z.string().optional(),
+    taskId: z.string().optional(),
 });
 
 export type GetTimeEntryQuery = z.infer<typeof GetTimeEntryQuerySchema>;
