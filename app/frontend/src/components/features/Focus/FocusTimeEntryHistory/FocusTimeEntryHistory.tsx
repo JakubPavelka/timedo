@@ -1,6 +1,6 @@
 import { Input } from '@/components/ui/Input/Input';
 import { Button } from '@/components/ui/Button/Button';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue';
@@ -33,6 +33,8 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
         return props.onDeleteClick?.(id) ?? Promise.resolve();
     };
 
+    const handleClearSearch = () => setSearchText('');
+
     return (
         <div className={styles.FocusTimeEntryHistory}>
             <div className={styles.FocusTimeEntryHistory__headerWrapper}>
@@ -46,6 +48,11 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
                         prefixIcon={<Search width={16} height={16} />}
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
+                        suffixIcon={
+                            searchText.length > 0 && (
+                                <X width={12} height={12} onClick={handleClearSearch} />
+                            )
+                        }
                     />
                 </div>
             </div>

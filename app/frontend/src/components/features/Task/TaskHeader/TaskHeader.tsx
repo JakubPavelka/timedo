@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/Input/Input';
 import { SegmentedControl } from '@/components/ui/SegmentedControl/SegmentedControl';
 import { Button } from '@/components/ui/Button/Button';
-import { Plus, Search, Trash2 } from 'lucide-react';
+import { Plus, Search, Trash2, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Filter } from '@/components/ui/Filter/Filter';
 import { useProjectStore } from '@/store/projectStore';
@@ -107,6 +107,8 @@ export const TaskHeader = (props: TaskHeader) => {
         props.onUnselectAll();
     };
 
+    const handleClearSearch = () => setSearchInput('');
+
     useEffect(() => {
         navigate({
             search: (prev) => ({ ...prev, search: debouncedSearch || undefined }),
@@ -159,6 +161,15 @@ export const TaskHeader = (props: TaskHeader) => {
                             prefixIcon={<Search width={16} height={16} />}
                             value={searchInput}
                             onChange={(e) => setSearchInput(e.target.value)}
+                            suffixIcon={
+                                searchInput.length > 0 && (
+                                    <X
+                                        width={12}
+                                        height={12}
+                                        onClick={handleClearSearch}
+                                    />
+                                )
+                            }
                         />
                     </div>
 
