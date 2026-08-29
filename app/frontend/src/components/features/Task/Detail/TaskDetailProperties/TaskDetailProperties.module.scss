@@ -23,8 +23,12 @@
     gap: 6px;
 }
 
-.TaskDetailProperties__textWhite {
+.TaskDetailProperties__value {
     @include typography.text-md;
+}
+
+.TaskDetailProperties__value--placeholder {
+    color: var(--text-2);
 }
 
 .TaskDetailProperties__textAlign {

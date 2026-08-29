@@ -15,6 +15,8 @@ type TaskDetailPropertiesProps = {
     timeWorked?: string;
 };
 
+const EMPTY_PLACEHOLDER = '–';
+
 export const TaskDetailProperties = (props: TaskDetailPropertiesProps) => {
     const { t } = useTranslation();
 
@@ -42,7 +44,14 @@ export const TaskDetailProperties = (props: TaskDetailPropertiesProps) => {
                     <Folder width={14} height={14} />
                     <p>{t('TaskDetail.RightSide.project')}</p>
                 </div>
-                <p className={styles.TaskDetailProperties__textWhite}>{props.project}</p>
+                <p
+                    className={clsx(styles.TaskDetailProperties__value, {
+                        [styles['TaskDetailProperties__value--placeholder']]:
+                            !props.project,
+                    })}
+                >
+                    {props.project || EMPTY_PLACEHOLDER}
+                </p>
             </div>
             {/* ODHAD */}
             <div
@@ -55,7 +64,14 @@ export const TaskDetailProperties = (props: TaskDetailPropertiesProps) => {
                     <Hourglass width={14} height={14} />
                     <p>{t('TaskDetail.RightSide.estimate')}</p>
                 </div>
-                <p className={styles.TaskDetailProperties__textWhite}>xx</p>
+                <p
+                    className={clsx(styles.TaskDetailProperties__value, {
+                        [styles['TaskDetailProperties__value--placeholder']]:
+                            !props.estimate,
+                    })}
+                >
+                    {props.estimate ?? EMPTY_PLACEHOLDER}
+                </p>
             </div>
             {/* TERMÍN */}
             <div
@@ -68,7 +84,7 @@ export const TaskDetailProperties = (props: TaskDetailPropertiesProps) => {
                     <Calendar width={14} height={14} />
                     <p>{t('TaskDetail.RightSide.term')}</p>
                 </div>
-                <p className={styles.TaskDetailProperties__textWhite}>xx</p>
+                <p className={styles.TaskDetailProperties__value}>xx</p>
             </div>
             {/* ODPRACOVÁNO */}
             <div
@@ -81,7 +97,14 @@ export const TaskDetailProperties = (props: TaskDetailPropertiesProps) => {
                     <Timer width={14} height={14} />
                     <p>{t('TaskDetail.RightSide.hoursWorked')}</p>
                 </div>
-                <p className={styles.TaskDetailProperties__textWhite}>xx</p>
+                <p
+                    className={clsx(styles.TaskDetailProperties__value, {
+                        [styles['TaskDetailProperties__value--placeholder']]:
+                            !props.timeWorked,
+                    })}
+                >
+                    {props.timeWorked ?? EMPTY_PLACEHOLDER}
+                </p>
             </div>
         </div>
     );
