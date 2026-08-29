@@ -3,6 +3,7 @@ import { ArrowLeft, Check, Settings, Trash2, X } from 'lucide-react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Route } from '@/routes/dashboard/tasks/$taskId';
 import { useDeleteTask, useGetTask, useUpdateTask } from '@/hooks/api/useTask';
+import { useDelayedPending } from '@/hooks/useDelayedPending';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/Button/Button';
@@ -19,6 +20,7 @@ import { TaskDetailTimeEntries } from '@/components/features/Task/Detail/TaskDet
 import { Pill } from '@/components/ui/Pill/Pill';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { TaskDetailTimeTrackingOff } from '@/components/features/Task/Detail/TaskDetailTimeTrackingOff/TaskDetailTimeTrackingOff';
+import { TaskDetailSkeleton } from '@/components/features/Task/Detail/TaskDetailSkeleton/TaskDetailSkeleton';
 import { Popover } from '@/components/ui/Popover/Popover';
 import { Switch } from '@/components/ui/Switch/Switch';
 import { useTimerMode } from '@/hooks/useTimerMode';
@@ -32,6 +34,7 @@ export const TaskDetailView = () => {
     const { taskId } = Route.useParams();
     const setTimerMode = useTimerMode((s) => s.setTimerMode);
     const { data: task, isPending } = useGetTask(taskId);
+    const showSkeleton = useDelayedPending(isPending, 150);
     const { mutate: deleteTask, isPending: isDeleting } = useDeleteTask(taskId);
     const { mutate: updateTask } = useUpdateTask(taskId);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
@@ -80,6 +83,14 @@ export const TaskDetailView = () => {
             )
         );
     };
+
+    if (showSkeleton) {
+        return <TaskDetailSkeleton />;
+    }
+
+    if (isPending) {
+        return null;
+    }
 
     const isDone = task?.status === 'DONE';
 
@@ -222,7 +233,7 @@ export const TaskDetailView = () => {
                     <TaskDetailTimeEntries taskId={taskId} />
                 </div>
                 <div className={styles.TaskDetailView__right}>
-                    {isPending ? null : task?.isTracked ? (
+                    {task?.isTracked ? (
                         <TaskDetailTimeTracking
                             taskId={taskId}
                             workedSeconds={task.workedTime}
