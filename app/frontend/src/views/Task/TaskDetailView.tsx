@@ -15,6 +15,7 @@ import { TaskDetailLink } from '@/components/features/Task/Detail/TaskDetailLink
 import { TaskDetailTags } from '@/components/features/Task/Detail/TaskDetailTags/TaskDetailTags';
 import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDetailProperties/TaskDetailProperties';
 import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDetailTimeTracking/TaskDetailTimeTracking';
+import { TaskDetailTimeEntries } from '@/components/features/Task/Detail/TaskDetailTimeEntries/TaskDetailTimeEntries';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { TaskDetailTimeTrackingOff } from '@/components/features/Task/Detail/TaskDetailTimeTrackingOff/TaskDetailTimeTrackingOff';
@@ -23,6 +24,7 @@ import { Switch } from '@/components/ui/Switch/Switch';
 import { useTimerMode } from '@/hooks/useTimerMode';
 import { EntryType } from '@timedo/shared/src/schemas/timeEntrySchema';
 import { useCreateTimeEntry } from '@/hooks/api/useTimeEntry';
+import { formatDurationShort } from '@/utils/formatDurationShort';
 import styles from './TaskDetailView.module.scss';
 
 export const TaskDetailView = () => {
@@ -217,6 +219,7 @@ export const TaskDetailView = () => {
                     {task?.links !== undefined && (
                         <TaskDetailLink taskId={taskId} links={task?.links ?? []} />
                     )}
+                    <TaskDetailTimeEntries taskId={taskId} />
                 </div>
                 <div className={styles.TaskDetailView__right}>
                     {isPending ? null : task?.isTracked ? (
@@ -234,6 +237,16 @@ export const TaskDetailView = () => {
                     <TaskDetailProperties
                         priority={task?.priority ?? 'LOW'}
                         project={task?.project?.label ?? ''}
+                        estimate={
+                            task?.estimatedTime
+                                ? formatDurationShort(task.estimatedTime)
+                                : undefined
+                        }
+                        timeWorked={
+                            task?.workedTime
+                                ? formatDurationShort(task.workedTime)
+                                : undefined
+                        }
                     />
                 </div>
             </div>
