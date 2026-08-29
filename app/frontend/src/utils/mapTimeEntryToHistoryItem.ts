@@ -4,13 +4,14 @@ import type { TimeEntryWithTask } from '@/api/timeEntry/timeEntry.api';
 import type { FocusTimeEntryHistoryItemProps } from '@/components/features/Focus/FocusTimeEntryHistory/FocusTimeEntryHistoryItem';
 import { formatDurationShort } from './formatDurationShort';
 import { formatDateGroup } from './formatDateGroup';
+import { toLocalDateTime } from './toLocalDateTime';
 
 export const mapTimeEntryToHistoryItem = (
     entry: TimeEntryWithTask,
     t: TFunction,
     locale: string
 ): FocusTimeEntryHistoryItemProps => {
-    const startedAt = DateTime.fromISO(entry.startedAt, { locale, zone: 'local' });
+    const startedAt = toLocalDateTime(entry.startedAt, locale);
 
     return {
         id: entry.id,
