@@ -3,25 +3,7 @@ import { DateTime } from 'luxon';
 import type { TimeEntryWithTask } from '@/api/timeEntry/timeEntry.api';
 import type { FocusTimeEntryHistoryItemProps } from '@/components/features/Focus/FocusTimeEntryHistory/FocusTimeEntryHistoryItem';
 import { formatDurationShort } from './formatDurationShort';
-
-const formatDateGroup = (startedAt: DateTime, t: TFunction) => {
-    const now = DateTime.now();
-    const yesterday = now.minus({ days: 1 });
-
-    if (startedAt.hasSame(now, 'day')) {
-        return t('Focus.History.today');
-    }
-
-    if (startedAt.hasSame(yesterday, 'day')) {
-        return t('Focus.History.yesterday');
-    }
-
-    return startedAt.toLocaleString({
-        weekday: 'short',
-        day: 'numeric',
-        month: 'numeric',
-    });
-};
+import { formatDateGroup } from './formatDateGroup';
 
 export const mapTimeEntryToHistoryItem = (
     entry: TimeEntryWithTask,
