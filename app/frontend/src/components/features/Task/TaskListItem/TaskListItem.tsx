@@ -145,7 +145,11 @@ export const TaskListItem = (props: TaskListItem) => {
                         tabIndex={0}
                         aria-label={t('TaskDetail.RightSide.startTimer')}
                     >
-                        <Play width={16} height={16} />
+                        <Play
+                            className={styles.TaskListItem__playIcon}
+                            width={16}
+                            height={16}
+                        />
                     </div>
                 )}
                 <TaskListItemActions

@@ -12,6 +12,7 @@
 
     &:hover {
         border-bottom-color: var(--border-strong);
+        --actions-trigger-opacity: 1;
     }
 }
 
@@ -76,14 +77,28 @@
 .FocusTimeEntryHistoryItem__rightSide {
     @include layout.centerY;
     gap: 16px;
+}
 
-    svg {
-        color: var(--text-2);
-        transition: color 0.2s;
+.FocusTimeEntryHistoryItem__deleteIcon {
+    @include layout.centerXY;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    color: var(--text-2);
+    cursor: pointer;
+    opacity: var(--actions-trigger-opacity, 0);
+    transition:
+        opacity 0.15s,
+        background-color 0.2s,
+        color 0.2s;
 
-        &:hover {
-            color: var(--danger);
-            cursor: pointer;
-        }
+    &:hover {
+        background-color: var(--surface-3);
+        color: var(--danger);
+    }
+
+    &:focus-visible {
+        opacity: 1;
     }
 }

@@ -95,9 +95,18 @@
     &:hover {
         background-color: var(--surface-3);
         color: var(--accent);
+
+        .TaskListItem__playIcon {
+            fill: var(--accent);
+        }
     }
 
     &:focus-visible {
         opacity: 1;
     }
+}
+
+.TaskListItem__playIcon {
+    fill: var(--text-2);
+    transition: fill 0.2s;
 }
