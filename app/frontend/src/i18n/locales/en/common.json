@@ -260,6 +260,13 @@
         "updateEstimateSuccess": "Estimate updated",
         "updateTagsError": "Failed to update tags, please try again",
         "updateTagsSuccess": "Tags updated",
+        "checklist": "CHECKLIST",
+        "addChecklistItem": "Add item...",
+        "addChecklistItemSuccess": "Item added",
+        "addChecklistItemError": "Failed to add item, please try again",
+        "updateChecklistItemError": "Failed to update item, please try again",
+        "deleteChecklistItemSuccess": "Item deleted",
+        "deleteChecklistItemError": "Failed to delete item, please try again",
         "RightSide": {
             "priority": "Priority",
             "project": "Project",

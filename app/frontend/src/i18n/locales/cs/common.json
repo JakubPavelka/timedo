@@ -260,6 +260,13 @@
         "updateEstimateSuccess": "Odhad byl upraven",
         "updateTagsError": "Nepodařilo se upravit tagy, zkuste to prosím znovu",
         "updateTagsSuccess": "Tagy byly upraveny",
+        "checklist": "CHECKLIST",
+        "addChecklistItem": "Přidat položku...",
+        "addChecklistItemSuccess": "Položka byla přidána",
+        "addChecklistItemError": "Nepodařilo se přidat položku, zkuste to prosím znovu",
+        "updateChecklistItemError": "Nepodařilo se upravit položku, zkuste to prosím znovu",
+        "deleteChecklistItemSuccess": "Položka byla smazána",
+        "deleteChecklistItemError": "Nepodařilo se smazat položku, zkuste to prosím znovu",
         "RightSide": {
             "priority": "Priorita",
             "project": "Projekt",
