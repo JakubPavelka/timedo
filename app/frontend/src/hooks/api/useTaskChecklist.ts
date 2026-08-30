@@ -7,42 +7,36 @@ import type {
 } from '@timedo/shared/src/schemas/taskChecklistSchema';
 import { useQueryClient } from '@tanstack/react-query';
 
-export const useCreateTaskChecklist = () => {
+export const useCreateTaskChecklist = (taskId: string) => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: ({ data }: { data: TaskChecklistData }) =>
-            taskChecklistApi.createChecklist(data),
-        onSuccess: (_, data) =>
-            queryClient.invalidateQueries({
-                queryKey: ['task-checklist', data.data.taskId],
-            }),
+        mutationFn: (data: Omit<TaskChecklistData, 'taskId'>) =>
+            taskChecklistApi.createChecklist({ ...data, taskId }),
+        onSuccess: () =>
+            queryClient.invalidateQueries({ queryKey: ['task-checklist', taskId] }),
     });
 };
 
-export const useUpdateTaskChecklist = () => {
+export const useUpdateTaskChecklist = (taskId: string) => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: ({ data }: { data: UpdateTaskChecklistData }) =>
+        mutationFn: (data: UpdateTaskChecklistData) =>
             taskChecklistApi.updateChecklist(data),
-        onSuccess: (_, data) =>
-            queryClient.invalidateQueries({
-                queryKey: ['task-checklist', data.data.id],
-            }),
+        onSuccess: () =>
+            queryClient.invalidateQueries({ queryKey: ['task-checklist', taskId] }),
     });
 };
 
-export const useDeleteTaskChecklist = () => {
+export const useDeleteTaskChecklist = (taskId: string) => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: ({ id }: { id: DeleteTaskChecklistData['id'] }) =>
+        mutationFn: (id: DeleteTaskChecklistData['id']) =>
             taskChecklistApi.deleteChecklist(id),
-        onSuccess: (_, data) =>
-            queryClient.invalidateQueries({
-                queryKey: ['task-checklist', data],
-            }),
+        onSuccess: () =>
+            queryClient.invalidateQueries({ queryKey: ['task-checklist', taskId] }),
     });
 };
 

@@ -7,8 +7,19 @@ import type {
 } from '@timedo/shared/src/schemas/taskChecklistSchema';
 import axios from 'axios';
 
+export type TaskChecklistItem = {
+    id: string;
+    taskId: string | null;
+    parentId: string | null;
+    label: string;
+    completed: boolean;
+    order: number;
+    createdAt: string;
+    updatedAt: string;
+};
+
 export const taskChecklistApi = {
-    createChecklist: async (data: TaskChecklistData) => {
+    createChecklist: async (data: TaskChecklistData): Promise<TaskChecklistItem> => {
         try {
             const response = await apiClient.post('/api/task-checklist', data);
             return response.data.data;
@@ -31,7 +42,9 @@ export const taskChecklistApi = {
             throw err;
         }
     },
-    updateChecklist: async (data: UpdateTaskChecklistData) => {
+    updateChecklist: async (
+        data: UpdateTaskChecklistData
+    ): Promise<TaskChecklistItem> => {
         try {
             const response = await apiClient.patch('/api/task-checklist', data);
             return response.data.data;
@@ -42,7 +55,7 @@ export const taskChecklistApi = {
             throw err;
         }
     },
-    readChecklist: async (taskId: string) => {
+    readChecklist: async (taskId: string): Promise<TaskChecklistItem[]> => {
         try {
             const response = await apiClient.get('/api/task-checklist', {
                 params: { taskId },

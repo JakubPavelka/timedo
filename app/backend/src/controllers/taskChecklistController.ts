@@ -78,6 +78,7 @@ const getTasksChecklist = async (req: Request, res: Response) => {
     try {
         const taskChecklists = await prisma.taskChecklist.findMany({
             where: { taskId, userId: req.user!.id },
+            orderBy: { createdAt: 'asc' },
         });
 
         return res.status(200).json({ message: 'success', data: taskChecklists });
