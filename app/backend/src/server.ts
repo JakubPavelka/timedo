@@ -11,6 +11,7 @@ import projectRoutes from './routes/projectRoutes.js';
 import tagRoutes from './routes/tagRoutes.js';
 import linkRoutes from './routes/linkRoutes.js';
 import timeEntryRoutes from './routes/timeEntryRoutes.js';
+import taskChecklistRoutes from './routes/taskChecklistRoutes.js';
 
 const PORT = 3001;
 
@@ -37,6 +38,7 @@ app.use('/api/project', projectRoutes);
 app.use('/api/tag', tagRoutes);
 app.use('/api/link', linkRoutes);
 app.use('/api/time-entry', timeEntryRoutes);
+app.use('/api/task-checklist', taskChecklistRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello world');

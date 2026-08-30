@@ -201,3 +201,27 @@ export const deleteProjectLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 30,
 });
+
+export const createTaskChecklistLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 50,
+});
+
+export const deleteTaskChecklistLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 30,
+});
+
+export const updateTaskChecklistLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 30,
+});
+
+export const readTaskChecklistLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 100,
+});
