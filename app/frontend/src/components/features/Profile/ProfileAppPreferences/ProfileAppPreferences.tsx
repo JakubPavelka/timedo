@@ -58,7 +58,7 @@ export const ProfileAppPreferences = () => {
     ];
 
     return (
-        <Card className={styles.ProfileAppPreferences}>
+        <Card>
             <SectionHeader
                 className={styles.ProfileAppPreferences__header}
                 title={t('Profile.AppPreferences.title')}
@@ -72,6 +72,7 @@ export const ProfileAppPreferences = () => {
             />
             <div className={styles.ProfileAppPreferences__itemsWrapper}>
                 <IconItem
+                    stackOnMobile
                     title={t('Profile.AppPreferences.Theme.title')}
                     description={t('Profile.AppPreferences.Theme.description')}
                     icon={
@@ -84,6 +85,7 @@ export const ProfileAppPreferences = () => {
                     rightActions={<SegmentedControl items={themeSegmentedData} />}
                 />
                 <IconItem
+                    stackOnMobile
                     title={t('Profile.AppPreferences.Timer.title')}
                     description={t('Profile.AppPreferences.Timer.description')}
                     icon={
@@ -101,6 +103,7 @@ export const ProfileAppPreferences = () => {
                     }
                 />
                 <IconItem
+                    stackOnMobile
                     title={t('Profile.AppPreferences.Language.title')}
                     description={t('Profile.AppPreferences.Language.description')}
                     icon={

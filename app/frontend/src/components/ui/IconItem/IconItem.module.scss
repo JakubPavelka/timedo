@@ -1,8 +1,17 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 
 .IconItem {
     @include layout.spaceBetweenY;
+
+    &.--stackMobile {
+        @include breakpoints.mobile {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+        }
+    }
 }
 
 .IconItem__leftSide {
@@ -12,6 +21,7 @@
 
 .IconItem__iconWrapper {
     @include layout.centerXY;
+    flex-shrink: 0;
     width: 36px;
     height: 36px;
     border-radius: 12px;
@@ -19,6 +29,12 @@
 
     &.--danger {
         background-color: var(--danger-soft);
+    }
+
+    @include breakpoints.mobile {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
     }
 }
 

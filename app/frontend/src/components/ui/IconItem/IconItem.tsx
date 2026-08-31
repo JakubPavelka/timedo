@@ -7,10 +7,13 @@ type IconItemProps = {
     icon: React.ReactNode;
     rightActions?: React.ReactNode;
     danger?: boolean;
+    stackOnMobile?: boolean;
 };
 
 export const IconItem = (props: IconItemProps) => (
-    <div className={styles.IconItem}>
+    <div
+        className={clsx(styles.IconItem, props.stackOnMobile && styles['--stackMobile'])}
+    >
         <div className={styles.IconItem__leftSide}>
             <div
                 className={clsx(
@@ -22,9 +25,7 @@ export const IconItem = (props: IconItemProps) => (
             </div>
             <div className={styles.IconItem__textWrapper}>
                 <p className={styles.IconItem__title}>{props.title}</p>
-                <p className={styles.IconItem__description}>
-                    {props.description}
-                </p>
+                <p className={styles.IconItem__description}>{props.description}</p>
             </div>
         </div>
         {props.rightActions}

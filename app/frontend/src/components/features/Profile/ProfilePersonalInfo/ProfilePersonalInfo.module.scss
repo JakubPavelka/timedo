@@ -4,7 +4,6 @@
 .ProfilePersonalInfo {
     @include layout.flexColumn;
     gap: 16px;
-    padding: 24px;
 }
 
 .ProfilePersonalInfo__topWrapper {
