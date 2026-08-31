@@ -1,5 +1,6 @@
 @use 'styles/mixins/layout';
 @use 'styles/typography';
+@use 'styles/mixins/breakpoints';
 
 .TaskDetailChecklist {
     @include layout.flexColumn;
@@ -110,6 +111,10 @@
     &:hover {
         color: var(--accent);
     }
+
+    @include breakpoints.mobile {
+        opacity: 1;
+    }
 }
 
 .TaskDetailChecklistItem__deleteIcon {
@@ -123,6 +128,10 @@
 
     &:hover {
         color: var(--danger);
+    }
+
+    @include breakpoints.mobile {
+        opacity: 1;
     }
 }
 
