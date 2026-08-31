@@ -1,0 +1,119 @@
+@use 'styles/mixins/layout';
+@use 'styles/typography';
+
+.TaskDetailChecklist {
+    @include layout.flexColumn;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.TaskDetailChecklist__header {
+    @include layout.centerY;
+    gap: 8px;
+}
+
+.TaskDetailChecklist__heading {
+    @include typography.text-sm(var(--text-2));
+    font-weight: 700;
+}
+
+.TaskDetailChecklist__list {
+    @include layout.flexColumn;
+    gap: 4px;
+}
+
+.TaskDetailChecklist__addTrigger {
+    @include layout.centerY;
+    @include typography.text-md(var(--text-3));
+    gap: 8px;
+    transition: color 0.2s;
+    cursor: pointer;
+    max-width: fit-content;
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.TaskDetailChecklist__addRow {
+    @include layout.centerY;
+    gap: 12px;
+}
+
+.TaskDetailChecklist__addInput {
+    width: 100%;
+
+    input {
+        padding: 10px 12px;
+    }
+}
+
+.TaskDetailChecklist__actionIcon {
+    flex-shrink: 0;
+    color: var(--text-2);
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--accent);
+    }
+}
+
+.TaskDetailChecklist__error {
+    @include typography.text-error;
+}
+
+.TaskDetailChecklistItem {
+    @include layout.flexColumn;
+}
+
+.TaskDetailChecklistItem__row {
+    @include layout.centerY;
+    gap: 12px;
+    min-height: 36px;
+
+    &:hover {
+        --checklist-actions-opacity: 1;
+    }
+}
+
+.TaskDetailChecklistItem__label {
+    @include typography.text-md;
+    flex: 1;
+    word-break: break-word;
+}
+
+.TaskDetailChecklistItem__label--completed {
+    color: var(--text-3);
+    text-decoration: line-through;
+}
+
+.TaskDetailChecklistItem__deleteIcon {
+    flex-shrink: 0;
+    color: var(--text-2);
+    cursor: pointer;
+    opacity: var(--checklist-actions-opacity, 0);
+    transition:
+        opacity 0.15s,
+        color 0.2s;
+
+    &:hover {
+        color: var(--danger);
+    }
+}
+
+.TaskDetailChecklistItem__chevron {
+    flex-shrink: 0;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.TaskDetailChecklistItem__chevron--collapsed {
+    transform: rotate(-90deg);
+}
+
+.TaskDetailChecklistItem__children {
+    @include layout.flexColumn;
+    padding-left: 32px;
+}

@@ -17,6 +17,7 @@ import { TaskDetailTags } from '@/components/features/Task/Detail/TaskDetailTags
 import { TaskDetailProperties } from '@/components/features/Task/Detail/TaskDetailProperties/TaskDetailProperties';
 import { TaskDetailTimeTracking } from '@/components/features/Task/Detail/TaskDetailTimeTracking/TaskDetailTimeTracking';
 import { TaskDetailTimeEntries } from '@/components/features/Task/Detail/TaskDetailTimeEntries/TaskDetailTimeEntries';
+import { TaskDetailChecklist } from '@/components/features/Task/Detail/TaskDetailChecklist/TaskDetailChecklist';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { TaskDetailTimeTrackingOff } from '@/components/features/Task/Detail/TaskDetailTimeTrackingOff/TaskDetailTimeTrackingOff';
@@ -230,6 +231,7 @@ export const TaskDetailView = () => {
                     {task?.links !== undefined && (
                         <TaskDetailLink taskId={taskId} links={task?.links ?? []} />
                     )}
+                    <TaskDetailChecklist taskId={taskId} />
                     <TaskDetailTimeEntries taskId={taskId} />
                 </div>
                 <div className={styles.TaskDetailView__right}>
