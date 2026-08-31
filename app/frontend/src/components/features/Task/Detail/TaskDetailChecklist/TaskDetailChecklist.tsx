@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Check, Plus, X } from 'lucide-react';
 import { toast } from 'sonner';
-import { TaskChecklistSchema } from '@timedo/shared/src/schemas/taskChecklistSchema';
 import { Pill } from '@/components/ui/Pill/Pill';
 import { Input } from '@/components/ui/Input/Input';
 import { useEditableField } from '@/hooks/useEditableField';
@@ -12,13 +11,12 @@ import {
 } from '@/hooks/api/useTaskChecklist';
 import type { TaskChecklistItem } from '@/api/taskChecklist/taskChecklist.api';
 import { TaskDetailChecklistItem, type ChecklistNode } from './TaskDetailChecklistItem';
+import { AddChecklistItemSchema } from './taskDetailChecklist.schema';
 import styles from './TaskDetailChecklist.module.scss';
 
 type TaskDetailChecklistProps = {
     taskId: string;
 };
-
-const AddChecklistItemSchema = TaskChecklistSchema.pick({ label: true });
 
 const buildChecklistTree = (items: TaskChecklistItem[]): ChecklistNode[] => {
     const nodeMap = new Map<string, ChecklistNode>();

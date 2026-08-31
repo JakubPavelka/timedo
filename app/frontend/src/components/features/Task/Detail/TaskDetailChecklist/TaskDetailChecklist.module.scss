@@ -81,11 +81,35 @@
     @include typography.text-md;
     flex: 1;
     word-break: break-word;
+    cursor: text;
 }
 
 .TaskDetailChecklistItem__label--completed {
     color: var(--text-3);
     text-decoration: line-through;
+}
+
+.TaskDetailChecklistItem__labelInput {
+    flex: 1;
+
+    input {
+        @include typography.text-md;
+        padding: 0;
+    }
+}
+
+.TaskDetailChecklistItem__addChildIcon {
+    flex-shrink: 0;
+    color: var(--text-2);
+    cursor: pointer;
+    opacity: var(--checklist-actions-opacity, 0);
+    transition:
+        opacity 0.15s,
+        color 0.2s;
+
+    &:hover {
+        color: var(--accent);
+    }
 }
 
 .TaskDetailChecklistItem__deleteIcon {
@@ -116,4 +140,22 @@
 .TaskDetailChecklistItem__children {
     @include layout.flexColumn;
     padding-left: 32px;
+}
+
+.TaskDetailChecklistItem__addChildRow {
+    @include layout.centerY;
+    gap: 12px;
+    min-height: 36px;
+}
+
+.TaskDetailChecklistItem__addChildInput {
+    width: 100%;
+
+    input {
+        padding: 10px 12px;
+    }
+}
+
+.TaskDetailChecklistItem__error {
+    @include typography.text-error;
 }
