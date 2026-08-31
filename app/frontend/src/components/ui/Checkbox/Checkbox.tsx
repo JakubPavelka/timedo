@@ -4,11 +4,13 @@ import { Check } from 'lucide-react';
 import clsx from 'clsx';
 
 type CheckboxSize = 'sm' | 'md';
+type CheckboxVariant = 'filled' | 'outline';
 
 type CheckboxProps = {
     label?: React.ReactNode;
     size?: CheckboxSize;
     round?: boolean;
+    variant?: CheckboxVariant;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>;
 
 const CHECK_ICON_SIZE: Record<CheckboxSize, number> = {
@@ -20,6 +22,7 @@ export const Checkbox = ({
     label,
     size = 'md',
     round = false,
+    variant = 'filled',
     className,
     id,
     ...rest
@@ -29,6 +32,7 @@ export const Checkbox = ({
             styles.Checkbox,
             styles[`Checkbox--${size}`],
             round && styles['Checkbox--round'],
+            variant === 'outline' && styles['Checkbox--outline'],
             className
         )}
         htmlFor={id}
@@ -36,7 +40,7 @@ export const Checkbox = ({
     >
         <input type="checkbox" id={id} className={styles.Checkbox__input} {...rest} />
         <span className={styles.Checkbox__box}>
-            {round ? (
+            {round && variant !== 'outline' ? (
                 <span className={styles.Checkbox__dot} />
             ) : (
                 <Check
