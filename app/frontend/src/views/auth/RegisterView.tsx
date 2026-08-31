@@ -35,10 +35,7 @@ export const RegisterView = () => {
                 <div className={styles.AuthView__alignCenter}>
                     <div className={styles.AuthView__leftContent}>
                         <AuthCard isInRegister />
-                        <RegisterForm
-                            onSubmit={registerHandler}
-                            isLoading={isPending}
-                        />
+                        <RegisterForm onSubmit={registerHandler} isLoading={isPending} />
                         {error && (
                             <p className={styles.AuthView__errorMessage}>
                                 {error instanceof ApiError
