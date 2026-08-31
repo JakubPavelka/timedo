@@ -264,6 +264,7 @@
         "addChecklistItem": "Přidat položku...",
         "addChecklistItemSuccess": "Položka byla přidána",
         "addChecklistItemError": "Nepodařilo se přidat položku, zkuste to prosím znovu",
+        "updateChecklistItemSuccess": "Položka byla upravena",
         "updateChecklistItemError": "Nepodařilo se upravit položku, zkuste to prosím znovu",
         "deleteChecklistItemSuccess": "Položka byla smazána",
         "deleteChecklistItemError": "Nepodařilo se smazat položku, zkuste to prosím znovu",

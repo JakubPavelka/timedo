@@ -264,6 +264,7 @@
         "addChecklistItem": "Add item...",
         "addChecklistItemSuccess": "Item added",
         "addChecklistItemError": "Failed to add item, please try again",
+        "updateChecklistItemSuccess": "Item updated",
         "updateChecklistItemError": "Failed to update item, please try again",
         "deleteChecklistItemSuccess": "Item deleted",
         "deleteChecklistItemError": "Failed to delete item, please try again",
