@@ -188,6 +188,7 @@ export const TaskDetailChecklistItem = (props: TaskDetailChecklistItemProps) => 
                     variant={'outline'}
                     checked={props.item.completed}
                     onChange={handleToggleCompleted}
+                    size={'sm'}
                 />
                 {isEditingLabel ? (
                     <Input
