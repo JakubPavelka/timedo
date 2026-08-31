@@ -1,10 +1,15 @@
 @use 'styles/mixins/layout';
 @use 'styles/typography';
+@use 'styles/mixins/breakpoints';
 
 .TaskView {
     @include layout.flexColumn;
     min-height: 100%;
     padding: 24px;
+
+    @include breakpoints.mobile {
+        padding: 16px;
+    }
 }
 
 .TaskView__selectAllWrapper {
@@ -17,12 +22,21 @@
     &:hover {
         background-color: var(--surface-2);
     }
+
+    @include breakpoints.mobile {
+        padding: 8px;
+        margin-top: 8px;
+    }
 }
 
 .TaskView__tasksWrapper {
     @include layout.flexColumn;
     gap: 4px;
     margin-block: 16px;
+
+    @include breakpoints.mobile {
+        margin-block: 8px;
+    }
 }
 
 .TaskView__taskLink:hover {

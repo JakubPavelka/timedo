@@ -15,6 +15,7 @@ type PopoverProps = {
     trigger: ReactNode;
     children: ReactNode;
     align?: 'left' | 'right' | 'middle';
+    className?: string;
     ref?: Ref<PopoverHandle>;
     onOpenChange?: (isOpen: boolean) => void;
 };
@@ -34,6 +35,7 @@ export const Popover = ({
     trigger,
     children,
     align = 'left',
+    className,
     ref,
     onOpenChange,
 }: PopoverProps) => {
@@ -76,7 +78,7 @@ export const Popover = ({
     const handleToggle = () => updateOpen(!isOpen);
 
     return (
-        <div className={styles.Popover} ref={wrapperRef}>
+        <div className={clsx(styles.Popover, className)} ref={wrapperRef}>
             <div className={styles.Popover__trigger} onClick={handleToggle}>
                 {trigger}
             </div>

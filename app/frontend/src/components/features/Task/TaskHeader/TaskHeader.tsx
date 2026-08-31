@@ -173,9 +173,14 @@ export const TaskHeader = (props: TaskHeader) => {
                         />
                     </div>
 
-                    <SegmentedControl items={statusSegmentedData} />
+                    <div className={styles.TaskHeader__statusWrapper}>
+                        <SegmentedControl items={statusSegmentedData} />
+                    </div>
 
-                    <Filter activeFilters={activeFilters}>
+                    <Filter
+                        className={styles.TaskHeader__filterWrapper}
+                        activeFilters={activeFilters}
+                    >
                         <div className={styles.TaskHeader__filterMenu}>
                             <p className={styles.TaskHeader__filterTitle}>
                                 {t('Task.Modal.priority')}

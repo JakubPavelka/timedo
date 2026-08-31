@@ -10,15 +10,22 @@ type FilterProps = {
     children: ReactNode;
     align?: 'left' | 'right' | 'middle';
     activeFilters?: number;
+    className?: string;
 };
 
-export const Filter = ({ children, align = 'left', activeFilters = 0 }: FilterProps) => {
+export const Filter = ({
+    children,
+    align = 'left',
+    activeFilters = 0,
+    className,
+}: FilterProps) => {
     const { t } = useTranslation();
     const hasActiveFilters = activeFilters > 0;
 
     return (
         <Popover
             align={align}
+            className={className}
             trigger={
                 <Button
                     className={clsx(hasActiveFilters && styles.Filter__activeButton)}
