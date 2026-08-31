@@ -21,11 +21,6 @@
 
 .FocusStopwatch__stopwatchTime {
     @include typography.text-stopwatch-time;
-
-    @include breakpoints.mobile {
-        font-size: 34px;
-        line-height: 40px;
-    }
 }
 
 .FocusStopwatch__stopwatchText {
