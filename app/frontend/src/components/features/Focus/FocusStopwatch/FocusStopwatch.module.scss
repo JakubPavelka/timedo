@@ -1,11 +1,17 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 
 .FocusStopwatch {
     @include layout.flexColumn;
     align-items: center;
     gap: 26px;
     padding: 24px;
+
+    @include breakpoints.mobile {
+        gap: 20px;
+        padding: 16px;
+    }
 }
 
 .FocusStopwatch__segmentedControl {
@@ -15,6 +21,11 @@
 
 .FocusStopwatch__stopwatchTime {
     @include typography.text-stopwatch-time;
+
+    @include breakpoints.mobile {
+        font-size: 34px;
+        line-height: 40px;
+    }
 }
 
 .FocusStopwatch__stopwatchText {
@@ -35,6 +46,12 @@
     width: 260px;
     height: 260px;
     border-radius: 999px;
+
+    @include breakpoints.mobile {
+        border-width: 6px;
+        width: 200px;
+        height: 200px;
+    }
 }
 
 .FocusStopwatch__activeCircleTrack {
@@ -82,6 +99,11 @@
     border-radius: 999px;
     transition: background-color 0.2s;
     cursor: pointer;
+
+    @include breakpoints.mobile {
+        width: 52px;
+        height: 52px;
+    }
 
     &:hover {
         background-color: var(--accent-text);
