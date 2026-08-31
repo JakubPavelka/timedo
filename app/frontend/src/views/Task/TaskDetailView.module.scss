@@ -121,6 +121,10 @@
     cursor: pointer;
     transition: all 0.2s;
 
+    @include breakpoints.mobile {
+        padding: 10px;
+    }
+
     svg {
         color: var(--text-2);
     }

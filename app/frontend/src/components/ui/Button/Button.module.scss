@@ -1,5 +1,6 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 
 .Button {
     @include layout.centerXY;
@@ -13,6 +14,10 @@
         opacity: 0.5;
         cursor: not-allowed;
         pointer-events: none;
+    }
+
+    @include breakpoints.mobile {
+        padding: 8px 16px;
     }
 }
 
