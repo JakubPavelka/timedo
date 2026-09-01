@@ -1,15 +1,19 @@
 import LogoBlue from '@/assets/images/logoBlue.svg?react';
 import LogoBlueDarkTheme from '@/assets/images/logoBlueDarkTheme.svg?react';
 import { useTheme } from '@/hooks/useTheme';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { Button } from '@/components/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { SidebarProfileButton } from './SidebarProfileButton/SidebarProfileButton';
 import { Link } from '@tanstack/react-router';
 import { useProjectStore } from '@/store/projectStore';
 import sidebarButtonsData from '@/data/sidebarButtonsData';
-import { ChevronRight, Plus } from 'lucide-react';
+import { ChevronRight, Folder, Tag as TagIcon, PanelLeft, Plus, X } from 'lucide-react';
 import { useTagStore } from '@/store/tagStore';
 import { useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import clsx from 'clsx';
 import styles from './Sidebar.module.scss';
 
 type SidebarProps = {
@@ -22,8 +26,14 @@ export const Sidebar = (props: SidebarProps) => {
     const projects = useProjectStore((s) => s.projects);
     const tags = useTagStore((s) => s.tags);
     const navigateGlobal = useNavigate();
+    const isCollapsible = useMediaQuery('(max-width: 1280px)');
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const closeSidebar = () => setIsExpanded(false);
+    const toggleSidebar = () => setIsExpanded((prev) => !prev);
 
     const handleFilterTag = (tagId: string) => {
+        closeSidebar();
         navigateGlobal({
             to: '/dashboard/tasks',
             search: { tag: tagId },
@@ -31,29 +41,68 @@ export const Sidebar = (props: SidebarProps) => {
     };
 
     const handleFilterProject = (projectId: string) => {
+        closeSidebar();
         navigateGlobal({
             to: '/dashboard/tasks',
             search: { project: projectId },
         });
     };
 
-    return (
-        <div className={styles.Sidebar}>
-            <Link to={'/dashboard'}>
-                {theme === 'light' ? (
-                    <LogoBlue height={40} width={110} />
-                ) : (
-                    <LogoBlueDarkTheme height={40} width={110} />
+    const renderContent = (isRailVariant: boolean) => (
+        <>
+            <div
+                className={clsx(
+                    styles.Sidebar__header,
+                    isRailVariant && styles['Sidebar__header--rail']
                 )}
-            </Link>
+            >
+                <Link
+                    to={'/dashboard'}
+                    className={styles.Sidebar__logoLink}
+                    onClick={closeSidebar}
+                >
+                    {isRailVariant ? (
+                        theme === 'light' ? (
+                            <LogoBlue viewBox="0 0 56 56" height={36} width={36} />
+                        ) : (
+                            <LogoBlueDarkTheme
+                                viewBox="0 0 56 56"
+                                height={36}
+                                width={36}
+                            />
+                        )
+                    ) : theme === 'light' ? (
+                        <LogoBlue height={40} width={110} />
+                    ) : (
+                        <LogoBlueDarkTheme height={40} width={110} />
+                    )}
+                </Link>
+                {isCollapsible && (
+                    <button
+                        type={'button'}
+                        className={styles.Sidebar__toggle}
+                        onClick={toggleSidebar}
+                        aria-label={t(isExpanded ? 'Sidebar.collapse' : 'Sidebar.expand')}
+                    >
+                        {isExpanded ? (
+                            <X width={18} height={18} />
+                        ) : (
+                            <PanelLeft width={18} height={18} />
+                        )}
+                    </button>
+                )}
+            </div>
 
             <Button
-                className={styles.Sidebar__buttonTimer}
+                className={clsx(
+                    styles.Sidebar__buttonTimer,
+                    isRailVariant && styles['Sidebar__buttonTimer--rail']
+                )}
                 onClick={props.onTimerClick}
                 havePlayIcon
                 fullWidth
             >
-                <p>{t('Sidebar.startFocus')}</p>
+                {!isRailVariant && <p>{t('Sidebar.startFocus')}</p>}
             </Button>
 
             <nav className={styles.Sidebar__buttonsWrapper}>
@@ -62,125 +111,227 @@ export const Sidebar = (props: SidebarProps) => {
                         <Link
                             to={item.view}
                             key={item.view}
-                            className={styles.Sidebar__button}
+                            className={clsx(
+                                styles.Sidebar__button,
+                                isRailVariant && styles['Sidebar__button--rail']
+                            )}
                             activeProps={{
                                 className: styles['Sidebar__button--active'],
                             }}
+                            onClick={closeSidebar}
                         >
                             <span className={styles.Sidebar__buttonIcon}>
                                 {item.icon}
                             </span>
-                            {t(item.text)}
+                            {!isRailVariant && t(item.text)}
                         </Link>
                     );
                 })}
             </nav>
             <div className={styles.Sidebar__scrollableWrapper}>
                 <div>
-                    <Link
-                        to={'/dashboard/projects'}
-                        className={styles.Sidebar__subTitleWrapper}
-                    >
-                        <span className={styles.Sidebar__subTitle}>
-                            {t('Sidebar.projects')}
-                        </span>
-                        <ChevronRight width={16} height={16} />
-                    </Link>
-                    <ul className={styles.Sidebar__itemList}>
-                        {projects.map((project) => {
-                            return (
-                                <li key={project.id}>
-                                    <button
-                                        className={styles.Sidebar__itemButton}
-                                        type={'button'}
-                                        onClick={() => handleFilterProject(project.id)}
-                                    >
-                                        <span
-                                            className={styles.Sidebar__itemColorWrapper}
-                                        >
-                                            <span
-                                                className={styles.Sidebar__itemDot}
-                                                style={{
-                                                    backgroundColor: project.color,
-                                                }}
-                                            />
-                                            <span className={styles.Sidebar__itemText}>
-                                                {project.label}
-                                            </span>
-                                        </span>
-                                        <span className={styles.Sidebar__itemCount}>
-                                            {project._count.tasks}
-                                        </span>
-                                    </button>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    {projects.length === 0 && (
-                        <Link
-                            to={'/dashboard/projects'}
-                            className={styles.Sidebar__emptyListLink}
+                    {isRailVariant ? (
+                        <button
+                            type={'button'}
+                            className={styles.Sidebar__railSectionButton}
+                            onClick={toggleSidebar}
+                            aria-label={t('Sidebar.projects')}
                         >
-                            <span>{t('Sidebar.addProject')}</span>
-                            <Plus width={16} height={16} />
-                        </Link>
+                            <Folder width={18} height={18} />
+                        </button>
+                    ) : (
+                        <>
+                            <Link
+                                to={'/dashboard/projects'}
+                                className={styles.Sidebar__subTitleWrapper}
+                                onClick={closeSidebar}
+                            >
+                                <span className={styles.Sidebar__subTitle}>
+                                    {t('Sidebar.projects')}
+                                </span>
+                                <ChevronRight width={16} height={16} />
+                            </Link>
+                            <ul className={styles.Sidebar__itemList}>
+                                {projects.map((project) => {
+                                    return (
+                                        <li key={project.id}>
+                                            <button
+                                                className={styles.Sidebar__itemButton}
+                                                type={'button'}
+                                                onClick={() =>
+                                                    handleFilterProject(project.id)
+                                                }
+                                            >
+                                                <span
+                                                    className={
+                                                        styles.Sidebar__itemColorWrapper
+                                                    }
+                                                >
+                                                    <span
+                                                        className={
+                                                            styles.Sidebar__itemDot
+                                                        }
+                                                        style={{
+                                                            backgroundColor:
+                                                                project.color,
+                                                        }}
+                                                    />
+                                                    <span
+                                                        className={
+                                                            styles.Sidebar__itemText
+                                                        }
+                                                    >
+                                                        {project.label}
+                                                    </span>
+                                                </span>
+                                                <span
+                                                    className={styles.Sidebar__itemCount}
+                                                >
+                                                    {project._count.tasks}
+                                                </span>
+                                            </button>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                            {projects.length === 0 && (
+                                <Link
+                                    to={'/dashboard/projects'}
+                                    className={styles.Sidebar__emptyListLink}
+                                    onClick={closeSidebar}
+                                >
+                                    <span>{t('Sidebar.addProject')}</span>
+                                    <Plus width={16} height={16} />
+                                </Link>
+                            )}
+                        </>
                     )}
                 </div>
                 <div>
-                    <Link
-                        to={'/dashboard/tags'}
-                        className={styles.Sidebar__subTitleWrapper}
-                    >
-                        <span className={styles.Sidebar__subTitle}>
-                            {t('Sidebar.tags')}
-                        </span>
-                        <ChevronRight width={16} height={16} />
-                    </Link>
-                    <ul className={styles.Sidebar__itemList}>
-                        {tags.map((tag) => {
-                            return (
-                                <li key={tag.id}>
-                                    <button
-                                        className={styles.Sidebar__itemButton}
-                                        type={'button'}
-                                        onClick={() => handleFilterTag(tag.id)}
-                                    >
-                                        <span
-                                            className={styles.Sidebar__itemColorWrapper}
-                                        >
-                                            <span
-                                                className={styles.Sidebar__itemDot}
-                                                style={{
-                                                    backgroundColor: tag.color,
-                                                }}
-                                            />
-                                            <span className={styles.Sidebar__itemText}>
-                                                {tag.label}
-                                            </span>
-                                        </span>
-                                        <span className={styles.Sidebar__itemCount}>
-                                            {tag._count.tasks}
-                                        </span>
-                                    </button>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    {tags.length === 0 && (
-                        <Link
-                            to={'/dashboard/tags'}
-                            className={styles.Sidebar__emptyListLink}
+                    {isRailVariant ? (
+                        <button
+                            type={'button'}
+                            className={styles.Sidebar__railSectionButton}
+                            onClick={toggleSidebar}
+                            aria-label={t('Sidebar.tags')}
                         >
-                            <span>{t('Sidebar.addTag')}</span>
-                            <Plus width={16} height={16} />
-                        </Link>
+                            <TagIcon width={18} height={18} />
+                        </button>
+                    ) : (
+                        <>
+                            <Link
+                                to={'/dashboard/tags'}
+                                className={styles.Sidebar__subTitleWrapper}
+                                onClick={closeSidebar}
+                            >
+                                <span className={styles.Sidebar__subTitle}>
+                                    {t('Sidebar.tags')}
+                                </span>
+                                <ChevronRight width={16} height={16} />
+                            </Link>
+                            <ul className={styles.Sidebar__itemList}>
+                                {tags.map((tag) => {
+                                    return (
+                                        <li key={tag.id}>
+                                            <button
+                                                className={styles.Sidebar__itemButton}
+                                                type={'button'}
+                                                onClick={() => handleFilterTag(tag.id)}
+                                            >
+                                                <span
+                                                    className={
+                                                        styles.Sidebar__itemColorWrapper
+                                                    }
+                                                >
+                                                    <span
+                                                        className={
+                                                            styles.Sidebar__itemDot
+                                                        }
+                                                        style={{
+                                                            backgroundColor: tag.color,
+                                                        }}
+                                                    />
+                                                    <span
+                                                        className={
+                                                            styles.Sidebar__itemText
+                                                        }
+                                                    >
+                                                        {tag.label}
+                                                    </span>
+                                                </span>
+                                                <span
+                                                    className={styles.Sidebar__itemCount}
+                                                >
+                                                    {tag._count.tasks}
+                                                </span>
+                                            </button>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                            {tags.length === 0 && (
+                                <Link
+                                    to={'/dashboard/tags'}
+                                    className={styles.Sidebar__emptyListLink}
+                                    onClick={closeSidebar}
+                                >
+                                    <span>{t('Sidebar.addTag')}</span>
+                                    <Plus width={16} height={16} />
+                                </Link>
+                            )}
+                        </>
                     )}
                 </div>
             </div>
 
-            <div className={styles.Sidebar__profileWrapper}>
-                <SidebarProfileButton />
+            <div
+                className={clsx(
+                    styles.Sidebar__profileWrapper,
+                    isRailVariant && styles['Sidebar__profileWrapper--rail']
+                )}
+            >
+                <SidebarProfileButton isCollapsed={isRailVariant} />
             </div>
-        </div>
+        </>
+    );
+
+    return (
+        <>
+            {isCollapsible && <div className={styles.Sidebar__spacer} />}
+
+            {!isCollapsible && (
+                <div className={styles.Sidebar}>{renderContent(false)}</div>
+            )}
+
+            {isCollapsible && !isExpanded && (
+                <div className={styles.Sidebar__rail}>{renderContent(true)}</div>
+            )}
+
+            <AnimatePresence>
+                {isCollapsible && isExpanded && (
+                    <>
+                        <motion.div
+                            key={'backdrop'}
+                            className={styles.Sidebar__backdrop}
+                            onClick={closeSidebar}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                        />
+                        <motion.div
+                            key={'panel'}
+                            className={styles.Sidebar__panel}
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ duration: 0.25, ease: 'easeOut' }}
+                        >
+                            {renderContent(false)}
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
+        </>
     );
 };

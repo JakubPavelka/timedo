@@ -2,20 +2,97 @@
 @use 'styles/colors';
 @use 'styles/mixins/layout';
 
-.Sidebar {
+%sidebarBox {
     display: flex;
     flex-direction: column;
     background-color: var(--surface-2);
+    height: 100dvh;
+    border-right: 1px solid var(--border);
+}
+
+.Sidebar {
+    @extend %sidebarBox;
     padding: 24px 16px;
     max-width: 248px;
     width: 100%;
-    height: 100dvh;
-    border-right: 1px solid var(--border);
+}
+
+.Sidebar__rail {
+    @extend %sidebarBox;
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 80px;
+    padding: 24px 12px;
+    z-index: 20;
+}
+
+.Sidebar__panel {
+    @extend %sidebarBox;
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 260px;
+    padding: 24px 16px;
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.25);
+    z-index: 40;
+    will-change: transform;
+}
+
+.Sidebar__spacer {
+    flex-shrink: 0;
+    width: 80px;
+}
+
+.Sidebar__backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 30;
+}
+
+.Sidebar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.Sidebar__header--rail {
+    flex-direction: column;
+}
+
+.Sidebar__logoLink {
+    @include layout.centerXY;
+}
+
+.Sidebar__toggle {
+    @include layout.centerXY;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: var(--surface-3);
+        color: var(--text);
+    }
 }
 
 .Sidebar__buttonTimer {
     margin-top: 12px;
     padding-block: 8px;
+}
+
+.Sidebar__buttonTimer--rail {
+    padding-inline: 8px;
+
+    svg {
+        margin-right: 0;
+    }
 }
 
 .Sidebar__buttonsWrapper {
@@ -64,6 +141,29 @@
 
 .Sidebar__buttonIcon {
     @include layout.centerXY;
+}
+
+.Sidebar__button--rail {
+    justify-content: center;
+    padding-inline: 0;
+}
+
+.Sidebar__railSectionButton {
+    @include layout.centerXY;
+    width: 100%;
+    padding: 7px 13px;
+    margin: 11px 0 0 0;
+    border: 0;
+    border-radius: 10px;
+    background-color: transparent;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: var(--surface-3);
+        color: var(--text);
+    }
 }
 
 .Sidebar__subTitleWrapper {
@@ -155,6 +255,11 @@
     margin-top: auto;
     padding-top: 16px;
     border-top: 1px solid var(--border-strong);
+}
+
+.Sidebar__profileWrapper--rail {
+    display: flex;
+    justify-content: center;
 }
 
 .Sidebar__scrollableWrapper {
