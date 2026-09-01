@@ -106,7 +106,8 @@ const createTask = async (req: Request, res: Response) => {
             status: 'success',
             data: { task: createdTask },
         });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to create task');
         return res.status(500).json({ message: 'Failed to create task' });
     }
 };
@@ -205,7 +206,8 @@ const getTasks = async (req: Request, res: Response) => {
         return res
             .status(200)
             .json({ status: 'success', data: tasksWithWorkedTime, total });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to get tasks');
         return res.status(500).json({ message: 'Failed to get tasks' });
     }
 };
@@ -273,7 +275,8 @@ const getTask = async (req: Request, res: Response) => {
             status: 'success',
             data: { ...taskData, workedTime: timeAggregate._sum.duration ?? 0 },
         });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to get task');
         return res.status(500).json({ message: 'Failed to get task' });
     }
 };
@@ -396,6 +399,7 @@ const updateTask = async (req: Request, res: Response) => {
         if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
             return res.status(404).json({ message: 'Task not found' });
         }
+        req.log.error(err, 'Failed to update task');
         return res.status(500).json({ message: 'Failed to update task' });
     }
 };
@@ -426,6 +430,7 @@ const deleteTask = async (req: Request, res: Response) => {
         if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
             return res.status(404).json({ message: 'Task not found' });
         }
+        req.log.error(err, 'Failed to delete task');
         return res.status(500).json({ message: 'Failed to delete task' });
     }
 };
@@ -461,6 +466,7 @@ const deleteTasks = async (req: Request, res: Response) => {
         if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
             return res.status(404).json({ message: 'Tasks not found' });
         }
+        req.log.error(err, 'Failed to delete tasks');
         return res.status(500).json({ message: 'Failed to delete tasks' });
     }
 };
@@ -542,6 +548,7 @@ const updateTasks = async (req: Request, res: Response) => {
         if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
             return res.status(404).json({ message: 'Tasks not found' });
         }
+        req.log.error(err, 'Failed to update tasks');
         return res.status(500).json({ message: 'Failed to update tasks' });
     }
 };

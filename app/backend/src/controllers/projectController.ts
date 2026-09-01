@@ -61,6 +61,7 @@ const createProject = async (req: Request, res: Response) => {
                 code: 'PROJECT_ALREADY_EXISTS',
             });
         }
+        req.log.error(err, 'Failed to create project');
         return res.status(500).json({ message: 'Failed to create project' });
     }
 };
@@ -81,7 +82,8 @@ const getProjects = async (req: Request, res: Response) => {
         });
 
         return res.status(200).json({ status: 'success', data: projects });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to get projects');
         return res.status(500).json({ message: 'Failed to get projects' });
     }
 };
@@ -123,7 +125,8 @@ const getProjectsWithTasks = async (req: Request, res: Response) => {
         });
 
         return res.status(200).json({ status: 'success', data });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to get projects with tasks');
         return res.status(500).json({ message: 'Failed to get projects' });
     }
 };
@@ -165,6 +168,7 @@ const updateProject = async (req: Request, res: Response) => {
                 code: 'PROJECT_ALREADY_EXISTS',
             });
         }
+        req.log.error(err, 'Failed to update project');
         return res.status(500).json({ message: 'Failed to update project' });
     }
 };
@@ -201,6 +205,7 @@ const deleteProject = async (req: Request, res: Response) => {
         if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
             return res.status(404).json({ message: 'Project not found' });
         }
+        req.log.error(err, 'Failed to delete project');
         return res.status(500).json({ message: 'Failed to delete project' });
     }
 };

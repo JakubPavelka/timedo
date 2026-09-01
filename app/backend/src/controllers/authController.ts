@@ -72,7 +72,8 @@ const register = async (req: Request, res: Response) => {
                 },
             },
         });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to register user');
         return res.status(500).json({ message: 'Failed to register user' });
     }
 };
@@ -135,7 +136,8 @@ const login = async (req: Request, res: Response) => {
                 },
             },
         });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to log in');
         return res.status(500).json({ message: 'Failed to log in' });
     }
 };
@@ -163,7 +165,8 @@ const logout = async (req: Request, res: Response) => {
             status: 'success',
             message: 'Logged out successfully',
         });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to log out');
         return res.status(500).json({ message: 'Failed to log out' });
     }
 };
@@ -219,7 +222,8 @@ const refresh = async (req: Request, res: Response) => {
         generateAccessToken(storedToken.userId, res);
 
         return res.status(200).json({ status: 'success' });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to refresh token');
         return res.status(500).json({ message: 'Failed to refresh token' });
     }
 };
@@ -257,7 +261,8 @@ const updateMe = async (req: Request, res: Response) => {
             status: 'success',
             data: { user: updatedUser },
         });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to update profile');
         return res.status(500).json({ message: 'Failed to update profile' });
     }
 };

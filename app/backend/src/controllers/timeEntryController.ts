@@ -97,6 +97,7 @@ const startTimeEntry = async (req: Request, res: Response) => {
                 code: 'TIMER_ALREADY_RUNNING',
             });
         }
+        req.log.error(err, 'Failed to start timer');
         return res.status(500).json({ message: 'Failed to start timer' });
     }
 };
@@ -117,7 +118,8 @@ const getActiveTimeEntry = async (req: Request, res: Response) => {
         }
 
         return res.status(200).json({ status: 'success', data: runningEntry });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to fetch active timer');
         return res.status(500).json({ message: 'Failed to fetch active timer' });
     }
 };
@@ -154,7 +156,8 @@ const stopTimeEntry = async (req: Request, res: Response) => {
         return res
             .status(200)
             .json({ status: 'success', data: { ...timeEntry, workedTime } });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to stop timer');
         return res.status(500).json({ message: 'Failed to stop timer' });
     }
 };
@@ -205,7 +208,8 @@ const updateTimeEntry = async (req: Request, res: Response) => {
         });
 
         return res.status(200).json({ status: 'success', data: timeEntry });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to update time entry');
         return res.status(500).json({ message: 'Failed to update time entry' });
     }
 };
@@ -298,7 +302,8 @@ const getTimeEntries = async (req: Request, res: Response) => {
         return res
             .status(200)
             .json({ status: 'success', data: entriesWithTaskWorkedTime, total });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to get time entries');
         return res.status(500).json({ message: 'Failed to get time entries' });
     }
 };
@@ -327,6 +332,7 @@ const deleteTimeEntry = async (req: Request, res: Response) => {
                 .status(404)
                 .json({ message: 'Time entry not found', code: 'ENTRY_NOT_FOUND' });
         }
+        req.log.error(err, 'Failed to delete time entry');
         return res.status(500).json({ message: 'Failed to delete time entry' });
     }
 };

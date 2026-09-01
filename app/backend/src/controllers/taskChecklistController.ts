@@ -58,7 +58,8 @@ const createTaskChecklist = async (req: Request, res: Response) => {
             status: 'success',
             data: checklistItem,
         });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to create checklist');
         return res.status(500).json({ message: 'Failed to create checklist' });
     }
 };
@@ -82,7 +83,8 @@ const getTasksChecklist = async (req: Request, res: Response) => {
         });
 
         return res.status(200).json({ message: 'success', data: taskChecklists });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to get task checklist');
         return res.status(500).json({ message: 'Failed to get task checklist' });
     }
 };
@@ -112,6 +114,7 @@ const deleteTaskChecklist = async (req: Request, res: Response) => {
                 code: 'TASK_CHECKLIST_NOT_FOUND',
             });
         }
+        req.log.error(err, 'Failed to delete task checklist');
         return res.status(500).json({ message: 'Failed to delete task checklist' });
     }
 };
@@ -178,6 +181,7 @@ const updateTaskChecklist = async (req: Request, res: Response) => {
                 code: 'TASK_CHECKLIST_NOT_FOUND',
             });
         }
+        req.log.error(err, 'Failed to update task checklist');
         return res.status(500).json({ message: 'Failed to update task checklist' });
     }
 };

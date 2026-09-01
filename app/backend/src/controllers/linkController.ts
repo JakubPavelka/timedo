@@ -34,7 +34,8 @@ const createLink = async (req: Request, res: Response) => {
         });
 
         return res.status(201).json({ message: 'success', data: link });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to create link');
         return res.status(500).json({ message: 'Failed to create link' });
     }
 };
@@ -56,7 +57,8 @@ const getLinks = async (req: Request, res: Response) => {
         });
 
         return res.status(200).json({ message: 'success', data: links });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to get links');
         return res.status(500).json({ message: 'Failed to get links' });
     }
 };
@@ -81,6 +83,7 @@ const deleteLink = async (req: Request, res: Response) => {
         if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
             return res.status(404).json({ message: 'Link not found' });
         }
+        req.log.error(err, 'Failed to delete link');
         return res.status(500).json({ message: 'Failed to delete link' });
     }
 };
@@ -116,6 +119,7 @@ const updateLink = async (req: Request, res: Response) => {
         if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
             return res.status(404).json({ message: 'Link not found' });
         }
+        req.log.error(err, 'Failed to update link');
         return res.status(500).json({ message: 'Failed to update link' });
     }
 };
