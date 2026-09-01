@@ -26,6 +26,7 @@
 
 .FocusView__taskDetailWrapper {
     width: 50%;
+    height: max-content;
 
     @include breakpoints.tablet {
         width: 100%;
