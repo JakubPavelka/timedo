@@ -40,6 +40,7 @@ export const Select = (props: SelectProps) => {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLUListElement>(null);
 
     const selectedOption = !props.multiple
         ? props.options.find((option) => option.value === props.value)
@@ -69,6 +70,23 @@ export const Select = (props: SelectProps) => {
             document.removeEventListener('mousedown', onClickOutside);
             document.removeEventListener('keydown', onKeyDown);
         };
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (!isOpen || !menuRef.current) {
+            return;
+        }
+
+        const scrollMenuIntoView = () => {
+            menuRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        };
+
+        scrollMenuIntoView();
+
+        const resizeObserver = new ResizeObserver(scrollMenuIntoView);
+        resizeObserver.observe(menuRef.current);
+
+        return () => resizeObserver.disconnect();
     }, [isOpen]);
 
     const handleSelect = (optionValue: string) => {
@@ -193,7 +211,7 @@ export const Select = (props: SelectProps) => {
                 </span>
             </button>
             {isOpen && (
-                <ul className={styles.Select__menu} role={'listbox'}>
+                <ul ref={menuRef} className={styles.Select__menu} role={'listbox'}>
                     {props.options.map((option) => {
                         const isSelected = props.multiple
                             ? (props.value ?? []).includes(option.value)

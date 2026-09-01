@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, X } from 'lucide-react';
 import { Select, type SelectOption } from '@/components/ui/Select/Select';
 import { Textarea } from '@/components/ui/Textarea/Textarea';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { LabelColorForm } from '../../Forms/LabelColorForm/LabelColorForm';
 import { ProjectSchema } from '@timedo/shared/src/schemas/projectSchema';
 import { TagSchema, type TagData } from '@timedo/shared/src/schemas/tagsSchema';
@@ -41,6 +41,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
     const [showLinkInput, setShowLinkInput] = useState(false);
     const [draftLink, setDraftLink] = useState(EMPTY_LINK_DRAFT);
     const [draftLinkError, setDraftLinkError] = useState<string>();
+    const linkInputRef = useRef<HTMLDivElement>(null);
     const projects = useProjectStore((s) => s.projects);
     const tags = useTagStore((s) => s.tags);
     const projectOptions: SelectOption[] = projects.map((project) => ({
@@ -74,6 +75,12 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
 
     const links = useWatch({ control, name: 'links' }) ?? [];
     const isTrackedWatch = useWatch({ control, name: 'isTracked' });
+
+    useEffect(() => {
+        if (showLinkInput) {
+            linkInputRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+    }, [showLinkInput]);
 
     const handleShowProjectCreateForm = () => setShowProjectCreateForm(true);
     const handleHideProjectCreateForm = () => setShowProjectCreateForm(false);
@@ -420,7 +427,7 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                 </div>
 
                 {/* LINKS */}
-                <div>
+                <div ref={linkInputRef}>
                     <label className={styles.NewTaskModal__labelText} htmlFor={'links'}>
                         {t('Task.Modal.links')}
                     </label>
