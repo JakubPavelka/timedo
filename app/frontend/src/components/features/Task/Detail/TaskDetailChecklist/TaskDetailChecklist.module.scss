@@ -5,7 +5,6 @@
 .TaskDetailChecklist {
     @include layout.flexColumn;
     gap: 12px;
-    margin-top: 24px;
 }
 
 .TaskDetailChecklist__header {

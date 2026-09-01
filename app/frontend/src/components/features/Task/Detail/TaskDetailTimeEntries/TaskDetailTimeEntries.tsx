@@ -48,7 +48,7 @@ export const TaskDetailTimeEntries = (props: TaskDetailTimeEntriesProps) => {
     }
 
     return (
-        <>
+        <div className={styles.TaskDetailTimeEntries__section}>
             <p className={styles.TaskDetailTimeEntries__heading}>
                 {t('TaskDetail.timeTracking')}
             </p>
@@ -117,6 +117,6 @@ export const TaskDetailTimeEntries = (props: TaskDetailTimeEntriesProps) => {
                 confirmText={t('General.delete')}
                 confirmIcon={<Trash2 width={16} height={16} />}
             />
-        </>
+        </div>
     );
 };

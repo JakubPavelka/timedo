@@ -2,11 +2,14 @@
 @use 'styles/mixins/layout';
 @use 'styles/mixins/breakpoints';
 
+.TaskDetailTimeEntries__section {
+    @include layout.flexColumn;
+    gap: 8px;
+}
+
 .TaskDetailTimeEntries__heading {
     @include typography.text-sm(var(--text-2));
     font-weight: 700;
-    margin-top: 24px;
-    margin-bottom: 8px;
 }
 
 .TaskDetailTimeEntries {

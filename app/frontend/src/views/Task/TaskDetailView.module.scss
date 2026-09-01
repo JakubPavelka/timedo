@@ -33,11 +33,22 @@
 }
 
 .TaskDetailView__left {
+    @include layout.flexColumn;
     width: 70%;
+    gap: 24px;
 
     @include breakpoints.tablet {
         width: 100%;
     }
+
+    @include breakpoints.mobile {
+        gap: 18px;
+    }
+}
+
+.TaskDetailView__section {
+    @include layout.flexColumn;
+    gap: 8px;
 }
 
 .TaskDetailView__right {
@@ -93,8 +104,6 @@
 .TaskDetailView__heading {
     @include typography.text-sm(var(--text-2));
     font-weight: 700;
-    margin-top: 24px;
-    margin-bottom: 8px;
 }
 
 .TaskDetailView__text {

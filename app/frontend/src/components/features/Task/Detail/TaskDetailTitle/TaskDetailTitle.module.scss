@@ -3,12 +3,12 @@
 
 .TaskDetailTitle__taskName {
     @include typography.text-title;
-    padding-block: 16px;
+    padding-block: 2px;
     cursor: pointer;
 }
 
 .TaskDetailTitle__titleEditInput {
-    padding-block: 16px;
+    padding-block: 2px;
 }
 
 .TaskDetailTitle__titleEditInput input {

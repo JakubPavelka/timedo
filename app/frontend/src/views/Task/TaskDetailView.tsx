@@ -215,7 +215,7 @@ export const TaskDetailView = () => {
                     <TaskDetailTitle taskId={taskId} title={task?.title ?? ''} />
                     <TaskDetailTags taskId={taskId} tags={task?.tags ?? []} />
                     {task?.description !== undefined && (
-                        <>
+                        <div className={styles.TaskDetailView__section}>
                             <p className={styles.TaskDetailView__heading}>
                                 {t('TaskDetail.description')}
                             </p>
@@ -223,14 +223,16 @@ export const TaskDetailView = () => {
                                 taskId={taskId}
                                 description={task.description ?? ''}
                             />
-                        </>
+                        </div>
                     )}
-                    <p className={styles.TaskDetailView__heading}>
-                        {t('TaskDetail.links')}
-                    </p>
-                    {task?.links !== undefined && (
-                        <TaskDetailLink taskId={taskId} links={task?.links ?? []} />
-                    )}
+                    <div className={styles.TaskDetailView__section}>
+                        <p className={styles.TaskDetailView__heading}>
+                            {t('TaskDetail.links')}
+                        </p>
+                        {task?.links !== undefined && (
+                            <TaskDetailLink taskId={taskId} links={task?.links ?? []} />
+                        )}
+                    </div>
                     <TaskDetailChecklist taskId={taskId} />
                     <TaskDetailTimeEntries taskId={taskId} />
                 </div>
