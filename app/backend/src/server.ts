@@ -4,6 +4,9 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import cors from 'cors';
 import { disconnectDB } from './db/db.js';
+import { logger } from './lib/logger.js';
+import { pinoHttp } from 'pino-http';
+
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
@@ -28,6 +31,12 @@ app.use(
     })
 );
 app.use(helmet());
+app.use(
+    pinoHttp({
+        logger,
+        redact: ['req.headers.cookie', 'req.headers.authorization'],
+    })
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -45,12 +54,12 @@ app.get('/', (req, res) => {
 });
 
 const server = app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
+    logger.info(`Server is running on port: ${PORT}`);
 });
 
 // Handle unhandled promise rejections (e.g., database connection errors)
 process.on('unhandledRejection', (err) => {
-    console.error('Unhandled Rejection: ', err);
+    logger.error(err, 'Unhandled Rejection');
     server.close(async () => {
         await disconnectDB();
         process.exit(1);
@@ -59,14 +68,14 @@ process.on('unhandledRejection', (err) => {
 
 // Handle uncaught exceptions
 process.on('uncaughtException', async (err) => {
-    console.error('Uncaught Exception: ', err);
+    logger.error(err, 'Uncaught Exception');
     await disconnectDB();
     process.exit(1);
 });
 
 // Graceful shutdown
-process.on('SIGTERM', async (err) => {
-    console.error('SIGTERM received, shutting down gracefully', err);
+process.on('SIGTERM', async (signal) => {
+    logger.info({ signal }, 'SIGTERM received, shutting down gracefully');
     server.close(async () => {
         await disconnectDB();
         process.exit(0);
