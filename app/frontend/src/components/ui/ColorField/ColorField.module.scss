@@ -1,4 +1,5 @@
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 
 .ColorField__colorRow {
     @include layout.centerY;
@@ -24,6 +25,16 @@
 .ColorField__colorSwatch--md {
     width: 36px;
     height: 36px;
+
+    @include breakpoints.tablet {
+        width: 32px;
+        height: 32px;
+    }
+
+    @include breakpoints.mobile {
+        width: 28px;
+        height: 28px;
+    }
 }
 
 .ColorField__colorSwatch--selected {
