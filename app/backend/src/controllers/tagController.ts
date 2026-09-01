@@ -61,6 +61,7 @@ const createTag = async (req: Request, res: Response) => {
                 code: 'TAG_ALREADY_EXISTS',
             });
         }
+        req.log.error(err, 'Failed to create tags');
         return res.status(500).json({ message: 'Failed to create tags' });
     }
 };
@@ -81,7 +82,8 @@ const getTags = async (req: Request, res: Response) => {
         });
 
         return res.status(200).json({ status: 'success', data: tags });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to get tags');
         return res.status(500).json({ message: 'Failed to get tags' });
     }
 };
@@ -123,7 +125,8 @@ const getTagsWithTasks = async (req: Request, res: Response) => {
         });
 
         return res.status(200).json({ status: 'success', data });
-    } catch {
+    } catch (err) {
+        req.log.error(err, 'Failed to get tags with tasks');
         return res.status(500).json({ message: 'Failed to get tags' });
     }
 };
@@ -165,6 +168,7 @@ const updateTag = async (req: Request, res: Response) => {
                 code: 'TAG_ALREADY_EXISTS',
             });
         }
+        req.log.error(err, 'Failed to update tag');
         return res.status(500).json({ message: 'Failed to update tag' });
     }
 };
@@ -201,6 +205,7 @@ const deleteTag = async (req: Request, res: Response) => {
         if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
             return res.status(404).json({ message: 'Tag not found' });
         }
+        req.log.error(err, 'Failed to delete tag');
         return res.status(500).json({ message: 'Failed to delete tag' });
     }
 };

@@ -57,7 +57,7 @@ export const protect = async (
 
         next();
     } catch (error) {
-        console.error(error);
+        req.log.error(error);
         res.status(401).json({ message: 'Not authorized' });
     }
 };
