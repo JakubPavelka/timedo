@@ -1,6 +1,7 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
 @use 'styles/mixins/components';
+@use 'styles/mixins/breakpoints';
 
 .FocusTimeEntryHistory {
     @include components.box-base;
@@ -10,6 +11,10 @@
     max-width: 250px;
     width: 100%;
     min-width: 0;
+
+    @include breakpoints.mobile {
+        max-width: 100%;
+    }
 }
 
 .FocusTimeEntryHistory__title {
@@ -19,6 +24,11 @@
 
 .FocusTimeEntryHistory__headerWrapper {
     @include layout.spaceBetweenY;
+
+    @include breakpoints.mobile {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 }
 
 .FocusTimeEntryHistory__loadMoreButton {

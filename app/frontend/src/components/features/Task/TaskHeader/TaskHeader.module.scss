@@ -1,23 +1,54 @@
 @use 'styles/mixins/layout';
 @use 'styles/typography';
+@use 'styles/mixins/breakpoints';
 
 .TaskHeader {
     @include layout.centerY;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 16px;
+
+    @include breakpoints.mobile {
+        gap: 12px;
+    }
 }
 
 .TaskHeader__leftSide {
     @include layout.centerY;
     justify-content: flex-start;
     flex: 1;
+    flex-wrap: wrap;
     gap: 20px;
+
+    @include breakpoints.mobile {
+        display: contents;
+    }
 }
 
 .TaskHeader__searchInput {
     max-width: 250px;
     width: 100%;
     min-width: 0;
+
+    @include breakpoints.mobile {
+        max-width: none;
+        width: auto;
+        flex: 1;
+        order: -1;
+    }
+}
+
+.TaskHeader__filterWrapper {
+    @include breakpoints.mobile {
+        flex-shrink: 0;
+        order: -1;
+    }
+}
+
+.TaskHeader__statusWrapper {
+    @include breakpoints.mobile {
+        width: 100%;
+    }
 }
 
 .TaskHeader__buttonWrapper {
@@ -28,6 +59,10 @@
 .TaskHeader__rightSide {
     @include layout.centerY;
     gap: 8px;
+
+    @include breakpoints.mobile {
+        display: contents;
+    }
 }
 
 .TaskHeader__filterMenu {

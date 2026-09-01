@@ -1,5 +1,6 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 
 .SegmentedControl {
     @include layout.centerY;
@@ -15,6 +16,10 @@
         opacity: 0.3;
         cursor: not-allowed;
     }
+
+    @include breakpoints.mobile {
+        padding: 2px;
+    }
 }
 
 .SegmentedControl__text {
@@ -28,6 +33,11 @@
         background-color 0.3s,
         border-color 0.3s,
         color 0.3s;
+
+    @include breakpoints.mobile {
+        flex: 1;
+        text-align: center;
+    }
 
     &--active {
         color: var(--text);

@@ -69,94 +69,85 @@ export const TaskListItem = (props: TaskListItem) => {
 
     return (
         <div className={styles.TaskListItem}>
-            <div className={styles.TaskListItem__leftWrapper}>
-                <Checkbox
-                    round
-                    checked={props.selected ?? false}
-                    onChange={(e) => props.onSelectChange?.(props.id, e.target.checked)}
-                />
-                <div className={styles.TaskListItem__contentWrapper}>
-                    <span
-                        className={clsx(
-                            styles.TaskListItem__title,
-                            isDone && styles['TaskListItem__title--finished']
-                        )}
-                    >
-                        {props.title}
+            <Checkbox
+                className={styles.TaskListItem__checkbox}
+                round
+                checked={props.selected ?? false}
+                onChange={(e) => props.onSelectChange?.(props.id, e.target.checked)}
+            />
+            <span
+                className={clsx(
+                    styles.TaskListItem__title,
+                    isDone && styles['TaskListItem__title--finished']
+                )}
+            >
+                {props.title}
+            </span>
+            <TaskListItemActions
+                className={styles.TaskListItem__actions}
+                taskId={props.id}
+                tagIds={props.tags?.map((tag) => tag.id) ?? []}
+            />
+            <div className={styles.TaskListItem__pillsWrapper}>
+                {props.project && (
+                    <Pill variant={'basic'} color={props.project.color} dot>
+                        {props.project.label}
+                    </Pill>
+                )}
+                {props.tags?.map((tag) => (
+                    <Pill key={tag.id} hashtag variant={'colored'} color={tag.color}>
+                        {tag.label}
+                    </Pill>
+                ))}
+                <Pill>
+                    <span className={styles.TaskListItem__priorityPill}>
+                        <PriorityIcon level={props.priority} />
+                        <span>{t(`Task.Priority.${priority}`)}</span>
                     </span>
-                    <div className={styles.TaskListItem__pillsWrapper}>
-                        {props.project && (
-                            <Pill variant={'basic'} color={props.project.color} dot>
-                                {props.project.label}
-                            </Pill>
-                        )}
-                        {props.tags?.map((tag) => (
-                            <Pill
-                                key={tag.id}
-                                hashtag
-                                variant={'colored'}
-                                color={tag.color}
-                            >
-                                {tag.label}
-                            </Pill>
-                        ))}
-                        <Pill>
-                            <span className={styles.TaskListItem__priorityPill}>
-                                <PriorityIcon level={props.priority} />
-                                <span>{t(`Task.Priority.${priority}`)}</span>
-                            </span>
-                        </Pill>
-                        <Pill
-                            variant={statusPill.variant}
-                            tone={statusPill.tone}
-                            icon={statusPill.icon}
-                        >
-                            {t(`Task.Status.${props.status.toLowerCase()}`)}
-                        </Pill>
-                    </div>
+                </Pill>
+                <Pill
+                    variant={statusPill.variant}
+                    tone={statusPill.tone}
+                    icon={statusPill.icon}
+                >
+                    {t(`Task.Status.${props.status.toLowerCase()}`)}
+                </Pill>
+            </div>
+            {showProgress && (
+                <div className={styles.TaskListItem__progressWrapper}>
+                    <p className={styles.TaskListItem__progressTime}>
+                        {hasEstimate
+                            ? `${formatDurationShort(workedTime)} / ${formatDurationShort(props.estimatedTime!)}`
+                            : formatDurationShort(workedTime)}
+                    </p>
+                    {hasEstimate && (
+                        <div className={styles.TaskListItem__progressTrack}>
+                            <div
+                                className={clsx(styles.TaskListItem__progressBar, {
+                                    [styles['TaskListItem__progressBar--over']]:
+                                        isOverEstimate,
+                                })}
+                                style={{ width: `${progressPercent}%` }}
+                            />
+                        </div>
+                    )}
                 </div>
-            </div>
-            <div className={styles.TaskListItem__rightWrapper}>
-                {showProgress && (
-                    <div className={styles.TaskListItem__progressWrapper}>
-                        <p className={styles.TaskListItem__progressTime}>
-                            {hasEstimate
-                                ? `${formatDurationShort(workedTime)} / ${formatDurationShort(props.estimatedTime!)}`
-                                : formatDurationShort(workedTime)}
-                        </p>
-                        {hasEstimate && (
-                            <div className={styles.TaskListItem__progressTrack}>
-                                <div
-                                    className={clsx(styles.TaskListItem__progressBar, {
-                                        [styles['TaskListItem__progressBar--over']]:
-                                            isOverEstimate,
-                                    })}
-                                    style={{ width: `${progressPercent}%` }}
-                                />
-                            </div>
-                        )}
-                    </div>
-                )}
-                {props.isTracked && (
-                    <div
-                        className={styles.TaskListItem__rightIcon}
-                        onClick={handleTrackClick}
-                        role={'button'}
-                        tabIndex={0}
-                        aria-label={t('TaskDetail.RightSide.startTimer')}
-                    >
-                        <Play
-                            className={styles.TaskListItem__playIcon}
-                            width={16}
-                            height={16}
-                        />
-                    </div>
-                )}
-                <TaskListItemActions
-                    taskId={props.id}
-                    tagIds={props.tags?.map((tag) => tag.id) ?? []}
-                />
-            </div>
+            )}
+            {props.isTracked && (
+                <div
+                    className={styles.TaskListItem__rightIcon}
+                    onClick={handleTrackClick}
+                    role={'button'}
+                    tabIndex={0}
+                    aria-label={t('TaskDetail.RightSide.startTimer')}
+                >
+                    <Play
+                        className={styles.TaskListItem__playIcon}
+                        width={16}
+                        height={16}
+                    />
+                </div>
+            )}
         </div>
     );
 };

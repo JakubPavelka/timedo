@@ -1,4 +1,5 @@
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 
 .ThemeSwitch {
     @include layout.centerXY;
@@ -8,6 +9,16 @@
     height: 40px;
     width: 40px;
     transition: all 0.2s;
+
+    @include breakpoints.mobile {
+        height: 34px;
+        width: 34px;
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
 }
 
 .ThemeSwitch__light {

@@ -109,7 +109,9 @@
         "addProject": "Přidat projekt",
         "tags": "TAGY",
         "addTag": "Přidat tag",
-        "profile": "Profil"
+        "profile": "Profil",
+        "expand": "Rozbalit menu",
+        "collapse": "Sbalit menu"
     },
     "Profile": {
         "logout": "Odhlásit se",

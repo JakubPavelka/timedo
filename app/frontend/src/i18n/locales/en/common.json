@@ -109,7 +109,9 @@
         "addProject": "Add project",
         "tags": "TAGS",
         "addTag": "Add tag",
-        "profile": "Profile"
+        "profile": "Profile",
+        "expand": "Expand menu",
+        "collapse": "Collapse menu"
     },
     "Profile": {
         "logout": "Sign out",

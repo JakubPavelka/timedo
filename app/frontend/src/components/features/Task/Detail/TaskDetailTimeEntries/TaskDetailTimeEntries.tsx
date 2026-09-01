@@ -48,7 +48,7 @@ export const TaskDetailTimeEntries = (props: TaskDetailTimeEntriesProps) => {
     }
 
     return (
-        <>
+        <div className={styles.TaskDetailTimeEntries__section}>
             <p className={styles.TaskDetailTimeEntries__heading}>
                 {t('TaskDetail.timeTracking')}
             </p>
@@ -60,43 +60,47 @@ export const TaskDetailTimeEntries = (props: TaskDetailTimeEntriesProps) => {
 
                     return (
                         <li key={entry.id} className={styles.TaskDetailTimeEntries__item}>
-                            <Clock
-                                className={styles.TaskDetailTimeEntries__icon}
-                                width={16}
-                                height={16}
-                            />
-                            <div className={styles.TaskDetailTimeEntries__main}>
-                                <p className={styles.TaskDetailTimeEntries__dateTime}>
-                                    {formatDateGroup(startedAt, t)} &middot;{' '}
-                                    {startedAt.toLocaleString(DateTime.TIME_SIMPLE)}
-                                </p>
-                                {entry.description && (
-                                    <p
-                                        className={
-                                            styles.TaskDetailTimeEntries__description
-                                        }
-                                    >
-                                        {entry.description}
-                                    </p>
-                                )}
-                            </div>
-                            <div className={styles.TaskDetailTimeEntries__track}>
-                                <div
-                                    className={styles.TaskDetailTimeEntries__bar}
-                                    style={{ width: `${percent}%` }}
+                            <div className={styles.TaskDetailTimeEntries__mainRow}>
+                                <Clock
+                                    className={styles.TaskDetailTimeEntries__icon}
+                                    width={16}
+                                    height={16}
                                 />
+                                <div className={styles.TaskDetailTimeEntries__main}>
+                                    <p className={styles.TaskDetailTimeEntries__dateTime}>
+                                        {formatDateGroup(startedAt, t)} &middot;{' '}
+                                        {startedAt.toLocaleString(DateTime.TIME_SIMPLE)}
+                                    </p>
+                                    {entry.description && (
+                                        <p
+                                            className={
+                                                styles.TaskDetailTimeEntries__description
+                                            }
+                                        >
+                                            {entry.description}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
-                            <p className={styles.TaskDetailTimeEntries__duration}>
-                                {formatDurationShort(duration)}
-                            </p>
-                            <div
-                                className={styles.TaskDetailTimeEntries__deleteIcon}
-                                onClick={handleDeleteClick(entry.id)}
-                                role={'button'}
-                                tabIndex={0}
-                                aria-label={t('General.delete')}
-                            >
-                                <Trash2 width={16} height={16} />
+                            <div className={styles.TaskDetailTimeEntries__statsRow}>
+                                <div className={styles.TaskDetailTimeEntries__track}>
+                                    <div
+                                        className={styles.TaskDetailTimeEntries__bar}
+                                        style={{ width: `${percent}%` }}
+                                    />
+                                </div>
+                                <p className={styles.TaskDetailTimeEntries__duration}>
+                                    {formatDurationShort(duration)}
+                                </p>
+                                <div
+                                    className={styles.TaskDetailTimeEntries__deleteIcon}
+                                    onClick={handleDeleteClick(entry.id)}
+                                    role={'button'}
+                                    tabIndex={0}
+                                    aria-label={t('General.delete')}
+                                >
+                                    <Trash2 width={16} height={16} />
+                                </div>
                             </div>
                         </li>
                     );
@@ -113,6 +117,6 @@ export const TaskDetailTimeEntries = (props: TaskDetailTimeEntriesProps) => {
                 confirmText={t('General.delete')}
                 confirmIcon={<Trash2 width={16} height={16} />}
             />
-        </>
+        </div>
     );
 };

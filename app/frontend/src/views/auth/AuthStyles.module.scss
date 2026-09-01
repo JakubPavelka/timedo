@@ -1,4 +1,5 @@
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 @use 'styles/typography';
 
 .AuthView {
@@ -12,6 +13,15 @@
     max-width: 50%;
     width: 100%;
     padding: 36px;
+
+    @include breakpoints.tablet {
+        max-width: 100%;
+        padding: 24px;
+    }
+
+    @include breakpoints.mobile {
+        padding: 16px;
+    }
 }
 
 .AuthView__leftContent {
@@ -26,6 +36,11 @@
 .AuthView__alignCenter {
     flex: 1;
     @include layout.centerXY;
+
+    @include breakpoints.mobile {
+        align-items: flex-start;
+        padding-top: 32px;
+    }
 }
 
 .AuthView__alreadyHaveAccount {
@@ -56,6 +71,10 @@
         /* tmavě modrý diagonální podklad */
         linear-gradient(150deg, oklch(0.3 0.07 262), oklch(0.2 0.05 270));
     color: #fff;
+
+    @include breakpoints.tablet {
+        display: none;
+    }
 }
 
 /* jemná tečkovaná textura navrch, vyfadovaná dolů */
@@ -63,10 +82,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(
-        rgba(255, 255, 255, 0.07) 1px,
-        transparent 1px
-    );
+    background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
     background-size: 22px 22px;
     opacity: 0.5;
     mask: linear-gradient(180deg, #000, transparent 75%);

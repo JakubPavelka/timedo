@@ -2,6 +2,7 @@ import { useRef, useState, type MouseEvent } from 'react';
 import { toast } from 'sonner';
 import { MoreVertical, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 import { Popover, type PopoverHandle } from '@/components/ui/Popover/Popover';
 import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { TaskListItemActionsMenu } from '@/components/features/Task/TaskListItemActionsMenu/TaskListItemActionsMenu';
@@ -12,6 +13,7 @@ import styles from './TaskListItemActions.module.scss';
 type TaskListItemActionsProps = {
     taskId: string;
     tagIds: string[];
+    className?: string;
 };
 
 export const TaskListItemActions = (props: TaskListItemActionsProps) => {
@@ -43,7 +45,10 @@ export const TaskListItemActions = (props: TaskListItemActionsProps) => {
     };
 
     return (
-        <div className={styles.TaskListItemActions} onClick={handleAreaClick}>
+        <div
+            className={clsx(styles.TaskListItemActions, props.className)}
+            onClick={handleAreaClick}
+        >
             <Popover
                 ref={actionsPopoverRef}
                 align={'right'}

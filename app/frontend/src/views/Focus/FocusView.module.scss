@@ -1,18 +1,36 @@
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 
 .FocusView {
     @include layout.flexColumn;
     gap: 24px;
     padding: 32px;
+
+    @include breakpoints.tablet {
+        padding: 24px;
+    }
+
+    @include breakpoints.mobile {
+        padding: 16px;
+    }
 }
 
 .FocusView__topWrapper {
     display: flex;
     gap: 24px;
+
+    @include breakpoints.tablet {
+        flex-direction: column;
+    }
 }
 
 .FocusView__taskDetailWrapper {
     width: 50%;
+    height: max-content;
+
+    @include breakpoints.tablet {
+        width: 100%;
+    }
 }
 
 .FocusView__stopwatchItem {
@@ -21,4 +39,9 @@
     border-radius: 10px;
     min-height: 400px;
     width: 50%;
+
+    @include breakpoints.tablet {
+        width: 100%;
+        min-height: unset;
+    }
 }

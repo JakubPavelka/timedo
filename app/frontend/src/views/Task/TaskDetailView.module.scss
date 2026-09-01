@@ -1,30 +1,64 @@
 @use 'styles/mixins/layout';
 @use 'styles/typography';
+@use 'styles/mixins/breakpoints';
 
 .TaskDetailView {
     padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+
+    @include breakpoints.mobile {
+        padding: 16px;
+    }
 }
 
 .TaskDetailView__header {
     @include layout.spaceBetweenY;
+
+    @include breakpoints.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
 }
 
 .TaskDetailView__columns {
     display: flex;
     gap: 24px;
+
+    @include breakpoints.tablet {
+        flex-direction: column;
+    }
 }
 
 .TaskDetailView__left {
+    @include layout.flexColumn;
     width: 70%;
+    gap: 24px;
+
+    @include breakpoints.tablet {
+        width: 100%;
+    }
+
+    @include breakpoints.mobile {
+        gap: 18px;
+    }
+}
+
+.TaskDetailView__section {
+    @include layout.flexColumn;
+    gap: 8px;
 }
 
 .TaskDetailView__right {
     @include layout.flexColumn;
     width: 30%;
     gap: 24px;
+
+    @include breakpoints.tablet {
+        width: 100%;
+    }
 }
 
 .TaskDetailView__back {
@@ -50,6 +84,10 @@
 .TaskDetailView__headerActions {
     @include layout.centerY;
     gap: 16px;
+
+    @include breakpoints.mobile {
+        flex-wrap: wrap;
+    }
 }
 
 .TaskDetailView__buttonContent {
@@ -59,14 +97,13 @@
 
 .TaskDetailView__badges {
     @include layout.centerY;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
 .TaskDetailView__heading {
     @include typography.text-sm(var(--text-2));
     font-weight: 700;
-    margin-top: 24px;
-    margin-bottom: 8px;
 }
 
 .TaskDetailView__text {
@@ -92,6 +129,10 @@
     padding: 12px;
     cursor: pointer;
     transition: all 0.2s;
+
+    @include breakpoints.mobile {
+        padding: 10px;
+    }
 
     svg {
         color: var(--text-2);

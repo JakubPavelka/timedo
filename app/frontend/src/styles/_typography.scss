@@ -1,15 +1,17 @@
-$font-size-xs: 12px;
-$font-size-sm: 14px;
-$font-size-md: 16px;
-$font-size-lg: 18px;
-$font-size-xl: 24px;
-$font-size-title: 28px;
+@use 'mixins/breakpoints';
+
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.5rem;
+$font-size-title: 1.75rem;
 
 @mixin text-xs($color: var(--text)) {
     font-size: $font-size-xs;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 400;
-    line-height: 16px;
+    line-height: 1rem;
     color: $color;
 }
 
@@ -17,37 +19,62 @@ $font-size-title: 28px;
     font-size: $font-size-sm;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 400;
-    line-height: 20px;
+    line-height: 1.25rem;
     color: $color;
+
+    @include breakpoints.mobile {
+        font-size: 0.8125rem;
+        line-height: 1.125rem;
+    }
 }
 
 @mixin text-md($color: var(--text)) {
     font-size: $font-size-md;
     font-family: 'Hanken Grotesk', sans-serif;
-    line-height: 24px;
+    line-height: 1.5rem;
     color: $color;
+
+    @include breakpoints.mobile {
+        font-size: 0.9375rem;
+        line-height: 1.375rem;
+    }
 }
 
 @mixin text-lg($color: var(--text)) {
     font-size: $font-size-lg;
     font-family: 'Hanken Grotesk', sans-serif;
-    line-height: 24px;
+    line-height: 1.5rem;
     color: $color;
+
+    @include breakpoints.mobile {
+        font-size: 1rem;
+        line-height: 1.375rem;
+    }
 }
 
 @mixin text-xl($color: var(--text)) {
     font-size: $font-size-xl;
     font-family: 'Hanken Grotesk', sans-serif;
-    line-height: 26px;
+    line-height: 1.625rem;
     color: $color;
+
+    @include breakpoints.mobile {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
 }
 
 @mixin text-title($color: var(--text)) {
     font-size: $font-size-title;
     font-family: 'Hanken Grotesk', sans-serif;
     font-weight: 700;
-    line-height: 36px;
+    line-height: 2.25rem;
     color: $color;
+
+    @include breakpoints.mobile {
+        font-size: 1.375rem;
+        line-height: 1.75rem;
+    }
 }
 
 @mixin text-error {
@@ -56,18 +83,23 @@ $font-size-title: 28px;
 }
 
 @mixin text-stopwatch-time($color: var(--text)) {
-    font-size: 46px;
+    font-size: 2.875rem;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 600;
-    line-height: 56px;
+    line-height: 3.5rem;
     color: $color;
+
+    @include breakpoints.mobile {
+        font-size: 2.125rem;
+        line-height: 2.5rem;
+    }
 }
 
 @mixin text-xs-mono($color: var(--text)) {
     font-size: $font-size-xs;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
-    line-height: 16px;
+    line-height: 1rem;
     color: $color;
 }
 
@@ -75,13 +107,23 @@ $font-size-title: 28px;
     font-size: $font-size-sm;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
-    line-height: 20px;
+    line-height: 1.25rem;
     color: $color;
+
+    @include breakpoints.mobile {
+        font-size: 0.8125rem;
+        line-height: 1.125rem;
+    }
 }
 
 @mixin text-lg-mono($color: var(--text)) {
     font-size: $font-size-lg;
     font-family: 'JetBrains Mono', monospace;
-    line-height: 24px;
+    line-height: 1.5rem;
     color: $color;
+
+    @include breakpoints.mobile {
+        font-size: 1rem;
+        line-height: 1.375rem;
+    }
 }

@@ -32,10 +32,7 @@ export const LoginView = () => {
                 <div className={styles.AuthView__alignCenter}>
                     <div className={styles.AuthView__leftContent}>
                         <AuthCard />
-                        <LoginForm
-                            onSubmit={loginHandler}
-                            isLoading={isPending}
-                        />
+                        <LoginForm onSubmit={loginHandler} isLoading={isPending} />
                         {error && (
                             <p className={styles.AuthView__errorMessage}>
                                 {error instanceof ApiError

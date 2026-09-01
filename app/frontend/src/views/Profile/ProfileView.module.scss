@@ -1,15 +1,24 @@
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 
 .ProfileView {
     @include layout.flexColumn;
     padding: 24px;
     gap: 24px;
+
+    @include breakpoints.mobile {
+        padding: 16px;
+    }
 }
 
 .ProfileView__flexWrapper {
     display: flex;
     align-items: flex-start;
     gap: 24px;
+
+    @include breakpoints.tablet {
+        flex-direction: column;
+    }
 }
 
 .ProfileView__leftSide {
@@ -17,6 +26,10 @@
     gap: 24px;
     max-width: 600px;
     width: 100%;
+
+    @include breakpoints.tablet {
+        max-width: 100%;
+    }
 }
 
 .ProfileView__rightSide {
@@ -24,4 +37,8 @@
     gap: 24px;
     max-width: 550px;
     width: 100%;
+
+    @include breakpoints.tablet {
+        max-width: 100%;
+    }
 }

@@ -1,5 +1,6 @@
 @use 'styles/mixins/layout';
 @use 'styles/typography';
+@use 'styles/mixins/breakpoints';
 
 .TaskDetailLink {
     @include layout.flexColumn;
@@ -36,6 +37,10 @@
 .TaskDetailLink__editInputs {
     @include layout.centerY;
     gap: 12px;
+
+    @include breakpoints.mobile {
+        flex-wrap: wrap;
+    }
 }
 
 .TaskDetailLink__editInput {
@@ -43,6 +48,10 @@
 
     input {
         padding: 10px 12px;
+    }
+
+    @include breakpoints.mobile {
+        width: 100%;
     }
 }
 

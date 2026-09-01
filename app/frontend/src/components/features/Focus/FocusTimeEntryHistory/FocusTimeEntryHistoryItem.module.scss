@@ -1,6 +1,7 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
 @use 'styles/mixins/components';
+@use 'styles/mixins/breakpoints';
 
 .FocusTimeEntryHistoryItem {
     @include layout.spaceBetweenY;
@@ -14,10 +15,22 @@
         border-bottom-color: var(--border-strong);
         --actions-trigger-opacity: 1;
     }
+
+    @include breakpoints.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
 }
 
 .FocusTimeEntryHistoryItem__dateWrapper {
     @include layout.flexColumn;
+
+    @include breakpoints.mobile {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 6px;
+    }
 }
 
 .FocusTimeEntryHistoryItem__date {
@@ -41,11 +54,17 @@
 .FocusTimeEntryHistoryItem__pillWrapper {
     @include layout.centerY;
     gap: 16px;
+
+    @include breakpoints.mobile {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
 }
 
 .FocusTimeEntryHistoryItem__titleWrapper {
     @include layout.flexColumn;
     gap: 2px;
+    min-width: 0;
 }
 
 .FocusTimeEntryHistoryItem__statsWrapper {
@@ -54,6 +73,11 @@
     gap: 4px;
     flex-shrink: 0;
     text-align: right;
+
+    @include breakpoints.mobile {
+        align-items: flex-start;
+        text-align: left;
+    }
 }
 
 .FocusTimeEntryHistoryItem__trackedTime {
@@ -68,6 +92,14 @@
 .FocusTimeEntryHistoryItem__flex {
     @include layout.centerY;
     gap: 32px;
+    min-width: 0;
+
+    @include breakpoints.mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        width: 100%;
+    }
 }
 
 .FocusTimeEntryHistoryItem__deleteModalIcon {
@@ -77,6 +109,11 @@
 .FocusTimeEntryHistoryItem__rightSide {
     @include layout.centerY;
     gap: 16px;
+
+    @include breakpoints.mobile {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
 
 .FocusTimeEntryHistoryItem__deleteIcon {
@@ -99,6 +136,10 @@
     }
 
     &:focus-visible {
+        opacity: 1;
+    }
+
+    @include breakpoints.mobile {
         opacity: 1;
     }
 }

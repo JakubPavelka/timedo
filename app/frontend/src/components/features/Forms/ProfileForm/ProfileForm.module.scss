@@ -1,6 +1,7 @@
 @use 'styles/mixins/layout';
 @use 'styles/typography';
 @use 'styles/colors';
+@use 'styles/mixins/breakpoints';
 
 .ProfileForm {
     @include layout.flexColumn;
@@ -16,6 +17,10 @@
     display: flex;
     align-items: flex-start;
     gap: 16px;
+
+    @include breakpoints.mobile {
+        flex-direction: column;
+    }
 }
 
 .ProfileForm__labelWrapper {
@@ -23,6 +28,10 @@
 
     &.--half {
         width: 50%;
+
+        @include breakpoints.mobile {
+            width: 100%;
+        }
     }
 }
 

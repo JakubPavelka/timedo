@@ -47,3 +47,8 @@
 .SidebarProfileButton__nameText {
     @include typography.text-sm(var(--text-2));
 }
+
+.SidebarProfileButton--collapsed {
+    justify-content: center;
+    padding: 6px;
+}
