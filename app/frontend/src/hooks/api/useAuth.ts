@@ -46,3 +46,7 @@ export const useUpdateMe = () => {
         onSuccess: (user) => setUser(user),
     });
 };
+
+export const useChangePassword = () => {
+    return useMutation({ mutationFn: authApi.changePassword });
+};

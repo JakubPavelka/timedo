@@ -5,12 +5,10 @@ import bcrypt from 'bcryptjs';
 import {
     RegisterPayloadSchema,
     LoginSchema,
+    ChangePasswordSchema,
 } from '@timedo/shared/src/schemas/authSchema';
 import { ProfileSchema } from '@timedo/shared/src/schemas/profileSchema';
-import {
-    generateAccessToken,
-    generateRefreshToken,
-} from '../utils/generateToken.js';
+import { generateAccessToken, generateRefreshToken } from '../utils/generateToken.js';
 
 const register = async (req: Request, res: Response) => {
     const parsedBody = RegisterPayloadSchema.safeParse(req.body);
@@ -102,10 +100,7 @@ const login = async (req: Request, res: Response) => {
             });
         }
 
-        const isPasswordMatch = await bcrypt.compare(
-            password,
-            user.passwordHashed
-        );
+        const isPasswordMatch = await bcrypt.compare(password, user.passwordHashed);
 
         if (!isPasswordMatch) {
             return res.status(401).json({
@@ -198,7 +193,10 @@ const refresh = async (req: Request, res: Response) => {
         try {
             await prisma.refreshToken.delete({ where: { id: storedToken.id } });
         } catch (err) {
-            if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+            if (
+                err instanceof Prisma.PrismaClientKnownRequestError &&
+                err.code === 'P2025'
+            ) {
                 res.clearCookie('accessToken');
                 res.clearCookie('refreshToken');
                 return res.status(401).json({
@@ -267,4 +265,57 @@ const updateMe = async (req: Request, res: Response) => {
     }
 };
 
-export { register, login, logout, refresh, me, updateMe };
+const changePassword = async (req: Request, res: Response) => {
+    const parsedBody = ChangePasswordSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { currentPassword, newPassword } = parsedBody.data;
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: req.user?.id },
+        });
+
+        if (!user) {
+            return res
+                .status(401)
+                .json({ message: 'Not authorized', code: 'USER_NOT_FOUND' });
+        }
+
+        const isPasswordMatch = await bcrypt.compare(
+            currentPassword,
+            user.passwordHashed
+        );
+
+        if (!isPasswordMatch) {
+            return res.status(401).json({
+                message: 'Current password is incorrect',
+                code: 'INCORRECT_PASSWORD',
+            });
+        }
+
+        const bcryptSalt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, bcryptSalt);
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { passwordHashed: hashedPassword },
+        });
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Password changed successfully',
+        });
+    } catch (err) {
+        req.log.error(err, 'Failed to change password');
+        return res.status(500).json({ message: 'Failed to change password' });
+    }
+};
+
+export { register, login, logout, refresh, me, updateMe, changePassword };

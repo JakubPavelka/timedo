@@ -7,11 +7,13 @@ import { Button } from '@/components/ui/Button/Button';
 import { useDeleteAccount } from '@/hooks/api/useUser';
 import { useState, useCallback } from 'react';
 import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
+import { ChangePasswordModal } from '@/components/features/Profile/ChangePasswordModal/ChangePasswordModal';
 import { useNavigate } from '@tanstack/react-router';
 import styles from './ProfileSecurity.module.scss';
 
 export const ProfileSecurity = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
     const { t } = useTranslation();
     const { mutate: deleteAccount } = useDeleteAccount();
     const navigate = useNavigate();
@@ -19,11 +21,22 @@ export const ProfileSecurity = () => {
     const handleOpenModal = useCallback(() => setShowDeleteModal(true), []);
     const handleCloseModal = useCallback(() => setShowDeleteModal(false), []);
 
+    const handleOpenChangePasswordModal = useCallback(
+        () => setShowChangePasswordModal(true),
+        []
+    );
+    const handleCloseChangePasswordModal = useCallback(
+        () => setShowChangePasswordModal(false),
+        []
+    );
+
     const handleDeleteAccount = useCallback(() => {
         deleteAccount(undefined, {
             onSuccess: () => navigate({ to: '/login' }),
         });
     }, [deleteAccount, navigate]);
+
+    const deleteConfirmationWord = t('Profile.Security.deleteAccountConfirmWord');
 
     return (
         <Card>
@@ -50,9 +63,9 @@ export const ProfileSecurity = () => {
                         />
                     }
                     rightActions={
-                        // TODO Přidat změnit heslo
                         <Button
                             className={styles.ProfileSecurity__button}
+                            onClick={handleOpenChangePasswordModal}
                             variant={'outline'}
                         >
                             {t('General.change')}
@@ -71,7 +84,6 @@ export const ProfileSecurity = () => {
                     }
                     danger
                     rightActions={
-                        // TODO Přidat delete účtu
                         <Button
                             className={styles.ProfileSecurity__button}
                             onClick={handleOpenModal}
@@ -83,23 +95,29 @@ export const ProfileSecurity = () => {
                 />
             </div>
             <ConfirmModal
-                    isOpen={showDeleteModal}
-                    onClose={handleCloseModal}
-                    onConfirm={handleDeleteAccount}
-                    variant={'danger'}
-                    title={`${t('Profile.Security.deleteAccountTitle')}?`}
-                    icon={
-                        <UserRoundX
-                            className={styles.ProfileSecurity__iconDanger}
-                            width={18}
-                            height={18}
-                        />
-                    }
-                    description={t(
-                        'Profile.Security.deleteAccountModalDescription'
-                    )}
-                    confirmText={t('General.delete')}
-                    confirmIcon={<UserRoundX width={16} height={16} />}
+                isOpen={showDeleteModal}
+                onClose={handleCloseModal}
+                onConfirm={handleDeleteAccount}
+                variant={'danger'}
+                title={`${t('Profile.Security.deleteAccountTitle')}?`}
+                icon={
+                    <UserRoundX
+                        className={styles.ProfileSecurity__iconDanger}
+                        width={18}
+                        height={18}
+                    />
+                }
+                description={t('Profile.Security.deleteAccountModalDescription')}
+                confirmText={t('General.delete')}
+                confirmIcon={<UserRoundX width={16} height={16} />}
+                confirmationWord={deleteConfirmationWord}
+                confirmationLabel={t('Profile.Security.deleteAccountConfirmLabel', {
+                    word: deleteConfirmationWord,
+                })}
+            />
+            <ChangePasswordModal
+                isOpen={showChangePasswordModal}
+                onClose={handleCloseChangePasswordModal}
             />
         </Card>
     );

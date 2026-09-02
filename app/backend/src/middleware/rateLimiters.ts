@@ -52,6 +52,12 @@ export const deleteMeLimiter = rateLimit({
     limit: 5,
 });
 
+export const changePasswordLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 60 * 60 * 1000, // 1h
+    limit: 10,
+});
+
 export const createTaskLimiter = rateLimit({
     ...commonOptions,
     windowMs: 15 * 60 * 1000, // 15min

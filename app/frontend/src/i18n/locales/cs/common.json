@@ -25,7 +25,8 @@
         "NO_RUNNING_TIMER": "Žádný časovač neběží",
         "ENTRY_NOT_FOUND": "Časový záznam nebyl nalezen",
         "TASK_CHECKLIST_NOT_FOUND": "Položka checklistu nebyla nalezena",
-        "PARENT_CHECKLIST_NOT_FOUND": "Nadřazená položka checklistu nebyla nalezena"
+        "PARENT_CHECKLIST_NOT_FOUND": "Nadřazená položka checklistu nebyla nalezena",
+        "INCORRECT_PASSWORD": "Současné heslo je nesprávné"
     },
     "General": {
         "timeUnderControl": "Tvůj čas pod kontrolou",
@@ -151,9 +152,18 @@
             "title": "Zabezpečení",
             "password": "Heslo",
             "passwordDescription": "Změňte heslo pro zabezpečení účtu",
+            "currentPassword": "Současné heslo",
+            "newPassword": "Nové heslo",
+            "newPasswordAgain": "Nové heslo znovu",
+            "changePasswordModalTitle": "Změnit heslo",
+            "changePasswordModalDescription": "Zadejte současné heslo a zvolte nové.",
+            "changePasswordSuccess": "Heslo bylo úspěšně změněno",
+            "changePasswordError": "Nepodařilo se změnit heslo, zkuste to prosím znovu",
             "deleteAccountTitle": "Smazat účet",
             "deleteAccountDescription": "Trvale odstraní data i historii času",
-            "deleteAccountModalDescription": "Váš účet bude trvale odstraněn a ztratíte veškerá data. Tato akce je nevratná."
+            "deleteAccountModalDescription": "Váš účet bude trvale odstraněn a ztratíte veškerá data. Tato akce je nevratná.",
+            "deleteAccountConfirmWord": "SMAZAT",
+            "deleteAccountConfirmLabel": "Pro potvrzení napište {{word}}"
         }
     },
     "Task": {
