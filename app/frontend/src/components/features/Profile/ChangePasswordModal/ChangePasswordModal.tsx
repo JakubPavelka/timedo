@@ -163,8 +163,6 @@ export const ChangePasswordModal = (props: ChangePasswordModalProps) => {
                     )}
                 </div>
 
-                <div className={styles.ChangePasswordModal__divider} />
-
                 <div className={styles.ChangePasswordModal__buttonsWrapper}>
                     <Button variant={'outline'} onClick={props.onClose} type={'button'}>
                         {t('General.cancel')}

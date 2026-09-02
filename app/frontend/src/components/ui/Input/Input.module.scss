@@ -93,6 +93,7 @@
 
 .Input__toggle {
     @include layout.centerXY;
+    align-self: center;
     cursor: pointer;
     width: 28px;
     height: 28px;
