@@ -20,7 +20,7 @@ export const LoginView = () => {
                 email: data.email,
                 password: data.password,
             },
-            { onSuccess: () => navigate({ to: '/dashboard', replace: true }) }
+            { onSuccess: () => navigate({ to: '/dashboard/focus', replace: true }) }
         );
     };
 

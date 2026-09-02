@@ -56,11 +56,7 @@ export const Sidebar = (props: SidebarProps) => {
                     isRailVariant && styles['Sidebar__header--rail']
                 )}
             >
-                <Link
-                    to={'/dashboard'}
-                    className={styles.Sidebar__logoLink}
-                    onClick={closeSidebar}
-                >
+                <div className={styles.Sidebar__logoLink}>
                     {isRailVariant ? (
                         theme === 'light' ? (
                             <LogoBlue viewBox="0 0 56 56" height={36} width={36} />
@@ -76,7 +72,7 @@ export const Sidebar = (props: SidebarProps) => {
                     ) : (
                         <LogoBlueDarkTheme height={40} width={110} />
                     )}
-                </Link>
+                </div>
                 {isCollapsible && (
                     <button
                         type={'button'}
