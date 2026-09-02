@@ -4,6 +4,7 @@ import { useTimerMode } from '@/hooks/useTimerMode';
 import { useElapsedSeconds } from '@/hooks/useElapsedSeconds';
 import { formatDuration } from '@/utils/formatDuration';
 import { Play, Square } from 'lucide-react';
+import { useLayoutEffect, useRef } from 'react';
 import clsx from 'clsx';
 import styles from './FocusStopwatch.module.scss';
 
@@ -22,12 +23,26 @@ export const FocusStopwatch = (props: FocusStopwatchType) => {
     const { t } = useTranslation();
     const timerType = useTimerMode((s) => s.timerMode);
     //const setTimerType = useTimerMode((s) => s.setTimerMode);
+    const activeCircleTrackRef = useRef<HTMLDivElement>(null);
     const elapsedSeconds = useElapsedSeconds(props.startedAt, props.isRunning);
     const plannedDuration = props.plannedDuration ?? DEFAULT_POMODORO_DURATION;
     const displaySeconds =
         timerType === 'STOPWATCH'
             ? elapsedSeconds
             : Math.max(plannedDuration - elapsedSeconds, 0);
+
+    useLayoutEffect(() => {
+        if (!props.isRunning) {
+            return;
+        }
+        const el = activeCircleTrackRef.current;
+        if (!el) {
+            return;
+        }
+        el.style.animationName = 'none';
+        void el.offsetWidth;
+        el.style.animationName = '';
+    }, [props.isRunning]);
 
     {
         /*const stopwatchTypeSegmentedData = [
@@ -59,6 +74,7 @@ export const FocusStopwatch = (props: FocusStopwatchType) => {
                 <div className={styles.FocusStopwatch__stopwatchCircle}>
                     {timerType === 'STOPWATCH' && (
                         <div
+                            ref={activeCircleTrackRef}
                             className={clsx(
                                 styles.FocusStopwatch__activeCircleTrack,
                                 props.isRunning &&

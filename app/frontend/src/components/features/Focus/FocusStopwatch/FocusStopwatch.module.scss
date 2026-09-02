@@ -53,12 +53,14 @@
     position: absolute;
     inset: 0;
     opacity: 0;
+    animation: FocusStopwatch-spin 4s linear infinite;
+    animation-play-state: paused;
     transition: opacity 0.2s;
 }
 
 .FocusStopwatch__activeCircleTrack--running {
     opacity: 1;
-    animation: FocusStopwatch-spin 4s linear infinite;
+    animation-play-state: running;
 }
 
 .FocusStopwatch__activeCircle {
