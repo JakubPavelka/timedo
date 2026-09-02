@@ -321,7 +321,10 @@
             "untrackedTime": "Čas bez úkolu",
             "today": "Dnes",
             "yesterday": "Včera",
-            "loadMore": "Načíst další"
+            "loadMore": "Načíst další",
+            "emptyTitle": "Zatím žádná historie",
+            "emptyDescription": "Začni měřit čas na svých úkolech a uvidíš tu jejich historii.",
+            "goToTasks": "Přejít na úkoly"
         },
         "timeEntryDeleteModalTitle": "Smazat záznam?",
         "timeEntryDeleteModalDescription": "Tato akce je nevratná. Záznam bude trvale smazán.",
