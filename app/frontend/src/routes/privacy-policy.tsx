@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { RegisterView } from '@/views/auth/RegisterView';
+import { PrivacyPolicyView } from '@/views/Legal/PrivacyPolicyView';
 
 export const Route = createFileRoute('/privacy-policy')({
-    component: RegisterView,
+    component: PrivacyPolicyView,
 });
