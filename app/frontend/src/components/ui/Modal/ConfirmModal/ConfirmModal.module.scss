@@ -35,6 +35,17 @@
     @include typography.text-md(var(--text-2));
 }
 
+.ConfirmModal__confirmationWrapper {
+    @include layout.flexColumn;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.ConfirmModal__confirmationLabel {
+    @include typography.text-sm(var(--text-2));
+    font-weight: 600;
+}
+
 .ConfirmModal__buttonsWrapper {
     @include layout.centerY;
     justify-content: flex-end;
