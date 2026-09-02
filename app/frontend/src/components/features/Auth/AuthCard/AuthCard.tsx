@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import styles from './AuthCard.module.scss';
-import Google from '@/assets/images/googleLogo.svg?react';
+//import Google from '@/assets/images/googleLogo.svg?react';
 
 type AuthCardProps = {
     onGoogleSignClick?: () => void;
@@ -18,10 +18,9 @@ export const AuthCard = (props: AuthCardProps) => {
                     : t('AuthCard.welcomeBack')}
             </p>
             <h1 className={styles.AuthCard__title}>
-                {props.isInRegister
-                    ? t('AuthCard.createAccount')
-                    : t('AuthCard.signIn')}
+                {props.isInRegister ? t('AuthCard.createAccount') : t('AuthCard.signIn')}
             </h1>
+            {/* 
             <button type={'button'} className={styles.AuthCard__googleCard}>
                 <Google />
                 <span className={styles.AuthCard__cardText}>
@@ -35,6 +34,7 @@ export const AuthCard = (props: AuthCardProps) => {
                 </p>
                 <div className={styles.AuthCard__divider} />
             </div>
+            */}
         </div>
     );
 };
