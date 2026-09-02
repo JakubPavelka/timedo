@@ -341,7 +341,10 @@ export const TaskHeader = (props: TaskHeader) => {
                             />
                         </Popover>
                     )}
-                    <Button onClick={props.onNewTaskClick}>
+                    <Button
+                        onClick={props.onNewTaskClick}
+                        className={styles.TaskHeader__newTaskButton}
+                    >
                         <span className={styles.TaskHeader__buttonWrapper}>
                             <Plus width={16} height={16} />
                             <span>{t('Task.newTask')}</span>
