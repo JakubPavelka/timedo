@@ -1,7 +1,7 @@
 import { ProfileHeader } from '@/components/features/Profile/ProfileHeader/ProfileHeader';
 import { ProfilePersonalInfo } from '@/components/features/Profile/ProfilePersonalInfo/ProfilePersonalInfo';
 import { ProfileAppPreferences } from '@/components/features/Profile/ProfileAppPreferences/ProfileAppPreferences';
-import { ProfileConnectedAccounts } from '@/components/features/Profile/ProfileConnectedAccounts/ProfileConnectedAccounts';
+//import { ProfileConnectedAccounts } from '@/components/features/Profile/ProfileConnectedAccounts/ProfileConnectedAccounts';
 import { ProfileSecurity } from '@/components/features/Profile/ProfileSecurity/ProfileSecurity';
 import { useUpdateMe } from '@/hooks/api/useAuth';
 import { getErrorMessage } from '@/utils/getErrorMessage';
@@ -31,7 +31,7 @@ export const ProfileView = () => {
                     <ProfileAppPreferences />
                 </div>
                 <div className={styles.ProfileView__rightSide}>
-                    <ProfileConnectedAccounts />
+                    {/*<ProfileConnectedAccounts />*/}
                     <ProfileSecurity />
                 </div>
             </div>
