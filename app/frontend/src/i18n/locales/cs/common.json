@@ -394,5 +394,11 @@
             "success": "Tag byl úspěšně upraven",
             "error": "Nepodařilo se upravit tag, zkuste to prosím znovu"
         }
+    },
+    "NotFound": {
+        "title": "Stránka nenalezena",
+        "description": "Stránka, kterou hledáte, neexistuje nebo byla přesunuta.",
+        "backButton": "Zpět na přihlášení",
+        "backButtonApp": "Zpět do aplikace"
     }
 }

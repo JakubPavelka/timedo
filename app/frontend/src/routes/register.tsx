@@ -6,7 +6,7 @@ export const Route = createFileRoute('/register')({
     beforeLoad: async () => {
         const user = await checkAuth();
         if (user) {
-            throw redirect({ to: '/dashboard' });
+            throw redirect({ to: '/dashboard/focus' });
         }
     },
     component: RegisterView,

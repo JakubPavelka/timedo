@@ -15,12 +15,15 @@ import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgottenPasswordRouteImport } from './routes/forgotten-password'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardTagsRouteImport } from './routes/dashboard/tags'
 import { Route as DashboardProjectsRouteImport } from './routes/dashboard/projects'
 import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
 import { Route as DashboardOverviewRouteImport } from './routes/dashboard/overview'
 import { Route as DashboardFocusRouteImport } from './routes/dashboard/focus'
 import { Route as DashboardCalendarRouteImport } from './routes/dashboard/calendar'
+import { Route as DashboardSplatRouteImport } from './routes/dashboard/$'
 import { Route as DashboardTasksIndexRouteImport } from './routes/dashboard/tasks/index'
 import { Route as DashboardTasksTaskIdRouteImport } from './routes/dashboard/tasks/$taskId'
 
@@ -54,6 +57,16 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardTagsRoute = DashboardTagsRouteImport.update({
   id: '/tags',
   path: '/tags',
@@ -84,6 +97,11 @@ const DashboardCalendarRoute = DashboardCalendarRouteImport.update({
   path: '/calendar',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardSplatRoute = DashboardSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardTasksIndexRoute = DashboardTasksIndexRouteImport.update({
   id: '/tasks/',
   path: '/tasks/',
@@ -96,106 +114,123 @@ const DashboardTasksTaskIdRoute = DashboardTasksTaskIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/forgotten-password': typeof ForgottenPasswordRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/register': typeof RegisterRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/dashboard/$': typeof DashboardSplatRoute
   '/dashboard/calendar': typeof DashboardCalendarRoute
   '/dashboard/focus': typeof DashboardFocusRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/dashboard/tags': typeof DashboardTagsRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/tasks/$taskId': typeof DashboardTasksTaskIdRoute
   '/dashboard/tasks/': typeof DashboardTasksIndexRoute
 }
 export interface FileRoutesByTo {
-  '/dashboard': typeof DashboardRouteWithChildren
+  '/': typeof IndexRoute
   '/forgotten-password': typeof ForgottenPasswordRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/register': typeof RegisterRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/dashboard/$': typeof DashboardSplatRoute
   '/dashboard/calendar': typeof DashboardCalendarRoute
   '/dashboard/focus': typeof DashboardFocusRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/dashboard/tags': typeof DashboardTagsRoute
+  '/dashboard': typeof DashboardIndexRoute
   '/dashboard/tasks/$taskId': typeof DashboardTasksTaskIdRoute
   '/dashboard/tasks': typeof DashboardTasksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/forgotten-password': typeof ForgottenPasswordRoute
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/register': typeof RegisterRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/dashboard/$': typeof DashboardSplatRoute
   '/dashboard/calendar': typeof DashboardCalendarRoute
   '/dashboard/focus': typeof DashboardFocusRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/dashboard/tags': typeof DashboardTagsRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/tasks/$taskId': typeof DashboardTasksTaskIdRoute
   '/dashboard/tasks/': typeof DashboardTasksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/dashboard'
     | '/forgotten-password'
     | '/login'
     | '/privacy-policy'
     | '/register'
     | '/terms-of-service'
+    | '/dashboard/$'
     | '/dashboard/calendar'
     | '/dashboard/focus'
     | '/dashboard/overview'
     | '/dashboard/profile'
     | '/dashboard/projects'
     | '/dashboard/tags'
+    | '/dashboard/'
     | '/dashboard/tasks/$taskId'
     | '/dashboard/tasks/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/dashboard'
+    | '/'
     | '/forgotten-password'
     | '/login'
     | '/privacy-policy'
     | '/register'
     | '/terms-of-service'
+    | '/dashboard/$'
     | '/dashboard/calendar'
     | '/dashboard/focus'
     | '/dashboard/overview'
     | '/dashboard/profile'
     | '/dashboard/projects'
     | '/dashboard/tags'
+    | '/dashboard'
     | '/dashboard/tasks/$taskId'
     | '/dashboard/tasks'
   id:
     | '__root__'
+    | '/'
     | '/dashboard'
     | '/forgotten-password'
     | '/login'
     | '/privacy-policy'
     | '/register'
     | '/terms-of-service'
+    | '/dashboard/$'
     | '/dashboard/calendar'
     | '/dashboard/focus'
     | '/dashboard/overview'
     | '/dashboard/profile'
     | '/dashboard/projects'
     | '/dashboard/tags'
+    | '/dashboard/'
     | '/dashboard/tasks/$taskId'
     | '/dashboard/tasks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   ForgottenPasswordRoute: typeof ForgottenPasswordRoute
   LoginRoute: typeof LoginRoute
@@ -248,6 +283,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/tags': {
       id: '/dashboard/tags'
       path: '/tags'
@@ -290,6 +339,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardCalendarRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/$': {
+      id: '/dashboard/$'
+      path: '/$'
+      fullPath: '/dashboard/$'
+      preLoaderRoute: typeof DashboardSplatRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/tasks/': {
       id: '/dashboard/tasks/'
       path: '/tasks'
@@ -308,23 +364,27 @@ declare module '@tanstack/react-router' {
 }
 
 interface DashboardRouteChildren {
+  DashboardSplatRoute: typeof DashboardSplatRoute
   DashboardCalendarRoute: typeof DashboardCalendarRoute
   DashboardFocusRoute: typeof DashboardFocusRoute
   DashboardOverviewRoute: typeof DashboardOverviewRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardProjectsRoute: typeof DashboardProjectsRoute
   DashboardTagsRoute: typeof DashboardTagsRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardTasksTaskIdRoute: typeof DashboardTasksTaskIdRoute
   DashboardTasksIndexRoute: typeof DashboardTasksIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardSplatRoute: DashboardSplatRoute,
   DashboardCalendarRoute: DashboardCalendarRoute,
   DashboardFocusRoute: DashboardFocusRoute,
   DashboardOverviewRoute: DashboardOverviewRoute,
   DashboardProfileRoute: DashboardProfileRoute,
   DashboardProjectsRoute: DashboardProjectsRoute,
   DashboardTagsRoute: DashboardTagsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
   DashboardTasksTaskIdRoute: DashboardTasksTaskIdRoute,
   DashboardTasksIndexRoute: DashboardTasksIndexRoute,
 }
@@ -334,6 +394,7 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   DashboardRoute: DashboardRouteWithChildren,
   ForgottenPasswordRoute: ForgottenPasswordRoute,
   LoginRoute: LoginRoute,

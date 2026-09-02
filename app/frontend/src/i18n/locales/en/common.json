@@ -394,5 +394,11 @@
             "success": "Tag was successfully updated",
             "error": "Failed to update tag, please try again"
         }
+    },
+    "NotFound": {
+        "title": "Page not found",
+        "description": "The page you're looking for doesn't exist or has been moved.",
+        "backButton": "Back to sign in",
+        "backButtonApp": "Back to app"
     }
 }

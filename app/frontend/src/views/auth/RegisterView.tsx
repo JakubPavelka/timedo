@@ -23,7 +23,7 @@ export const RegisterView = () => {
                 password: data.password,
                 termsAccepted: data.termsAccepted,
             },
-            { onSuccess: () => navigate({ to: '/dashboard', replace: true }) }
+            { onSuccess: () => navigate({ to: '/dashboard/focus', replace: true }) }
         );
     };
 

@@ -1,0 +1,57 @@
+@use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
+@use 'styles/typography';
+
+.NotFoundView {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    background-color: var(--bg);
+    padding: 36px;
+
+    @include breakpoints.tablet {
+        padding: 24px;
+    }
+
+    @include breakpoints.mobile {
+        padding: 16px;
+    }
+}
+
+.NotFoundView__logo {
+    width: fit-content;
+}
+
+.NotFoundView__content {
+    flex: 1;
+    @include layout.flexColumn;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.NotFoundView__icon {
+    @include layout.centerXY;
+    background-color: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 16px;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 16px;
+}
+
+.NotFoundView__code {
+    @include typography.text-stopwatch-time(var(--accent));
+    margin-bottom: 8px;
+}
+
+.NotFoundView__title {
+    @include typography.text-xl;
+    margin-bottom: 8px;
+}
+
+.NotFoundView__description {
+    @include typography.text-md(var(--text-2));
+    max-width: 360px;
+    margin-bottom: 24px;
+}
