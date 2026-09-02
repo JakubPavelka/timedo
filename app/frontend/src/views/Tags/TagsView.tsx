@@ -8,6 +8,7 @@ import {
 import { AddCard } from '@/components/ui/AddCard/AddCard';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { Trash } from 'lucide-react';
 import { toast } from 'sonner';
@@ -20,6 +21,7 @@ import styles from './TagsView.module.scss';
 
 export const TagsView = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [deletingTagId, setDeletingTagId] = useState<string | null>(null);
     const [editingTag, setEditingTag] = useState<TagWithTasks | null>(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
@@ -34,6 +36,8 @@ export const TagsView = () => {
     const handleHideDeleteModal = () => setDeletingTagId(null);
     const handleShowCreateModal = () => setShowCreateModal(true);
     const handleHideCreateModal = () => setShowCreateModal(false);
+    const handleTagClick = (tagId: string) =>
+        navigate({ to: '/dashboard/tasks', search: { tag: tagId } });
 
     const handleTagDelete = () => {
         if (!deletingTagId) {
@@ -93,6 +97,7 @@ export const TagsView = () => {
                             duration={tag.duration}
                             onDelete={() => handleShowDeleteModal(tag.id)}
                             onEdit={() => handleShowEditModal(tag)}
+                            onClick={() => handleTagClick(tag.id)}
                         />
                     ))}
                     <AddCard text={t('Tags.newTag')} onClick={handleShowCreateModal} />

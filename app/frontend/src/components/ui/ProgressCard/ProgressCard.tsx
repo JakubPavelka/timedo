@@ -21,6 +21,16 @@ export const ProgressCard = (props: ProgressCardProps) => {
     const totalTasks = props.totalTasks ?? 0;
     const progressPercent = totalTasks > 0 ? (tasksDone / totalTasks) * 100 : 0;
 
+    const handleDeleteClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        props.onDelete?.();
+    };
+
+    const handleEditClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        props.onEdit?.();
+    };
+
     return (
         <div className={styles.ProgressCard} onClick={props.onClick}>
             <div className={styles.ProgressCard__topWrapper}>
@@ -35,7 +45,7 @@ export const ProgressCard = (props: ProgressCardProps) => {
                     <div className={styles.ProgressCard__actionsWrapper}>
                         {!!props.onDelete && (
                             <span
-                                onClick={props.onDelete}
+                                onClick={handleDeleteClick}
                                 className={styles.ProgressCard__delete}
                             >
                                 <Trash width={16} height={16} />
@@ -43,7 +53,7 @@ export const ProgressCard = (props: ProgressCardProps) => {
                         )}
                         {!!props.onEdit && (
                             <span
-                                onClick={props.onEdit}
+                                onClick={handleEditClick}
                                 className={styles.ProgressCard__edit}
                             >
                                 <Pencil width={16} height={16} />
