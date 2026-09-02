@@ -25,7 +25,8 @@
         "NO_RUNNING_TIMER": "There is no timer running",
         "ENTRY_NOT_FOUND": "Time entry not found",
         "TASK_CHECKLIST_NOT_FOUND": "Checklist item not found",
-        "PARENT_CHECKLIST_NOT_FOUND": "Parent checklist item not found"
+        "PARENT_CHECKLIST_NOT_FOUND": "Parent checklist item not found",
+        "INCORRECT_PASSWORD": "Current password is incorrect"
     },
     "General": {
         "timeUnderControl": "Your time under control",
@@ -151,9 +152,18 @@
             "title": "Security",
             "password": "Password",
             "passwordDescription": "Change your password to keep your account secure",
+            "currentPassword": "Current password",
+            "newPassword": "New password",
+            "newPasswordAgain": "Confirm new password",
+            "changePasswordModalTitle": "Change password",
+            "changePasswordModalDescription": "Enter your current password and choose a new one.",
+            "changePasswordSuccess": "Password changed successfully",
+            "changePasswordError": "Failed to change password, please try again",
             "deleteAccountTitle": "Delete account",
             "deleteAccountDescription": "Permanently deletes all data and time history",
-            "deleteAccountModalDescription": "Your account will be permanently deleted and you will lose all data. This action is irreversible."
+            "deleteAccountModalDescription": "Your account will be permanently deleted and you will lose all data. This action is irreversible.",
+            "deleteAccountConfirmWord": "DELETE",
+            "deleteAccountConfirmLabel": "Type {{word}} to confirm"
         }
     },
     "Task": {
