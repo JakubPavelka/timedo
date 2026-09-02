@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { Folder, Hourglass, Calendar, Timer } from 'lucide-react';
+import { Folder, Hourglass, Timer } from 'lucide-react';
 import {
     PriorityIcon,
     type PriorityLevel,
@@ -74,6 +74,7 @@ export const TaskDetailProperties = (props: TaskDetailPropertiesProps) => {
                 </p>
             </div>
             {/* TERMÍN */}
+            {/*
             <div
                 className={clsx(
                     styles.TaskDetailProperties__rowWrapper,
@@ -86,6 +87,7 @@ export const TaskDetailProperties = (props: TaskDetailPropertiesProps) => {
                 </div>
                 <p className={styles.TaskDetailProperties__value}>xx</p>
             </div>
+            */}
             {/* ODPRACOVÁNO */}
             <div
                 className={clsx(

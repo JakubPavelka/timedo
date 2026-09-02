@@ -36,3 +36,38 @@
     width: fit-content;
     margin-inline: auto;
 }
+
+.FocusTimeEntryHistory__emptyWrapper {
+    @include layout.flexColumn;
+    align-items: center;
+    text-align: center;
+    padding-block: 8px 16px;
+}
+
+.FocusTimeEntryHistory__emptyIcon {
+    @include layout.centerXY;
+    background-color: var(--accent-soft);
+    border-radius: 16px;
+    margin-inline: auto;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 16px;
+
+    svg {
+        color: var(--accent);
+    }
+}
+
+.FocusTimeEntryHistory__emptyTitle {
+    @include typography.text-lg;
+}
+
+.FocusTimeEntryHistory__emptyDescription {
+    @include typography.text-md(var(--text-2));
+    max-width: 320px;
+}
+
+.FocusTimeEntryHistory__emptyWrapper button {
+    margin-inline: auto;
+    margin-top: 24px;
+}

@@ -321,7 +321,10 @@
             "untrackedTime": "Time without task",
             "today": "Today",
             "yesterday": "Yesterday",
-            "loadMore": "Load more"
+            "loadMore": "Load more",
+            "emptyTitle": "No history yet",
+            "emptyDescription": "Start tracking time on your tasks and it will show up here.",
+            "goToTasks": "Go to tasks"
         },
         "timeEntryDeleteModalTitle": "Delete time entry?",
         "timeEntryDeleteModalDescription": "This action is irreversible. The time entry will be permanently deleted.",

@@ -8,6 +8,7 @@ import {
 import { AddCard } from '@/components/ui/AddCard/AddCard';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import { ConfirmModal } from '@/components/ui/Modal/ConfirmModal/ConfirmModal';
 import { Trash } from 'lucide-react';
 import { toast } from 'sonner';
@@ -23,6 +24,7 @@ import styles from './ProjectsView.module.scss';
 
 export const ProjectsView = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [deletingProjectId, setDeletingProjectId] = useState<string | null>(null);
     const [editingProject, setEditingProject] = useState<ProjectWithTasks | null>(null);
     const [showCreateModal, setShowCreateModal] = useState(false);
@@ -37,6 +39,8 @@ export const ProjectsView = () => {
     const handleHideDeleteModal = () => setDeletingProjectId(null);
     const handleShowCreateModal = () => setShowCreateModal(true);
     const handleHideCreateModal = () => setShowCreateModal(false);
+    const handleProjectClick = (projectId: string) =>
+        navigate({ to: '/dashboard/tasks', search: { project: projectId } });
 
     const handleProjectDelete = () => {
         if (!deletingProjectId) {
@@ -96,6 +100,7 @@ export const ProjectsView = () => {
                             duration={project.duration}
                             onDelete={() => handleShowDeleteModal(project.id)}
                             onEdit={() => handleShowEditModal(project)}
+                            onClick={() => handleProjectClick(project.id)}
                         />
                     ))}
                     <AddCard
