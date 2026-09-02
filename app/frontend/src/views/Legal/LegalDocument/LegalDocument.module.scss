@@ -1,0 +1,90 @@
+@use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
+@use 'styles/typography';
+
+.LegalDocument {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    background-color: var(--bg);
+    padding: 36px;
+
+    @include breakpoints.tablet {
+        padding: 24px;
+    }
+
+    @include breakpoints.mobile {
+        padding: 16px;
+    }
+}
+
+.LegalDocument__logo {
+    width: fit-content;
+    margin-bottom: 24px;
+}
+
+.LegalDocument__content {
+    @include layout.flexColumn;
+    align-items: center;
+    flex: 1;
+}
+
+.LegalDocument__back {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    align-self: flex-start;
+    max-width: fit-content;
+    gap: 4px;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+
+    svg {
+        transition: transform 0.2s;
+    }
+
+    &:hover {
+        color: var(--text);
+
+        svg {
+            transform: translateX(-2px);
+        }
+    }
+}
+
+.LegalDocument__title {
+    @include typography.text-title;
+    margin-bottom: 8px;
+    width: 100%;
+    max-width: 680px;
+}
+
+.LegalDocument__updated {
+    @include typography.text-sm(var(--text-3));
+    width: 100%;
+    max-width: 680px;
+    margin-bottom: 32px;
+}
+
+.LegalDocument__section {
+    width: 100%;
+    max-width: 680px;
+    margin-bottom: 28px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.LegalDocument__sectionTitle {
+    @include typography.text-lg;
+    margin-bottom: 12px;
+}
+
+.LegalDocument__paragraph {
+    @include typography.text-md(var(--text-2));
+    margin-bottom: 8px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

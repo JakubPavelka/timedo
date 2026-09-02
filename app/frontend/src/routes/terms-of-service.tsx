@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { RegisterView } from '@/views/auth/RegisterView';
+import { TermsOfServiceView } from '@/views/Legal/TermsOfServiceView';
 
 export const Route = createFileRoute('/terms-of-service')({
-    component: RegisterView,
+    component: TermsOfServiceView,
 });

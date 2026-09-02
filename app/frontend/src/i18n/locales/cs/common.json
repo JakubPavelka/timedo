@@ -413,5 +413,188 @@
         "description": "Stránka, kterou hledáte, neexistuje nebo byla přesunuta.",
         "backButton": "Zpět na přihlášení",
         "backButtonApp": "Zpět do aplikace"
+    },
+    "PrivacyPolicy": {
+        "title": "Zásady ochrany osobních údajů",
+        "lastUpdated": "Naposledy aktualizováno: 2. září 2026",
+        "backButton": "Zpět",
+        "sections": [
+            {
+                "title": "1. Kdo jsme",
+                "body": [
+                    "Tyto zásady ochrany osobních údajů popisují, jak jsou zpracovávány vaše osobní údaje při používání aplikace Timedo, dostupné na adrese https://app.timedo.cz (dále jen „aplikace“).",
+                    "Správcem osobních údajů je Jakub Pavelka, kontaktní e-mail: pavelka.kuba@hotmail.cz. Aplikaci provozuji jako fyzická osoba, nikoliv jako obchodní společnost."
+                ]
+            },
+            {
+                "title": "2. Jaké údaje zpracováváme",
+                "body": [
+                    "Registrační údaje: jméno, příjmení a e-mailová adresa, které zadáte při vytvoření účtu.",
+                    "Přihlašovací údaje: heslo nikdy neukládáme v čitelné podobě – v databázi je uložen pouze jeho zabezpečený hash (bcrypt).",
+                    "Obsah účtu: úkoly, projekty, tagy, časové záznamy, poznámky a odkazy, které v aplikaci vytvoříte. Tato data slouží výhradně k poskytování funkcí aplikace.",
+                    "Technické údaje: přihlašovací soubory cookie potřebné k udržení vaší relace (viz sekce Cookies níže)."
+                ]
+            },
+            {
+                "title": "3. Účel a právní základ zpracování",
+                "body": [
+                    "Osobní údaje zpracováváme za účelem poskytování a provozu aplikace, tedy na základě plnění smlouvy (čl. 6 odst. 1 písm. b) GDPR) uzavřené vytvořením účtu a odsouhlasením těchto zásad a obchodních podmínek.",
+                    "Zabezpečení účtu a prevenci zneužití zpracováváme na základě oprávněného zájmu (čl. 6 odst. 1 písm. f) GDPR).",
+                    "Aplikace v současné době nevyužívá e-mailový marketing, newslettery ani jiné formy propagačního zpracování."
+                ]
+            },
+            {
+                "title": "4. Cookies",
+                "body": [
+                    "Aplikace používá pouze technické (nezbytné) soubory cookie – accessToken a refreshToken – sloužící k přihlášení a udržení vaší relace. Bez nich aplikace nemůže fungovat.",
+                    "Tyto cookies jsou nastaveny jako httpOnly a secure a nejsou přístupné JavaScriptu ani sdíleny s třetími stranami.",
+                    "Aplikace nepoužívá žádné analytické, reklamní ani sledovací cookies třetích stran."
+                ]
+            },
+            {
+                "title": "5. Sdílení údajů a zpracovatelé",
+                "body": [
+                    "Vaše osobní údaje neprodáváme ani nepředáváme třetím stranám za marketingovými účely.",
+                    "K provozu aplikace využívám infrastrukturu poskytovatelů cloudových služeb (hosting frontendu, backendu a databáze), kteří data zpracovávají výhradně jako zpracovatelé na základě smlouvy a v rozsahu nezbytném pro zajištění chodu aplikace.",
+                    "Údaje mohou být v rámci této infrastruktury uloženy i mimo Evropskou unii; v takovém případě je dbáno na to, aby zpracovatel poskytoval odpovídající záruky ochrany osobních údajů."
+                ]
+            },
+            {
+                "title": "6. Doba uchování údajů",
+                "body": [
+                    "Vaše osobní údaje a obsah účtu uchováváme po celou dobu existence vašeho účtu.",
+                    "Při smazání účtu jsou veškeré osobní údaje a data s účtem spojená (úkoly, projekty, časové záznamy apod.) trvale a nevratně odstraněna z databáze."
+                ]
+            },
+            {
+                "title": "7. Vaše práva",
+                "body": [
+                    "V souladu s GDPR máte právo na:",
+                    "• přístup ke svým osobním údajům,",
+                    "• opravu nepřesných údajů (lze provést přímo v nastavení profilu),",
+                    "• výmaz osobních údajů (smazáním účtu v nastavení, nebo na vyžádání),",
+                    "• omezení zpracování a vznesení námitky proti zpracování,",
+                    "• přenositelnost údajů,",
+                    "• podání stížnosti u Úřadu pro ochranu osobních údajů (uoou.cz), pokud se domníváte, že bylo porušeno vaše právo na ochranu osobních údajů.",
+                    "Pro uplatnění těchto práv mě kontaktujte na e-mailu pavelka.kuba@hotmail.cz."
+                ]
+            },
+            {
+                "title": "8. Zabezpečení",
+                "body": [
+                    "Hesla jsou ukládána výhradně jako hash (bcrypt), komunikace mezi aplikací a serverem probíhá šifrovaně přes HTTPS a přihlašovací tokeny jsou uloženy v zabezpečených httpOnly cookies."
+                ]
+            },
+            {
+                "title": "9. Děti",
+                "body": [
+                    "Aplikace není určena osobám mladším 15 let. Pokud zjistím, že byl vytvořen účet osobou mladší 15 let bez souhlasu zákonného zástupce, takový účet odstraním."
+                ]
+            },
+            {
+                "title": "10. Změny zásad",
+                "body": [
+                    "Tyto zásady mohu čas od času aktualizovat, například v souvislosti s přidáním nových funkcí aplikace. O významných změnách vás budu informovat prostřednictvím aplikace nebo e-mailem."
+                ]
+            },
+            {
+                "title": "11. Kontakt",
+                "body": [
+                    "V případě jakýchkoliv dotazů ohledně zpracování osobních údajů mě neváhejte kontaktovat na e-mailu pavelka.kuba@hotmail.cz."
+                ]
+            }
+        ]
+    },
+    "TermsOfService": {
+        "title": "Obchodní podmínky",
+        "lastUpdated": "Naposledy aktualizováno: 2. září 2026",
+        "backButton": "Zpět",
+        "sections": [
+            {
+                "title": "1. Úvodní ustanovení",
+                "body": [
+                    "Tyto obchodní podmínky (dále jen „Podmínky“) upravují používání aplikace Timedo dostupné na adrese https://app.timedo.cz (dále jen „aplikace“), kterou provozuje Jakub Pavelka, kontaktní e-mail: pavelka.kuba@hotmail.cz (dále jen „Provozovatel“).",
+                    "Vytvořením účtu a zaškrtnutím souhlasu s těmito Podmínkami s nimi vyjadřujete souhlas. Pokud s nimi nesouhlasíte, aplikaci prosím nepoužívejte."
+                ]
+            },
+            {
+                "title": "2. Popis služby",
+                "body": [
+                    "Timedo je aplikace pro sledování času a správu úkolů a projektů, která uživatelům umožňuje evidovat pracovní čas, organizovat úkoly, projekty a tagy a sledovat vlastní produktivitu."
+                ]
+            },
+            {
+                "title": "3. Registrace a účet",
+                "body": [
+                    "Pro používání aplikace je nutné vytvořit uživatelský účet zadáním jména, příjmení, e-mailové adresy a hesla.",
+                    "Aplikaci mohou používat pouze osoby starší 15 let. Pokud je vám méně než 15 let, může účet vaším jménem založit a aplikaci používat pouze váš zákonný zástupce s jeho souhlasem.",
+                    "Jste povinni uvádět pravdivé údaje a udržovat své přihlašovací údaje v tajnosti. Za veškerou aktivitu provedenou pod vaším účtem nesete odpovědnost.",
+                    "V případě podezření na neoprávněné použití vašeho účtu mě prosím neprodleně kontaktujte."
+                ]
+            },
+            {
+                "title": "4. Přijatelné použití",
+                "body": [
+                    "Aplikaci se zavazujete používat pouze v souladu s platnými právními předpisy a těmito Podmínkami. Zejména se zavazujete nepoužívat aplikaci k:",
+                    "• nahrávání nezákonného, urážlivého nebo škodlivého obsahu,",
+                    "• pokusům o neoprávněný přístup k účtům jiných uživatelů nebo k infrastruktuře aplikace,",
+                    "• jakémukoliv jednání, které by mohlo narušit provoz nebo bezpečnost aplikace (např. útoky, nadměrné automatizované požadavky)."
+                ]
+            },
+            {
+                "title": "5. Váš obsah",
+                "body": [
+                    "Veškerý obsah, který v aplikaci vytvoříte (úkoly, projekty, poznámky, časové záznamy apod.), zůstává vaším vlastnictvím.",
+                    "Poskytováním tohoto obsahu Provozovateli udělujete pouze omezenou licenci nezbytnou k jeho uložení a zpracování za účelem provozu aplikace. Obsah nebude použit k jiným účelům ani sdílen s třetími stranami."
+                ]
+            },
+            {
+                "title": "6. Dostupnost služby",
+                "body": [
+                    "Aplikace je v aktivním vývoji a je poskytována „tak jak je“ (as is), bez záruky nepřetržité a bezchybné dostupnosti. Provozovatel může aplikaci nebo její jednotlivé funkce dočasně omezit, například z důvodu údržby nebo technických úprav.",
+                    "Provozovatel vynakládá přiměřené úsilí k zajištění bezpečnosti a spolehlivosti aplikace, negarantuje však nepřerušený provoz."
+                ]
+            },
+            {
+                "title": "7. Zrušení účtu",
+                "body": [
+                    "Svůj účet můžete kdykoliv smazat v nastavení profilu. Smazáním účtu dojde k trvalému a nevratnému odstranění veškerých souvisejících dat.",
+                    "Provozovatel si vyhrazuje právo zrušit účet uživatele, který závažným způsobem porušuje tyto Podmínky."
+                ]
+            },
+            {
+                "title": "8. Omezení odpovědnosti",
+                "body": [
+                    "Aplikace je poskytována bezplatně a v aktuální fázi vývoje. Provozovatel neodpovídá za případnou ztrátu nebo únik dat, přerušení provozu či ušlý zisk vzniklý v souvislosti s používáním aplikace, s výjimkou případů způsobených úmyslně nebo hrubou nedbalostí Provozovatele.",
+                    "Provozovatel vynakládá přiměřené technické a organizační úsilí k ochraně dat uživatelů (např. šifrovaná komunikace, zabezpečené ukládání hesel), nemůže však zaručit absolutní bezpečnost proti neoprávněnému přístupu třetích stran. V případě bezpečnostního incidentu ohrožujícího osobní údaje uživatelů bude Provozovatel postupovat v souladu s GDPR, včetně případného oznámení Úřadu pro ochranu osobních údajů a dotčeným uživatelům.",
+                    "Doporučujeme si důležitá data průběžně zálohovat mimo aplikaci."
+                ]
+            },
+            {
+                "title": "9. Změny podmínek",
+                "body": [
+                    "Tyto Podmínky mohou být čas od času aktualizovány. O podstatných změnách vás budu informovat prostřednictvím aplikace nebo e-mailem. Pokračováním v používání aplikace po nabytí účinnosti změn s nimi vyjadřujete souhlas."
+                ]
+            },
+            {
+                "title": "10. Mimosoudní řešení sporů",
+                "body": [
+                    "V souladu s § 14 zákona č. 634/1992 Sb., o ochraně spotřebitele, vás informuji, že subjektem příslušným k mimosoudnímu řešení spotřebitelských sporů vzniklých v souvislosti s používáním aplikace je Česká obchodní inspekce, se sídlem Gorazdova 1969/24, 120 00 Praha 2, IČ: 000 20 869, internetová adresa: www.coi.cz.",
+                    "Návrh na zahájení mimosoudního řešení sporu můžete podat prostřednictvím on-line formuláře dostupného na webových stránkách České obchodní inspekce."
+                ]
+            },
+            {
+                "title": "11. Rozhodné právo",
+                "body": [
+                    "Tyto Podmínky se řídí právním řádem České republiky. Případné spory budou přednostně řešeny smírnou cestou."
+                ]
+            },
+            {
+                "title": "12. Kontakt",
+                "body": [
+                    "V případě dotazů k těmto Podmínkám mě kontaktujte na e-mailu pavelka.kuba@hotmail.cz."
+                ]
+            }
+        ]
     }
 }

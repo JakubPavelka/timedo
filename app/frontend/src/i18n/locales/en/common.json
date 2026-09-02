@@ -413,5 +413,188 @@
         "description": "The page you're looking for doesn't exist or has been moved.",
         "backButton": "Back to sign in",
         "backButtonApp": "Back to app"
+    },
+    "PrivacyPolicy": {
+        "title": "Privacy Policy",
+        "lastUpdated": "Last updated: September 2, 2026",
+        "backButton": "Back",
+        "sections": [
+            {
+                "title": "1. Who we are",
+                "body": [
+                    "This privacy policy describes how your personal data is processed when you use the Timedo application, available at https://app.timedo.cz (the \"App\").",
+                    "The data controller is Jakub Pavelka, contact e-mail: pavelka.kuba@hotmail.cz. The App is operated by me as an individual, not as a registered company."
+                ]
+            },
+            {
+                "title": "2. What data we process",
+                "body": [
+                    "Registration data: first name, last name and e-mail address provided when you create an account.",
+                    "Login credentials: your password is never stored in plain text – only a secure hash (bcrypt) is kept in the database.",
+                    "Account content: tasks, projects, tags, time entries, notes and links you create in the App. This data is used solely to provide the App's functionality.",
+                    "Technical data: authentication cookies required to keep you signed in (see the Cookies section below)."
+                ]
+            },
+            {
+                "title": "3. Purpose and legal basis of processing",
+                "body": [
+                    "We process your personal data to provide and operate the App, based on the performance of a contract (Art. 6(1)(b) GDPR) formed when you create an account and accept these terms.",
+                    "Account security and abuse prevention are processed on the basis of legitimate interest (Art. 6(1)(f) GDPR).",
+                    "The App does not currently use e-mail marketing, newsletters, or any other form of promotional processing."
+                ]
+            },
+            {
+                "title": "4. Cookies",
+                "body": [
+                    "The App uses only technical (necessary) cookies – accessToken and refreshToken – used to sign you in and keep your session active. The App cannot function without them.",
+                    "These cookies are set as httpOnly and secure, are not accessible to JavaScript, and are not shared with third parties.",
+                    "The App does not use any third-party analytics, advertising, or tracking cookies."
+                ]
+            },
+            {
+                "title": "5. Data sharing and processors",
+                "body": [
+                    "We do not sell or share your personal data with third parties for marketing purposes.",
+                    "To operate the App, I rely on cloud infrastructure providers (frontend, backend and database hosting), who process data solely as processors under contract and only to the extent necessary to keep the App running.",
+                    "As part of this infrastructure, data may also be stored outside the European Union; in such cases, care is taken to ensure the processor provides adequate data protection guarantees."
+                ]
+            },
+            {
+                "title": "6. Data retention",
+                "body": [
+                    "Your personal data and account content are kept for as long as your account exists.",
+                    "When you delete your account, all associated personal data and content (tasks, projects, time entries, etc.) are permanently and irreversibly removed from the database."
+                ]
+            },
+            {
+                "title": "7. Your rights",
+                "body": [
+                    "Under the GDPR, you have the right to:",
+                    "• access your personal data,",
+                    "• correct inaccurate data (available directly in your profile settings),",
+                    "• erase your personal data (by deleting your account in settings, or upon request),",
+                    "• restrict processing and object to processing,",
+                    "• data portability,",
+                    "• lodge a complaint with the Czech Office for Personal Data Protection (uoou.cz) if you believe your data protection rights have been violated.",
+                    "To exercise these rights, please contact me at pavelka.kuba@hotmail.cz."
+                ]
+            },
+            {
+                "title": "8. Security",
+                "body": [
+                    "Passwords are stored only as a hash (bcrypt), communication between the App and the server is encrypted via HTTPS, and authentication tokens are stored in secure httpOnly cookies."
+                ]
+            },
+            {
+                "title": "9. Children",
+                "body": [
+                    "The App is not intended for individuals under the age of 15 (the age of consent for information society services under Czech law). If I become aware that an account was created by someone under 15 without parental consent, that account will be removed."
+                ]
+            },
+            {
+                "title": "10. Changes to this policy",
+                "body": [
+                    "This policy may be updated from time to time, for example when new features are added to the App. I will inform you of any significant changes through the App or by e-mail."
+                ]
+            },
+            {
+                "title": "11. Contact",
+                "body": [
+                    "If you have any questions about how your personal data is processed, please contact me at pavelka.kuba@hotmail.cz."
+                ]
+            }
+        ]
+    },
+    "TermsOfService": {
+        "title": "Terms of Service",
+        "lastUpdated": "Last updated: September 2, 2026",
+        "backButton": "Back",
+        "sections": [
+            {
+                "title": "1. Introduction",
+                "body": [
+                    "These Terms of Service (\"Terms\") govern the use of the Timedo application available at https://app.timedo.cz (the \"App\"), operated by Jakub Pavelka, contact e-mail: pavelka.kuba@hotmail.cz (the \"Operator\").",
+                    "By creating an account and accepting these Terms, you agree to be bound by them. If you do not agree, please do not use the App."
+                ]
+            },
+            {
+                "title": "2. Description of the service",
+                "body": [
+                    "Timedo is a time tracking and task management application that allows users to track working time, organize tasks, projects and tags, and monitor their own productivity."
+                ]
+            },
+            {
+                "title": "3. Registration and account",
+                "body": [
+                    "To use the App, you must create an account by providing your first name, last name, e-mail address and password.",
+                    "The App may only be used by individuals aged 15 or older. If you are under 15, an account may only be created and used on your behalf by your legal guardian, with their consent.",
+                    "You agree to provide accurate information and to keep your login credentials confidential. You are responsible for all activity carried out under your account.",
+                    "If you suspect unauthorized use of your account, please contact me immediately."
+                ]
+            },
+            {
+                "title": "4. Acceptable use",
+                "body": [
+                    "You agree to use the App only in accordance with applicable law and these Terms. In particular, you agree not to use the App to:",
+                    "• upload unlawful, offensive, or harmful content,",
+                    "• attempt unauthorized access to other users' accounts or the App's infrastructure,",
+                    "• engage in any conduct that could disrupt the operation or security of the App (e.g. attacks, excessive automated requests)."
+                ]
+            },
+            {
+                "title": "5. Your content",
+                "body": [
+                    "Any content you create in the App (tasks, projects, notes, time entries, etc.) remains your property.",
+                    "By submitting this content, you grant the Operator only a limited license necessary to store and process it in order to operate the App. Your content will not be used for any other purpose or shared with third parties."
+                ]
+            },
+            {
+                "title": "6. Service availability",
+                "body": [
+                    "The App is under active development and is provided \"as is\", without any guarantee of continuous or error-free availability. The Operator may temporarily limit the App or individual features, for example for maintenance or technical changes.",
+                    "The Operator makes reasonable efforts to ensure the security and reliability of the App but does not guarantee uninterrupted operation."
+                ]
+            },
+            {
+                "title": "7. Account termination",
+                "body": [
+                    "You may delete your account at any time in your profile settings. Deleting your account permanently and irreversibly removes all associated data.",
+                    "The Operator reserves the right to terminate the account of any user who seriously violates these Terms."
+                ]
+            },
+            {
+                "title": "8. Limitation of liability",
+                "body": [
+                    "The App is provided free of charge and is in an early stage of development. The Operator is not liable for any loss or leakage of data, service interruption, or lost profit arising from the use of the App, except in cases caused intentionally or by the Operator's gross negligence.",
+                    "The Operator makes reasonable technical and organizational efforts to protect users' data (e.g. encrypted communication, secure password storage), but cannot guarantee absolute security against unauthorized access by third parties. In the event of a security incident affecting users' personal data, the Operator will act in accordance with the GDPR, including, where applicable, notifying the Office for Personal Data Protection and the affected users.",
+                    "We recommend regularly backing up any important data outside the App."
+                ]
+            },
+            {
+                "title": "9. Changes to these Terms",
+                "body": [
+                    "These Terms may be updated from time to time. I will inform you of any material changes through the App or by e-mail. Continued use of the App after such changes take effect constitutes acceptance of the updated Terms."
+                ]
+            },
+            {
+                "title": "10. Out-of-court dispute resolution",
+                "body": [
+                    "In accordance with § 14 of Act No. 634/1992 Coll., on Consumer Protection, please note that the entity competent for the out-of-court resolution of consumer disputes arising from the use of the App is the Czech Trade Inspection Authority (Česká obchodní inspekce), registered office at Gorazdova 1969/24, 120 00 Praha 2, Czech Republic, Company ID: 000 20 869, website: www.coi.cz.",
+                    "A proposal to initiate out-of-court dispute resolution can be submitted via the online form available on the Czech Trade Inspection Authority's website."
+                ]
+            },
+            {
+                "title": "11. Governing law",
+                "body": [
+                    "These Terms are governed by the laws of the Czech Republic. Any disputes will preferably be resolved amicably."
+                ]
+            },
+            {
+                "title": "12. Contact",
+                "body": [
+                    "If you have any questions about these Terms, please contact me at pavelka.kuba@hotmail.cz."
+                ]
+            }
+        ]
     }
 }
