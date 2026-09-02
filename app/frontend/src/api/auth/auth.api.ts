@@ -3,22 +3,19 @@ import axios from 'axios';
 import type {
     LoginData,
     RegisterData,
+    ChangePasswordData,
 } from '@timedo/shared/src/schemas/authSchema';
 import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
 import { ApiError } from '../ApiError';
 
 export const authApi = {
-    register: async (
-        data: Omit<RegisterData, 'passwordAgain'>
-    ): Promise<unknown> => {
+    register: async (data: Omit<RegisterData, 'passwordAgain'>): Promise<unknown> => {
         try {
             const response = await apiClient.post('/api/auth/register', data);
             return response.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiError(
-                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
-                );
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }
@@ -30,9 +27,7 @@ export const authApi = {
             return response.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiError(
-                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
-                );
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }
@@ -43,9 +38,7 @@ export const authApi = {
             await apiClient.post('/api/auth/logout');
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiError(
-                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
-                );
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }
@@ -78,9 +71,20 @@ export const authApi = {
             return response.data.data.user;
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                throw new ApiError(
-                    err.response?.data?.code ?? 'UNKNOWN_ERROR'
-                );
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+
+    changePassword: async (
+        data: Omit<ChangePasswordData, 'newPasswordAgain'>
+    ): Promise<void> => {
+        try {
+            await apiClient.put('/api/auth/me/password', data);
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
             }
             throw err;
         }
