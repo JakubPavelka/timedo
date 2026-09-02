@@ -1,22 +1,22 @@
 import { SectionHeader } from '@/components/ui/SectionHeader/SectionHeader';
-import { SlidersHorizontal, Sun, Timer, Globe } from 'lucide-react';
+import { SlidersHorizontal, Sun, Globe } from 'lucide-react';
 import { Card } from '@/components/ui/Card/Card';
 import { useTranslation } from 'react-i18next';
 import { IconItem } from '@/components/ui/IconItem/IconItem';
 import { SegmentedControl } from '@/components/ui/SegmentedControl/SegmentedControl';
 import { useTheme } from '@/hooks/useTheme';
 import { useLanguage } from '@/hooks/useLanguage';
-import { useTimerMode } from '@/hooks/useTimerMode';
-import { useActiveTimeEntry } from '@/hooks/api/useTimeEntry';
+//import { useTimerMode } from '@/hooks/useTimerMode';
+//import { useActiveTimeEntry } from '@/hooks/api/useTimeEntry';
 import styles from './ProfileAppPreferences.module.scss';
 
 export const ProfileAppPreferences = () => {
     const { t } = useTranslation();
     const { theme, setTheme } = useTheme();
     const { language, setLanguage } = useLanguage();
-    const { timerMode, setTimerMode } = useTimerMode();
-    const { data: activeEntry } = useActiveTimeEntry();
-    const isRunning = !!activeEntry;
+    //const { timerMode, setTimerMode } = useTimerMode();
+    //const { data: activeEntry } = useActiveTimeEntry();
+    //const isRunning = !!activeEntry;
 
     const themeSegmentedData = [
         {
@@ -31,7 +31,8 @@ export const ProfileAppPreferences = () => {
         },
     ];
 
-    const timerSegmentedData = [
+    {
+        /* const timerSegmentedData = [
         {
             title: t('Profile.AppPreferences.Timer.stopwatch'),
             isActive: timerMode === 'STOPWATCH',
@@ -43,6 +44,8 @@ export const ProfileAppPreferences = () => {
             onClick: () => setTimerMode('POMODORO'),
         },
     ];
+    */
+    }
 
     const languageSegmentedData = [
         {
@@ -84,6 +87,7 @@ export const ProfileAppPreferences = () => {
                     }
                     rightActions={<SegmentedControl items={themeSegmentedData} />}
                 />
+                {/*
                 <IconItem
                     stackOnMobile
                     title={t('Profile.AppPreferences.Timer.title')}
@@ -102,6 +106,7 @@ export const ProfileAppPreferences = () => {
                         />
                     }
                 />
+                */}
                 <IconItem
                     stackOnMobile
                     title={t('Profile.AppPreferences.Language.title')}

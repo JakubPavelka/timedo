@@ -1,4 +1,4 @@
-import { SegmentedControl } from '@/components/ui/SegmentedControl/SegmentedControl';
+//import { SegmentedControl } from '@/components/ui/SegmentedControl/SegmentedControl';
 import { useTranslation } from 'react-i18next';
 import { useTimerMode } from '@/hooks/useTimerMode';
 import { useElapsedSeconds } from '@/hooks/useElapsedSeconds';
@@ -21,7 +21,7 @@ const ICON_SIZE = 16;
 export const FocusStopwatch = (props: FocusStopwatchType) => {
     const { t } = useTranslation();
     const timerType = useTimerMode((s) => s.timerMode);
-    const setTimerType = useTimerMode((s) => s.setTimerMode);
+    //const setTimerType = useTimerMode((s) => s.setTimerMode);
     const elapsedSeconds = useElapsedSeconds(props.startedAt, props.isRunning);
     const plannedDuration = props.plannedDuration ?? DEFAULT_POMODORO_DURATION;
     const displaySeconds =
@@ -29,7 +29,8 @@ export const FocusStopwatch = (props: FocusStopwatchType) => {
             ? elapsedSeconds
             : Math.max(plannedDuration - elapsedSeconds, 0);
 
-    const stopwatchTypeSegmentedData = [
+    {
+        /*const stopwatchTypeSegmentedData = [
         {
             title: t('Focus.stopwatch'),
             isActive: timerType === 'STOPWATCH',
@@ -41,16 +42,19 @@ export const FocusStopwatch = (props: FocusStopwatchType) => {
             onClick: () => setTimerType('POMODORO'),
         },
     ];
+    */
+    }
 
     return (
         <div className={styles.FocusStopwatch}>
-            <div className={styles.FocusStopwatch__segmentedControl}>
+            {/*<div className={styles.FocusStopwatch__segmentedControl}>
                 <SegmentedControl
                     disabled={props.isRunning}
                     variant={'round'}
                     items={stopwatchTypeSegmentedData}
                 />
             </div>
+            */}
             <div className={styles.FocusStopwatch__stopwatch}>
                 <div className={styles.FocusStopwatch__stopwatchCircle}>
                     {timerType === 'STOPWATCH' && (
