@@ -1,4 +1,5 @@
-import { rateLimit } from 'express-rate-limit';
+import { rateLimit, ipKeyGenerator } from 'express-rate-limit';
+import type { Request } from 'express';
 
 const commonOptions = {
     standardHeaders: 'draft-8' as const,
@@ -7,6 +8,11 @@ const commonOptions = {
     message: {
         message: 'Too many requests, please try again later',
         code: 'RATE_LIMITED',
+    },
+    keyGenerator: (req: Request): string => {
+        const cfIp = req.headers['cf-connecting-ip'];
+        const ip = typeof cfIp === 'string' ? cfIp : req.ip;
+        return ipKeyGenerator(ip ?? 'unknown', 56);
     },
 };
 

@@ -22,19 +22,6 @@ const app = express();
 app.set('query parser', 'extended');
 app.set('trust proxy', 1);
 
-// TEMP
-app.use((req, res, next) => {
-    logger.info(
-        {
-            resolvedIp: req.ip,
-            forwardedFor: req.headers['x-forwarded-for'],
-            socketRemoteAddress: req.socket.remoteAddress,
-        },
-        'trust proxy check'
-    );
-    next();
-});
-
 app.use(
     cors({
         origin: process.env.CLIENT_URL,
