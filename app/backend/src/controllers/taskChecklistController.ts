@@ -4,8 +4,8 @@ import {
     DeleteTaskChecklistSchema,
     UpdateTaskChecklistSchema,
 } from '@timedo/shared/src/schemas/taskChecklistSchema';
-import { prisma } from '../db/db';
-import { Prisma } from '../generated/prisma/client';
+import { prisma } from '../db/db.js';
+import { Prisma } from '../generated/prisma/client.js';
 
 const GetTaskChecklistSchema = TaskChecklistSchema.pick({ taskId: true });
 

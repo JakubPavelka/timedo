@@ -1,5 +1,4 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -17,8 +16,6 @@ import timeEntryRoutes from './routes/timeEntryRoutes.js';
 import taskChecklistRoutes from './routes/taskChecklistRoutes.js';
 
 const PORT = 3001;
-
-dotenv.config();
 
 const app = express();
 

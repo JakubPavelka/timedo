@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ProfileSchema } from './profileSchema';
+import { ProfileSchema } from './profileSchema.js';
 
 export const RegisterPayloadSchema = z.object({
     email: z.email('Validation.invalidEmail'),

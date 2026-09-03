@@ -7,7 +7,7 @@ import {
     UpdateTimeEntrySchema,
     DeleteTimeEntrySchema,
     GetTimeEntryQuerySchema,
-} from '@timedo/shared/src/schemas/timeEntrySchema.js';
+} from '@timedo/shared/src/schemas/timeEntrySchema';
 
 const isExpiredPomodoro = (entry: TimeEntry) =>
     entry.type === EntryType.POMODORO &&

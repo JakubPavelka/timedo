@@ -6,7 +6,7 @@ import {
     GetTasksQuerySchema,
     DeleteTasksSchema,
     UpdateTasksSchema,
-} from '@timedo/shared/src/schemas/taskSchema.js';
+} from '@timedo/shared/src/schemas/taskSchema';
 import { Prisma } from '../generated/prisma/client.js';
 
 const createTask = async (req: Request, res: Response) => {

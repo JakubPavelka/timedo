@@ -5,7 +5,7 @@ import {
     ProjectSchema,
     DeleteProjectSchema,
     UpdateProjectSchema,
-} from '@timedo/shared/src/schemas/projectSchema.js';
+} from '@timedo/shared/src/schemas/projectSchema';
 
 const createProject = async (req: Request, res: Response) => {
     try {

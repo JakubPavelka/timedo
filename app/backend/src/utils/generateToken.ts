@@ -1,9 +1,6 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
 import crypto from 'crypto';
-import dotenv from 'dotenv';
 import { Response } from 'express';
-
-dotenv.config();
 
 const ACCESS_TOKEN_EXPIRES_IN = '15m';
 const REFRESH_TOKEN_EXPIRES_DAYS = 30;
