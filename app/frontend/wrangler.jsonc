@@ -3,8 +3,14 @@
     "name": "timedo-fe",
     "compatibility_date": "2026-09-03",
     "preview_urls": true,
+    "routes": [
+        {
+            "pattern": "app.timedo.cz",
+            "custom_domain": true,
+        },
+    ],
     "assets": {
         "directory": "./dist",
-        "not_found_handling": "single-page-application"
-    }
+        "not_found_handling": "single-page-application",
+    },
 }
