@@ -15,7 +15,7 @@ import linkRoutes from './routes/linkRoutes.js';
 import timeEntryRoutes from './routes/timeEntryRoutes.js';
 import taskChecklistRoutes from './routes/taskChecklistRoutes.js';
 
-const PORT = 3001;
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3001;
 
 const app = express();
 
