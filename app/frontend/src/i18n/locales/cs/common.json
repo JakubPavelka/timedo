@@ -415,6 +415,14 @@
         "backButton": "Zpět na přihlášení",
         "backButtonApp": "Zpět do aplikace"
     },
+    "Calendar": {
+        "title": "Kalendář se připravuje",
+        "description": "Na téhle funkci ještě pracujeme. Brzy tu uvidíš svoje úkoly a čas v kalendáři."
+    },
+    "Overview": {
+        "title": "Přehled se připravuje",
+        "description": "Na téhle funkci ještě pracujeme. Brzy tu najdeš přehled svých projektů a času."
+    },
     "PrivacyPolicy": {
         "title": "Zásady ochrany osobních údajů",
         "lastUpdated": "Naposledy aktualizováno: 2. září 2026",

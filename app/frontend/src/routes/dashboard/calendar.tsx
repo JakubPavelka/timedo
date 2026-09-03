@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { DashboardView } from '@/views/Dashboard/DashboardView';
+import { CalendarView } from '@/views/Calendar/CalendarView';
 
 export const Route = createFileRoute('/dashboard/calendar')({
-    component: DashboardView,
+    component: CalendarView,
 });

@@ -415,6 +415,14 @@
         "backButton": "Back to sign in",
         "backButtonApp": "Back to app"
     },
+    "Calendar": {
+        "title": "Calendar is coming soon",
+        "description": "We're still working on this feature. Soon you'll see your tasks and time on a calendar here."
+    },
+    "Overview": {
+        "title": "Overview is coming soon",
+        "description": "We're still working on this feature. Soon you'll find an overview of your projects and time here."
+    },
     "PrivacyPolicy": {
         "title": "Privacy Policy",
         "lastUpdated": "Last updated: September 2, 2026",
