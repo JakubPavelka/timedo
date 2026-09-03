@@ -13,6 +13,10 @@ export const SidebarProfileButton = (props: SidebarProfileButtonProps) => {
     const initialFirstName = user?.firstName?.slice(0, 1);
     const initialLastName = user?.lastName?.slice(0, 1);
 
+    if (!user) {
+        return null;
+    }
+
     return (
         <Link
             className={clsx(
