@@ -4,7 +4,6 @@ import type { Request } from 'express';
 const commonOptions = {
     standardHeaders: 'draft-8' as const,
     legacyHeaders: false,
-    ipv6Subnet: 56,
     message: {
         message: 'Too many requests, please try again later',
         code: 'RATE_LIMITED',
