@@ -29,6 +29,7 @@
         "INCORRECT_PASSWORD": "Současné heslo je nesprávné"
     },
     "General": {
+        "pageTitle": "Timedo | Čas a úkoly pod kontrolou",
         "timeUnderControl": "Tvůj čas pod kontrolou",
         "cancel": "Zrušit",
         "edit": "Upravit",

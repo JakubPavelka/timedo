@@ -23,4 +23,38 @@ export default defineConfig({
             },
         },
     },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (!id.includes('node_modules')) {
+                        return;
+                    }
+                    if (id.includes('react-dom') || id.match(/node_modules\/react\//)) {
+                        return 'vendor-react';
+                    }
+                    if (
+                        id.includes('@tanstack/react-router') ||
+                        id.includes('@tanstack/router-core') ||
+                        id.includes('@tanstack/history')
+                    ) {
+                        return 'vendor-router';
+                    }
+                    if (
+                        id.includes('@tanstack/react-query') ||
+                        id.includes('@tanstack/query-core')
+                    ) {
+                        return 'vendor-query';
+                    }
+                    if (id.includes('i18next')) {
+                        return 'vendor-i18n';
+                    }
+                    if (id.includes('zod')) {
+                        return 'vendor-zod';
+                    }
+                    return 'vendor';
+                },
+            },
+        },
+    },
 });

@@ -1,5 +1,4 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -18,11 +17,23 @@ import taskChecklistRoutes from './routes/taskChecklistRoutes.js';
 
 const PORT = 3001;
 
-dotenv.config();
-
 const app = express();
 
 app.set('query parser', 'extended');
+app.set('trust proxy', 1);
+
+// TEMP
+app.use((req, res, next) => {
+    logger.info(
+        {
+            resolvedIp: req.ip,
+            forwardedFor: req.headers['x-forwarded-for'],
+            socketRemoteAddress: req.socket.remoteAddress,
+        },
+        'trust proxy check'
+    );
+    next();
+});
 
 app.use(
     cors({
@@ -50,7 +61,7 @@ app.use('/api/time-entry', timeEntryRoutes);
 app.use('/api/task-checklist', taskChecklistRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Hello world');
+    res.send('Timedo API');
 });
 
 const server = app.listen(PORT, () => {

@@ -1,7 +1,7 @@
 import { prisma } from '../db/db.js';
 import { Response, Request } from 'express';
 import { Prisma } from '../generated/prisma/client.js';
-import { LinkSchema, LinkBaseSchema } from '@timedo/shared//src/schemas/linkSchema.js';
+import { LinkSchema, LinkBaseSchema } from '@timedo/shared/src/schemas/linkSchema';
 
 const createLink = async (req: Request, res: Response) => {
     try {

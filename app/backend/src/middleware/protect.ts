@@ -1,9 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { prisma } from '../db/db.js';
 import { NextFunction, Request, Response } from 'express';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 export const protect = async (
     req: Request,

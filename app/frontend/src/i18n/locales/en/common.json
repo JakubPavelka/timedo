@@ -29,6 +29,7 @@
         "INCORRECT_PASSWORD": "Current password is incorrect"
     },
     "General": {
+        "pageTitle": "Timedo | Time and tasks under control",
         "timeUnderControl": "Your time under control",
         "cancel": "Cancel",
         "edit": "Edit",

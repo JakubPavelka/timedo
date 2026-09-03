@@ -5,7 +5,7 @@ import {
     TagSchema,
     UpdateTagSchema,
     DeleteTagSchema,
-} from '@timedo/shared/src/schemas/tagsSchema.js';
+} from '@timedo/shared/src/schemas/tagsSchema';
 
 const createTag = async (req: Request, res: Response) => {
     try {

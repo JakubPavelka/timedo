@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { LinkBaseSchema } from './linkSchema';
+import { LinkBaseSchema } from './linkSchema.js';
 
 export const Status = {
     TODO: 'TODO',
