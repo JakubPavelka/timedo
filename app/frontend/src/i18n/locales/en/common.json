@@ -336,7 +336,9 @@
             "loadMore": "Load more",
             "emptyTitle": "No history yet",
             "emptyDescription": "Start tracking time on your tasks and it will show up here.",
-            "goToTasks": "Go to tasks"
+            "goToTasks": "Go to tasks",
+            "emptySearchTitle": "Nothing found",
+            "emptySearchDescription": "Try searching for a different task name."
         },
         "timeEntryDeleteModalTitle": "Delete time entry?",
         "timeEntryDeleteModalDescription": "This action is irreversible. The time entry will be permanently deleted.",

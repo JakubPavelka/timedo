@@ -336,7 +336,9 @@
             "loadMore": "Načíst další",
             "emptyTitle": "Zatím žádná historie",
             "emptyDescription": "Začni měřit čas na svých úkolech a uvidíš tu jejich historii.",
-            "goToTasks": "Přejít na úkoly"
+            "goToTasks": "Přejít na úkoly",
+            "emptySearchTitle": "Nic jsme nenašli",
+            "emptySearchDescription": "Zkus hledat pod jiným názvem úkolu."
         },
         "timeEntryDeleteModalTitle": "Smazat záznam?",
         "timeEntryDeleteModalDescription": "Tato akce je nevratná. Záznam bude trvale smazán.",
