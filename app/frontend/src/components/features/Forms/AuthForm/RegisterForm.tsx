@@ -42,10 +42,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
             {/* FIRSTNAME AND LASTNAME INPUT */}
             <div className={styles['AuthForm__inputWrapper--row']}>
                 <div className={styles.AuthForm__columnWrapper}>
-                    <label
-                        htmlFor={'firstName'}
-                        className={styles.AuthForm__inputLabel}
-                    >
+                    <label htmlFor={'firstName'} className={styles.AuthForm__inputLabel}>
                         {t('RegisterForm.firstName')}*
                     </label>
                     <Controller
@@ -57,12 +54,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
                                 value={value}
                                 onChange={onChange}
                                 type={'text'}
-                                prefixIcon={
-                                    <User
-                                        width={ICON_SIZE}
-                                        height={ICON_SIZE}
-                                    />
-                                }
+                                prefixIcon={<User width={ICON_SIZE} height={ICON_SIZE} />}
                             />
                         )}
                     />
@@ -74,10 +66,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
                 </div>
 
                 <div className={styles.AuthForm__columnWrapper}>
-                    <label
-                        htmlFor={'lastName'}
-                        className={styles.AuthForm__inputLabel}
-                    >
+                    <label htmlFor={'lastName'} className={styles.AuthForm__inputLabel}>
                         {t('RegisterForm.lastName')}
                     </label>
                     <Controller
@@ -89,12 +78,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
                                 value={value}
                                 onChange={onChange}
                                 type={'text'}
-                                prefixIcon={
-                                    <User
-                                        width={ICON_SIZE}
-                                        height={ICON_SIZE}
-                                    />
-                                }
+                                prefixIcon={<User width={ICON_SIZE} height={ICON_SIZE} />}
                             />
                         )}
                     />
@@ -108,10 +92,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
 
             {/* EMAIL INPUT */}
             <div className={styles.AuthForm__inputWrapper}>
-                <label
-                    htmlFor={'email'}
-                    className={styles.AuthForm__inputLabel}
-                >
+                <label htmlFor={'email'} className={styles.AuthForm__inputLabel}>
                     {t('RegisterForm.email')}*
                 </label>
                 <Controller
@@ -123,9 +104,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
                             value={value}
                             onChange={onChange}
                             type={'email'}
-                            prefixIcon={
-                                <Mail width={ICON_SIZE} height={ICON_SIZE} />
-                            }
+                            prefixIcon={<Mail width={ICON_SIZE} height={ICON_SIZE} />}
                         />
                     )}
                 />
@@ -138,10 +117,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
 
             {/* PASSWORD INPUT */}
             <div className={styles.AuthForm__inputWrapper}>
-                <label
-                    htmlFor={'password'}
-                    className={styles.AuthForm__inputLabel}
-                >
+                <label htmlFor={'password'} className={styles.AuthForm__inputLabel}>
                     {t('RegisterForm.password')}*
                 </label>
                 <Controller
@@ -153,9 +129,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
                             value={value}
                             onChange={onChange}
                             type={'password'}
-                            prefixIcon={
-                                <Lock width={ICON_SIZE} height={ICON_SIZE} />
-                            }
+                            prefixIcon={<Lock width={ICON_SIZE} height={ICON_SIZE} />}
                         />
                     )}
                 />
@@ -168,10 +142,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
 
             {/* PASSWORD AGAIN INPUT */}
             <div className={styles.AuthForm__inputWrapper}>
-                <label
-                    htmlFor={'passwordAgain'}
-                    className={styles.AuthForm__inputLabel}
-                >
+                <label htmlFor={'passwordAgain'} className={styles.AuthForm__inputLabel}>
                     {t('RegisterForm.passwordAgain')}*
                 </label>
                 <Controller
@@ -183,9 +154,7 @@ export const RegisterForm = (props: RegisterFormProps) => {
                             value={value}
                             onChange={onChange}
                             type={'password'}
-                            prefixIcon={
-                                <Lock width={ICON_SIZE} height={ICON_SIZE} />
-                            }
+                            prefixIcon={<Lock width={ICON_SIZE} height={ICON_SIZE} />}
                         />
                     )}
                 />
@@ -228,7 +197,6 @@ export const RegisterForm = (props: RegisterFormProps) => {
             <div className={styles.AuthForm__submitBtn}>
                 <Button
                     type={'submit'}
-                    haveRightArrow
                     isLoading={props.isLoading}
                     fullWidth
                 >

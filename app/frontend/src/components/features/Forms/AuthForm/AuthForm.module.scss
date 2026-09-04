@@ -27,6 +27,8 @@
 .AuthForm__inputLabel {
     @include typography.text-sm(var(--text));
     margin-bottom: 6px;
+    max-width: fit-content;
+    cursor: pointer;
 }
 
 .AuthForm__forgotPassword {

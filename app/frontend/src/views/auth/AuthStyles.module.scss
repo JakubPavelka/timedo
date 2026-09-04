@@ -3,14 +3,8 @@
 @use 'styles/typography';
 
 .AuthView {
-    display: flex;
+    @include layout.flexColumn;
     min-height: 100dvh;
-}
-
-.AuthView__leftSide {
-    display: flex;
-    flex-direction: column;
-    max-width: 50%;
     width: 100%;
     padding: 36px;
 
@@ -24,23 +18,31 @@
     }
 }
 
-.AuthView__leftContent {
-    max-width: 390px;
-    width: 100%;
-}
-
 .AuthView__errorMessage {
     @include typography.text-error;
 }
 
 .AuthView__alignCenter {
-    flex: 1;
     @include layout.centerXY;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
+
+    @include breakpoints.tablet {
+        justify-content: start;
+        padding-top: 64px;
+    }
 
     @include breakpoints.mobile {
         align-items: flex-start;
-        padding-top: 32px;
+        padding-top: 24px;
     }
+}
+
+.AuthView__content {
+    width: 100%;
 }
 
 .AuthView__alreadyHaveAccount {
@@ -48,42 +50,4 @@
     color: var(--text-2);
     text-align: center;
     margin-block: 12px;
-}
-
-.AuthView__rightSide {
-    max-width: 50%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    background:
-    /* glow vpravo nahoře (accent modrá) */
-        radial-gradient(
-            120% 80% at 80% 0%,
-            color-mix(in oklab, var(--accent) 36%, transparent),
-            transparent 60%
-        ),
-        /* glow vlevo dole (violet) */
-        radial-gradient(
-                90% 70% at 0% 100%,
-                color-mix(in oklab, var(--highlight) 30%, transparent),
-                transparent 55%
-            ),
-        /* tmavě modrý diagonální podklad */
-        linear-gradient(150deg, oklch(0.3 0.07 262), oklch(0.2 0.05 270));
-    color: #fff;
-
-    @include breakpoints.tablet {
-        display: none;
-    }
-}
-
-/* jemná tečkovaná textura navrch, vyfadovaná dolů */
-.AuthView__rightSide::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-    background-size: 22px 22px;
-    opacity: 0.5;
-    mask: linear-gradient(180deg, #000, transparent 75%);
 }

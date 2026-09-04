@@ -35,10 +35,7 @@ export const LoginForm = (props: LoginFormProps) => {
         <form onSubmit={handleSubmit(props.onSubmit)}>
             {/* EMAIL INPUT */}
             <div className={styles.AuthForm__inputWrapper}>
-                <label
-                    htmlFor={'email'}
-                    className={styles.AuthForm__inputLabel}
-                >
+                <label htmlFor={'email'} className={styles.AuthForm__inputLabel}>
                     {t('RegisterForm.email')}*
                 </label>
                 <Controller
@@ -50,9 +47,7 @@ export const LoginForm = (props: LoginFormProps) => {
                             value={value}
                             onChange={onChange}
                             type={'email'}
-                            prefixIcon={
-                                <Mail width={ICON_SIZE} height={ICON_SIZE} />
-                            }
+                            prefixIcon={<Mail width={ICON_SIZE} height={ICON_SIZE} />}
                         />
                     )}
                 />
@@ -65,10 +60,7 @@ export const LoginForm = (props: LoginFormProps) => {
 
             {/* PASSWORD INPUT */}
             <div className={styles.AuthForm__inputWrapper}>
-                <label
-                    htmlFor={'password'}
-                    className={styles.AuthForm__inputLabel}
-                >
+                <label htmlFor={'password'} className={styles.AuthForm__inputLabel}>
                     {t('RegisterForm.password')}*
                 </label>
                 <Controller
@@ -80,9 +72,7 @@ export const LoginForm = (props: LoginFormProps) => {
                             value={value}
                             onChange={onChange}
                             type={'password'}
-                            prefixIcon={
-                                <Lock width={ICON_SIZE} height={ICON_SIZE} />
-                            }
+                            prefixIcon={<Lock width={ICON_SIZE} height={ICON_SIZE} />}
                         />
                     )}
                 />
@@ -96,7 +86,6 @@ export const LoginForm = (props: LoginFormProps) => {
             <div className={styles.AuthForm__submitBtn}>
                 <Button
                     type={'submit'}
-                    haveRightArrow
                     isLoading={props.isLoading}
                     fullWidth
                 >

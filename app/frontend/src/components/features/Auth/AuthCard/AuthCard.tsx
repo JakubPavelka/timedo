@@ -12,14 +12,12 @@ export const AuthCard = (props: AuthCardProps) => {
 
     return (
         <div>
-            <p className={styles.AuthCard__welcomeBackText}>
-                {props.isInRegister
-                    ? t('AuthCard.tryForFree')
-                    : t('AuthCard.welcomeBack')}
-            </p>
             <h1 className={styles.AuthCard__title}>
                 {props.isInRegister ? t('AuthCard.createAccount') : t('AuthCard.signIn')}
             </h1>
+            <p className={styles.AuthCard__welcomeBackText}>
+                {props.isInRegister ? t('AuthCard.tryForFree') : t('AuthCard.continue')}
+            </p>
             {/* 
             <button type={'button'} className={styles.AuthCard__googleCard}>
                 <Google />
