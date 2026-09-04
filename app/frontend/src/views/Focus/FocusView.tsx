@@ -28,14 +28,25 @@ export const FocusView = () => {
     const { data: activeEntry } = useActiveTimeEntry();
     const [search, setSearch] = useState('');
     const [limit, setLimit] = useState(PAGE_SIZE);
-    const { data: timeEntriesData } = useGetTimeEntries(limit, search || undefined);
+    const { data: timeEntriesData, isFetching: timeEntriesIsFetching } =
+        useGetTimeEntries(limit, search || undefined);
     const isRunning = !!activeEntry;
+
+    const [resolvedSearch, setResolvedSearch] = useState('');
+    const [prevIsFetching, setPrevIsFetching] = useState(timeEntriesIsFetching);
+    if (timeEntriesIsFetching !== prevIsFetching) {
+        setPrevIsFetching(timeEntriesIsFetching);
+        if (!timeEntriesIsFetching) {
+            setResolvedSearch(search);
+        }
+    }
 
     const timeEntryHistoryItems =
         timeEntriesData?.entries.map((entry) =>
             mapTimeEntryToHistoryItem(entry, t, i18n.language)
         ) ?? [];
     const hasMore = timeEntryHistoryItems.length < (timeEntriesData?.total ?? 0);
+    const emptySearch = timeEntryHistoryItems.length === 0 && resolvedSearch.length > 0;
 
     const selectedEntry = timeEntryDetailId
         ? timeEntriesData?.entries.find((entry) => entry.id === timeEntryDetailId)
@@ -100,6 +111,8 @@ export const FocusView = () => {
             <FocusTimeEntryHistory
                 timeEntries={timeEntryHistoryItems}
                 hasMore={hasMore}
+                entriesSum={timeEntriesData?.totalUnfiltered}
+                emptySearch={emptySearch}
                 onSearchChange={handleSearchChange}
                 onLoadMoreClick={handleLoadMoreClick}
                 onDeleteClick={handleDeleteTimeEntry}
