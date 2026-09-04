@@ -88,7 +88,7 @@
     "AuthCard": {
         "tryForFree": "Start for free",
         "createAccount": "Create your account",
-        "welcomeBack": "Welcome back",
+        "continue": "Pick up where you left off.",
         "signIn": "Sign in to Timedo",
         "continueWithGoogle": "Continue with Google",
         "orWithEmail": "or with e-mail"

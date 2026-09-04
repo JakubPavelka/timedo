@@ -88,7 +88,7 @@
     "AuthCard": {
         "tryForFree": "Začni zdarma",
         "createAccount": "Vytvoř si účet",
-        "welcomeBack": "Vítej zpět",
+        "continue": "Pokračuj tam, kde jsi skončil.",
         "signIn": "Přihlas se do Timedo",
         "continueWithGoogle": "Pokračovat přes Google",
         "orWithEmail": "nebo e-mailemem"
