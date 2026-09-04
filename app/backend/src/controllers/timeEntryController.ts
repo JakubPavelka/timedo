@@ -249,7 +249,9 @@ const getTimeEntries = async (req: Request, res: Response) => {
             ...(matchingEntryIds && { id: { in: matchingEntryIds } }),
         };
 
-        const [entries, total] = await Promise.all([
+        const isFiltered = !!taskId || !!matchingEntryIds;
+
+        const [entries, total, totalUnfiltered] = await Promise.all([
             prisma.timeEntry.findMany({
                 where,
                 orderBy: {
@@ -267,6 +269,11 @@ const getTimeEntries = async (req: Request, res: Response) => {
                 },
             }),
             prisma.timeEntry.count({ where }),
+            isFiltered
+                ? prisma.timeEntry.count({
+                      where: { userId: req.user!.id, endedAt: { not: null } },
+                  })
+                : Promise.resolve(null),
         ]);
 
         const taskIds = [
@@ -299,9 +306,12 @@ const getTimeEntries = async (req: Request, res: Response) => {
                 : null,
         }));
 
-        return res
-            .status(200)
-            .json({ status: 'success', data: entriesWithTaskWorkedTime, total });
+        return res.status(200).json({
+            status: 'success',
+            data: entriesWithTaskWorkedTime,
+            total,
+            totalUnfiltered: totalUnfiltered ?? total,
+        });
     } catch (err) {
         req.log.error(err, 'Failed to get time entries');
         return res.status(500).json({ message: 'Failed to get time entries' });

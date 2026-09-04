@@ -70,12 +70,20 @@ export const timeEntryApi = {
         limit: number,
         search?: string,
         taskId?: string
-    ): Promise<{ entries: TimeEntryWithTask[]; total: number }> => {
+    ): Promise<{
+        entries: TimeEntryWithTask[];
+        total: number;
+        totalUnfiltered: number;
+    }> => {
         try {
             const response = await apiClient.get('/api/time-entry/entries', {
                 params: { limit, search, taskId },
             });
-            return { entries: response.data.data, total: response.data.total as number };
+            return {
+                entries: response.data.data,
+                total: response.data.total as number,
+                totalUnfiltered: response.data.totalUnfiltered as number,
+            };
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
