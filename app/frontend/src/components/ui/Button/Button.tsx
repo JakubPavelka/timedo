@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes } from 'react';
 import styles from './Button.module.scss';
-import { ChevronRight, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 import clsx from 'clsx';
 import { Spinner } from '../Spinner/Spinner';
 
@@ -13,7 +13,6 @@ type ButtonVariant =
     | 'outline-success';
 
 type ButtonProps = {
-    haveRightArrow?: boolean;
     havePlayIcon?: boolean;
     variant?: ButtonVariant;
     isLoading?: boolean;
@@ -23,7 +22,6 @@ type ButtonProps = {
 export const Button = (props: ButtonProps) => {
     const {
         variant = 'primary',
-        haveRightArrow,
         fullWidth,
         havePlayIcon,
         isLoading,
@@ -49,17 +47,10 @@ export const Button = (props: ButtonProps) => {
             {havePlayIcon && (
                 <Play className={styles.Button_playIcon} width={10} height={10} />
             )}
-            <span className={styles.Button__text}>{children}</span>
             {isLoading ? (
-                <Spinner size="sm" className={styles.Button__spinner} />
+                <Spinner size={'sm'} className={styles.Button__spinner} />
             ) : (
-                haveRightArrow && (
-                    <ChevronRight
-                        className={styles.Button__chevronRight}
-                        width={16}
-                        height={16}
-                    />
-                )
+                <span className={styles.Button__text}>{children}</span>
             )}
         </button>
     );
