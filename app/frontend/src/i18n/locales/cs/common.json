@@ -83,6 +83,7 @@
     "LoginForm": {
         "stayLoggedIn": "Zůstat přihlášený",
         "login": "Přihlásit se",
+        "forgotPassword": "Zapomenuté heslo?",
         "dontHaveAccount": "Nemáš účet? <link1>Vytvoř si ho</link1>"
     },
     "AuthCard": {

@@ -60,9 +60,15 @@ export const LoginForm = (props: LoginFormProps) => {
 
             {/* PASSWORD INPUT */}
             <div className={styles.AuthForm__inputWrapper}>
-                <label htmlFor={'password'} className={styles.AuthForm__inputLabel}>
-                    {t('RegisterForm.password')}*
-                </label>
+                <div className={styles.AuthForm__labelRow}>
+                    <label htmlFor={'password'} className={styles.AuthForm__inputLabel}>
+                        {t('RegisterForm.password')}*
+                    </label>
+                    {/*<a href={'#'} className={styles.AuthForm__forgotPassword}>
+                        {t('LoginForm.forgotPassword')}
+                    </a>
+                    */}
+                </div>
                 <Controller
                     control={control}
                     name={'password'}
@@ -84,11 +90,7 @@ export const LoginForm = (props: LoginFormProps) => {
             </div>
 
             <div className={styles.AuthForm__submitBtn}>
-                <Button
-                    type={'submit'}
-                    isLoading={props.isLoading}
-                    fullWidth
-                >
+                <Button type={'submit'} isLoading={props.isLoading} fullWidth>
                     {t('LoginForm.login')}
                 </Button>
             </div>

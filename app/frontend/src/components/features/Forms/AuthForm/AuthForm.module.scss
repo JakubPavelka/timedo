@@ -31,8 +31,20 @@
     cursor: pointer;
 }
 
+.AuthForm__labelRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .AuthForm__forgotPassword {
     @include typography.text-xs(var(--accent-text));
+    transition: color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--accent);
+    }
 }
 
 .AuthForm__errorMessage {
