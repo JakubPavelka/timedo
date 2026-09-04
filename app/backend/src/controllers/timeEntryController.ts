@@ -235,8 +235,8 @@ const getTimeEntries = async (req: Request, res: Response) => {
                       WHERE te."userId" = ${req.user!.id}
                         AND te."endedAt" IS NOT NULL
                         AND (
-                            unaccent(COALESCE(t.title, '')) ILIKE unaccent(${'%' + search + '%'})
-                            OR unaccent(COALESCE(te.description, '')) ILIKE unaccent(${'%' + search + '%'})
+                            extensions.unaccent(COALESCE(t.title, '')) ILIKE extensions.unaccent(${'%' + search + '%'})
+                            OR extensions.unaccent(COALESCE(te.description, '')) ILIKE extensions.unaccent(${'%' + search + '%'})
                         )
                   `
               ).map((entry) => entry.id)
