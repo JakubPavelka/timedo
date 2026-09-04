@@ -36,7 +36,7 @@ export const NotFoundView = () => {
                 <p className={styles.NotFoundView__description}>
                     {t('NotFound.description')}
                 </p>
-                <Button onClick={handleBackClick} haveRightArrow>
+                <Button onClick={handleBackClick}>
                     {t(
                         isAuthenticated ? 'NotFound.backButtonApp' : 'NotFound.backButton'
                     )}

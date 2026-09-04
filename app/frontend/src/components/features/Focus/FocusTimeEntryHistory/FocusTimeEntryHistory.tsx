@@ -14,6 +14,8 @@ import styles from './FocusTimeEntryHistory.module.scss';
 type FocusTimeEntryHistoryProps = {
     timeEntries: FocusTimeEntryHistoryItemProps[];
     hasMore?: boolean;
+    entriesSum?: number;
+    emptySearch?: boolean;
     onSearchChange?: (search: string) => void;
     onLoadMoreClick?: () => void;
     onDeleteClick?: (id: string) => Promise<void>;
@@ -25,7 +27,8 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
     const navigate = useNavigate();
     const [searchText, setSearchText] = useState('');
     const debouncedSearchText = useDebouncedValue(searchText, 500);
-    const isEmpty = (props.timeEntries?.length ?? 0) === 0 && !searchText;
+    const isEmpty = props?.entriesSum === 0 && !searchText;
+    const emptySearch = props.emptySearch ?? false;
 
     useEffect(() => {
         props.onSearchChange?.(debouncedSearchText);
@@ -92,6 +95,19 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
                             onItemClick={() => props.onItemClick?.(entry.id)}
                         />
                     ))}
+                    {emptySearch && (
+                        <div className={styles.FocusTimeEntryHistory__emptyWrapper}>
+                            <div className={styles.FocusTimeEntryHistory__emptyIcon}>
+                                <Search width={24} height={24} />
+                            </div>
+                            <p className={styles.FocusTimeEntryHistory__emptyTitle}>
+                                {t('Focus.History.emptySearchTitle')}
+                            </p>
+                            <p className={styles.FocusTimeEntryHistory__emptyDescription}>
+                                {t('Focus.History.emptySearchDescription')}
+                            </p>
+                        </div>
+                    )}
                     {props.hasMore && (
                         <Button
                             variant={'outline'}

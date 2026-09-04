@@ -130,7 +130,7 @@ const getTasks = async (req: Request, res: Response) => {
                   await prisma.$queryRaw<{ id: string }[]>`
                       SELECT id FROM "Task"
                       WHERE "userId" = ${req.user!.id}
-                        AND unaccent(title) ILIKE unaccent(${'%' + search + '%'})
+                        AND extensions.unaccent(title) ILIKE extensions.unaccent(${'%' + search + '%'})
                   `
               ).map((task) => task.id)
             : undefined;

@@ -4,13 +4,13 @@
 
 .AuthCard__title {
     @include typography.text-title;
-    margin-bottom: 12px;
 }
 
 .AuthCard__welcomeBackText {
-    @include typography.text-xs(var(--accent-text));
-    text-transform: uppercase;
-    font-weight: 700;
+    @include typography.text-md(var(--text-3));
+    margin-top: 2px;
+    margin-bottom: 24px;
+    font-weight: 500;
 }
 
 .AuthCard__cardText {
