@@ -35,7 +35,11 @@ app.use(helmet());
 app.use(
     pinoHttp({
         logger,
-        redact: ['req.headers.cookie', 'req.headers.authorization'],
+        redact: [
+            'req.headers.cookie',
+            'req.headers.authorization',
+            'req.headers["x-origin-secret"]',
+        ],
     })
 );
 app.use(express.json());
