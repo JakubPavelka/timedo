@@ -236,3 +236,9 @@ export const readTaskChecklistLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 100,
 });
+
+export const notFoundLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 3,
+});

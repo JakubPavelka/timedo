@@ -5,6 +5,8 @@ import cors from 'cors';
 import { disconnectDB } from './db/db.js';
 import { logger } from './lib/logger.js';
 import { pinoHttp } from 'pino-http';
+import { verifyCloudflareOrigin } from './middleware/verifyCloudflareOrigin.js';
+import { notFoundLimiter } from './middleware/rateLimiters.js';
 
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -22,6 +24,7 @@ const app = express();
 app.set('query parser', 'extended');
 app.set('trust proxy', 1);
 
+app.use(verifyCloudflareOrigin);
 app.use(
     cors({
         origin: process.env.CLIENT_URL,
@@ -49,6 +52,10 @@ app.use('/api/task-checklist', taskChecklistRoutes);
 
 app.get('/', (req, res) => {
     res.send('Timedo API');
+});
+
+app.use(notFoundLimiter, (req, res) => {
+    res.status(404).json({ message: 'Not found', code: 'NOT_FOUND' });
 });
 
 const server = app.listen(PORT, () => {
