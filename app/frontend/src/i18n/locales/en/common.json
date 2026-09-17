@@ -68,7 +68,8 @@
         "colorFormat": "Color must be a valid hex code (e.g. #FF0000)",
         "invalidUrl": "Invalid URL",
         "plannedDurationRequired": "Planned duration is required for a pomodoro timer",
-        "estimatedTimeInvalid": "Enter a valid number of hours"
+        "estimatedTimeInvalid": "Enter a valid number of hours",
+        "tokenRequired": "Reset link is missing or invalid"
     },
     "RegisterForm": {
         "firstName": "First name",

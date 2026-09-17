@@ -68,7 +68,8 @@
         "colorFormat": "Barva musí být platný hex kód (např. #FF0000)",
         "invalidUrl": "Neplatná URL",
         "plannedDurationRequired": "U pomodoro časovače je nutné zadat plánovanou délku",
-        "estimatedTimeInvalid": "Zadejte platný počet hodin"
+        "estimatedTimeInvalid": "Zadejte platný počet hodin",
+        "tokenRequired": "Odkaz pro reset hesla chybí nebo je neplatný"
     },
     "RegisterForm": {
         "firstName": "Jméno",
