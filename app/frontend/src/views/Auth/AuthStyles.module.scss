@@ -51,3 +51,10 @@
     text-align: center;
     margin-block: 12px;
 }
+
+.AuthView__link {
+    @include typography.text-sm(var(--accent));
+    display: block;
+    text-align: center;
+    margin-block: 12px;
+}
