@@ -88,6 +88,15 @@
         "forgotPassword": "Zapomenuté heslo?",
         "dontHaveAccount": "Nemáš účet? <link1>Vytvoř si ho</link1>"
     },
+    "ForgottenPassword": {
+        "title": "Zapomenuté heslo",
+        "description": "Zadej e-mail účtu a pošleme ti odkaz pro nastavení nového hesla.",
+        "sendLink": "Poslat odkaz",
+        "backToLogin": "Zpět na přihlášení",
+        "checkEmailTitle": "Zkontroluj e-mail",
+        "checkEmailDescription": "Poslali jsme odkaz pro obnovu hesla. Dorazí během pár minut.",
+        "noEmailReceived": "Nic nepřišlo? <resend>Poslat znovu</resend>"
+    },
     "AuthCard": {
         "tryForFree": "Začni zdarma",
         "createAccount": "Vytvoř si účet",
