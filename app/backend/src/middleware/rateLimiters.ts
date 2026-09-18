@@ -242,3 +242,15 @@ export const notFoundLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15min
     limit: 3,
 });
+
+export const forgottenPasswordLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 5,
+});
+
+export const resetPasswordLimiter = rateLimit({
+    ...commonOptions,
+    windowMs: 15 * 60 * 1000, // 15min
+    limit: 5,
+});

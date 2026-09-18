@@ -42,6 +42,7 @@ export const ChangePasswordSchema = z
 
 export const ForgotPasswordSchema = z.object({
     email: z.email('Validation.invalidEmail'),
+    lang: z.enum(['cs-CZ', 'en']),
 });
 
 export const ResetPasswordPayloadSchema = z.object({
