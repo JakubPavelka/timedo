@@ -6,9 +6,13 @@ import {
     RegisterPayloadSchema,
     LoginSchema,
     ChangePasswordSchema,
+    ForgotPasswordSchema,
+    ResetPasswordPayloadSchema,
 } from '@timedo/shared/src/schemas/authSchema';
 import { ProfileSchema } from '@timedo/shared/src/schemas/profileSchema';
 import { generateAccessToken, generateRefreshToken } from '../utils/generateToken.js';
+import { sendPasswordResetEmail } from '../lib/mail.js';
+import crypto from 'node:crypto';
 
 const register = async (req: Request, res: Response) => {
     const parsedBody = RegisterPayloadSchema.safeParse(req.body);
@@ -318,4 +322,119 @@ const changePassword = async (req: Request, res: Response) => {
     }
 };
 
-export { register, login, logout, refresh, me, updateMe, changePassword };
+const forgottenPassword = async (req: Request, res: Response) => {
+    const parsedBody = ForgotPasswordSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { email, lang } = parsedBody.data;
+
+    try {
+        const findEmail = await prisma.user.findUnique({ where: { email } });
+
+        if (!findEmail) {
+            return res.status(200).json({ message: 'Reset email sent' });
+        }
+
+        await prisma.passwordResetToken.deleteMany({
+            where: { userId: findEmail.id },
+        });
+
+        const token = crypto.randomBytes(32).toString('hex');
+        const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+
+        await prisma.passwordResetToken.create({
+            data: {
+                tokenHash,
+                expiresAt: new Date(Date.now() + 1000 * 60 * 15),
+                userId: findEmail.id,
+            },
+        });
+
+        await sendPasswordResetEmail(
+            email,
+            `${process.env.CLIENT_URL}/reset-password?token=${token}`,
+            lang
+        );
+
+        return res.status(200).json({ message: 'Reset email sent' });
+    } catch (err) {
+        req.log.error(err, 'Failed to send forgotten password email');
+        return res
+            .status(500)
+            .json({ message: 'Failed to send forgotten password email' });
+    }
+};
+
+const resetPassword = async (req: Request, res: Response) => {
+    const parsedBody = ResetPasswordPayloadSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+        return res.status(400).json({
+            message: 'Invalid input',
+            code: 'VALIDATION_ERROR',
+        });
+    }
+
+    const { newPassword, token } = parsedBody.data;
+
+    try {
+        const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+
+        const resetToken = await prisma.passwordResetToken.findUnique({
+            where: { tokenHash },
+        });
+
+        if (!resetToken || resetToken.expiresAt < new Date()) {
+            return res.status(400).json({
+                message: 'Invalid or expired token',
+                code: 'INVALID_RESET_TOKEN',
+            });
+        }
+
+        const user = await prisma.user.findUnique({ where: { id: resetToken.userId } });
+
+        if (!user) {
+            return res.status(400).json({
+                message: 'User not found',
+                code: 'USER_NOT_FOUND',
+            });
+        }
+
+        const bcryptSalt = await bcrypt.genSalt(10);
+        const passwordHashed = await bcrypt.hash(newPassword, bcryptSalt);
+
+        await prisma.user.update({
+            where: { id: resetToken.userId },
+            data: {
+                passwordHashed,
+            },
+        });
+
+        await prisma.passwordResetToken.deleteMany({
+            where: { userId: resetToken.userId },
+        });
+
+        return res.status(200).json({ message: 'Password changed' });
+    } catch (err) {
+        req.log.error(err, 'Failed to reset password');
+        return res.status(500).json({ message: 'Failed to reset password' });
+    }
+};
+
+export {
+    register,
+    login,
+    logout,
+    refresh,
+    me,
+    updateMe,
+    changePassword,
+    resetPassword,
+    forgottenPassword,
+};
