@@ -50,3 +50,11 @@ export const useUpdateMe = () => {
 export const useChangePassword = () => {
     return useMutation({ mutationFn: authApi.changePassword });
 };
+
+export const useForgottenPassword = () => {
+    return useMutation({ mutationFn: authApi.forgottenPassword });
+};
+
+export const useResetPassword = () => {
+    return useMutation({ mutationFn: authApi.resetPassword });
+};
