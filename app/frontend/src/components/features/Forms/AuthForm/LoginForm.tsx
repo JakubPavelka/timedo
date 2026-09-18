@@ -6,6 +6,7 @@ import { LoginSchema } from '@timedo/shared/src/schemas/authSchema';
 import type { LoginData } from '@timedo/shared/src/schemas/authSchema';
 import { Button } from '@/components/ui/Button/Button';
 import { Lock, Mail } from 'lucide-react';
+import { Link } from '@tanstack/react-router';
 import styles from './AuthForm.module.scss';
 
 type LoginFormProps = {
@@ -64,10 +65,12 @@ export const LoginForm = (props: LoginFormProps) => {
                     <label htmlFor={'password'} className={styles.AuthForm__inputLabel}>
                         {t('RegisterForm.password')}*
                     </label>
-                    {/*<a href={'#'} className={styles.AuthForm__forgotPassword}>
+                    <Link
+                        to={'/forgotten-password'}
+                        className={styles.AuthForm__forgotPassword}
+                    >
                         {t('LoginForm.forgotPassword')}
-                    </a>
-                    */}
+                    </Link>
                 </div>
                 <Controller
                     control={control}
