@@ -97,6 +97,14 @@
         "checkEmailDescription": "We've sent you a password reset link. It should arrive within a few minutes.",
         "noEmailReceived": "Didn't get it? <resend>Resend</resend>"
     },
+    "ResetPassword": {
+        "title": "Set new password",
+        "description": "Choose a strong password that you don't use elsewhere.",
+        "newPassword": "New password",
+        "newPasswordAgain": "Confirm password",
+        "submit": "Save password",
+        "success": "Your password has been changed. You can now log in."
+    },
     "AuthCard": {
         "tryForFree": "Start for free",
         "createAccount": "Create your account",

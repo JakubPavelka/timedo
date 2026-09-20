@@ -97,6 +97,14 @@
         "checkEmailDescription": "Poslali jsme odkaz pro obnovu hesla. Dorazí během pár minut.",
         "noEmailReceived": "Nic nepřišlo? <resend>Poslat znovu</resend>"
     },
+    "ResetPassword": {
+        "title": "Nastav nové heslo",
+        "description": "Zvol silné heslo, které jinde nepoužíváš.",
+        "newPassword": "Nové heslo",
+        "newPasswordAgain": "Heslo znovu",
+        "submit": "Uložit heslo",
+        "success": "Heslo bylo změněno. Můžeš se přihlásit."
+    },
     "AuthCard": {
         "tryForFree": "Začni zdarma",
         "createAccount": "Vytvoř si účet",
