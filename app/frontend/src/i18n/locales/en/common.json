@@ -94,7 +94,7 @@
         "sendLink": "Send link",
         "backToLogin": "Back to sign in",
         "checkEmailTitle": "Check your e-mail",
-        "checkEmailDescription": "We've sent you a password reset link. It should arrive within a few minutes.",
+        "checkEmailDescription": "We've sent you a password reset link. It should arrive within a few minutes, or check your spam folder.",
         "noEmailReceived": "Didn't get it? <resend>Resend</resend>"
     },
     "ResetPassword": {

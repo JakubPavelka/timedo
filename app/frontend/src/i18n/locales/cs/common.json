@@ -94,7 +94,7 @@
         "sendLink": "Poslat odkaz",
         "backToLogin": "Zpět na přihlášení",
         "checkEmailTitle": "Zkontroluj e-mail",
-        "checkEmailDescription": "Poslali jsme odkaz pro obnovu hesla. Dorazí během pár minut.",
+        "checkEmailDescription": "Poslali jsme odkaz pro obnovu hesla. Dorazí během pár minut, případně zkontroluj složku se spamem.",
         "noEmailReceived": "Nic nepřišlo? <resend>Poslat znovu</resend>"
     },
     "ResetPassword": {
