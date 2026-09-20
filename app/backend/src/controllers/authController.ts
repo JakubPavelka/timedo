@@ -409,16 +409,20 @@ const resetPassword = async (req: Request, res: Response) => {
         const bcryptSalt = await bcrypt.genSalt(10);
         const passwordHashed = await bcrypt.hash(newPassword, bcryptSalt);
 
-        await prisma.user.update({
-            where: { id: resetToken.userId },
-            data: {
-                passwordHashed,
-            },
-        });
-
-        await prisma.passwordResetToken.deleteMany({
-            where: { userId: resetToken.userId },
-        });
+        await prisma.$transaction([
+            prisma.user.update({
+                where: { id: resetToken.userId },
+                data: {
+                    passwordHashed,
+                },
+            }),
+            prisma.passwordResetToken.deleteMany({
+                where: { userId: resetToken.userId },
+            }),
+            prisma.refreshToken.deleteMany({
+                where: { userId: resetToken.userId },
+            }),
+        ]);
 
         return res.status(200).json({ message: 'Password changed' });
     } catch (err) {
