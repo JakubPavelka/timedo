@@ -5,7 +5,7 @@ import type {
     RegisterData,
     ChangePasswordData,
     ForgotPasswordData,
-    ResetPasswordData,
+    ResetPasswordPayloadData,
 } from '@timedo/shared/src/schemas/authSchema';
 import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
 import { ApiError } from '../ApiError';
@@ -103,9 +103,7 @@ export const authApi = {
         }
     },
 
-    resetPassword: async (
-        data: Omit<ResetPasswordData, 'newPasswordAgain'>
-    ): Promise<void> => {
+    resetPassword: async (data: ResetPasswordPayloadData): Promise<void> => {
         try {
             await apiClient.post('/api/auth/reset-password', data);
         } catch (err) {

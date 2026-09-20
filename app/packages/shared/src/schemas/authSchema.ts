@@ -54,15 +54,18 @@ export const ResetPasswordPayloadSchema = z.object({
         .regex(/[^a-zA-Z0-9]/, 'Validation.passwordSpecial'),
 });
 
-export const ResetPasswordSchema = ResetPasswordPayloadSchema.extend({
-    newPasswordAgain: z.string().min(8, 'Validation.passwordMin'),
-}).refine((data) => data.newPassword === data.newPasswordAgain, {
-    message: 'Validation.passwordDontMatch',
-    path: ['newPasswordAgain'],
-});
+export const ResetPasswordSchema = ResetPasswordPayloadSchema.omit({ token: true })
+    .extend({
+        newPasswordAgain: z.string().min(8, 'Validation.passwordMin'),
+    })
+    .refine((data) => data.newPassword === data.newPasswordAgain, {
+        message: 'Validation.passwordDontMatch',
+        path: ['newPasswordAgain'],
+    });
 
 export type RegisterData = z.infer<typeof RegisterSchema>;
 export type LoginData = z.infer<typeof LoginSchema>;
 export type ChangePasswordData = z.infer<typeof ChangePasswordSchema>;
 export type ForgotPasswordData = z.infer<typeof ForgotPasswordSchema>;
 export type ResetPasswordData = z.infer<typeof ResetPasswordSchema>;
+export type ResetPasswordPayloadData = z.infer<typeof ResetPasswordPayloadSchema>;
