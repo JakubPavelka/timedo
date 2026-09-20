@@ -15,7 +15,7 @@ export const apiClient = axios.create({
 
 let refreshPromise: ReturnType<typeof authApi.refresh> | null = null;
 
-const publicRoutes = ['/login', '/register'];
+const publicRoutes = ['/login', '/register', '/forgotten-password', '/reset-password'];
 
 apiClient.interceptors.response.use(
     (response) => response,

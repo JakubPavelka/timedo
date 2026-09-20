@@ -4,6 +4,8 @@ import type {
     LoginData,
     RegisterData,
     ChangePasswordData,
+    ForgotPasswordData,
+    ResetPasswordPayloadData,
 } from '@timedo/shared/src/schemas/authSchema';
 import type { ProfileData } from '@timedo/shared/src/schemas/profileSchema';
 import { ApiError } from '../ApiError';
@@ -82,6 +84,28 @@ export const authApi = {
     ): Promise<void> => {
         try {
             await apiClient.put('/api/auth/me/password', data);
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+
+    forgottenPassword: async (data: ForgotPasswordData): Promise<void> => {
+        try {
+            await apiClient.post('/api/auth/forgotten-password', data);
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');
+            }
+            throw err;
+        }
+    },
+
+    resetPassword: async (data: ResetPasswordPayloadData): Promise<void> => {
+        try {
+            await apiClient.post('/api/auth/reset-password', data);
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 throw new ApiError(err.response?.data?.code ?? 'UNKNOWN_ERROR');

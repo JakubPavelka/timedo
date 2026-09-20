@@ -40,6 +40,32 @@ export const ChangePasswordSchema = z
         path: ['newPasswordAgain'],
     });
 
+export const ForgotPasswordSchema = z.object({
+    email: z.email('Validation.invalidEmail'),
+    lang: z.enum(['cs-CZ', 'en']),
+});
+
+export const ResetPasswordPayloadSchema = z.object({
+    token: z.string().min(1, 'Validation.tokenRequired'),
+    newPassword: z
+        .string()
+        .min(8, 'Validation.passwordMin')
+        .regex(/[A-Z]/, 'Validation.passwordUppercase')
+        .regex(/[^a-zA-Z0-9]/, 'Validation.passwordSpecial'),
+});
+
+export const ResetPasswordSchema = ResetPasswordPayloadSchema.omit({ token: true })
+    .extend({
+        newPasswordAgain: z.string().min(8, 'Validation.passwordMin'),
+    })
+    .refine((data) => data.newPassword === data.newPasswordAgain, {
+        message: 'Validation.passwordDontMatch',
+        path: ['newPasswordAgain'],
+    });
+
 export type RegisterData = z.infer<typeof RegisterSchema>;
 export type LoginData = z.infer<typeof LoginSchema>;
 export type ChangePasswordData = z.infer<typeof ChangePasswordSchema>;
+export type ForgotPasswordData = z.infer<typeof ForgotPasswordSchema>;
+export type ResetPasswordData = z.infer<typeof ResetPasswordSchema>;
+export type ResetPasswordPayloadData = z.infer<typeof ResetPasswordPayloadSchema>;

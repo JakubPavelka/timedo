@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as LoginRouteImport } from './routes/login'
@@ -30,6 +31,11 @@ import { Route as DashboardTasksTaskIdRouteImport } from './routes/dashboard/tas
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
   path: '/terms-of-service',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegisterRoute = RegisterRouteImport.update({
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/dashboard/$': typeof DashboardSplatRoute
   '/dashboard/calendar': typeof DashboardCalendarRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/dashboard/$': typeof DashboardSplatRoute
   '/dashboard/calendar': typeof DashboardCalendarRoute
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/dashboard/$': typeof DashboardSplatRoute
   '/dashboard/calendar': typeof DashboardCalendarRoute
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy-policy'
     | '/register'
+    | '/reset-password'
     | '/terms-of-service'
     | '/dashboard/$'
     | '/dashboard/calendar'
@@ -197,6 +207,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy-policy'
     | '/register'
+    | '/reset-password'
     | '/terms-of-service'
     | '/dashboard/$'
     | '/dashboard/calendar'
@@ -216,6 +227,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy-policy'
     | '/register'
+    | '/reset-password'
     | '/terms-of-service'
     | '/dashboard/$'
     | '/dashboard/calendar'
@@ -236,6 +248,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   RegisterRoute: typeof RegisterRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
 }
 
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/terms-of-service'
       fullPath: '/terms-of-service'
       preLoaderRoute: typeof TermsOfServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/register': {
@@ -400,6 +420,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   RegisterRoute: RegisterRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
 }
 export const routeTree = rootRouteImport

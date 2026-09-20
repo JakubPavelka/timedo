@@ -20,6 +20,7 @@
         "TOKEN_EXPIRED": "Vaše session vypršela, přihlaste se prosím znovu",
         "INVALID_TOKEN": "Vaše session je neplatná, přihlaste se prosím znovu",
         "REFRESH_TOKEN_INVALID": "Vaše session vypršela, přihlaste se prosím znovu",
+        "INVALID_RESET_TOKEN": "Odkaz pro reset hesla je neplatný nebo vypršel",
         "USER_NOT_FOUND": "Uživatel nebyl nalezen",
         "TIMER_ALREADY_RUNNING": "Už máte spuštěný jiný časovač",
         "NO_RUNNING_TIMER": "Žádný časovač neběží",
@@ -68,7 +69,8 @@
         "colorFormat": "Barva musí být platný hex kód (např. #FF0000)",
         "invalidUrl": "Neplatná URL",
         "plannedDurationRequired": "U pomodoro časovače je nutné zadat plánovanou délku",
-        "estimatedTimeInvalid": "Zadejte platný počet hodin"
+        "estimatedTimeInvalid": "Zadejte platný počet hodin",
+        "tokenRequired": "Odkaz pro reset hesla chybí nebo je neplatný"
     },
     "RegisterForm": {
         "firstName": "Jméno",
@@ -85,6 +87,23 @@
         "login": "Přihlásit se",
         "forgotPassword": "Zapomenuté heslo?",
         "dontHaveAccount": "Nemáš účet? <link1>Vytvoř si ho</link1>"
+    },
+    "ForgottenPassword": {
+        "title": "Zapomenuté heslo",
+        "description": "Zadej e-mail účtu a pošleme ti odkaz pro nastavení nového hesla.",
+        "sendLink": "Poslat odkaz",
+        "backToLogin": "Zpět na přihlášení",
+        "checkEmailTitle": "Zkontroluj e-mail",
+        "checkEmailDescription": "Poslali jsme odkaz pro obnovu hesla. Dorazí během pár minut.",
+        "noEmailReceived": "Nic nepřišlo? <resend>Poslat znovu</resend>"
+    },
+    "ResetPassword": {
+        "title": "Nastav nové heslo",
+        "description": "Zvol silné heslo, které jinde nepoužíváš.",
+        "newPassword": "Nové heslo",
+        "newPasswordAgain": "Heslo znovu",
+        "submit": "Uložit heslo",
+        "success": "Heslo bylo změněno. Můžeš se přihlásit."
     },
     "AuthCard": {
         "tryForFree": "Začni zdarma",

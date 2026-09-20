@@ -14,21 +14,22 @@ datasource db {
 }
 
 model User {
-  id              String          @id @default(cuid())
-  email           String          @unique
-  firstName       String
-  lastName        String?
-  passwordHashed  String
-  refreshTokens   RefreshToken[]
-  tasks           Task[]
-  projects        Project[]
-  taskTags        TaskTag[]
-  links           Link[]
-  timeEntries     TimeEntry[]
-  taskChecklist   TaskChecklist[]
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  termsAcceptedAt DateTime
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  firstName           String
+  lastName            String?
+  passwordHashed      String
+  refreshTokens       RefreshToken[]
+  tasks               Task[]
+  projects            Project[]
+  taskTags            TaskTag[]
+  links               Link[]
+  timeEntries         TimeEntry[]
+  taskChecklist       TaskChecklist[]
+  passwordResetTokens PasswordResetToken[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  termsAcceptedAt     DateTime
 }
 
 model RefreshToken {
@@ -134,6 +135,17 @@ model TaskChecklist {
   updatedAt DateTime        @updatedAt
 
   @@index([taskId])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 enum Status {

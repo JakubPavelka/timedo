@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { RegisterView } from '@/views/auth/RegisterView';
+import { ForgottenPasswordView } from '@/views/Auth/ForgottenPasswordView';
 
 export const Route = createFileRoute('/forgotten-password')({
-    component: RegisterView,
+    component: ForgottenPasswordView,
 });

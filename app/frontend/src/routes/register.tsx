@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { RegisterView } from '@/views/auth/RegisterView';
+import { RegisterView } from '@/views/Auth/RegisterView';
 import { checkAuth } from '@/utils/checkAuth';
 
 export const Route = createFileRoute('/register')({

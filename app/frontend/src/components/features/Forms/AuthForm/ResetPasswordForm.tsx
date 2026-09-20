@@ -2,99 +2,97 @@ import { Input } from '@/components/ui/Input/Input';
 import { useTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginSchema } from '@timedo/shared/src/schemas/authSchema';
-import type { LoginData } from '@timedo/shared/src/schemas/authSchema';
+import {
+    ResetPasswordSchema,
+    type ResetPasswordData,
+} from '@timedo/shared/src/schemas/authSchema';
 import { Button } from '@/components/ui/Button/Button';
-import { Lock, Mail } from 'lucide-react';
-import { Link } from '@tanstack/react-router';
+import { Lock } from 'lucide-react';
 import styles from './AuthForm.module.scss';
 
-type LoginFormProps = {
-    onSubmit: (data: LoginData) => void;
+type ResetPasswordFormProps = {
+    onSubmit: (data: ResetPasswordData) => void;
     isLoading?: boolean;
 };
 
 const ICON_SIZE = 16;
 
-export const LoginForm = (props: LoginFormProps) => {
+export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
     const { t } = useTranslation();
 
     const {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm<LoginData>({
+    } = useForm<ResetPasswordData>({
         mode: 'onSubmit',
-        resolver: zodResolver(LoginSchema),
+        resolver: zodResolver(ResetPasswordSchema),
         defaultValues: {
-            email: '',
-            password: '',
+            newPassword: '',
+            newPasswordAgain: '',
         },
     });
 
     return (
         <form onSubmit={handleSubmit(props.onSubmit)}>
-            {/* EMAIL INPUT */}
+            {/* PASSWORD INPUT */}
             <div className={styles.AuthForm__inputWrapper}>
-                <label htmlFor={'email'} className={styles.AuthForm__inputLabel}>
-                    {t('RegisterForm.email')}*
+                <label htmlFor={'newPassword'} className={styles.AuthForm__inputLabel}>
+                    {t('ResetPassword.newPassword')}*
                 </label>
                 <Controller
                     control={control}
-                    name={'email'}
+                    name={'newPassword'}
                     render={({ field: { onChange, value } }) => (
                         <Input
-                            id={'email'}
-                            value={value}
-                            onChange={onChange}
-                            type={'email'}
-                            prefixIcon={<Mail width={ICON_SIZE} height={ICON_SIZE} />}
-                        />
-                    )}
-                />
-                {errors.email && (
-                    <p className={styles.AuthForm__errorMessage}>
-                        {t(errors.email.message!)}
-                    </p>
-                )}
-            </div>
-
-            {/* PASSWORD INPUT */}
-            <div className={styles.AuthForm__inputWrapper}>
-                <div className={styles.AuthForm__labelRow}>
-                    <label htmlFor={'password'} className={styles.AuthForm__inputLabel}>
-                        {t('RegisterForm.password')}*
-                    </label>
-                    <Link
-                        to={'/forgotten-password'}
-                        className={styles.AuthForm__forgotPassword}
-                    >
-                        {t('LoginForm.forgotPassword')}
-                    </Link>
-                </div>
-                <Controller
-                    control={control}
-                    name={'password'}
-                    render={({ field: { onChange, value } }) => (
-                        <Input
-                            id={'password'}
+                            id={'newPassword'}
                             value={value}
                             onChange={onChange}
                             type={'password'}
+                            autoComplete={'new-password'}
                             prefixIcon={<Lock width={ICON_SIZE} height={ICON_SIZE} />}
                         />
                     )}
                 />
-                {errors.password && (
+                {errors.newPassword && (
                     <p className={styles.AuthForm__errorMessage}>
-                        {t(errors.password.message!)}
+                        {t(errors.newPassword.message!)}
+                    </p>
+                )}
+            </div>
+
+            {/* PASSWORD AGAIN INPUT */}
+            <div className={styles.AuthForm__inputWrapper}>
+                <label
+                    htmlFor={'newPasswordAgain'}
+                    className={styles.AuthForm__inputLabel}
+                >
+                    {t('ResetPassword.newPasswordAgain')}*
+                </label>
+                <Controller
+                    control={control}
+                    name={'newPasswordAgain'}
+                    render={({ field: { onChange, value } }) => (
+                        <Input
+                            id={'newPasswordAgain'}
+                            value={value}
+                            onChange={onChange}
+                            type={'password'}
+                            autoComplete={'new-password'}
+                            prefixIcon={<Lock width={ICON_SIZE} height={ICON_SIZE} />}
+                        />
+                    )}
+                />
+                {errors.newPasswordAgain && (
+                    <p className={styles.AuthForm__errorMessage}>
+                        {t(errors.newPasswordAgain.message!)}
                     </p>
                 )}
             </div>
 
             <div className={styles.AuthForm__submitBtn}>
                 <Button type={'submit'} isLoading={props.isLoading} fullWidth>
-                    {t('LoginForm.login')}
+                    {t('ResetPassword.submit')}
                 </Button>
             </div>
         </form>
