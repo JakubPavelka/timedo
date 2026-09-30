@@ -1,5 +1,5 @@
-import LogoBlue from '@/assets/images/logo-dark.svg?react';
-import LogoBlueDarkTheme from '@/assets/images/logo-white.svg?react';
+import LogoBlue from '@/assets/images/logo-dark-square.svg?react';
+import LogoBlueDarkTheme from '@/assets/images/logo-white-square.svg?react';
 import { useTheme } from '@/hooks/useTheme';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { Button } from '@/components/ui/Button/Button';
