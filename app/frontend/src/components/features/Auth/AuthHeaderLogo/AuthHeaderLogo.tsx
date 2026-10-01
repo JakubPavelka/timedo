@@ -1,7 +1,7 @@
 import { useTheme } from '@/hooks/useTheme';
 import { ThemeSwitch } from '@/components/ui/ThemeSwitch/ThemeSwitch';
-import LogoBlue from '@/assets/images/logoBlue.svg?react';
-import LogoBlueDarkTheme from '@/assets/images/logoBlueDarkTheme.svg?react';
+import LogoBlue from '@/assets/images/logo-dark-square.svg?react';
+import LogoBlueDarkTheme from '@/assets/images/logo-white-square.svg?react';
 import styles from './AuthHeaderLogo.module.scss';
 
 export const AuthHeaderLogo = () => {

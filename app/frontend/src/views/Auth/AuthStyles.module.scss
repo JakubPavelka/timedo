@@ -77,3 +77,8 @@
     display: inline;
     cursor: pointer;
 }
+
+.AuthView__missingToken {
+    @include layout.flexColumn;
+    align-items: center;
+}

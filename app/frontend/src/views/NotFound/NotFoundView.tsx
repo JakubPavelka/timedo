@@ -4,8 +4,8 @@ import { useTheme } from '@/hooks/useTheme';
 import { useAuthStore } from '@/store/authStore';
 import { Button } from '@/components/ui/Button/Button';
 import { SearchX } from 'lucide-react';
-import LogoBlue from '@/assets/images/logoBlue.svg?react';
-import LogoBlueDarkTheme from '@/assets/images/logoBlueDarkTheme.svg?react';
+import LogoBlue from '@/assets/images/logo-dark-square.svg?react';
+import LogoBlueDarkTheme from '@/assets/images/logo-white-square.svg?react';
 import styles from './NotFoundView.module.scss';
 
 export const NotFoundView = () => {

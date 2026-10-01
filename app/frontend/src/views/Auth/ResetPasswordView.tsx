@@ -7,6 +7,7 @@ import type { ResetPasswordData } from '@timedo/shared/src/schemas/authSchema';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { AuthHeaderLogo } from '@/components/features/Auth/AuthHeaderLogo/AuthHeaderLogo';
 import { ResetPasswordForm } from '@/components/features/Forms/AuthForm/ResetPasswordForm';
+import clsx from 'clsx';
 import styles from './AuthStyles.module.scss';
 
 const routeApi = getRouteApi('/reset-password');
@@ -38,7 +39,12 @@ export const ResetPasswordView = () => {
         <div className={styles.AuthView}>
             <AuthHeaderLogo />
             <div className={styles.AuthView__alignCenter}>
-                <div className={styles.AuthView__content}>
+                <div
+                    className={clsx(
+                        styles.AuthView__content,
+                        !token && styles.AuthView__missingToken
+                    )}
+                >
                     <AuthCard
                         title={t('ResetPassword.title')}
                         description={t('ResetPassword.description')}

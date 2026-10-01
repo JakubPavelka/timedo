@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
-import LogoBlue from '@/assets/images/logoBlue.svg?react';
-import LogoBlueDarkTheme from '@/assets/images/logoBlueDarkTheme.svg?react';
+import LogoBlue from '@/assets/images/logo-dark-square.svg?react';
+import LogoBlueDarkTheme from '@/assets/images/logo-white-square.svg?react';
 import styles from './LegalDocument.module.scss';
 
 type LegalSection = {

@@ -1,17 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56">
-  <defs>
-    <linearGradient id="tileGloss" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.28"></stop>
-      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"></stop>
-    </linearGradient>
-  </defs>
-
-  <rect x="0" y="0" width="56" height="56" rx="16" fill="#2f6bf6"></rect>
-  <rect x="0" y="0" width="56" height="56" rx="16" fill="url(#tileGloss)"></rect>
-
-  <g transform="translate(14 14) scale(1.1667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round">
-    <circle cx="12" cy="13" r="8"></circle>
-    <path d="M12 13V9"></path>
-    <path d="M9.5 2.5h5"></path>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <rect id="favicon" x="0" y="0" width="33" height="33" style="fill:none;"/>
+    <g>
+        <path d="M32.5,6.9L32.5,26.1C32.5,29.632 29.632,32.5 26.1,32.5L6.9,32.5C3.368,32.5 0.5,29.632 0.5,26.1L0.5,6.9C0.5,3.368 3.368,0.5 6.9,0.5L26.1,0.5C29.632,0.5 32.5,3.368 32.5,6.9Z" style="fill:#2f6bf6;"/>
+        <g>
+            <path d="M23.846,12.104C25.167,13.731 25.959,15.804 25.959,18.061C25.959,23.281 21.721,27.52 16.5,27.52C11.279,27.52 7.041,23.281 7.041,18.061C7.041,13.147 10.796,9.103 15.59,8.645C15.59,8.645 15.601,8.216 15.588,7.54L13.739,7.54C13.17,7.54 12.708,7.079 12.708,6.51C12.708,5.942 13.17,5.48 13.739,5.48L19.358,5.48C19.927,5.48 20.388,5.942 20.388,6.51C20.388,7.079 19.927,7.54 19.358,7.54L17.54,7.54C17.551,8.128 17.544,8.537 17.542,8.659C19.397,8.862 21.092,9.604 22.467,10.723C22.603,10.583 22.754,10.424 22.916,10.25C23.284,9.856 23.901,9.835 24.295,10.202C24.689,10.569 24.711,11.187 24.343,11.581C24.163,11.774 23.996,11.949 23.846,12.104ZM16.5,10.662C12.417,10.662 9.101,13.977 9.101,18.061C9.101,22.144 12.417,25.46 16.5,25.46C20.583,25.46 23.899,22.144 23.899,18.061C23.899,13.977 20.583,10.662 16.5,10.662ZM12.906,19.538C12.475,19.167 12.426,18.516 12.797,18.085C13.168,17.654 13.819,17.605 14.25,17.976L15.985,19.47L18.505,14.548C18.764,14.042 19.385,13.841 19.891,14.1C20.398,14.359 20.598,14.981 20.339,15.487L17.223,21.574C17.079,21.855 16.814,22.055 16.504,22.115C16.194,22.176 15.873,22.091 15.633,21.885L12.906,19.538Z" style="fill:#fff;"/>
+        </g>
+    </g>
 </svg>
