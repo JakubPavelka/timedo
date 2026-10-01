@@ -46,7 +46,7 @@
     @include typography.text-sm(var(--text));
     border: 0;
     border-radius: inherit;
-    padding: 12px 16px 12px 10px;
+    padding: 12px;
     width: 100%;
     outline: none;
 
@@ -87,8 +87,8 @@
     }
 }
 
-.Input__input--withLockIcon {
-    padding-right: 10px;
+.Input__input--withPrefixIcon {
+    padding-left: 10px;
 }
 
 .Input__toggle {
@@ -109,11 +109,7 @@
 .Input__prefixIcon {
     @include layout.centerXY;
     color: var(--text-3);
-    padding-left: 16px;
-
-    @include breakpoints.mobile {
-        padding-left: 12px;
-    }
+    padding-left: 12px;
 }
 
 .Input__suffixIcon {

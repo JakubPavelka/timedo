@@ -36,7 +36,7 @@ export const Input = ({
             <input
                 className={clsx(
                     styles.Input__input,
-                    type === 'password' && styles['Input__input--withLockIcon']
+                    prefixIcon && styles['Input__input--withPrefixIcon']
                 )}
                 {...rest}
                 type={inputType}

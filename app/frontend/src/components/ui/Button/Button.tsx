@@ -48,7 +48,7 @@ export const Button = (props: ButtonProps) => {
                 <Play className={styles.Button_playIcon} width={10} height={10} />
             )}
             {isLoading ? (
-                <Spinner size={'sm'} className={styles.Button__spinner} />
+                <Spinner size={'md'} className={styles.Button__spinner} />
             ) : (
                 <span className={styles.Button__text}>{children}</span>
             )}
