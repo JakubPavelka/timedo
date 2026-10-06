@@ -122,8 +122,8 @@
     },
     "Sidebar": {
         "dashboard": "Dashboard",
-        "startFocus": "Spustit fokus",
-        "focus": "Fokus",
+        "startFocus": "Spustit časovač",
+        "focus": "Čas",
         "tasks": "Úkoly",
         "calendar": "Kalendář",
         "overview": "Přehled",
