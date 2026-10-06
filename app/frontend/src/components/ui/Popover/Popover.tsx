@@ -15,7 +15,9 @@ type PopoverProps = {
     trigger: ReactNode;
     children: ReactNode;
     align?: 'left' | 'right' | 'middle';
+    side?: 'top' | 'bottom';
     className?: string;
+    panelClassName?: string;
     ref?: Ref<PopoverHandle>;
     onOpenChange?: (isOpen: boolean) => void;
 };
@@ -24,18 +26,24 @@ export type PopoverHandle = {
     close: () => void;
 };
 
-const panelAnimation = {
-    initial: { opacity: 0, scale: 0.95, y: -4 },
-    animate: { opacity: 1, scale: 1, y: 0 },
-    exit: { opacity: 0, scale: 0.95, y: -4 },
-    transition: { duration: 0.15 },
+const getPanelAnimation = (side: 'top' | 'bottom') => {
+    const y = side === 'top' ? 4 : -4;
+
+    return {
+        initial: { opacity: 0, scale: 0.95, y },
+        animate: { opacity: 1, scale: 1, y: 0 },
+        exit: { opacity: 0, scale: 0.95, y },
+        transition: { duration: 0.15 },
+    };
 };
 
 export const Popover = ({
     trigger,
     children,
     align = 'left',
+    side = 'bottom',
     className,
+    panelClassName,
     ref,
     onOpenChange,
 }: PopoverProps) => {
@@ -87,15 +95,18 @@ export const Popover = ({
                     <div
                         className={clsx(
                             styles.Popover__content,
-                            styles[`Popover__content--${align}`]
+                            styles[`Popover__content--${align}`],
+                            styles[`Popover__content--${side}`]
                         )}
                     >
                         <motion.div
                             className={clsx(
                                 styles.Popover__panel,
-                                styles[`Popover__panel--${align}`]
+                                styles[`Popover__panel--${align}`],
+                                styles[`Popover__panel--${side}`],
+                                panelClassName
                             )}
-                            {...panelAnimation}
+                            {...getPanelAnimation(side)}
                         >
                             {children}
                         </motion.div>
