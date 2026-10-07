@@ -134,7 +134,9 @@
         "addTag": "Přidat tag",
         "profile": "Profil",
         "expand": "Rozbalit menu",
-        "collapse": "Sbalit menu"
+        "collapse": "Sbalit menu",
+        "expandSection": "Rozbalit sekci",
+        "collapseSection": "Sbalit sekci"
     },
     "Profile": {
         "logout": "Odhlásit se",

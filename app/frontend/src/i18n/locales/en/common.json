@@ -134,7 +134,9 @@
         "addTag": "Add tag",
         "profile": "Profile",
         "expand": "Expand menu",
-        "collapse": "Collapse menu"
+        "collapse": "Collapse menu",
+        "expandSection": "Expand section",
+        "collapseSection": "Collapse section"
     },
     "Profile": {
         "logout": "Sign out",

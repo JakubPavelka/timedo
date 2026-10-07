@@ -168,30 +168,65 @@
 
 .Sidebar__subTitleWrapper {
     @include layout.spaceBetweenY;
+    margin: 11px 0 0 0;
+    gap: 4px;
+}
+
+.Sidebar__subTitleStatic {
+    display: block;
     padding: 7px 13px;
     margin: 11px 0 0 0;
-    gap: 12px;
+
+    &:hover .Sidebar__subTitle {
+        color: var(--text);
+    }
+}
+
+.Sidebar__subTitleLink {
+    @include layout.spaceBetweenY;
+    flex: 1;
+    padding: 7px 0 7px 13px;
     transition: all 0.2s;
 
-    svg {
-        color: var(--text-3);
-        transition: color 0.2s;
-    }
-
-    &:hover {
-        .Sidebar__subTitle {
-            color: var(--text);
-        }
-
-        svg {
-            color: var(--text);
-        }
+    &:hover .Sidebar__subTitle {
+        color: var(--text);
     }
 }
 
 .Sidebar__subTitle {
     @include typography.text-xs(var(--text-3));
     transition: color 0.2s;
+}
+
+.Sidebar__subTitleToggle {
+    @include layout.centerXY;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    margin-right: 5px;
+    border: 0;
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: var(--surface-3);
+        color: var(--text);
+    }
+}
+
+.Sidebar__subTitleChevron {
+    transition: transform 0.2s;
+}
+
+.Sidebar__subTitleChevron--open {
+    transform: rotate(90deg);
+}
+
+.Sidebar__collapsible {
+    overflow: hidden;
 }
 
 .Sidebar__itemButton {
