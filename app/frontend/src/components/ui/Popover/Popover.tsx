@@ -53,6 +53,7 @@ export const Popover = ({
 }: PopoverProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement>(null);
 
     const updateOpen = useCallback(
         (open: boolean) => {
@@ -76,7 +77,12 @@ export const Popover = ({
                 updateOpen(false);
             }
         };
-        const onKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && updateOpen(false);
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                updateOpen(false);
+                triggerRef.current?.focus();
+            }
+        };
 
         document.addEventListener('mousedown', onClickOutside);
         document.addEventListener('keydown', onKeyDown);
@@ -89,11 +95,24 @@ export const Popover = ({
 
     const handleToggle = () => updateOpen(!isOpen);
 
+    const handleTriggerKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleToggle();
+        }
+    };
+
     return (
         <div className={clsx(styles.Popover, className)} ref={wrapperRef}>
             <div
+                ref={triggerRef}
                 className={clsx(styles.Popover__trigger, triggerClassName)}
+                role={'button'}
+                tabIndex={0}
+                aria-haspopup={'menu'}
+                aria-expanded={isOpen}
                 onClick={handleToggle}
+                onKeyDown={handleTriggerKeyDown}
             >
                 {trigger}
             </div>

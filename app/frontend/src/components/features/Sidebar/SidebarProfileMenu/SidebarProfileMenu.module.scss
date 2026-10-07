@@ -1,5 +1,6 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
+@use 'styles/mixins/components';
 
 .SidebarProfileMenu {
     background-color: var(--surface-3);
@@ -39,7 +40,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: all 0.2s;
+    transition: background-color 0.2s;
     border-radius: 10px;
     color: inherit;
 
@@ -56,6 +57,9 @@
     }
 
     &--clickable {
+        @include components.button-reset;
+        @include components.focus-ring;
+        width: 100%;
         cursor: pointer;
 
         &:hover {
@@ -88,7 +92,11 @@
 
 .SidebarProfileMenu__lngViewWrapper {
     @include layout.centerY;
+    @include components.button-reset;
+    @include components.focus-ring;
+    width: 100%;
     padding-bottom: 7px;
     gap: 8px;
     cursor: pointer;
+    border-radius: 8px;
 }

@@ -1,10 +1,14 @@
+@use 'styles/mixins/components';
+
 .Popover {
     position: relative;
     display: inline-block;
 }
 
 .Popover__trigger {
+    @include components.focus-ring;
     display: inline-flex;
+    border-radius: 10px;
 }
 
 .Popover__content {

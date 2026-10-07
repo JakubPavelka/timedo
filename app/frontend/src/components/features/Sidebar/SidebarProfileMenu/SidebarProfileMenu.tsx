@@ -94,7 +94,8 @@ export const SidebarProfileMenu = (props: SidebarProfileMenuProps) => {
                                 />
                             </div>
                         </div>
-                        <div
+                        <button
+                            type={'button'}
                             className={clsx(
                                 styles.SidebarProfileMenu__item,
                                 styles['SidebarProfileMenu__item--clickable']
@@ -107,12 +108,13 @@ export const SidebarProfileMenu = (props: SidebarProfileMenuProps) => {
                                 {czLang ? 'Čeština' : 'English'}
                                 <ChevronRight width={16} height={16} />
                             </div>
-                        </div>
+                        </button>
                     </div>
 
                     <span className={styles.SidebarProfileMenu__divider} />
 
-                    <div
+                    <button
+                        type={'button'}
                         className={clsx(
                             styles.SidebarProfileMenu__item,
                             styles['SidebarProfileMenu__item--clickable'],
@@ -122,7 +124,7 @@ export const SidebarProfileMenu = (props: SidebarProfileMenuProps) => {
                     >
                         <LogOut width={16} height={16} />
                         <span>{t('Profile.logout')}</span>
-                    </div>
+                    </button>
 
                     <ConfirmModal
                         isOpen={modalOpen}
@@ -138,18 +140,20 @@ export const SidebarProfileMenu = (props: SidebarProfileMenuProps) => {
                 </>
             ) : (
                 <div className={styles.SidebarProfileMenu__lngView}>
-                    <span
+                    <button
+                        type={'button'}
                         className={styles.SidebarProfileMenu__lngViewWrapper}
                         onClick={handleHideLanguageView}
                     >
                         <ArrowLeft width={16} height={16} />
                         {t('General.back')}
-                    </span>
+                    </button>
 
                     <span className={styles.SidebarProfileMenu__divider} />
 
                     <div className={styles.SidebarProfileMenu__itemsWrapper}>
-                        <span
+                        <button
+                            type={'button'}
                             className={clsx(
                                 styles.SidebarProfileMenu__item,
                                 styles['SidebarProfileMenu__item--clickable']
@@ -162,8 +166,9 @@ export const SidebarProfileMenu = (props: SidebarProfileMenuProps) => {
                                     <Check width={16} height={16} />
                                 </span>
                             )}
-                        </span>
-                        <span
+                        </button>
+                        <button
+                            type={'button'}
                             className={clsx(
                                 styles.SidebarProfileMenu__item,
                                 styles['SidebarProfileMenu__item--clickable']
@@ -176,7 +181,7 @@ export const SidebarProfileMenu = (props: SidebarProfileMenuProps) => {
                                     <Check width={16} height={16} />
                                 </span>
                             )}
-                        </span>
+                        </button>
                     </div>
                 </div>
             )}
