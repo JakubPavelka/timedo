@@ -43,7 +43,8 @@
         "changesSaved": "Změny byly uloženy",
         "somethingWentWrong": "Něco se pokazilo, zkuste to prosím znovu",
         "add": "Přidat",
-        "create": "Vytvořit"
+        "create": "Vytvořit",
+        "back": "Zpět"
     },
     "Validation": {
         "invalidEmail": "Neplatný email",
