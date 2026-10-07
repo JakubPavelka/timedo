@@ -11,9 +11,13 @@ import sidebarButtonsData from '@/data/sidebarButtonsData';
 import { ChevronRight, Folder, Tag as TagIcon, PanelLeft, Plus, X } from 'lucide-react';
 import { useTagStore } from '@/store/tagStore';
 import { useNavigate } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useSidebarSections } from '@/hooks/useSidebarSections';
 import { AnimatePresence, motion } from 'motion/react';
 import clsx from 'clsx';
+import { Popover, type PopoverHandle } from '@/components/ui/Popover/Popover';
+import { SidebarProfileMenu } from './SidebarProfileMenu/SidebarProfileMenu';
+import { useAuthStore } from '@/store/authStore';
 import styles from './Sidebar.module.scss';
 
 type SidebarProps = {
@@ -26,8 +30,14 @@ export const Sidebar = (props: SidebarProps) => {
     const projects = useProjectStore((s) => s.projects);
     const tags = useTagStore((s) => s.tags);
     const navigateGlobal = useNavigate();
+    const { user } = useAuthStore();
     const isCollapsible = useMediaQuery('(max-width: 1280px)');
     const [isExpanded, setIsExpanded] = useState(false);
+    const areProjectsOpen = useSidebarSections((s) => s.areProjectsOpen);
+    const areTagsOpen = useSidebarSections((s) => s.areTagsOpen);
+    const toggleProjects = useSidebarSections((s) => s.toggleProjects);
+    const toggleTags = useSidebarSections((s) => s.toggleTags);
+    const profilePopoverRef = useRef<PopoverHandle>(null);
 
     const closeSidebar = () => setIsExpanded(false);
     const toggleSidebar = () => setIsExpanded((prev) => !prev);
@@ -137,68 +147,130 @@ export const Sidebar = (props: SidebarProps) => {
                         </button>
                     ) : (
                         <>
-                            <Link
-                                to={'/dashboard/projects'}
-                                className={styles.Sidebar__subTitleWrapper}
-                                onClick={closeSidebar}
-                            >
-                                <span className={styles.Sidebar__subTitle}>
-                                    {t('Sidebar.projects')}
-                                </span>
-                                <ChevronRight width={16} height={16} />
-                            </Link>
-                            <ul className={styles.Sidebar__itemList}>
-                                {projects.map((project) => {
-                                    return (
-                                        <li key={project.id}>
-                                            <button
-                                                className={styles.Sidebar__itemButton}
-                                                type={'button'}
-                                                onClick={() =>
-                                                    handleFilterProject(project.id)
-                                                }
+                            {projects.length === 0 ? (
+                                <>
+                                    <Link
+                                        to={'/dashboard/projects'}
+                                        className={styles.Sidebar__subTitleStatic}
+                                        onClick={closeSidebar}
+                                    >
+                                        <span className={styles.Sidebar__subTitle}>
+                                            {t('Sidebar.projects')}
+                                        </span>
+                                    </Link>
+                                    <Link
+                                        to={'/dashboard/projects'}
+                                        className={styles.Sidebar__emptyListLink}
+                                        onClick={closeSidebar}
+                                    >
+                                        <span>{t('Sidebar.addProject')}</span>
+                                        <Plus width={16} height={16} />
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <div className={styles.Sidebar__subTitleWrapper}>
+                                        <Link
+                                            to={'/dashboard/projects'}
+                                            className={styles.Sidebar__subTitleLink}
+                                            onClick={closeSidebar}
+                                        >
+                                            <span className={styles.Sidebar__subTitle}>
+                                                {t('Sidebar.projects')}
+                                            </span>
+                                        </Link>
+                                        <button
+                                            type={'button'}
+                                            className={styles.Sidebar__subTitleToggle}
+                                            onClick={toggleProjects}
+                                            aria-expanded={areProjectsOpen}
+                                            aria-label={t(
+                                                areProjectsOpen
+                                                    ? 'Sidebar.collapseSection'
+                                                    : 'Sidebar.expandSection'
+                                            )}
+                                        >
+                                            <ChevronRight
+                                                width={16}
+                                                height={16}
+                                                className={clsx(
+                                                    styles.Sidebar__subTitleChevron,
+                                                    areProjectsOpen &&
+                                                        styles[
+                                                            'Sidebar__subTitleChevron--open'
+                                                        ]
+                                                )}
+                                            />
+                                        </button>
+                                    </div>
+                                    <AnimatePresence initial={false}>
+                                        {areProjectsOpen && (
+                                            <motion.div
+                                                key={'projects-list'}
+                                                className={styles.Sidebar__collapsible}
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.2 }}
                                             >
-                                                <span
-                                                    className={
-                                                        styles.Sidebar__itemColorWrapper
-                                                    }
-                                                >
-                                                    <span
-                                                        className={
-                                                            styles.Sidebar__itemDot
-                                                        }
-                                                        style={{
-                                                            backgroundColor:
-                                                                project.color,
-                                                        }}
-                                                    />
-                                                    <span
-                                                        className={
-                                                            styles.Sidebar__itemText
-                                                        }
-                                                    >
-                                                        {project.label}
-                                                    </span>
-                                                </span>
-                                                <span
-                                                    className={styles.Sidebar__itemCount}
-                                                >
-                                                    {project._count.tasks}
-                                                </span>
-                                            </button>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                            {projects.length === 0 && (
-                                <Link
-                                    to={'/dashboard/projects'}
-                                    className={styles.Sidebar__emptyListLink}
-                                    onClick={closeSidebar}
-                                >
-                                    <span>{t('Sidebar.addProject')}</span>
-                                    <Plus width={16} height={16} />
-                                </Link>
+                                                <ul className={styles.Sidebar__itemList}>
+                                                    {projects.map((project) => {
+                                                        return (
+                                                            <li key={project.id}>
+                                                                <button
+                                                                    className={
+                                                                        styles.Sidebar__itemButton
+                                                                    }
+                                                                    type={'button'}
+                                                                    onClick={() =>
+                                                                        handleFilterProject(
+                                                                            project.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <span
+                                                                        className={
+                                                                            styles.Sidebar__itemColorWrapper
+                                                                        }
+                                                                    >
+                                                                        <span
+                                                                            className={
+                                                                                styles.Sidebar__itemDot
+                                                                            }
+                                                                            style={{
+                                                                                backgroundColor:
+                                                                                    project.color,
+                                                                            }}
+                                                                        />
+                                                                        <span
+                                                                            className={
+                                                                                styles.Sidebar__itemText
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                project.label
+                                                                            }
+                                                                        </span>
+                                                                    </span>
+                                                                    <span
+                                                                        className={
+                                                                            styles.Sidebar__itemCount
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            project._count
+                                                                                .tasks
+                                                                        }
+                                                                    </span>
+                                                                </button>
+                                                            </li>
+                                                        );
+                                                    })}
+                                                </ul>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </>
                             )}
                         </>
                     )}
@@ -215,65 +287,125 @@ export const Sidebar = (props: SidebarProps) => {
                         </button>
                     ) : (
                         <>
-                            <Link
-                                to={'/dashboard/tags'}
-                                className={styles.Sidebar__subTitleWrapper}
-                                onClick={closeSidebar}
-                            >
-                                <span className={styles.Sidebar__subTitle}>
-                                    {t('Sidebar.tags')}
-                                </span>
-                                <ChevronRight width={16} height={16} />
-                            </Link>
-                            <ul className={styles.Sidebar__itemList}>
-                                {tags.map((tag) => {
-                                    return (
-                                        <li key={tag.id}>
-                                            <button
-                                                className={styles.Sidebar__itemButton}
-                                                type={'button'}
-                                                onClick={() => handleFilterTag(tag.id)}
+                            {tags.length === 0 ? (
+                                <>
+                                    <Link
+                                        to={'/dashboard/tags'}
+                                        className={styles.Sidebar__subTitleStatic}
+                                        onClick={closeSidebar}
+                                    >
+                                        <span className={styles.Sidebar__subTitle}>
+                                            {t('Sidebar.tags')}
+                                        </span>
+                                    </Link>
+                                    <Link
+                                        to={'/dashboard/tags'}
+                                        className={styles.Sidebar__emptyListLink}
+                                        onClick={closeSidebar}
+                                    >
+                                        <span>{t('Sidebar.addTag')}</span>
+                                        <Plus width={16} height={16} />
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <div className={styles.Sidebar__subTitleWrapper}>
+                                        <Link
+                                            to={'/dashboard/tags'}
+                                            className={styles.Sidebar__subTitleLink}
+                                            onClick={closeSidebar}
+                                        >
+                                            <span className={styles.Sidebar__subTitle}>
+                                                {t('Sidebar.tags')}
+                                            </span>
+                                        </Link>
+                                        <button
+                                            type={'button'}
+                                            className={styles.Sidebar__subTitleToggle}
+                                            onClick={toggleTags}
+                                            aria-expanded={areTagsOpen}
+                                            aria-label={t(
+                                                areTagsOpen
+                                                    ? 'Sidebar.collapseSection'
+                                                    : 'Sidebar.expandSection'
+                                            )}
+                                        >
+                                            <ChevronRight
+                                                width={16}
+                                                height={16}
+                                                className={clsx(
+                                                    styles.Sidebar__subTitleChevron,
+                                                    areTagsOpen &&
+                                                        styles[
+                                                            'Sidebar__subTitleChevron--open'
+                                                        ]
+                                                )}
+                                            />
+                                        </button>
+                                    </div>
+                                    <AnimatePresence initial={false}>
+                                        {areTagsOpen && (
+                                            <motion.div
+                                                key={'tags-list'}
+                                                className={styles.Sidebar__collapsible}
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.2 }}
                                             >
-                                                <span
-                                                    className={
-                                                        styles.Sidebar__itemColorWrapper
-                                                    }
-                                                >
-                                                    <span
-                                                        className={
-                                                            styles.Sidebar__itemDot
-                                                        }
-                                                        style={{
-                                                            backgroundColor: tag.color,
-                                                        }}
-                                                    />
-                                                    <span
-                                                        className={
-                                                            styles.Sidebar__itemText
-                                                        }
-                                                    >
-                                                        {tag.label}
-                                                    </span>
-                                                </span>
-                                                <span
-                                                    className={styles.Sidebar__itemCount}
-                                                >
-                                                    {tag._count.tasks}
-                                                </span>
-                                            </button>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                            {tags.length === 0 && (
-                                <Link
-                                    to={'/dashboard/tags'}
-                                    className={styles.Sidebar__emptyListLink}
-                                    onClick={closeSidebar}
-                                >
-                                    <span>{t('Sidebar.addTag')}</span>
-                                    <Plus width={16} height={16} />
-                                </Link>
+                                                <ul className={styles.Sidebar__itemList}>
+                                                    {tags.map((tag) => {
+                                                        return (
+                                                            <li key={tag.id}>
+                                                                <button
+                                                                    className={
+                                                                        styles.Sidebar__itemButton
+                                                                    }
+                                                                    type={'button'}
+                                                                    onClick={() =>
+                                                                        handleFilterTag(
+                                                                            tag.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <span
+                                                                        className={
+                                                                            styles.Sidebar__itemColorWrapper
+                                                                        }
+                                                                    >
+                                                                        <span
+                                                                            className={
+                                                                                styles.Sidebar__itemDot
+                                                                            }
+                                                                            style={{
+                                                                                backgroundColor:
+                                                                                    tag.color,
+                                                                            }}
+                                                                        />
+                                                                        <span
+                                                                            className={
+                                                                                styles.Sidebar__itemText
+                                                                            }
+                                                                        >
+                                                                            {tag.label}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span
+                                                                        className={
+                                                                            styles.Sidebar__itemCount
+                                                                        }
+                                                                    >
+                                                                        {tag._count.tasks}
+                                                                    </span>
+                                                                </button>
+                                                            </li>
+                                                        );
+                                                    })}
+                                                </ul>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </>
                             )}
                         </>
                     )}
@@ -286,7 +418,22 @@ export const Sidebar = (props: SidebarProps) => {
                     isRailVariant && styles['Sidebar__profileWrapper--rail']
                 )}
             >
-                <SidebarProfileButton isCollapsed={isRailVariant} />
+                <Popover
+                    ref={profilePopoverRef}
+                    side={'top'}
+                    className={styles.Sidebar__popover}
+                    triggerClassName={styles.Sidebar__popoverFullWidth}
+                    contentClassName={styles.Sidebar__popoverFullWidth}
+                    panelClassName={styles.Sidebar__popoverPanel}
+                    trigger={<SidebarProfileButton isCollapsed={isRailVariant} />}
+                >
+                    <SidebarProfileMenu
+                        onClick={() => profilePopoverRef.current?.close()}
+                        email={user?.email ?? ''}
+                        firstName={user?.firstName ?? ''}
+                        lastName={user?.lastName ?? undefined}
+                    />
+                </Popover>
             </div>
         </>
     );

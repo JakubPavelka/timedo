@@ -11,6 +11,8 @@
     text-decoration: none;
     transition: all 0.2s;
     border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
 
     &:hover {
         text-decoration: none;
@@ -31,7 +33,7 @@
 .SidebarProfileButton__initials {
     width: 36px;
     height: 36px;
-    border-radius: 10px;
+    border-radius: 999px;
     background-color: var(--accent);
 }
 
@@ -41,7 +43,7 @@
     font-weight: 700;
     text-transform: uppercase;
     height: 100%;
-    letter-spacing: -0.6px;
+    letter-spacing: -1px;
 }
 
 .SidebarProfileButton__nameText {

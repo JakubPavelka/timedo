@@ -43,7 +43,8 @@
         "changesSaved": "Changes saved",
         "somethingWentWrong": "Something went wrong, please try again",
         "add": "Add",
-        "create": "Create"
+        "create": "Create",
+        "back": "Back"
     },
     "Validation": {
         "invalidEmail": "Invalid email address",
@@ -133,7 +134,9 @@
         "addTag": "Add tag",
         "profile": "Profile",
         "expand": "Expand menu",
-        "collapse": "Collapse menu"
+        "collapse": "Collapse menu",
+        "expandSection": "Expand section",
+        "collapseSection": "Collapse section"
     },
     "Profile": {
         "logout": "Sign out",

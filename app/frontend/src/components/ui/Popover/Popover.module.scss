@@ -1,16 +1,27 @@
+@use 'styles/mixins/components';
+
 .Popover {
     position: relative;
     display: inline-block;
 }
 
 .Popover__trigger {
+    @include components.focus-ring;
     display: inline-flex;
+    border-radius: 10px;
 }
 
 .Popover__content {
     position: absolute;
-    top: calc(100% + 6px);
     z-index: 10;
+}
+
+.Popover__content--bottom {
+    top: calc(100% + 6px);
+}
+
+.Popover__content--top {
+    bottom: calc(100% + 6px);
 }
 
 .Popover__content--left {
@@ -34,14 +45,26 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.Popover__panel--left {
+.Popover__panel--left.Popover__panel--bottom {
     transform-origin: top left;
 }
 
-.Popover__panel--right {
+.Popover__panel--right.Popover__panel--bottom {
     transform-origin: top right;
 }
 
-.Popover__panel--middle {
+.Popover__panel--middle.Popover__panel--bottom {
     transform-origin: top center;
+}
+
+.Popover__panel--left.Popover__panel--top {
+    transform-origin: bottom left;
+}
+
+.Popover__panel--right.Popover__panel--top {
+    transform-origin: bottom right;
+}
+
+.Popover__panel--middle.Popover__panel--top {
+    transform-origin: bottom center;
 }
