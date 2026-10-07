@@ -11,9 +11,12 @@ import sidebarButtonsData from '@/data/sidebarButtonsData';
 import { ChevronRight, Folder, Tag as TagIcon, PanelLeft, Plus, X } from 'lucide-react';
 import { useTagStore } from '@/store/tagStore';
 import { useNavigate } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import clsx from 'clsx';
+import { Popover, type PopoverHandle } from '@/components/ui/Popover/Popover';
+import { SidebarProfileMenu } from './SidebarProfileMenu/SidebarProfileMenu';
+import { useAuthStore } from '@/store/authStore';
 import styles from './Sidebar.module.scss';
 
 type SidebarProps = {
@@ -26,8 +29,10 @@ export const Sidebar = (props: SidebarProps) => {
     const projects = useProjectStore((s) => s.projects);
     const tags = useTagStore((s) => s.tags);
     const navigateGlobal = useNavigate();
+    const { user } = useAuthStore();
     const isCollapsible = useMediaQuery('(max-width: 1280px)');
     const [isExpanded, setIsExpanded] = useState(false);
+    const profilePopoverRef = useRef<PopoverHandle>(null);
 
     const closeSidebar = () => setIsExpanded(false);
     const toggleSidebar = () => setIsExpanded((prev) => !prev);
@@ -286,7 +291,22 @@ export const Sidebar = (props: SidebarProps) => {
                     isRailVariant && styles['Sidebar__profileWrapper--rail']
                 )}
             >
-                <SidebarProfileButton isCollapsed={isRailVariant} />
+                <Popover
+                    ref={profilePopoverRef}
+                    side={'top'}
+                    className={styles.Sidebar__popover}
+                    triggerClassName={styles.Sidebar__popoverFullWidth}
+                    contentClassName={styles.Sidebar__popoverFullWidth}
+                    panelClassName={styles.Sidebar__popoverPanel}
+                    trigger={<SidebarProfileButton isCollapsed={isRailVariant} />}
+                >
+                    <SidebarProfileMenu
+                        onClick={() => profilePopoverRef.current?.close()}
+                        email={user?.email ?? ''}
+                        firstName={user?.firstName ?? ''}
+                        lastName={user?.lastName ?? undefined}
+                    />
+                </Popover>
             </div>
         </>
     );
