@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useRouterState } from '@tanstack/react-router';
 import { Plus } from 'lucide-react';
-import { ThemeSwitch } from '@/components/ui/ThemeSwitch/ThemeSwitch';
 import { Button } from '@/components/ui/Button/Button';
 import { NewTaskDialog } from '@/components/features/Task/NewTaskDialog/NewTaskDialog';
 import { useNewTaskModal } from '@/hooks/useNewTaskModal';
@@ -23,7 +22,6 @@ export const Header = (props: HeaderProps) => {
             <h2 className={styles.Header__title}>{props.title}</h2>
             <div className={styles.Header__rightSide}>
                 <HeaderActiveTimer />
-                <ThemeSwitch />
                 {!isOnTasksPage && (
                     <Button onClick={openModal}>
                         <span className={styles.Header__buttonWrapper}>
