@@ -46,12 +46,3 @@
 .ProfileHeader__email {
     @include typography.text-md(var(--text-2));
 }
-
-.ProfileHeader__buttonText {
-    @include layout.centerXY;
-    gap: 8px;
-}
-
-.ProfileHeader__icon {
-    color: var(--danger);
-}
