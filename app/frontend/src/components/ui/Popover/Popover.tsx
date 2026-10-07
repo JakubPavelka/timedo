@@ -17,6 +17,8 @@ type PopoverProps = {
     align?: 'left' | 'right' | 'middle';
     side?: 'top' | 'bottom';
     className?: string;
+    triggerClassName?: string;
+    contentClassName?: string;
     panelClassName?: string;
     ref?: Ref<PopoverHandle>;
     onOpenChange?: (isOpen: boolean) => void;
@@ -43,6 +45,8 @@ export const Popover = ({
     align = 'left',
     side = 'bottom',
     className,
+    triggerClassName,
+    contentClassName,
     panelClassName,
     ref,
     onOpenChange,
@@ -87,7 +91,10 @@ export const Popover = ({
 
     return (
         <div className={clsx(styles.Popover, className)} ref={wrapperRef}>
-            <div className={styles.Popover__trigger} onClick={handleToggle}>
+            <div
+                className={clsx(styles.Popover__trigger, triggerClassName)}
+                onClick={handleToggle}
+            >
                 {trigger}
             </div>
             <AnimatePresence>
@@ -96,7 +103,8 @@ export const Popover = ({
                         className={clsx(
                             styles.Popover__content,
                             styles[`Popover__content--${align}`],
-                            styles[`Popover__content--${side}`]
+                            styles[`Popover__content--${side}`],
+                            contentClassName
                         )}
                     >
                         <motion.div
