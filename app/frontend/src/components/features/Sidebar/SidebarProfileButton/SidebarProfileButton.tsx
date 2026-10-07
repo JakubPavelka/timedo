@@ -1,4 +1,3 @@
-import { Link } from '@tanstack/react-router';
 import { useAuthStore } from '@/store/authStore';
 import { ChevronsUpDown } from 'lucide-react';
 import clsx from 'clsx';
@@ -18,12 +17,11 @@ export const SidebarProfileButton = (props: SidebarProfileButtonProps) => {
     }
 
     return (
-        <Link
+        <div
             className={clsx(
                 styles.SidebarProfileButton,
                 props.isCollapsed && styles['SidebarProfileButton--collapsed']
             )}
-            to={'/dashboard/profile'}
         >
             <div className={styles.SidebarProfileButton__initialsWrapper}>
                 <div className={styles.SidebarProfileButton__initials}>
@@ -38,6 +36,6 @@ export const SidebarProfileButton = (props: SidebarProfileButtonProps) => {
                 )}
             </div>
             {!props.isCollapsed && <ChevronsUpDown width={18} height={18} />}
-        </Link>
+        </div>
     );
 };
