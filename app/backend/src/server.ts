@@ -7,6 +7,7 @@ import { logger } from './lib/logger.js';
 import { pinoHttp } from 'pino-http';
 import { verifyCloudflareOrigin } from './middleware/verifyCloudflareOrigin.js';
 import { notFoundLimiter } from './middleware/rateLimiters.js';
+import os from 'os';
 
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -16,6 +17,11 @@ import tagRoutes from './routes/tagRoutes.js';
 import linkRoutes from './routes/linkRoutes.js';
 import timeEntryRoutes from './routes/timeEntryRoutes.js';
 import taskChecklistRoutes from './routes/taskChecklistRoutes.js';
+
+type ProcessInternals = {
+    _getActiveHandles(): unknown[];
+    _getActiveRequests(): unknown[];
+};
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001;
 
@@ -66,6 +72,8 @@ const server = app.listen(PORT, () => {
     logger.info(`Server is running on port: ${PORT}`);
 });
 
+const internals = process as unknown as ProcessInternals;
+
 setInterval(() => {
     const m = process.memoryUsage();
     const mb = (n: number) => Math.round(n / 1024 / 1024);
@@ -75,6 +83,10 @@ setInterval(() => {
             heapUsed: mb(m.heapUsed),
             heapTotal: mb(m.heapTotal),
             external: mb(m.external),
+            freeMb: mb(os.freemem()),
+            totalMb: mb(os.totalmem()),
+            activeHandles: internals._getActiveHandles().length,
+            activeRequests: internals._getActiveRequests().length,
         },
         'mem'
     );
