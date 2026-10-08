@@ -66,6 +66,20 @@ const server = app.listen(PORT, () => {
     logger.info(`Server is running on port: ${PORT}`);
 });
 
+setInterval(() => {
+    const m = process.memoryUsage();
+    const mb = (n: number) => Math.round(n / 1024 / 1024);
+    logger.info(
+        {
+            rss: mb(m.rss),
+            heapUsed: mb(m.heapUsed),
+            heapTotal: mb(m.heapTotal),
+            external: mb(m.external),
+        },
+        'mem'
+    );
+}, 60_000).unref();
+
 // Handle unhandled promise rejections (e.g., database connection errors)
 process.on('unhandledRejection', (err) => {
     logger.error(err, 'Unhandled Rejection');
