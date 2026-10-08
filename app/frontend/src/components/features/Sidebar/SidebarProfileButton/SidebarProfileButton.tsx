@@ -1,5 +1,5 @@
 import { useAuthStore } from '@/store/authStore';
-import { ChevronsUpDown } from 'lucide-react';
+import { EllipsisVertical } from 'lucide-react';
 import clsx from 'clsx';
 import styles from './SidebarProfileButton.module.scss';
 
@@ -35,7 +35,7 @@ export const SidebarProfileButton = (props: SidebarProfileButtonProps) => {
                     </p>
                 )}
             </div>
-            {!props.isCollapsed && <ChevronsUpDown width={18} height={18} />}
+            {!props.isCollapsed && <EllipsisVertical width={18} height={18} />}
         </div>
     );
 };
