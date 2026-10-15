@@ -43,7 +43,8 @@
         "changesSaved": "Změny byly uloženy",
         "somethingWentWrong": "Něco se pokazilo, zkuste to prosím znovu",
         "add": "Přidat",
-        "create": "Vytvořit"
+        "create": "Vytvořit",
+        "back": "Zpět"
     },
     "Validation": {
         "invalidEmail": "Neplatný email",
@@ -122,8 +123,8 @@
     },
     "Sidebar": {
         "dashboard": "Dashboard",
-        "startFocus": "Spustit fokus",
-        "focus": "Fokus",
+        "startFocus": "Spustit časovač",
+        "focus": "Čas",
         "tasks": "Úkoly",
         "calendar": "Kalendář",
         "overview": "Přehled",
@@ -133,7 +134,9 @@
         "addTag": "Přidat tag",
         "profile": "Profil",
         "expand": "Rozbalit menu",
-        "collapse": "Sbalit menu"
+        "collapse": "Sbalit menu",
+        "expandSection": "Rozbalit sekci",
+        "collapseSection": "Sbalit sekci"
     },
     "Profile": {
         "logout": "Odhlásit se",
@@ -163,7 +166,7 @@
                 "title": "Jazyk",
                 "description": "Jazyk aplikace",
                 "czech": "Čeština",
-                "english": "Angličtina "
+                "english": "Angličtina"
             }
         },
         "ConnectedAccounts": {

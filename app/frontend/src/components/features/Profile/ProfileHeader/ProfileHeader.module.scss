@@ -20,7 +20,7 @@
 .ProfileHeader__initials {
     width: 48px;
     height: 48px;
-    border-radius: 16px;
+    border-radius: 999px;
     background-color: var(--accent);
 }
 
@@ -30,7 +30,7 @@
     font-weight: 700;
     text-transform: uppercase;
     height: 100%;
-    letter-spacing: -1.5px;
+    letter-spacing: -1.6px;
 }
 
 .ProfileHeader__informationWrapper {
@@ -45,13 +45,4 @@
 
 .ProfileHeader__email {
     @include typography.text-md(var(--text-2));
-}
-
-.ProfileHeader__buttonText {
-    @include layout.centerXY;
-    gap: 8px;
-}
-
-.ProfileHeader__icon {
-    color: var(--danger);
 }

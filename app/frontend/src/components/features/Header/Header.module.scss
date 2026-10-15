@@ -1,5 +1,6 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
 
 .Header {
     display: flex;
@@ -9,6 +10,14 @@
     padding: 16px 28px;
     border-bottom: 1px solid var(--border);
     background-color: var(--surface-2);
+
+    @include breakpoints.tablet {
+        padding: 14px 24px;
+    }
+
+    @include breakpoints.mobile {
+        padding: 12px 16px;
+    }
 }
 
 .Header__title {
@@ -19,6 +28,12 @@
 .Header__rightSide {
     @include layout.centerY;
     gap: 16px;
+    min-height: 40px;
+
+    @include breakpoints.mobile {
+        min-height: 34px;
+        gap: 12px;
+    }
 }
 
 .Header__buttonWrapper {

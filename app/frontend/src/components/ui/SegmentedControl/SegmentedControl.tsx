@@ -1,13 +1,14 @@
 import clsx from 'clsx';
 import styles from './SegmentedControl.module.scss';
 
-type SegmentedControlItem = {
-    title: string;
+export type SegmentedControlItem = {
+    title: React.ReactNode;
     isActive: boolean;
+    label?: string;
     onClick?: () => void;
 };
 
-type SegmentedControlVariant = 'default' | 'round';
+type SegmentedControlVariant = 'default' | 'round' | 'compact';
 
 type SegmentedControlProps = {
     items: SegmentedControlItem[];
@@ -18,12 +19,14 @@ type SegmentedControlProps = {
 export const SegmentedControl = (props: SegmentedControlProps) => {
     const variant = props.variant ?? 'default';
     const isRound = variant === 'round';
+    const isCompact = variant === 'compact';
 
     return (
         <div
             className={clsx(
                 styles.SegmentedControl,
                 isRound && styles['SegmentedControl--round'],
+                isCompact && styles['SegmentedControl--compact'],
                 props.disabled && styles['SegmentedControl--disabled']
             )}
         >
@@ -31,10 +34,13 @@ export const SegmentedControl = (props: SegmentedControlProps) => {
                 <button
                     key={index}
                     disabled={props.disabled}
+                    aria-label={item.label}
+                    aria-pressed={item.isActive}
                     className={clsx(
                         styles.SegmentedControl__text,
                         item.isActive && styles['SegmentedControl__text--active'],
                         isRound && styles['SegmentedControl__text--round'],
+                        isCompact && styles['SegmentedControl__text--compact'],
                         props.disabled && styles['SegmentedControl__text--disabled']
                     )}
                     onClick={!props.disabled ? item.onClick : undefined}

@@ -15,7 +15,11 @@ type PopoverProps = {
     trigger: ReactNode;
     children: ReactNode;
     align?: 'left' | 'right' | 'middle';
+    side?: 'top' | 'bottom';
     className?: string;
+    triggerClassName?: string;
+    contentClassName?: string;
+    panelClassName?: string;
     ref?: Ref<PopoverHandle>;
     onOpenChange?: (isOpen: boolean) => void;
 };
@@ -24,23 +28,32 @@ export type PopoverHandle = {
     close: () => void;
 };
 
-const panelAnimation = {
-    initial: { opacity: 0, scale: 0.95, y: -4 },
-    animate: { opacity: 1, scale: 1, y: 0 },
-    exit: { opacity: 0, scale: 0.95, y: -4 },
-    transition: { duration: 0.15 },
+const getPanelAnimation = (side: 'top' | 'bottom') => {
+    const y = side === 'top' ? 4 : -4;
+
+    return {
+        initial: { opacity: 0, scale: 0.95, y },
+        animate: { opacity: 1, scale: 1, y: 0 },
+        exit: { opacity: 0, scale: 0.95, y },
+        transition: { duration: 0.15 },
+    };
 };
 
 export const Popover = ({
     trigger,
     children,
     align = 'left',
+    side = 'bottom',
     className,
+    triggerClassName,
+    contentClassName,
+    panelClassName,
     ref,
     onOpenChange,
 }: PopoverProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const triggerRef = useRef<HTMLDivElement>(null);
 
     const updateOpen = useCallback(
         (open: boolean) => {
@@ -64,7 +77,12 @@ export const Popover = ({
                 updateOpen(false);
             }
         };
-        const onKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && updateOpen(false);
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                updateOpen(false);
+                triggerRef.current?.focus();
+            }
+        };
 
         document.addEventListener('mousedown', onClickOutside);
         document.addEventListener('keydown', onKeyDown);
@@ -77,9 +95,25 @@ export const Popover = ({
 
     const handleToggle = () => updateOpen(!isOpen);
 
+    const handleTriggerKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleToggle();
+        }
+    };
+
     return (
         <div className={clsx(styles.Popover, className)} ref={wrapperRef}>
-            <div className={styles.Popover__trigger} onClick={handleToggle}>
+            <div
+                ref={triggerRef}
+                className={clsx(styles.Popover__trigger, triggerClassName)}
+                role={'button'}
+                tabIndex={0}
+                aria-haspopup={'menu'}
+                aria-expanded={isOpen}
+                onClick={handleToggle}
+                onKeyDown={handleTriggerKeyDown}
+            >
                 {trigger}
             </div>
             <AnimatePresence>
@@ -87,15 +121,19 @@ export const Popover = ({
                     <div
                         className={clsx(
                             styles.Popover__content,
-                            styles[`Popover__content--${align}`]
+                            styles[`Popover__content--${align}`],
+                            styles[`Popover__content--${side}`],
+                            contentClassName
                         )}
                     >
                         <motion.div
                             className={clsx(
                                 styles.Popover__panel,
-                                styles[`Popover__panel--${align}`]
+                                styles[`Popover__panel--${align}`],
+                                styles[`Popover__panel--${side}`],
+                                panelClassName
                             )}
-                            {...panelAnimation}
+                            {...getPanelAnimation(side)}
                         >
                             {children}
                         </motion.div>
