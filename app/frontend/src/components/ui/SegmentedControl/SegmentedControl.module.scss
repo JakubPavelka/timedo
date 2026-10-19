@@ -5,8 +5,9 @@
 .SegmentedControl {
     @include layout.centerY;
     padding: 4px;
+    border: 1px solid var(--inset-border);
     border-radius: 10px;
-    background-color: var(--surface-3);
+    background-color: var(--inset-bg);
 
     &--round {
         border-radius: 9999px;
@@ -15,6 +16,7 @@
     &--compact {
         padding: 3px;
         gap: 2px;
+        border: none;
         background-color: var(--surface-4);
     }
 
@@ -48,13 +50,18 @@
 
     &--compact {
         padding: 6px 8px;
+
+        &.SegmentedControl__text--active {
+            background-color: var(--surface);
+            border-color: var(--border);
+        }
     }
 
     &--active {
         color: var(--text);
         font-weight: 600;
-        background-color: var(--surface);
-        border-color: var(--border);
+        background-color: var(--inset-active);
+        border-color: var(--inset-active-border);
     }
 
     &--round {
