@@ -4,6 +4,11 @@
 
 .OptionItem {
     @include layout.spaceBetweenY;
+    padding: 16px;
+
+    & + & {
+        border-top: 1px solid var(--border);
+    }
 
     &.--stackMobile {
         @include breakpoints.mobile {
