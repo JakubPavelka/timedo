@@ -1,5 +1,4 @@
 import { useAuthStore } from '@/store/authStore';
-import { Card } from '@/components/ui/Card/Card';
 import styles from './ProfileHeader.module.scss';
 
 export const ProfileHeader = () => {
@@ -8,7 +7,7 @@ export const ProfileHeader = () => {
     const initialLastName = user?.lastName?.slice(0, 1);
 
     return (
-        <Card className={styles.ProfileHeader}>
+        <div className={styles.ProfileHeader}>
             <div className={styles.ProfileHeader__leftSide}>
                 <div className={styles.ProfileHeader__initials}>
                     <p className={styles.ProfileHeader__initialText}>
@@ -22,6 +21,6 @@ export const ProfileHeader = () => {
                     <p className={styles.ProfileHeader__email}>{user?.email}</p>
                 </div>
             </div>
-        </Card>
+        </div>
     );
 };

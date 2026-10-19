@@ -5,21 +5,15 @@
 
 .ProfileHeader {
     @include layout.spaceBetweenY;
-    border: 0;
-    background-color: transparent;
-
-    @include breakpoints.mobile {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-    }
 }
 
 .ProfileHeader__leftSide {
     @include layout.centerY;
+    min-width: 0;
 }
 
 .ProfileHeader__initials {
+    flex-shrink: 0;
     width: 64px;
     height: 64px;
     border-radius: 999px;
@@ -42,14 +36,26 @@
 
 .ProfileHeader__informationWrapper {
     @include layout.flexColumn;
+    min-width: 0;
     margin-left: 16px;
 }
 
 .ProfileHeader__name {
     @include typography.text-lg(var(--text));
     font-weight: 700;
+
+    @include breakpoints.mobile {
+        @include typography.text-md(var(--text));
+    }
 }
 
 .ProfileHeader__email {
     @include typography.text-md(var(--text-2));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include breakpoints.mobile {
+        @include typography.text-sm(var(--text-2));
+    }
 }
