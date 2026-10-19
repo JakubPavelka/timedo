@@ -3,10 +3,14 @@
 @use 'styles/mixins/breakpoints';
 
 .TaskDetailView {
-    padding: 24px;
+    padding: 32px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+
+    @include breakpoints.tablet {
+        padding: 24px;
+    }
 
     @include breakpoints.mobile {
         padding: 16px;

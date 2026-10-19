@@ -6,7 +6,7 @@
     @include layout.flexColumn;
     min-height: 100dvh;
     width: 100%;
-    padding: 36px;
+    padding: 32px;
 
     @include breakpoints.tablet {
         max-width: 100%;
