@@ -1,7 +1,9 @@
 @use 'styles/mixins/layout';
 
-.ProfileAppPreferences__header {
-    margin-bottom: 16px;
+.ProfileAppPreferences {
+    @include layout.flexColumn;
+    width: 100%;
+    gap: 12px;
 }
 
 .ProfileAppPreferences__iconAccent {
@@ -10,9 +12,4 @@
 
 .ProfileAppPreferences__icon {
     color: var(--text-2);
-}
-
-.ProfileAppPreferences__itemsWrapper {
-    @include layout.flexColumn;
-    gap: 16px;
 }

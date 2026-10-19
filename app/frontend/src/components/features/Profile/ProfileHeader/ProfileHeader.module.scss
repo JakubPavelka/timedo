@@ -5,6 +5,8 @@
 
 .ProfileHeader {
     @include layout.spaceBetweenY;
+    border: 0;
+    background-color: transparent;
 
     @include breakpoints.mobile {
         flex-direction: column;
@@ -18,14 +20,19 @@
 }
 
 .ProfileHeader__initials {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     border-radius: 999px;
     background-color: var(--accent);
+
+    @include breakpoints.mobile {
+        width: 48px;
+        height: 48px;
+    }
 }
 
 .ProfileHeader__initialText {
-    @include typography.text-lg(var(--white));
+    @include typography.text-xl(var(--white));
     @include layout.centerXY;
     font-weight: 700;
     text-transform: uppercase;

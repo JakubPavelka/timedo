@@ -3,7 +3,8 @@
 
 .ProfilePersonalInfo {
     @include layout.flexColumn;
-    gap: 16px;
+    width: 100%;
+    gap: 12px;
 }
 
 .ProfilePersonalInfo__topWrapper {

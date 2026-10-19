@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/Card/Card';
-import { User, Edit, X } from 'lucide-react';
+import { Edit, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ProfileForm } from '../../Forms/ProfileForm/ProfileForm';
 import styles from './ProfilePersonalInfo.module.scss';
@@ -27,18 +27,9 @@ export const ProfilePersonalInfo = (props: ProfilePersonalInfoProps) => {
     };
 
     return (
-        <Card className={styles.ProfilePersonalInfo}>
+        <section className={styles.ProfilePersonalInfo}>
             <div className={styles.ProfilePersonalInfo__topWrapper}>
-                <SectionHeader
-                    title={t('Profile.PersonalInfo.title')}
-                    icon={
-                        <User
-                            className={styles.ProfilePersonalInfo__icon}
-                            width={16}
-                            height={16}
-                        />
-                    }
-                />
+                <SectionHeader title={t('Profile.PersonalInfo.title')} />
                 <button
                     className={styles.ProfilePersonalInfo__button}
                     onClick={handleClickEditing}
@@ -53,7 +44,9 @@ export const ProfilePersonalInfo = (props: ProfilePersonalInfoProps) => {
                     </span>
                 </button>
             </div>
-            <ProfileForm onSubmit={handleSubmit} isEditing={isEditing} />
-        </Card>
+            <Card>
+                <ProfileForm onSubmit={handleSubmit} isEditing={isEditing} />
+            </Card>
+        </section>
     );
 };

@@ -3,6 +3,8 @@
 
 .ProfileView {
     @include layout.flexColumn;
+    max-width: 800px;
+    margin-inline: auto;
     padding: 24px;
     gap: 24px;
 
@@ -12,7 +14,7 @@
 }
 
 .ProfileView__flexWrapper {
-    display: flex;
+    @include layout.flexColumn;
     align-items: flex-start;
     gap: 24px;
 
