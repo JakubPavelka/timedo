@@ -150,9 +150,10 @@
         },
         "AppPreferences": {
             "title": "Předvolby aplikace",
+            "description": "Ukládá se hned, bez potvrzení.",
             "Theme": {
                 "title": "Vzhled",
-                "description": "Světlý nebo tmavý vzhled",
+                "description": "Platí jen v tomto prohlížeči",
                 "light": "Světlý",
                 "dark": "Tmavý"
             },
@@ -164,18 +165,19 @@
             },
             "Language": {
                 "title": "Jazyk",
-                "description": "Jazyk aplikace",
+                "description": "Výchozí podle jazyka prohlížeče",
                 "czech": "Čeština",
                 "english": "Angličtina"
             }
         },
         "ConnectedAccounts": {
-            "title": "Propojené účty"
+            "title": "Propojené účty",
+            "description": "Přihlašování přes jiné služby"
         },
         "Security": {
             "title": "Zabezpečení",
             "password": "Heslo",
-            "passwordDescription": "Změňte heslo pro zabezpečení účtu",
+            "passwordDescription": "Alespoň 8 znaků, velké písmeno a speciální znak",
             "currentPassword": "Současné heslo",
             "newPassword": "Nové heslo",
             "newPasswordAgain": "Nové heslo znovu",
