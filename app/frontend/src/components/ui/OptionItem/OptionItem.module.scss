@@ -1,0 +1,28 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
+
+.OptionItem {
+    @include layout.spaceBetweenY;
+
+    &.--stackMobile {
+        @include breakpoints.mobile {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+        }
+    }
+}
+
+.OptionItem__textWrapper {
+    @include layout.flexColumn;
+}
+
+.OptionItem__title {
+    @include typography.text-sm;
+    font-weight: 700;
+}
+
+.OptionItem__description {
+    @include typography.text-xs(var(--text-2));
+}
