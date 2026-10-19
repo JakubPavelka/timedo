@@ -20,6 +20,11 @@
     --text-2: #656970;
     --text-3: #8f9298;
 
+    --inset-bg: var(--surface-3);
+    --inset-border: transparent;
+    --inset-active: var(--surface);
+    --inset-active-border: var(--border);
+
     --danger: #e5484d;
     --danger-soft: #fce9ea;
     --danger-hover: #cc3f44;
@@ -42,6 +47,11 @@
     --text: #eceff3;
     --text-2: #a0a5ac;
     --text-3: #71757c;
+
+    --inset-bg: var(--bg);
+    --inset-border: var(--border);
+    --inset-active: var(--surface-4);
+    --inset-active-border: transparent;
 
     --danger-soft: #301f24;
 
