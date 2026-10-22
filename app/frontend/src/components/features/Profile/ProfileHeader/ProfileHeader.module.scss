@@ -5,53 +5,57 @@
 
 .ProfileHeader {
     @include layout.spaceBetweenY;
-
-    @include breakpoints.mobile {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-    }
 }
 
 .ProfileHeader__leftSide {
     @include layout.centerY;
+    min-width: 0;
 }
 
 .ProfileHeader__initials {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
     background-color: var(--accent);
+
+    @include breakpoints.mobile {
+        width: 48px;
+        height: 48px;
+    }
 }
 
 .ProfileHeader__initialText {
-    @include typography.text-lg(var(--white));
+    @include typography.text-xl(var(--white));
     @include layout.centerXY;
     font-weight: 700;
     text-transform: uppercase;
     height: 100%;
-    letter-spacing: -1.5px;
+    letter-spacing: -1.6px;
 }
 
 .ProfileHeader__informationWrapper {
     @include layout.flexColumn;
+    min-width: 0;
     margin-left: 16px;
 }
 
 .ProfileHeader__name {
     @include typography.text-lg(var(--text));
     font-weight: 700;
+
+    @include breakpoints.mobile {
+        @include typography.text-md(var(--text));
+    }
 }
 
 .ProfileHeader__email {
     @include typography.text-md(var(--text-2));
-}
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
-.ProfileHeader__buttonText {
-    @include layout.centerXY;
-    gap: 8px;
-}
-
-.ProfileHeader__icon {
-    color: var(--danger);
+    @include breakpoints.mobile {
+        @include typography.text-sm(var(--text-2));
+    }
 }

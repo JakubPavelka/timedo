@@ -5,7 +5,11 @@
 .TaskView {
     @include layout.flexColumn;
     min-height: 100%;
-    padding: 24px;
+    padding: 32px;
+
+    @include breakpoints.tablet {
+        padding: 24px;
+    }
 
     @include breakpoints.mobile {
         padding: 16px;

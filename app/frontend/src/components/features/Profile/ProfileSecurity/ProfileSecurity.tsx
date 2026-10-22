@@ -1,8 +1,8 @@
 import { Card } from '@/components/ui/Card/Card';
 import { SectionHeader } from '@/components/ui/SectionHeader/SectionHeader';
 import { useTranslation } from 'react-i18next';
-import { ShieldCheck, Lock, UserRoundX } from 'lucide-react';
-import { IconItem } from '@/components/ui/IconItem/IconItem';
+import { UserRoundX } from 'lucide-react';
+import { OptionItem } from '@/components/ui/OptionItem/OptionItem';
 import { Button } from '@/components/ui/Button/Button';
 import { useDeleteAccount } from '@/hooks/api/useUser';
 import { useState, useCallback } from 'react';
@@ -39,29 +39,12 @@ export const ProfileSecurity = () => {
     const deleteConfirmationWord = t('Profile.Security.deleteAccountConfirmWord');
 
     return (
-        <Card>
-            <SectionHeader
-                className={styles.ProfileSecurity__header}
-                title={t('Profile.Security.title')}
-                icon={
-                    <ShieldCheck
-                        className={styles.ProfileSecurity__iconAccent}
-                        width={16}
-                        height={16}
-                    />
-                }
-            />
-            <div className={styles.ProfileSecurity__itemsWrapper}>
-                <IconItem
+        <section className={styles.ProfileSecurity}>
+            <SectionHeader title={t('Profile.Security.title')} />
+            <Card flush>
+                <OptionItem
                     title={t('Profile.Security.password')}
                     description={t('Profile.Security.passwordDescription')}
-                    icon={
-                        <Lock
-                            className={styles.ProfileSecurity__icon}
-                            width={16}
-                            height={16}
-                        />
-                    }
                     rightActions={
                         <Button
                             className={styles.ProfileSecurity__button}
@@ -72,28 +55,20 @@ export const ProfileSecurity = () => {
                         </Button>
                     }
                 />
-                <IconItem
+                <OptionItem
                     title={t('Profile.Security.deleteAccountTitle')}
                     description={t('Profile.Security.deleteAccountDescription')}
-                    icon={
-                        <UserRoundX
-                            className={styles.ProfileSecurity__iconDanger}
-                            width={16}
-                            height={16}
-                        />
-                    }
-                    danger
                     rightActions={
                         <Button
                             className={styles.ProfileSecurity__button}
                             onClick={handleOpenModal}
-                            variant={'danger'}
+                            variant={'outline-danger'}
                         >
                             {t('General.delete')}
                         </Button>
                     }
                 />
-            </div>
+            </Card>
             <ConfirmModal
                 isOpen={showDeleteModal}
                 onClose={handleCloseModal}
@@ -119,6 +94,6 @@ export const ProfileSecurity = () => {
                 isOpen={showChangePasswordModal}
                 onClose={handleCloseChangePasswordModal}
             />
-        </Card>
+        </section>
     );
 };

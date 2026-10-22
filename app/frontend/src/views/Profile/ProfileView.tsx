@@ -26,14 +26,10 @@ export const ProfileView = () => {
         <div className={styles.ProfileView}>
             <ProfileHeader />
             <div className={styles.ProfileView__flexWrapper}>
-                <div className={styles.ProfileView__leftSide}>
-                    <ProfilePersonalInfo onSubmit={handleChangeProfileData} />
-                    <ProfileAppPreferences />
-                </div>
-                <div className={styles.ProfileView__rightSide}>
-                    {/*<ProfileConnectedAccounts />*/}
-                    <ProfileSecurity />
-                </div>
+                <ProfilePersonalInfo onSubmit={handleChangeProfileData} />
+                <ProfileAppPreferences />
+                {/*<ProfileConnectedAccounts />*/}
+                <ProfileSecurity />
             </div>
         </div>
     );

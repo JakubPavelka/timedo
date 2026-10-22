@@ -1,0 +1,102 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+@use 'styles/mixins/components';
+
+.SidebarProfileMenu {
+    background-color: var(--surface-3);
+    width: 100%;
+}
+
+.SidebarProfileMenu__name {
+    @include typography.text-md;
+    padding-top: 7px;
+    font-weight: 600;
+}
+
+.SidebarProfileMenu__email {
+    @include typography.text-sm(var(--text-2));
+}
+
+.SidebarProfileMenu__nameWrapper {
+    padding: 0 10px 7px 10px;
+}
+
+.SidebarProfileMenu__divider {
+    background-color: var(--border-strong);
+    display: block;
+    margin-block: 6px;
+    width: 100%;
+    height: 1px;
+}
+
+.SidebarProfileMenu__itemsWrapper {
+    @include layout.flexColumn;
+    gap: 2px;
+}
+
+.SidebarProfileMenu__item {
+    @include typography.text-sm;
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    color: inherit;
+
+    span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    svg {
+        color: var(--text);
+        transition: all 0.2s;
+        flex-shrink: 0;
+    }
+
+    &--clickable {
+        @include components.button-reset;
+        @include components.focus-ring;
+        width: 100%;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--surface-4);
+            text-decoration: none;
+        }
+    }
+
+    &--danger {
+        color: var(--danger);
+
+        svg {
+            color: var(--danger);
+        }
+    }
+}
+
+.SidebarProfileMenu__itemAction {
+    @include layout.centerY;
+    gap: 8px;
+    margin-left: auto;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.SidebarProfileMenu__lngView {
+    @include typography.text-sm;
+    padding-top: 7px;
+}
+
+.SidebarProfileMenu__lngViewWrapper {
+    @include layout.centerY;
+    @include components.button-reset;
+    @include components.focus-ring;
+    width: 100%;
+    padding-bottom: 7px;
+    gap: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+}

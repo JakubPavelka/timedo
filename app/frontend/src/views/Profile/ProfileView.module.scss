@@ -3,8 +3,14 @@
 
 .ProfileView {
     @include layout.flexColumn;
-    padding: 24px;
+    max-width: 800px;
+    margin-inline: auto;
+    padding: 32px;
     gap: 24px;
+
+    @include breakpoints.tablet {
+        padding: 24px;
+    }
 
     @include breakpoints.mobile {
         padding: 16px;
@@ -12,7 +18,7 @@
 }
 
 .ProfileView__flexWrapper {
-    display: flex;
+    @include layout.flexColumn;
     align-items: flex-start;
     gap: 24px;
 
