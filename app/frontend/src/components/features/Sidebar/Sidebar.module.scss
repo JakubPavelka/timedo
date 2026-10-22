@@ -28,6 +28,7 @@
 
 .Sidebar--collapsed {
     padding-inline: 12px;
+    overflow-x: visible;
 
     .Sidebar__scrollableWrapper {
         padding-right: 0;
@@ -355,6 +356,10 @@
 
 .Sidebar__popoverFullWidth {
     width: 100%;
+}
+
+.Sidebar__popoverContentCollapsed {
+    width: 216px;
 }
 
 .Sidebar__popoverPanel {

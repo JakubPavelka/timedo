@@ -482,7 +482,11 @@ export const Sidebar = (props: SidebarProps) => {
                         side={'top'}
                         className={styles.Sidebar__popover}
                         triggerClassName={styles.Sidebar__popoverFullWidth}
-                        contentClassName={styles.Sidebar__popoverFullWidth}
+                        contentClassName={
+                            isCollapsed
+                                ? styles.Sidebar__popoverContentCollapsed
+                                : styles.Sidebar__popoverFullWidth
+                        }
                         panelClassName={styles.Sidebar__popoverPanel}
                         trigger={<SidebarProfileButton isCollapsed={isCollapsed} />}
                     >
