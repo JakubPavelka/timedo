@@ -2,39 +2,32 @@
 @use 'styles/colors';
 @use 'styles/mixins/layout';
 
-%sidebarBox {
+.Sidebar {
     display: flex;
     flex-direction: column;
-    background-color: var(--surface-2);
+    flex-shrink: 0;
+    width: 248px;
     height: 100dvh;
-    border-right: 1px solid var(--border);
-}
-
-.Sidebar {
-    @extend %sidebarBox;
     padding: 24px 16px 14px 16px;
-    max-width: 248px;
-    width: 100%;
+    background-color: var(--surface-2);
+    border-right: 1px solid var(--border);
+    overflow-x: clip;
+    white-space: nowrap;
+    transition: box-shadow 0.25s;
 }
 
-.Sidebar__rail {
-    @extend %sidebarBox;
+.Sidebar--overlay {
     position: fixed;
     inset: 0 auto 0 0;
-    width: 80px;
-    padding: 24px 12px;
-    z-index: 20;
-}
-
-.Sidebar__panel {
-    @extend %sidebarBox;
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 260px;
-    padding: 24px 16px;
-    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.25);
     z-index: 40;
-    will-change: transform;
+}
+
+.Sidebar--expanded {
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.25);
+}
+
+.Sidebar--collapsed {
+    padding-inline: 12px;
 }
 
 .Sidebar__spacer {
@@ -56,7 +49,7 @@
     gap: 12px;
 }
 
-.Sidebar__header--rail {
+.Sidebar__header--collapsed {
     flex-direction: column;
 }
 
@@ -87,7 +80,7 @@
     padding-block: 8px;
 }
 
-.Sidebar__buttonTimer--rail {
+.Sidebar__buttonTimer--collapsed {
     padding-inline: 8px;
 
     svg {
@@ -143,12 +136,12 @@
     @include layout.centerXY;
 }
 
-.Sidebar__button--rail {
+.Sidebar__button--collapsed {
     justify-content: center;
     padding-inline: 0;
 }
 
-.Sidebar__railSectionButton {
+.Sidebar__collapsedSectionButton {
     @include layout.centerXY;
     width: 100%;
     padding: 7px 13px;
@@ -264,6 +257,8 @@
 
 .Sidebar__itemText {
     @include typography.text-sm(var(--text-2));
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: color 0.2s;
 }
 
@@ -278,9 +273,11 @@
 .Sidebar__itemColorWrapper {
     @include layout.centerY;
     gap: 12px;
+    min-width: 0;
 }
 
 .Sidebar__itemDot {
+    flex-shrink: 0;
     height: 8px;
     width: 8px;
     border-radius: 999px;
@@ -292,7 +289,7 @@
     border-top: 1px solid var(--border-strong);
 }
 
-.Sidebar__profileWrapper--rail {
+.Sidebar__profileWrapper--collapsed {
     display: flex;
     justify-content: center;
 }
