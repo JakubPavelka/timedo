@@ -86,7 +86,7 @@ export const Sidebar = (props: SidebarProps) => {
                     isCollapsed && styles['Sidebar--collapsed']
                 )}
                 initial={false}
-                animate={{ width: isCollapsed ? 80 : 248 }}
+                animate={{ width: isCollapsed ? 64 : 248 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
             >
                 <div
@@ -98,12 +98,12 @@ export const Sidebar = (props: SidebarProps) => {
                     <div className={styles.Sidebar__logoLink}>
                         {isCollapsed ? (
                             theme === 'light' ? (
-                                <LogoBlue viewBox="0 0 56 56" height={36} width={36} />
+                                <LogoBlue viewBox="0 0 56 56" height={32} width={32} />
                             ) : (
                                 <LogoBlueDarkTheme
                                     viewBox="0 0 56 56"
-                                    height={36}
-                                    width={36}
+                                    height={32}
+                                    width={32}
                                 />
                             )
                         ) : theme === 'light' ? (
