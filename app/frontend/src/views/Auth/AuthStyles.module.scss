@@ -53,7 +53,7 @@
 }
 
 .AuthView__link {
-    @include typography.text-sm(var(--accent));
+    @include typography.text-sm(var(--accent-text));
     display: block;
     text-align: center;
     margin-block: 12px;
@@ -73,7 +73,7 @@
 }
 
 .AuthView__resendText {
-    color: var(--accent);
+    color: var(--accent-text);
     display: inline;
     cursor: pointer;
 }

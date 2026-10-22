@@ -119,7 +119,7 @@
     max-width: fit-content;
 
     &:hover {
-        color: var(--accent);
+        color: var(--accent-text);
     }
 }
 
@@ -134,7 +134,7 @@
     transition: all 0.2s;
 
     &:hover {
-        color: var(--accent);
+        color: var(--accent-text);
     }
 }
 
