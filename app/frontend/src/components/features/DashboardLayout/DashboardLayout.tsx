@@ -9,6 +9,8 @@ import { useActiveTimeEntry, useCreateTimeEntry } from '@/hooks/api/useTimeEntry
 import { useTimerMode } from '@/hooks/useTimerMode';
 import { EntryType } from '@timedo/shared/src/schemas/timeEntrySchema';
 import { getErrorMessage } from '@/utils/getErrorMessage';
+import { hideSplash } from '@/utils/hideSplash';
+import { useEffect } from 'react';
 import styles from './DashboardLayout.module.scss';
 
 const titlePaths: Record<string, string> = {
@@ -30,11 +32,18 @@ export const DashboardLayout = () => {
         select: (s) => s.matches.at(-1)?.routeId,
     });
     const title = titlePaths[routeId ?? ''];
-    useGetProjects();
-    useGetTags();
+    const { isPending: isProjectsPending } = useGetProjects();
+    const { isPending: isTagsPending } = useGetTags();
+    const isGlobalDataPending = isProjectsPending || isTagsPending;
     const { data: activeEntry } = useActiveTimeEntry();
     const { mutate: createTimeEntry } = useCreateTimeEntry();
     const setTimerMode = useTimerMode((s) => s.setTimerMode);
+
+    useEffect(() => {
+        if (!isGlobalDataPending) {
+            hideSplash();
+        }
+    }, [isGlobalDataPending]);
 
     const handleTimerClick = () => {
         if (activeEntry) {
