@@ -1,5 +1,6 @@
 import LogoBlue from '@/assets/images/logo-dark-square.svg?react';
 import LogoBlueDarkTheme from '@/assets/images/logo-white-square.svg?react';
+import LogoSquare from '@/assets/images/logo-square.svg?react';
 import { useTheme } from '@/hooks/useTheme';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { Button } from '@/components/ui/Button/Button';
@@ -97,15 +98,7 @@ export const Sidebar = (props: SidebarProps) => {
                 >
                     <div className={styles.Sidebar__logoLink}>
                         {isCollapsed ? (
-                            theme === 'light' ? (
-                                <LogoBlue viewBox="0 0 56 56" height={32} width={32} />
-                            ) : (
-                                <LogoBlueDarkTheme
-                                    viewBox="0 0 56 56"
-                                    height={32}
-                                    width={32}
-                                />
-                            )
+                            <LogoSquare width={36} height={36} />
                         ) : theme === 'light' ? (
                             <LogoBlue height={40} width={110} />
                         ) : (

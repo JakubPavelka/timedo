@@ -1,6 +1,7 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
 @use 'styles/mixins/components';
+@use 'styles/mixins/breakpoints';
 
 .SidebarProfileMenu {
     background-color: var(--surface-3);
@@ -19,6 +20,10 @@
 
 .SidebarProfileMenu__nameWrapper {
     padding: 0 10px 7px 10px;
+
+    @include breakpoints.tablet {
+        padding: 0 6px 6px 6px;
+    }
 }
 
 .SidebarProfileMenu__divider {
@@ -43,6 +48,10 @@
     transition: background-color 0.2s;
     border-radius: 10px;
     color: inherit;
+
+    @include breakpoints.tablet {
+        padding: 6px;
+    }
 
     span {
         overflow: hidden;
