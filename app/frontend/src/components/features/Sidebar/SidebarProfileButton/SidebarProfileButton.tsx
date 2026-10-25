@@ -1,6 +1,7 @@
 import { useAuthStore } from '@/store/authStore';
 import { EllipsisVertical } from 'lucide-react';
 import clsx from 'clsx';
+import { Avatar } from '@/components/ui/Avatar/Avatar';
 import styles from './SidebarProfileButton.module.scss';
 
 type SidebarProfileButtonProps = {
@@ -9,8 +10,6 @@ type SidebarProfileButtonProps = {
 
 export const SidebarProfileButton = (props: SidebarProfileButtonProps) => {
     const { user } = useAuthStore();
-    const initialFirstName = user?.firstName?.slice(0, 1);
-    const initialLastName = user?.lastName?.slice(0, 1);
 
     if (!user) {
         return null;
@@ -24,11 +23,7 @@ export const SidebarProfileButton = (props: SidebarProfileButtonProps) => {
             )}
         >
             <div className={styles.SidebarProfileButton__initialsWrapper}>
-                <div className={styles.SidebarProfileButton__initials}>
-                    <p className={styles.SidebarProfileButton__initialText}>
-                        {initialFirstName} {user?.lastName && initialLastName}
-                    </p>
-                </div>
+                <Avatar firstName={user.firstName} lastName={user.lastName} />
                 {!props.isCollapsed && (
                     <p className={styles.SidebarProfileButton__nameText}>
                         {user?.firstName} {user?.lastName && <br />} {user?.lastName}

@@ -1,13 +1,11 @@
 @use 'styles/typography';
 @use 'styles/colors';
-@use 'styles/mixins/layout';
 
 .SidebarProfileButton {
     padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--text-2);
     text-decoration: none;
     transition: all 0.2s;
     border-radius: 10px;
@@ -17,10 +15,6 @@
     &:hover {
         text-decoration: none;
         background-color: var(--surface-3);
-
-        .SidebarProfileButton__nameText {
-            color: var(--text);
-        }
     }
 }
 
@@ -30,24 +24,8 @@
     gap: 12px;
 }
 
-.SidebarProfileButton__initials {
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
-    background-color: var(--accent);
-}
-
-.SidebarProfileButton__initialText {
-    @include typography.text-xs(var(--white));
-    @include layout.centerXY;
-    font-weight: 700;
-    text-transform: uppercase;
-    height: 100%;
-    letter-spacing: -1px;
-}
-
 .SidebarProfileButton__nameText {
-    @include typography.text-sm(var(--text-2));
+    @include typography.text-sm(var(--text));
 }
 
 .SidebarProfileButton--collapsed {

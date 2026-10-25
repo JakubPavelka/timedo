@@ -1,19 +1,20 @@
 import { useAuthStore } from '@/store/authStore';
+import { Avatar } from '@/components/ui/Avatar/Avatar';
 import styles from './ProfileHeader.module.scss';
 
 export const ProfileHeader = () => {
     const { user } = useAuthStore();
-    const initialFirstName = user?.firstName?.slice(0, 1);
-    const initialLastName = user?.lastName?.slice(0, 1);
 
     return (
         <div className={styles.ProfileHeader}>
             <div className={styles.ProfileHeader__leftSide}>
-                <div className={styles.ProfileHeader__initials}>
-                    <p className={styles.ProfileHeader__initialText}>
-                        {initialFirstName} {user?.lastName && initialLastName}
-                    </p>
-                </div>
+                {user && (
+                    <Avatar
+                        firstName={user.firstName}
+                        lastName={user.lastName}
+                        size={'lg'}
+                    />
+                )}
                 <div className={styles.ProfileHeader__informationWrapper}>
                     <p className={styles.ProfileHeader__name}>
                         {user?.firstName} {user?.lastName}
