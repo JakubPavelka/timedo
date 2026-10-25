@@ -1,8 +1,7 @@
 import { SectionHeader } from '@/components/ui/SectionHeader/SectionHeader';
-import { SlidersHorizontal, Sun, Globe } from 'lucide-react';
 import { Card } from '@/components/ui/Card/Card';
 import { useTranslation } from 'react-i18next';
-import { IconItem } from '@/components/ui/IconItem/IconItem';
+import { OptionItem } from '@/components/ui/OptionItem/OptionItem';
 import { SegmentedControl } from '@/components/ui/SegmentedControl/SegmentedControl';
 import { useTheme } from '@/hooks/useTheme';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -61,34 +60,20 @@ export const ProfileAppPreferences = () => {
     ];
 
     return (
-        <Card>
+        <section className={styles.ProfileAppPreferences}>
             <SectionHeader
-                className={styles.ProfileAppPreferences__header}
                 title={t('Profile.AppPreferences.title')}
-                icon={
-                    <SlidersHorizontal
-                        className={styles.ProfileAppPreferences__iconAccent}
-                        width={16}
-                        height={16}
-                    />
-                }
+                description={t('Profile.AppPreferences.description')}
             />
-            <div className={styles.ProfileAppPreferences__itemsWrapper}>
-                <IconItem
+            <Card flush>
+                <OptionItem
                     stackOnMobile
                     title={t('Profile.AppPreferences.Theme.title')}
                     description={t('Profile.AppPreferences.Theme.description')}
-                    icon={
-                        <Sun
-                            className={styles.ProfileAppPreferences__icon}
-                            width={16}
-                            height={16}
-                        />
-                    }
                     rightActions={<SegmentedControl items={themeSegmentedData} />}
                 />
                 {/*
-                <IconItem
+                <OptionItem
                     stackOnMobile
                     title={t('Profile.AppPreferences.Timer.title')}
                     description={t('Profile.AppPreferences.Timer.description')}
@@ -107,20 +92,13 @@ export const ProfileAppPreferences = () => {
                     }
                 />
                 */}
-                <IconItem
+                <OptionItem
                     stackOnMobile
                     title={t('Profile.AppPreferences.Language.title')}
                     description={t('Profile.AppPreferences.Language.description')}
-                    icon={
-                        <Globe
-                            className={styles.ProfileAppPreferences__icon}
-                            width={16}
-                            height={16}
-                        />
-                    }
                     rightActions={<SegmentedControl items={languageSegmentedData} />}
                 />
-            </div>
-        </Card>
+            </Card>
+        </section>
     );
 };

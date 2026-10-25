@@ -115,10 +115,10 @@
 
     &:hover {
         background-color: var(--surface-3);
-        color: var(--accent);
+        color: var(--accent-text);
 
         .TaskListItem__playIcon {
-            fill: var(--accent);
+            fill: var(--accent-text);
         }
     }
 

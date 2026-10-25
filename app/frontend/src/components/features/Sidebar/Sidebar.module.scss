@@ -2,44 +2,49 @@
 @use 'styles/colors';
 @use 'styles/mixins/layout';
 
-%sidebarBox {
+.Sidebar {
     display: flex;
     flex-direction: column;
-    background-color: var(--surface-2);
+    flex-shrink: 0;
+    width: 248px;
     height: 100dvh;
+    padding: 24px 16px 14px 16px;
+    background-color: var(--surface-2);
     border-right: 1px solid var(--border);
+    overflow-x: clip;
+    white-space: nowrap;
+    transition: box-shadow 0.25s;
 }
 
-.Sidebar {
-    @extend %sidebarBox;
-    padding: 24px 16px;
-    max-width: 248px;
-    width: 100%;
-}
-
-.Sidebar__rail {
-    @extend %sidebarBox;
+.Sidebar--overlay {
     position: fixed;
     inset: 0 auto 0 0;
-    width: 80px;
-    padding: 24px 12px;
-    z-index: 20;
-}
-
-.Sidebar__panel {
-    @extend %sidebarBox;
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 260px;
-    padding: 24px 16px;
-    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.25);
     z-index: 40;
-    will-change: transform;
+}
+
+.Sidebar--expanded {
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.25);
+}
+
+.Sidebar--collapsed {
+    padding-inline: 10px;
+    padding-bottom: 20px;
+    overflow-x: visible;
+
+    .Sidebar__scrollableWrapper {
+        padding-right: 0;
+    }
+
+    .Sidebar__toggle {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+    }
 }
 
 .Sidebar__spacer {
     flex-shrink: 0;
-    width: 80px;
+    width: 64px;
 }
 
 .Sidebar__backdrop {
@@ -56,7 +61,7 @@
     gap: 12px;
 }
 
-.Sidebar__header--rail {
+.Sidebar__header--collapsed {
     flex-direction: column;
 }
 
@@ -87,8 +92,11 @@
     padding-block: 8px;
 }
 
-.Sidebar__buttonTimer--rail {
-    padding-inline: 8px;
+.Sidebar__buttonTimer--collapsed {
+    align-self: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
 
     svg {
         margin-right: 0;
@@ -143,18 +151,22 @@
     @include layout.centerXY;
 }
 
-.Sidebar__button--rail {
+.Sidebar__button--collapsed {
+    align-self: center;
     justify-content: center;
-    padding-inline: 0;
+    width: 36px;
+    height: 36px;
+    padding: 0;
 }
 
-.Sidebar__railSectionButton {
+.Sidebar__collapsedSectionButton {
     @include layout.centerXY;
-    width: 100%;
-    padding: 7px 13px;
-    margin: 11px 0 0 0;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 4px auto 0 auto;
     border: 0;
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: transparent;
     color: var(--text-3);
     cursor: pointer;
@@ -168,30 +180,65 @@
 
 .Sidebar__subTitleWrapper {
     @include layout.spaceBetweenY;
+    margin: 11px 0 0 0;
+    gap: 4px;
+}
+
+.Sidebar__subTitleStatic {
+    display: block;
     padding: 7px 13px;
     margin: 11px 0 0 0;
-    gap: 12px;
+
+    &:hover .Sidebar__subTitle {
+        color: var(--text);
+    }
+}
+
+.Sidebar__subTitleLink {
+    @include layout.spaceBetweenY;
+    flex: 1;
+    padding: 7px 0 7px 13px;
     transition: all 0.2s;
 
-    svg {
-        color: var(--text-3);
-        transition: color 0.2s;
-    }
-
-    &:hover {
-        .Sidebar__subTitle {
-            color: var(--text);
-        }
-
-        svg {
-            color: var(--text);
-        }
+    &:hover .Sidebar__subTitle {
+        color: var(--text);
     }
 }
 
 .Sidebar__subTitle {
     @include typography.text-xs(var(--text-3));
     transition: color 0.2s;
+}
+
+.Sidebar__subTitleToggle {
+    @include layout.centerXY;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    margin-right: 5px;
+    border: 0;
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: var(--surface-3);
+        color: var(--text);
+    }
+}
+
+.Sidebar__subTitleChevron {
+    transition: transform 0.2s;
+}
+
+.Sidebar__subTitleChevron--open {
+    transform: rotate(90deg);
+}
+
+.Sidebar__collapsible {
+    overflow: hidden;
 }
 
 .Sidebar__itemButton {
@@ -229,6 +276,8 @@
 
 .Sidebar__itemText {
     @include typography.text-sm(var(--text-2));
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: color 0.2s;
 }
 
@@ -243,9 +292,11 @@
 .Sidebar__itemColorWrapper {
     @include layout.centerY;
     gap: 12px;
+    min-width: 0;
 }
 
 .Sidebar__itemDot {
+    flex-shrink: 0;
     height: 8px;
     width: 8px;
     border-radius: 999px;
@@ -253,11 +304,11 @@
 
 .Sidebar__profileWrapper {
     margin-top: auto;
-    padding-top: 16px;
+    padding-top: 8px;
     border-top: 1px solid var(--border-strong);
 }
 
-.Sidebar__profileWrapper--rail {
+.Sidebar__profileWrapper--collapsed {
     display: flex;
     justify-content: center;
 }
@@ -298,4 +349,22 @@
     &:hover {
         color: var(--text);
     }
+}
+
+.Sidebar__popover {
+    width: 100%;
+}
+
+.Sidebar__popoverFullWidth {
+    width: 100%;
+}
+
+.Sidebar__popoverContentCollapsed {
+    width: 216px;
+}
+
+.Sidebar__popoverPanel {
+    padding: 8px;
+    background-color: var(--surface-3);
+    border-color: var(--border-strong);
 }

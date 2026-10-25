@@ -1,9 +1,9 @@
-.ProfileConnectedAccounts__header {
-    margin-bottom: 16px;
-}
+@use 'styles/mixins/layout';
 
-.ProfileConnectedAccounts__icon {
-    color: var(--accent);
+.ProfileConnectedAccounts {
+    @include layout.flexColumn;
+    width: 100%;
+    gap: 12px;
 }
 
 .ProfileConnectedAccounts__button {

@@ -7,7 +7,7 @@
     flex-direction: column;
     min-height: 100dvh;
     background-color: var(--bg);
-    padding: 36px;
+    padding: 32px;
 
     @include breakpoints.tablet {
         padding: 24px;
@@ -33,7 +33,7 @@
 .NotFoundView__icon {
     @include layout.centerXY;
     background-color: var(--accent-soft);
-    color: var(--accent);
+    color: var(--accent-text);
     border-radius: 16px;
     width: 58px;
     height: 58px;
@@ -41,7 +41,7 @@
 }
 
 .NotFoundView__code {
-    @include typography.text-stopwatch-time(var(--accent));
+    @include typography.text-stopwatch-time(var(--accent-text));
     margin-bottom: 8px;
 }
 

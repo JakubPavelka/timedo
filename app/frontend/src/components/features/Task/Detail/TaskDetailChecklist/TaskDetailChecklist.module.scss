@@ -31,7 +31,7 @@
     max-width: fit-content;
 
     &:hover {
-        color: var(--accent);
+        color: var(--accent-text);
     }
 }
 
@@ -55,7 +55,7 @@
     transition: color 0.2s;
 
     &:hover {
-        color: var(--accent);
+        color: var(--accent-text);
     }
 }
 
@@ -108,7 +108,7 @@
         color 0.2s;
 
     &:hover {
-        color: var(--accent);
+        color: var(--accent-text);
     }
 
     @include breakpoints.mobile {

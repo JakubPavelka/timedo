@@ -39,11 +39,10 @@
 
 .AuthForm__forgotPassword {
     @include typography.text-xs(var(--accent-text));
-    transition: color 0.2s;
     cursor: pointer;
 
     &:hover {
-        color: var(--accent);
+        text-decoration: underline;
     }
 }
 

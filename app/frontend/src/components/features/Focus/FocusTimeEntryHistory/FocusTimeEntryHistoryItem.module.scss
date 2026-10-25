@@ -81,7 +81,7 @@
 }
 
 .FocusTimeEntryHistoryItem__trackedTime {
-    @include typography.text-sm-mono(var(--accent));
+    @include typography.text-sm-mono(var(--accent-text));
     font-weight: 700;
 }
 

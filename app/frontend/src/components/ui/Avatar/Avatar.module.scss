@@ -1,0 +1,42 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+@use 'styles/mixins/breakpoints';
+
+.Avatar {
+    flex-shrink: 0;
+    border-radius: 999px;
+    background-color: var(--accent-soft);
+}
+
+.Avatar__initials {
+    @include layout.centerXY;
+    height: 100%;
+    text-transform: uppercase;
+}
+
+.Avatar--sm {
+    width: 36px;
+    height: 36px;
+
+    .Avatar__initials {
+        @include typography.text-xs(var(--accent-text));
+        font-weight: 700;
+        letter-spacing: -1px;
+    }
+}
+
+.Avatar--lg {
+    width: 64px;
+    height: 64px;
+
+    @include breakpoints.mobile {
+        width: 48px;
+        height: 48px;
+    }
+
+    .Avatar__initials {
+        @include typography.text-xl(var(--accent-text));
+        font-weight: 700;
+        letter-spacing: -1.6px;
+    }
+}

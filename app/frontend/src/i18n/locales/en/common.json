@@ -43,7 +43,8 @@
         "changesSaved": "Changes saved",
         "somethingWentWrong": "Something went wrong, please try again",
         "add": "Add",
-        "create": "Create"
+        "create": "Create",
+        "back": "Back"
     },
     "Validation": {
         "invalidEmail": "Invalid email address",
@@ -133,7 +134,9 @@
         "addTag": "Add tag",
         "profile": "Profile",
         "expand": "Expand menu",
-        "collapse": "Collapse menu"
+        "collapse": "Collapse menu",
+        "expandSection": "Expand section",
+        "collapseSection": "Collapse section"
     },
     "Profile": {
         "logout": "Sign out",
@@ -147,9 +150,10 @@
         },
         "AppPreferences": {
             "title": "App preferences",
+            "description": "Saved instantly, no confirmation needed.",
             "Theme": {
                 "title": "Theme",
-                "description": "Light or dark theme",
+                "description": "Applies only in this browser",
                 "light": "Light",
                 "dark": "Dark"
             },
@@ -161,18 +165,19 @@
             },
             "Language": {
                 "title": "Language",
-                "description": "App language",
+                "description": "Defaults to your browser language",
                 "czech": "Czech",
                 "english": "English"
             }
         },
         "ConnectedAccounts": {
-            "title": "Connected accounts"
+            "title": "Connected accounts",
+            "description": "Sign in with other services"
         },
         "Security": {
             "title": "Security",
             "password": "Password",
-            "passwordDescription": "Change your password to keep your account secure",
+            "passwordDescription": "At least 8 characters, one uppercase letter and one special character",
             "currentPassword": "Current password",
             "newPassword": "New password",
             "newPasswordAgain": "Confirm new password",

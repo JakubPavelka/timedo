@@ -2,27 +2,16 @@
 @use 'styles/typography';
 @use 'styles/mixins/breakpoints';
 
-.SectionHeader__iconWrapper {
-    @include layout.centerXY;
-    flex-shrink: 0;
-    background-color: var(--accent-soft);
-    height: 36px;
-    width: 36px;
-    border-radius: 12px;
-
-    @include breakpoints.mobile {
-        width: 32px;
-        height: 32px;
-        border-radius: 10px;
-    }
-}
-
 .SectionHeader__flexWrapper {
-    @include layout.centerY;
-    gap: 12px;
+    @include layout.flexColumn;
+    gap: 2px;
 }
 
 .SectionHeader__title {
     @include typography.text-md;
     font-weight: 700;
+}
+
+.SectionHeader__description {
+    @include typography.text-sm(var(--text-2));
 }

@@ -78,7 +78,7 @@
     max-width: fit-content;
 
     &:hover {
-        color: var(--accent);
+        color: var(--accent-text);
     }
 }
 
@@ -108,7 +108,7 @@
     flex-shrink: 0;
 
     &:hover {
-        color: var(--accent);
+        color: var(--accent-text);
     }
 }
 
