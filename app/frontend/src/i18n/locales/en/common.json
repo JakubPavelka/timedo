@@ -146,7 +146,8 @@
             "firstName": "First name",
             "lastName": "Last name",
             "email": "E-mail",
-            "updateError": "Failed to save personal information, please try again"
+            "updateError": "Failed to save personal information, please try again",
+            "notFilled": "Not filled in"
         },
         "AppPreferences": {
             "title": "App preferences",
@@ -190,7 +191,8 @@
             "deleteAccountModalDescription": "Your account will be permanently deleted and you will lose all data. This action is irreversible.",
             "deleteAccountConfirmWord": "DELETE",
             "deleteAccountConfirmLabel": "Type {{word}} to confirm"
-        }
+        },
+        "memberSince": "member since {{date}}"
     },
     "Task": {
         "detail": "Task detail",

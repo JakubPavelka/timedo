@@ -146,7 +146,8 @@
             "firstName": "Jméno",
             "lastName": "Příjmení",
             "email": "E-mail",
-            "updateError": "Nepodařilo se uložit osobní údaje, zkuste to prosím znovu"
+            "updateError": "Nepodařilo se uložit osobní údaje, zkuste to prosím znovu",
+            "notFilled": "Nevyplněno"
         },
         "AppPreferences": {
             "title": "Předvolby aplikace",
@@ -190,7 +191,8 @@
             "deleteAccountModalDescription": "Váš účet bude trvale odstraněn a ztratíte veškerá data. Tato akce je nevratná.",
             "deleteAccountConfirmWord": "SMAZAT",
             "deleteAccountConfirmLabel": "Pro potvrzení napište {{word}}"
-        }
+        },
+        "memberSince": "účet od {{date}}"
     },
     "Task": {
         "detail": "Detail úkolu",
