@@ -5,6 +5,7 @@ type User = {
     email: string;
     firstName: string;
     lastName: string | null;
+    createdAt?: string;
 };
 
 type AuthStore = {
