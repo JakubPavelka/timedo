@@ -44,7 +44,7 @@ export const ProfilePersonalInfo = (props: ProfilePersonalInfoProps) => {
                     </span>
                 </button>
             </div>
-            <Card>
+            <Card flush>
                 <ProfileForm onSubmit={handleSubmit} isEditing={isEditing} />
             </Card>
         </section>
