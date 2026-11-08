@@ -1,5 +1,6 @@
 @use 'styles/typography';
 @use 'styles/mixins/layout';
+@use 'styles/mixins/components';
 @use 'styles/mixins/breakpoints';
 
 .NewTaskModal {
@@ -95,15 +96,31 @@
 
 .NewTaskModal__emptyOptionWrapper {
     @include layout.spaceBetweenY;
+    border-radius: 8px;
+}
+
+.NewTaskModal__emptyOptionWrapper--form {
+    padding: 8px 12px;
+}
+
+.NewTaskModal__createOption {
+    @include components.button-reset;
+    @include layout.spaceBetweenY;
+    width: 100%;
     padding: 8px 12px;
     border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 
     svg {
         color: var(--text-2);
-        cursor: pointer;
         transition: color 0.2s;
+    }
 
-        &:hover {
+    &:hover {
+        background-color: var(--surface-2);
+
+        svg {
             color: var(--text);
         }
     }
