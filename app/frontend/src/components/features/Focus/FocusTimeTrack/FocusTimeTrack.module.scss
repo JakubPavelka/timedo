@@ -1,0 +1,76 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+@use 'styles/mixins/components';
+@use 'styles/mixins/breakpoints';
+
+.FocusTimeTrack {
+    @include layout.spaceBetweenY;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    width: 100%;
+
+    @include breakpoints.tablet {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        padding-bottom: 18px;
+    }
+}
+
+.FocusTimeTrack__textWrapper {
+    @include layout.flexColumn;
+    gap: 12px;
+
+    button {
+        @include components.button-reset;
+        @include layout.centerY;
+        color: var(--accent-text);
+        gap: 4px;
+        cursor: pointer;
+    }
+}
+
+.FocusTimeTrack__timeWrapper {
+    @include layout.centerY;
+    gap: 16px;
+}
+
+.FocusTimeTrack__time {
+    @include typography.text-stopwatch-time(var(--text));
+}
+
+.FocusTimeTrack__timeEmpty {
+    @include typography.text-stopwatch-time(var(--text-2));
+}
+
+.FocusTimeTrack__playButton {
+    @include layout.centerXY;
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    background-color: var(--accent);
+    transition: background-color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--accent-hover);
+    }
+
+    svg {
+        color: var(--white);
+        fill: var(--white);
+    }
+
+    &--running {
+        background-color: var(--danger);
+
+        &:hover {
+            background-color: var(--danger-hover);
+        }
+    }
+
+    @include breakpoints.tablet {
+        width: 42px;
+        height: 42px;
+    }
+}
