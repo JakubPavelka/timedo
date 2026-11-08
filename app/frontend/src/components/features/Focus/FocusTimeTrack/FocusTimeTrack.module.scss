@@ -30,6 +30,40 @@
     }
 }
 
+.FocusTimeTrack__status {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    gap: 8px;
+}
+
+.FocusTimeTrack__status--running {
+    color: var(--accent-text);
+}
+
+.FocusTimeTrack__statusDot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    animation: status-pulse 2s ease-in-out infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+@keyframes status-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+}
+
 .FocusTimeTrack__timeWrapper {
     @include layout.centerY;
     gap: 16px;

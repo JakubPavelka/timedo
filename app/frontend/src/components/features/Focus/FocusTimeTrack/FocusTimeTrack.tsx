@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
+import { DateTime } from 'luxon';
+import { useTranslation } from 'react-i18next';
 import { Select } from '@/components/ui/Select/Select';
 import { formatDuration } from '@/utils/formatDuration';
 import { useElapsedSeconds } from '@/hooks/useElapsedSeconds';
@@ -16,15 +17,42 @@ type FocusTimeTrackProps = {
 const ICON_SIZE = 16;
 
 export const FocusTimeTrack = (props: FocusTimeTrackProps) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const elapsedSeconds = useElapsedSeconds(props.startedAt, props.timerRunning);
     const timeParts = formatDuration(elapsedSeconds).split(':');
 
+    const getStartedAtTime = () => {
+        if (!props.startedAt) {
+            return '';
+        }
+
+        const startedAt =
+            props.startedAt instanceof Date
+                ? DateTime.fromJSDate(props.startedAt)
+                : DateTime.fromISO(props.startedAt);
+
+        return startedAt.setLocale(i18n.language).toLocaleString(DateTime.TIME_SIMPLE);
+    };
+
     return (
         <div className={styles.FocusTimeTrack}>
             <div className={styles.FocusTimeTrack__textWrapper}>
-                <p>{t('Focus.Tracking.notRunning')}</p>
+                {props.timerRunning ? (
+                    <p
+                        className={clsx(
+                            styles.FocusTimeTrack__status,
+                            styles['FocusTimeTrack__status--running']
+                        )}
+                    >
+                        <span className={styles.FocusTimeTrack__statusDot} />
+                        {t('Focus.Tracking.running', { time: getStartedAtTime() })}
+                    </p>
+                ) : (
+                    <p className={styles.FocusTimeTrack__status}>
+                        {t('Focus.Tracking.notRunning')}
+                    </p>
+                )}
                 <Select
                     variant={'ghost'}
                     onChange={() => {}}
