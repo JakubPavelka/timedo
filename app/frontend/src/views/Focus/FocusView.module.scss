@@ -5,6 +5,8 @@
     @include layout.flexColumn;
     gap: 24px;
     padding: 32px;
+    max-width: 920px;
+    margin-inline: auto;
 
     @include breakpoints.tablet {
         padding: 24px;

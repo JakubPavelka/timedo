@@ -1,4 +1,3 @@
-import { FocusStopwatch } from '@/components/features/Focus/FocusStopwatch/FocusStopwatch';
 import {
     useCreateTimeEntry,
     useActiveTimeEntry,
@@ -13,8 +12,8 @@ import { toast } from 'sonner';
 import { useCallback, useState } from 'react';
 import { FocusTimeEntryHistory } from '@/components/features/Focus/FocusTimeEntryHistory/FocusTimeEntryHistory';
 import { mapTimeEntryToHistoryItem } from '@/utils/mapTimeEntryToHistoryItem';
-import { FocusTaskDetail } from '@/components/features/Focus/FocusTaskDetail/FocusTaskDetail';
 import styles from './FocusView.module.scss';
+import { FocusTimeTrack } from '@/components/features/Focus/FocusTimeTrack/FocusTimeTrack';
 
 const PAGE_SIZE = 5;
 
@@ -87,27 +86,11 @@ export const FocusView = () => {
 
     return (
         <div className={styles.FocusView}>
-            <div className={styles.FocusView__topWrapper}>
-                <div className={styles.FocusView__stopwatchItem}>
-                    <FocusStopwatch
-                        onTrackClick={
-                            isRunning ? handleStopTimeEntry : handleCreateTimeEntry
-                        }
-                        isRunning={isRunning}
-                        startedAt={activeEntry?.startedAt}
-                        plannedDuration={activeEntry?.plannedDuration}
-                    />
-                </div>
-                <div className={styles.FocusView__taskDetailWrapper}>
-                    <FocusTaskDetail
-                        key={selectedEntry?.id}
-                        id={selectedEntry?.id}
-                        taskId={selectedEntry?.taskId}
-                        description={selectedEntry?.description ?? undefined}
-                        duration={selectedEntry?.duration ?? undefined}
-                    />
-                </div>
-            </div>
+            <FocusTimeTrack
+                onTrackClick={isRunning ? handleStopTimeEntry : handleCreateTimeEntry}
+                timerRunning={isRunning}
+                startedAt={activeEntry?.startedAt}
+            />
             <FocusTimeEntryHistory
                 timeEntries={timeEntryHistoryItems}
                 hasMore={hasMore}
