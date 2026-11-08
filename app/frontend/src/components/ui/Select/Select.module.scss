@@ -120,6 +120,11 @@
     }
 }
 
+.Select__empty {
+    @include typography.text-sm(var(--text-3));
+    padding: 8px 12px;
+}
+
 .Select__option--selected {
     background-color: var(--surface-3);
 }

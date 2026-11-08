@@ -118,6 +118,9 @@
         "showPassword": "Show password",
         "hidePassword": "Hide password"
     },
+    "Select": {
+        "noOptions": "No options"
+    },
     "AuthRightSide": {
         "title": "Track time, complete tasks and <break /><colored>see where your day goes.</colored>"
     },
@@ -387,7 +390,8 @@
             "notRunning": "Timer not running",
             "running": "Running since {{time}}",
             "selectTask": "Select task",
-            "addDescription": "Add note"
+            "addDescription": "Add note",
+            "noTasks": "You don't have any tasks yet"
         }
     },
     "Header": {

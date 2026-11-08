@@ -121,6 +121,9 @@
         "showPassword": "Zobrazit heslo",
         "hidePassword": "Skrýt heslo"
     },
+    "Select": {
+        "noOptions": "Žádné možnosti"
+    },
     "Sidebar": {
         "dashboard": "Dashboard",
         "startFocus": "Spustit časovač",
@@ -387,7 +390,8 @@
             "notRunning": "Časovač neběží",
             "running": "Běží od {{time}}",
             "selectTask": "Vyber úkol",
-            "addDescription": "Přidat poznámku"
+            "addDescription": "Přidat poznámku",
+            "noTasks": "Zatím nemáš žádné úkoly"
         }
     },
     "Header": {

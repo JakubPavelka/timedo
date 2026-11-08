@@ -80,6 +80,7 @@ const FocusTimeEntryHistoryItemEdit = (props: FocusTimeEntryHistoryItemEditProps
                     onChange={handleTaskChange}
                     onClear={handleTaskClear}
                     placeholder={t('Focus.selectTask')}
+                    emptyText={t('Focus.Tracking.noTasks')}
                 />
             </div>
             <Input

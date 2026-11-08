@@ -97,6 +97,7 @@ export const FocusTimeTrack = (props: FocusTimeTrackProps) => {
                     onChange={props.onTaskChange}
                     onClear={handleTaskClear}
                     placeholder={t('Focus.Tracking.selectTask')}
+                    emptyText={t('Focus.Tracking.noTasks')}
                 />
                 {isEditingDescription ? (
                     <Input

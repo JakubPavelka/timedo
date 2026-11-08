@@ -21,6 +21,7 @@ type SelectBaseProps = {
     id?: string;
     translatedLabel?: boolean;
     footer?: React.ReactNode;
+    emptyText?: string;
 };
 
 type SingleSelectProps = SelectBaseProps & {
@@ -221,6 +222,11 @@ export const Select = (props: SelectProps) => {
             </button>
             {isOpen && (
                 <ul ref={menuRef} className={styles.Select__menu} role={'listbox'}>
+                    {props.options.length === 0 && !props.footer && (
+                        <li className={styles.Select__empty}>
+                            {props.emptyText ?? t('Select.noOptions')}
+                        </li>
+                    )}
                     {props.options.map((option) => {
                         const isSelected = props.multiple
                             ? (props.value ?? []).includes(option.value)
