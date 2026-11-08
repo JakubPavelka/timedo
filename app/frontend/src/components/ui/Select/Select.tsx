@@ -12,7 +12,10 @@ export type SelectOption = {
     icon?: React.ReactNode;
 };
 
+type SelectVariant = 'default' | 'ghost';
+
 type SelectBaseProps = {
+    variant?: SelectVariant;
     options: SelectOption[];
     placeholder?: string;
     id?: string;
@@ -122,7 +125,13 @@ export const Select = (props: SelectProps) => {
     };
 
     return (
-        <div className={styles.Select} ref={wrapperRef}>
+        <div
+            className={clsx(
+                styles.Select,
+                styles[`Select--${props.variant ?? 'default'}`]
+            )}
+            ref={wrapperRef}
+        >
             <button
                 id={props.id}
                 type={'button'}
