@@ -4,17 +4,22 @@
 @use 'styles/mixins/breakpoints';
 
 .FocusTimeEntryHistoryItem {
-    @include layout.spaceBetweenY;
+    @include layout.flexColumn;
+    gap: 16px;
     padding-block: 24px;
     border-bottom: 1px solid var(--border);
-    gap: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
+    transition: border-color 0.2s;
 
     &:hover {
         border-bottom-color: var(--border-strong);
         --actions-trigger-opacity: 1;
     }
+}
+
+.FocusTimeEntryHistoryItem__row {
+    @include layout.spaceBetweenY;
+    gap: 16px;
+    cursor: pointer;
 
     @include breakpoints.mobile {
         flex-direction: column;
@@ -141,5 +146,41 @@
 
     @include breakpoints.mobile {
         opacity: 1;
+    }
+}
+
+.FocusTimeEntryHistoryItem__edit {
+    @include layout.centerY;
+    gap: 12px;
+
+    @include breakpoints.mobile {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.FocusTimeEntryHistoryItem__editSelect {
+    flex: 0 0 280px;
+    min-width: 0;
+
+    @include breakpoints.mobile {
+        flex-basis: auto;
+    }
+}
+
+.FocusTimeEntryHistoryItem__editInput {
+    flex: 1;
+    min-width: 0;
+}
+
+.FocusTimeEntryHistoryItem__taskLink {
+    @include layout.centerY;
+    @include typography.text-sm(var(--accent-text));
+    flex-shrink: 0;
+    gap: 2px;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
     }
 }

@@ -23,7 +23,7 @@ const TASK_OPTIONS_LIMIT = 100;
 
 export const FocusView = () => {
     const { t, i18n } = useTranslation();
-    const [timeEntryDetailId, setTimeEntryDetailId] = useState<string | undefined>();
+    const [expandedEntryId, setExpandedEntryId] = useState<string>();
     const timerMode = useTimerMode((s) => s.timerMode);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { mutate: stopTimeEntry } = useStopTimeEntry();
@@ -54,13 +54,9 @@ export const FocusView = () => {
     const hasMore = timeEntryHistoryItems.length < (timeEntriesData?.total ?? 0);
     const emptySearch = timeEntryHistoryItems.length === 0 && resolvedSearch.length > 0;
 
-    const selectedEntry = timeEntryDetailId
-        ? timeEntriesData?.entries.find((entry) => entry.id === timeEntryDetailId)
-        : activeEntry;
-
     const currentTaskId: string | undefined = isRunning
         ? (activeEntry.taskId ?? undefined)
-        : (pendingTaskId ?? selectedEntry?.taskId ?? undefined);
+        : pendingTaskId;
 
     const { data: tasksData } = useGetTasks(
         TASK_OPTIONS_LIMIT,
@@ -143,6 +139,30 @@ export const FocusView = () => {
         );
     };
 
+    const handleEntryClick = (id: string) => {
+        setExpandedEntryId((prev) => (prev === id ? undefined : id));
+    };
+
+    const handleEntryTaskChange = (id: string, taskId: string | null) => {
+        updateTimeEntry(
+            { id, taskId },
+            {
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.assignToTaskError', t)),
+            }
+        );
+    };
+
+    const handleEntryDescriptionSubmit = (id: string, description: string) => {
+        updateTimeEntry(
+            { id, description },
+            {
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.updateDescriptionError', t)),
+            }
+        );
+    };
+
     const handleDeleteTimeEntry = async (id: string) => {
         try {
             await deleteTimeEntry(id);
@@ -175,7 +195,11 @@ export const FocusView = () => {
                 onSearchChange={handleSearchChange}
                 onLoadMoreClick={handleLoadMoreClick}
                 onDeleteClick={handleDeleteTimeEntry}
-                onItemClick={setTimeEntryDetailId}
+                onItemClick={handleEntryClick}
+                expandedEntryId={expandedEntryId}
+                taskOptions={taskOptions}
+                onEntryTaskChange={handleEntryTaskChange}
+                onEntryDescriptionSubmit={handleEntryDescriptionSubmit}
             />
         </div>
     );
