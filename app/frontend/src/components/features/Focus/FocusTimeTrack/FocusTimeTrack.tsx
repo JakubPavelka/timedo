@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Select } from '@/components/ui/Select/Select';
 import { formatDuration } from '@/utils/formatDuration';
@@ -18,6 +19,7 @@ export const FocusTimeTrack = (props: FocusTimeTrackProps) => {
     const { t } = useTranslation();
 
     const elapsedSeconds = useElapsedSeconds(props.startedAt, props.timerRunning);
+    const timeParts = formatDuration(elapsedSeconds).split(':');
 
     return (
         <div className={styles.FocusTimeTrack}>
@@ -42,7 +44,14 @@ export const FocusTimeTrack = (props: FocusTimeTrackProps) => {
                             : styles.FocusTimeTrack__timeEmpty
                     )}
                 >
-                    {formatDuration(elapsedSeconds)}
+                    {timeParts.map((part, index) => (
+                        <Fragment key={index}>
+                            {index > 0 && (
+                                <span className={styles.FocusTimeTrack__colon}>:</span>
+                            )}
+                            {part}
+                        </Fragment>
+                    ))}
                 </p>
                 <button
                     className={styles.FocusTimeTrack__playButton}

@@ -43,6 +43,12 @@
     @include typography.text-stopwatch-time(var(--text-2));
 }
 
+.FocusTimeTrack__colon {
+    position: relative;
+    top: -0.08em;
+    margin-inline: 0.06em;
+}
+
 .FocusTimeTrack__playButton {
     @include layout.centerXY;
     width: 58px;
