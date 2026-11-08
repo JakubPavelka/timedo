@@ -384,7 +384,7 @@
         "total": "Celkem",
         "estimate": "Odhad",
         "Tracking": {
-            "notRunning": "Časovač stojí",
+            "notRunning": "Časovač neběží",
             "running": "Běží od {{time}}",
             "selectTask": "Vyber úkol",
             "addDescription": "Přidat poznámku"

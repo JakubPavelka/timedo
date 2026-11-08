@@ -384,7 +384,7 @@
         "total": "Total",
         "estimate": "Estimate",
         "Tracking": {
-            "notRunning": "Timer stopped",
+            "notRunning": "Timer not running",
             "running": "Running since {{time}}",
             "selectTask": "Select task",
             "addDescription": "Add note"
