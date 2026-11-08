@@ -382,7 +382,13 @@
         "withoutTask": "Bez úkolu",
         "thisEntry": "Tento záznam",
         "total": "Celkem",
-        "estimate": "Odhad"
+        "estimate": "Odhad",
+        "Tracking": {
+            "notRunning": "Časovač stojí",
+            "running": "Běží od {{time}}",
+            "selectTask": "Vyber úkol",
+            "addDescription": "Přidat poznámku"
+        }
     },
     "Header": {
         "activeTimer": "Přejít na běžící časovač"

@@ -382,7 +382,13 @@
         "withoutTask": "Without task",
         "thisEntry": "This entry",
         "total": "Total",
-        "estimate": "Estimate"
+        "estimate": "Estimate",
+        "Tracking": {
+            "notRunning": "Timer stopped",
+            "running": "Running since {{time}}",
+            "selectTask": "Select task",
+            "addDescription": "Add note"
+        }
     },
     "Header": {
         "activeTimer": "Go to running timer"
