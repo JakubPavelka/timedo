@@ -256,7 +256,13 @@ const updateMe = async (req: Request, res: Response) => {
                 firstName,
                 lastName: lastName || null,
             },
-            select: { id: true, email: true, firstName: true, lastName: true },
+            select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                createdAt: true,
+            },
         });
 
         return res.status(200).json({

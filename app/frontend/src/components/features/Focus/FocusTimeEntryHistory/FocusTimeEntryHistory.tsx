@@ -1,5 +1,6 @@
 import { Input } from '@/components/ui/Input/Input';
 import { Button } from '@/components/ui/Button/Button';
+import type { SelectOption } from '@/components/ui/Select/Select';
 import { History, Search, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
@@ -20,6 +21,10 @@ type FocusTimeEntryHistoryProps = {
     onLoadMoreClick?: () => void;
     onDeleteClick?: (id: string) => Promise<void>;
     onItemClick?: (id: string) => void;
+    expandedEntryId?: string;
+    taskOptions: SelectOption[];
+    onEntryTaskChange: (id: string, taskId: string | null) => void;
+    onEntryDescriptionSubmit: (id: string, description: string) => void;
 };
 
 export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
@@ -93,6 +98,14 @@ export const FocusTimeEntryHistory = (props: FocusTimeEntryHistoryProps) => {
                             {...entry}
                             onDeleteClick={handleDeleteClick(entry.id)}
                             onItemClick={() => props.onItemClick?.(entry.id)}
+                            isExpanded={props.expandedEntryId === entry.id}
+                            taskOptions={props.taskOptions}
+                            onTaskChange={(taskId) =>
+                                props.onEntryTaskChange(entry.id, taskId)
+                            }
+                            onDescriptionSubmit={(description) =>
+                                props.onEntryDescriptionSubmit(entry.id, description)
+                            }
                         />
                     ))}
                     {emptySearch && (

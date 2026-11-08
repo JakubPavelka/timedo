@@ -69,7 +69,7 @@
 }
 
 .ProgressCard__time {
-    @include typography.text-sm-mono(var(--text-2));
+    @include typography.text-sm-numeric(var(--text-2));
 }
 
 .ProgressCard__progressTrack {

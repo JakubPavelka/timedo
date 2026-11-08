@@ -121,6 +121,9 @@
         "showPassword": "Zobrazit heslo",
         "hidePassword": "Skrýt heslo"
     },
+    "Select": {
+        "noOptions": "Žádné možnosti"
+    },
     "Sidebar": {
         "dashboard": "Dashboard",
         "startFocus": "Spustit časovač",
@@ -146,7 +149,8 @@
             "firstName": "Jméno",
             "lastName": "Příjmení",
             "email": "E-mail",
-            "updateError": "Nepodařilo se uložit osobní údaje, zkuste to prosím znovu"
+            "updateError": "Nepodařilo se uložit osobní údaje, zkuste to prosím znovu",
+            "notFilled": "Nevyplněno"
         },
         "AppPreferences": {
             "title": "Předvolby aplikace",
@@ -190,7 +194,8 @@
             "deleteAccountModalDescription": "Váš účet bude trvale odstraněn a ztratíte veškerá data. Tato akce je nevratná.",
             "deleteAccountConfirmWord": "SMAZAT",
             "deleteAccountConfirmLabel": "Pro potvrzení napište {{word}}"
-        }
+        },
+        "memberSince": "účet od {{date}}"
     },
     "Task": {
         "detail": "Detail úkolu",
@@ -380,7 +385,14 @@
         "withoutTask": "Bez úkolu",
         "thisEntry": "Tento záznam",
         "total": "Celkem",
-        "estimate": "Odhad"
+        "estimate": "Odhad",
+        "Tracking": {
+            "notRunning": "Časovač neběží",
+            "running": "Běží od {{time}}",
+            "selectTask": "Vyber úkol",
+            "addDescription": "Přidat poznámku",
+            "noTasks": "Zatím nemáš žádné úkoly"
+        }
     },
     "Header": {
         "activeTimer": "Přejít na běžící časovač"

@@ -1,0 +1,136 @@
+@use 'styles/typography';
+@use 'styles/mixins/layout';
+@use 'styles/mixins/components';
+@use 'styles/mixins/breakpoints';
+
+.FocusTimeTrack {
+    @include layout.spaceBetweenY;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    width: 100%;
+
+    @include breakpoints.tablet {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        padding-bottom: 18px;
+    }
+}
+
+.FocusTimeTrack__textWrapper {
+    @include layout.flexColumn;
+    gap: 12px;
+}
+
+.FocusTimeTrack__addDescription {
+    @include components.button-reset;
+    @include layout.centerY;
+    @include typography.text-sm(var(--accent-text));
+    gap: 4px;
+    align-self: flex-start;
+    cursor: pointer;
+}
+
+.FocusTimeTrack__description {
+    @include components.button-reset;
+    @include typography.text-sm(var(--text-2));
+    align-self: flex-start;
+    max-width: 100%;
+    text-align: left;
+    overflow-wrap: anywhere;
+    cursor: text;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--text);
+    }
+}
+
+.FocusTimeTrack__descriptionInput {
+    width: 100%;
+}
+
+.FocusTimeTrack__status {
+    @include layout.centerY;
+    @include typography.text-sm(var(--text-2));
+    gap: 8px;
+}
+
+.FocusTimeTrack__status--running {
+    color: var(--accent-text);
+}
+
+.FocusTimeTrack__statusDot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    animation: status-pulse 2s ease-in-out infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+@keyframes status-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+}
+
+.FocusTimeTrack__timeWrapper {
+    @include layout.centerY;
+    gap: 16px;
+}
+
+.FocusTimeTrack__time {
+    @include typography.text-stopwatch-time(var(--text));
+}
+
+.FocusTimeTrack__timeEmpty {
+    @include typography.text-stopwatch-time(var(--text-2));
+}
+
+.FocusTimeTrack__colon {
+    position: relative;
+    top: -0.08em;
+    margin-inline: 0.06em;
+}
+
+.FocusTimeTrack__playButton {
+    @include layout.centerXY;
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    background-color: var(--accent);
+    transition: background-color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--accent-hover);
+    }
+
+    svg {
+        color: var(--white);
+        fill: var(--white);
+    }
+
+    &--running {
+        background-color: var(--danger);
+
+        &:hover {
+            background-color: var(--danger-hover);
+        }
+    }
+
+    @include breakpoints.tablet {
+        width: 42px;
+        height: 42px;
+    }
+}

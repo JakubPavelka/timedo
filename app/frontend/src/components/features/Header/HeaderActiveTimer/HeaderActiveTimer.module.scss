@@ -9,7 +9,7 @@
 }
 
 .HeaderActiveTimer__time {
-    @include typography.text-sm-mono;
+    @include typography.text-sm-numeric;
     color: inherit;
     font-weight: 600;
 }

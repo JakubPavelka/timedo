@@ -118,6 +118,9 @@
         "showPassword": "Show password",
         "hidePassword": "Hide password"
     },
+    "Select": {
+        "noOptions": "No options"
+    },
     "AuthRightSide": {
         "title": "Track time, complete tasks and <break /><colored>see where your day goes.</colored>"
     },
@@ -146,7 +149,8 @@
             "firstName": "First name",
             "lastName": "Last name",
             "email": "E-mail",
-            "updateError": "Failed to save personal information, please try again"
+            "updateError": "Failed to save personal information, please try again",
+            "notFilled": "Not filled in"
         },
         "AppPreferences": {
             "title": "App preferences",
@@ -190,7 +194,8 @@
             "deleteAccountModalDescription": "Your account will be permanently deleted and you will lose all data. This action is irreversible.",
             "deleteAccountConfirmWord": "DELETE",
             "deleteAccountConfirmLabel": "Type {{word}} to confirm"
-        }
+        },
+        "memberSince": "member since {{date}}"
     },
     "Task": {
         "detail": "Task detail",
@@ -380,7 +385,14 @@
         "withoutTask": "Without task",
         "thisEntry": "This entry",
         "total": "Total",
-        "estimate": "Estimate"
+        "estimate": "Estimate",
+        "Tracking": {
+            "notRunning": "Timer not running",
+            "running": "Running since {{time}}",
+            "selectTask": "Select task",
+            "addDescription": "Add note",
+            "noTasks": "You don't have any tasks yet"
+        }
     },
     "Header": {
         "activeTimer": "Go to running timer"

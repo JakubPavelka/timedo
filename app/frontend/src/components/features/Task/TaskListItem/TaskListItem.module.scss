@@ -76,7 +76,7 @@
 }
 
 .TaskListItem__progressTime {
-    @include typography.text-sm-mono;
+    @include typography.text-sm-numeric;
     white-space: nowrap;
 }
 

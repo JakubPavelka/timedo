@@ -4,17 +4,22 @@
 @use 'styles/mixins/breakpoints';
 
 .FocusTimeEntryHistoryItem {
-    @include layout.spaceBetweenY;
+    @include layout.flexColumn;
+    gap: 16px;
     padding-block: 24px;
     border-bottom: 1px solid var(--border);
-    gap: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
+    transition: border-color 0.2s;
 
     &:hover {
         border-bottom-color: var(--border-strong);
         --actions-trigger-opacity: 1;
     }
+}
+
+.FocusTimeEntryHistoryItem__row {
+    @include layout.spaceBetweenY;
+    gap: 16px;
+    cursor: pointer;
 
     @include breakpoints.mobile {
         flex-direction: column;
@@ -39,7 +44,7 @@
 }
 
 .FocusTimeEntryHistoryItem__time {
-    @include typography.text-sm-mono(var(--text-3));
+    @include typography.text-sm-numeric(var(--text-3));
 }
 
 .FocusTimeEntryHistoryItem__title {
@@ -81,12 +86,12 @@
 }
 
 .FocusTimeEntryHistoryItem__trackedTime {
-    @include typography.text-sm-mono(var(--accent-text));
+    @include typography.text-sm-numeric(var(--accent-text));
     font-weight: 700;
 }
 
 .FocusTimeEntryHistoryItem__progressLabel {
-    @include typography.text-sm-mono(var(--text-3));
+    @include typography.text-sm-numeric(var(--text-3));
 }
 
 .FocusTimeEntryHistoryItem__flex {
@@ -141,5 +146,41 @@
 
     @include breakpoints.mobile {
         opacity: 1;
+    }
+}
+
+.FocusTimeEntryHistoryItem__edit {
+    @include layout.centerY;
+    gap: 12px;
+
+    @include breakpoints.mobile {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.FocusTimeEntryHistoryItem__editSelect {
+    flex: 0 0 280px;
+    min-width: 0;
+
+    @include breakpoints.mobile {
+        flex-basis: auto;
+    }
+}
+
+.FocusTimeEntryHistoryItem__editInput {
+    flex: 1;
+    min-width: 0;
+}
+
+.FocusTimeEntryHistoryItem__taskLink {
+    @include layout.centerY;
+    @include typography.text-sm(var(--accent-text));
+    flex-shrink: 0;
+    gap: 2px;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
     }
 }

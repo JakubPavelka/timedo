@@ -1,30 +1,36 @@
-import { FocusStopwatch } from '@/components/features/Focus/FocusStopwatch/FocusStopwatch';
 import {
     useCreateTimeEntry,
     useActiveTimeEntry,
     useStopTimeEntry,
     useGetTimeEntries,
     useDeleteTimeEntry,
+    useUpdateTimeEntry,
 } from '@/hooks/api/useTimeEntry';
 import { useTimerMode } from '@/hooks/useTimerMode';
+import { useGetTask, useGetTasks } from '@/hooks/api/useTask';
+import type { Task } from '@/store/taskStore';
 import { useTranslation } from 'react-i18next';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 import { toast } from 'sonner';
 import { useCallback, useState } from 'react';
 import { FocusTimeEntryHistory } from '@/components/features/Focus/FocusTimeEntryHistory/FocusTimeEntryHistory';
 import { mapTimeEntryToHistoryItem } from '@/utils/mapTimeEntryToHistoryItem';
-import { FocusTaskDetail } from '@/components/features/Focus/FocusTaskDetail/FocusTaskDetail';
 import styles from './FocusView.module.scss';
+import { FocusTimeTrack } from '@/components/features/Focus/FocusTimeTrack/FocusTimeTrack';
 
 const PAGE_SIZE = 5;
+const TASK_OPTIONS_LIMIT = 100;
 
 export const FocusView = () => {
     const { t, i18n } = useTranslation();
-    const [timeEntryDetailId, setTimeEntryDetailId] = useState<string | undefined>();
+    const [expandedEntryId, setExpandedEntryId] = useState<string>();
     const timerMode = useTimerMode((s) => s.timerMode);
     const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { mutate: stopTimeEntry } = useStopTimeEntry();
     const { mutateAsync: deleteTimeEntry } = useDeleteTimeEntry();
+    const { mutate: updateTimeEntry } = useUpdateTimeEntry();
+    const [pendingDescription, setPendingDescription] = useState('');
+    const [pendingTaskId, setPendingTaskId] = useState<string>();
     const { data: activeEntry } = useActiveTimeEntry();
     const [search, setSearch] = useState('');
     const [limit, setLimit] = useState(PAGE_SIZE);
@@ -48,9 +54,29 @@ export const FocusView = () => {
     const hasMore = timeEntryHistoryItems.length < (timeEntriesData?.total ?? 0);
     const emptySearch = timeEntryHistoryItems.length === 0 && resolvedSearch.length > 0;
 
-    const selectedEntry = timeEntryDetailId
-        ? timeEntriesData?.entries.find((entry) => entry.id === timeEntryDetailId)
-        : activeEntry;
+    const currentTaskId: string | undefined = isRunning
+        ? (activeEntry.taskId ?? undefined)
+        : pendingTaskId;
+
+    const { data: tasksData } = useGetTasks(
+        TASK_OPTIONS_LIMIT,
+        0,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+    );
+    const { data: currentTask } = useGetTask(currentTaskId);
+    const tasks: Task[] = tasksData?.tasks ?? [];
+    const isCurrentTaskMissing =
+        !!currentTask && !tasks.some((task) => task.id === currentTask.id);
+    const taskOptions = (isCurrentTaskMissing ? [currentTask, ...tasks] : tasks).map(
+        (task) => ({
+            value: task.id,
+            label: task.title,
+        })
+    );
 
     const handleSearchChange = useCallback((value: string) => {
         setSearch(value);
@@ -61,8 +87,16 @@ export const FocusView = () => {
 
     const handleCreateTimeEntry = () => {
         return createTimeEntry(
-            { type: timerMode, taskId: selectedEntry?.taskId ?? undefined },
             {
+                type: timerMode,
+                taskId: currentTaskId,
+                description: pendingDescription || undefined,
+            },
+            {
+                onSuccess: () => {
+                    setPendingDescription('');
+                    setPendingTaskId(undefined);
+                },
                 onError: (err) =>
                     toast.error(getErrorMessage(err, 'Focus.startError', t)),
             }
@@ -73,6 +107,60 @@ export const FocusView = () => {
         return stopTimeEntry(undefined, {
             onError: (err) => toast.error(getErrorMessage(err, 'Focus.stopError', t)),
         });
+    };
+
+    const handleTaskChange = (taskId: string | null) => {
+        if (!activeEntry) {
+            setPendingTaskId(taskId ?? undefined);
+            return;
+        }
+
+        updateTimeEntry(
+            { id: activeEntry.id, taskId },
+            {
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.assignToTaskError', t)),
+            }
+        );
+    };
+
+    const handleDescriptionSubmit = (description: string) => {
+        if (!activeEntry) {
+            setPendingDescription(description);
+            return;
+        }
+
+        updateTimeEntry(
+            { id: activeEntry.id, description },
+            {
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.updateDescriptionError', t)),
+            }
+        );
+    };
+
+    const handleEntryClick = (id: string) => {
+        setExpandedEntryId((prev) => (prev === id ? undefined : id));
+    };
+
+    const handleEntryTaskChange = (id: string, taskId: string | null) => {
+        updateTimeEntry(
+            { id, taskId },
+            {
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.assignToTaskError', t)),
+            }
+        );
+    };
+
+    const handleEntryDescriptionSubmit = (id: string, description: string) => {
+        updateTimeEntry(
+            { id, description },
+            {
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.updateDescriptionError', t)),
+            }
+        );
     };
 
     const handleDeleteTimeEntry = async (id: string) => {
@@ -87,27 +175,18 @@ export const FocusView = () => {
 
     return (
         <div className={styles.FocusView}>
-            <div className={styles.FocusView__topWrapper}>
-                <div className={styles.FocusView__stopwatchItem}>
-                    <FocusStopwatch
-                        onTrackClick={
-                            isRunning ? handleStopTimeEntry : handleCreateTimeEntry
-                        }
-                        isRunning={isRunning}
-                        startedAt={activeEntry?.startedAt}
-                        plannedDuration={activeEntry?.plannedDuration}
-                    />
-                </div>
-                <div className={styles.FocusView__taskDetailWrapper}>
-                    <FocusTaskDetail
-                        key={selectedEntry?.id}
-                        id={selectedEntry?.id}
-                        taskId={selectedEntry?.taskId}
-                        description={selectedEntry?.description ?? undefined}
-                        duration={selectedEntry?.duration ?? undefined}
-                    />
-                </div>
-            </div>
+            <FocusTimeTrack
+                onTrackClick={isRunning ? handleStopTimeEntry : handleCreateTimeEntry}
+                timerRunning={isRunning}
+                startedAt={activeEntry?.startedAt}
+                description={
+                    isRunning ? (activeEntry.description ?? '') : pendingDescription
+                }
+                onDescriptionSubmit={handleDescriptionSubmit}
+                taskId={currentTaskId}
+                taskOptions={taskOptions}
+                onTaskChange={handleTaskChange}
+            />
             <FocusTimeEntryHistory
                 timeEntries={timeEntryHistoryItems}
                 hasMore={hasMore}
@@ -116,7 +195,11 @@ export const FocusView = () => {
                 onSearchChange={handleSearchChange}
                 onLoadMoreClick={handleLoadMoreClick}
                 onDeleteClick={handleDeleteTimeEntry}
-                onItemClick={setTimeEntryDetailId}
+                onItemClick={handleEntryClick}
+                expandedEntryId={expandedEntryId}
+                taskOptions={taskOptions}
+                onEntryTaskChange={handleEntryTaskChange}
+                onEntryDescriptionSubmit={handleEntryDescriptionSubmit}
             />
         </div>
     );

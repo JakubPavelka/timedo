@@ -78,7 +78,10 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
 
     useEffect(() => {
         if (showLinkInput) {
-            linkInputRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            linkInputRef.current?.scrollIntoView({
+                block: 'nearest',
+                behavior: 'smooth',
+            });
         }
     }, [showLinkInput]);
 
@@ -291,9 +294,13 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                     placeholder={t('Task.Modal.projectPlaceholder')}
                                     footer={
                                         <div
-                                            className={
-                                                styles.NewTaskModal__emptyOptionWrapper
-                                            }
+                                            className={clsx(
+                                                styles.NewTaskModal__emptyOptionWrapper,
+                                                showProjectCreateForm &&
+                                                    styles[
+                                                        'NewTaskModal__emptyOptionWrapper--form'
+                                                    ]
+                                            )}
                                         >
                                             {showProjectCreateForm ? (
                                                 <LabelColorForm
@@ -305,7 +312,13 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                                     onClose={handleHideProjectCreateForm}
                                                 />
                                             ) : (
-                                                <>
+                                                <button
+                                                    type={'button'}
+                                                    className={
+                                                        styles.NewTaskModal__createOption
+                                                    }
+                                                    onClick={handleShowProjectCreateForm}
+                                                >
                                                     <span
                                                         className={
                                                             styles.NewTaskModal__emptyOption
@@ -317,14 +330,8 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                                                 : 'Task.Modal.createProject'
                                                         )}
                                                     </span>
-                                                    <Plus
-                                                        width={16}
-                                                        height={16}
-                                                        onClick={
-                                                            handleShowProjectCreateForm
-                                                        }
-                                                    />
-                                                </>
+                                                    <Plus width={16} height={16} />
+                                                </button>
                                             )}
                                         </div>
                                     }
@@ -385,9 +392,13 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                     placeholder={t('Task.Modal.tagsPlaceholder')}
                                     footer={
                                         <div
-                                            className={
-                                                styles.NewTaskModal__emptyOptionWrapper
-                                            }
+                                            className={clsx(
+                                                styles.NewTaskModal__emptyOptionWrapper,
+                                                showTagCreateForm &&
+                                                    styles[
+                                                        'NewTaskModal__emptyOptionWrapper--form'
+                                                    ]
+                                            )}
                                         >
                                             {showTagCreateForm ? (
                                                 <LabelColorForm
@@ -399,7 +410,13 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                                     onClose={handleHideTagCreateForm}
                                                 />
                                             ) : (
-                                                <>
+                                                <button
+                                                    type={'button'}
+                                                    className={
+                                                        styles.NewTaskModal__createOption
+                                                    }
+                                                    onClick={handleShowTagCreateForm}
+                                                >
                                                     <span
                                                         className={
                                                             styles.NewTaskModal__emptyOption
@@ -411,12 +428,8 @@ export const NewTaskModal = (props: NewTaskModalProps) => {
                                                                 : 'Task.Modal.createTag'
                                                         )}
                                                     </span>
-                                                    <Plus
-                                                        width={16}
-                                                        height={16}
-                                                        onClick={handleShowTagCreateForm}
-                                                    />
-                                                </>
+                                                    <Plus width={16} height={16} />
+                                                </button>
                                             )}
                                         </div>
                                     }

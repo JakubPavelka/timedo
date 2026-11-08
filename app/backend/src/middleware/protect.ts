@@ -2,11 +2,7 @@ import jwt from 'jsonwebtoken';
 import { prisma } from '../db/db.js';
 import { NextFunction, Request, Response } from 'express';
 
-export const protect = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const protect = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.cookies.accessToken;
 
@@ -17,9 +13,7 @@ export const protect = async (
         }
 
         if (!process.env.JWT_SECRET) {
-            return res
-                .status(400)
-                .json({ message: 'JWT_SECRET was not found' });
+            return res.status(400).json({ message: 'JWT_SECRET was not found' });
         }
 
         let decoded: { id: string };
@@ -41,7 +35,13 @@ export const protect = async (
 
         const user = await prisma.user.findUnique({
             where: { id: decoded.id },
-            select: { id: true, email: true, firstName: true, lastName: true },
+            select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                createdAt: true,
+            },
         });
 
         if (!user) {

@@ -12,12 +12,16 @@ export type SelectOption = {
     icon?: React.ReactNode;
 };
 
+type SelectVariant = 'default' | 'ghost';
+
 type SelectBaseProps = {
+    variant?: SelectVariant;
     options: SelectOption[];
     placeholder?: string;
     id?: string;
     translatedLabel?: boolean;
     footer?: React.ReactNode;
+    emptyText?: string;
 };
 
 type SingleSelectProps = SelectBaseProps & {
@@ -122,7 +126,13 @@ export const Select = (props: SelectProps) => {
     };
 
     return (
-        <div className={styles.Select} ref={wrapperRef}>
+        <div
+            className={clsx(
+                styles.Select,
+                styles[`Select--${props.variant ?? 'default'}`]
+            )}
+            ref={wrapperRef}
+        >
             <button
                 id={props.id}
                 type={'button'}
@@ -212,6 +222,11 @@ export const Select = (props: SelectProps) => {
             </button>
             {isOpen && (
                 <ul ref={menuRef} className={styles.Select__menu} role={'listbox'}>
+                    {props.options.length === 0 && !props.footer && (
+                        <li className={styles.Select__empty}>
+                            {props.emptyText ?? t('Select.noOptions')}
+                        </li>
+                    )}
                     {props.options.map((option) => {
                         const isSelected = props.multiple
                             ? (props.value ?? []).includes(option.value)

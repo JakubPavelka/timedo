@@ -27,13 +27,31 @@
     }
 }
 
-.ProfileHeader__email {
+.ProfileHeader__meta {
     @include typography.text-md(var(--text-2));
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: flex;
+    min-width: 0;
 
     @include breakpoints.mobile {
         @include typography.text-sm(var(--text-2));
+        flex-direction: column;
     }
+}
+
+.ProfileHeader__email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ProfileHeader__separator {
+    white-space: pre;
+
+    @include breakpoints.mobile {
+        display: none;
+    }
+}
+
+.ProfileHeader__memberSince {
+    flex-shrink: 0;
 }
