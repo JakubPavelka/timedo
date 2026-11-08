@@ -4,6 +4,7 @@ import {
     useStopTimeEntry,
     useGetTimeEntries,
     useDeleteTimeEntry,
+    useUpdateTimeEntry,
 } from '@/hooks/api/useTimeEntry';
 import { useTimerMode } from '@/hooks/useTimerMode';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +25,8 @@ export const FocusView = () => {
     const { mutate: createTimeEntry } = useCreateTimeEntry();
     const { mutate: stopTimeEntry } = useStopTimeEntry();
     const { mutateAsync: deleteTimeEntry } = useDeleteTimeEntry();
+    const { mutate: updateTimeEntry } = useUpdateTimeEntry();
+    const [pendingDescription, setPendingDescription] = useState('');
     const { data: activeEntry } = useActiveTimeEntry();
     const [search, setSearch] = useState('');
     const [limit, setLimit] = useState(PAGE_SIZE);
@@ -60,8 +63,13 @@ export const FocusView = () => {
 
     const handleCreateTimeEntry = () => {
         return createTimeEntry(
-            { type: timerMode, taskId: selectedEntry?.taskId ?? undefined },
             {
+                type: timerMode,
+                taskId: selectedEntry?.taskId ?? undefined,
+                description: pendingDescription || undefined,
+            },
+            {
+                onSuccess: () => setPendingDescription(''),
                 onError: (err) =>
                     toast.error(getErrorMessage(err, 'Focus.startError', t)),
             }
@@ -72,6 +80,21 @@ export const FocusView = () => {
         return stopTimeEntry(undefined, {
             onError: (err) => toast.error(getErrorMessage(err, 'Focus.stopError', t)),
         });
+    };
+
+    const handleDescriptionSubmit = (description: string) => {
+        if (!activeEntry) {
+            setPendingDescription(description);
+            return;
+        }
+
+        updateTimeEntry(
+            { id: activeEntry.id, description },
+            {
+                onError: (err) =>
+                    toast.error(getErrorMessage(err, 'Focus.updateDescriptionError', t)),
+            }
+        );
     };
 
     const handleDeleteTimeEntry = async (id: string) => {
@@ -90,6 +113,10 @@ export const FocusView = () => {
                 onTrackClick={isRunning ? handleStopTimeEntry : handleCreateTimeEntry}
                 timerRunning={isRunning}
                 startedAt={activeEntry?.startedAt}
+                description={
+                    isRunning ? (activeEntry.description ?? '') : pendingDescription
+                }
+                onDescriptionSubmit={handleDescriptionSubmit}
             />
             <FocusTimeEntryHistory
                 timeEntries={timeEntryHistoryItems}

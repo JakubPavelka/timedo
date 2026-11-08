@@ -1,7 +1,8 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { Select } from '@/components/ui/Select/Select';
+import { Input } from '@/components/ui/Input/Input';
 import { formatDuration } from '@/utils/formatDuration';
 import { useElapsedSeconds } from '@/hooks/useElapsedSeconds';
 import { Play, Square, Plus } from 'lucide-react';
@@ -12,6 +13,8 @@ type FocusTimeTrackProps = {
     timerRunning: boolean;
     onTrackClick: () => void;
     startedAt?: string | Date;
+    description?: string;
+    onDescriptionSubmit: (description: string) => void;
 };
 
 const ICON_SIZE = 16;
@@ -21,6 +24,10 @@ export const FocusTimeTrack = (props: FocusTimeTrackProps) => {
 
     const elapsedSeconds = useElapsedSeconds(props.startedAt, props.timerRunning);
     const timeParts = formatDuration(elapsedSeconds).split(':');
+    const description = props.description ?? '';
+
+    const [isEditingDescription, setIsEditingDescription] = useState(false);
+    const [descriptionDraft, setDescriptionDraft] = useState(description);
 
     const getStartedAtTime = () => {
         if (!props.startedAt) {
@@ -33,6 +40,31 @@ export const FocusTimeTrack = (props: FocusTimeTrackProps) => {
                 : DateTime.fromISO(props.startedAt);
 
         return startedAt.setLocale(i18n.language).toLocaleString(DateTime.TIME_SIMPLE);
+    };
+
+    const handleDescriptionEditStart = () => {
+        setDescriptionDraft(description);
+        setIsEditingDescription(true);
+    };
+
+    const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDescriptionDraft(e.target.value);
+    };
+
+    const handleDescriptionBlur = () => {
+        setIsEditingDescription(false);
+
+        const value = descriptionDraft.trim();
+
+        if (value !== description) {
+            props.onDescriptionSubmit(value);
+        }
+    };
+
+    const handleDescriptionKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Escape' || e.key === 'Enter') {
+            e.currentTarget.blur();
+        }
     };
 
     return (
@@ -59,10 +91,35 @@ export const FocusTimeTrack = (props: FocusTimeTrackProps) => {
                     options={[]}
                     placeholder={t('Focus.Tracking.selectTask')}
                 />
-                <button>
-                    <Plus width={ICON_SIZE} height={ICON_SIZE} />
-                    <span>{t('Focus.Tracking.addDescription')}</span>
-                </button>
+                {isEditingDescription ? (
+                    <Input
+                        variant={'ghost'}
+                        className={styles.FocusTimeTrack__descriptionInput}
+                        value={descriptionDraft}
+                        onChange={handleDescriptionChange}
+                        onBlur={handleDescriptionBlur}
+                        onKeyDown={handleDescriptionKeyDown}
+                        placeholder={t('Focus.descriptionPlaceholder')}
+                        autoFocus
+                    />
+                ) : description ? (
+                    <button
+                        type={'button'}
+                        className={styles.FocusTimeTrack__description}
+                        onClick={handleDescriptionEditStart}
+                    >
+                        {description}
+                    </button>
+                ) : (
+                    <button
+                        type={'button'}
+                        className={styles.FocusTimeTrack__addDescription}
+                        onClick={handleDescriptionEditStart}
+                    >
+                        <Plus width={ICON_SIZE} height={ICON_SIZE} />
+                        <span>{t('Focus.Tracking.addDescription')}</span>
+                    </button>
+                )}
             </div>
             <div className={styles.FocusTimeTrack__timeWrapper}>
                 <p

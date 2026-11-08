@@ -20,14 +20,34 @@
 .FocusTimeTrack__textWrapper {
     @include layout.flexColumn;
     gap: 12px;
+}
 
-    button {
-        @include components.button-reset;
-        @include layout.centerY;
-        color: var(--accent-text);
-        gap: 4px;
-        cursor: pointer;
+.FocusTimeTrack__addDescription {
+    @include components.button-reset;
+    @include layout.centerY;
+    @include typography.text-sm(var(--accent-text));
+    gap: 4px;
+    align-self: flex-start;
+    cursor: pointer;
+}
+
+.FocusTimeTrack__description {
+    @include components.button-reset;
+    @include typography.text-sm(var(--text-2));
+    align-self: flex-start;
+    max-width: 100%;
+    text-align: left;
+    overflow-wrap: anywhere;
+    cursor: text;
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--text);
     }
+}
+
+.FocusTimeTrack__descriptionInput {
+    width: 100%;
 }
 
 .FocusTimeTrack__status {
