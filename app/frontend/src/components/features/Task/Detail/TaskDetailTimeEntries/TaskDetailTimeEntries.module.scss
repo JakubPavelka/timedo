@@ -90,7 +90,7 @@
 }
 
 .TaskDetailTimeEntries__duration {
-    @include typography.text-sm-mono;
+    @include typography.text-sm-numeric;
     font-weight: 700;
     white-space: nowrap;
     flex-shrink: 0;
