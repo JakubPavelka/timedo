@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import { Select } from '@/components/ui/Select/Select';
+import { Select, type SelectOption } from '@/components/ui/Select/Select';
 import { Input } from '@/components/ui/Input/Input';
 import { formatDuration } from '@/utils/formatDuration';
 import { useElapsedSeconds } from '@/hooks/useElapsedSeconds';
@@ -14,6 +14,9 @@ type FocusTimeTrackProps = {
     onTrackClick: () => void;
     startedAt?: string | Date;
     description?: string;
+    taskId?: string;
+    taskOptions: SelectOption[];
+    onTaskChange: (taskId: string | null) => void;
     onDescriptionSubmit: (description: string) => void;
 };
 
@@ -41,6 +44,8 @@ export const FocusTimeTrack = (props: FocusTimeTrackProps) => {
 
         return startedAt.setLocale(i18n.language).toLocaleString(DateTime.TIME_SIMPLE);
     };
+
+    const handleTaskClear = () => props.onTaskChange(null);
 
     const handleDescriptionEditStart = () => {
         setDescriptionDraft(description);
@@ -87,8 +92,10 @@ export const FocusTimeTrack = (props: FocusTimeTrackProps) => {
                 )}
                 <Select
                     variant={'ghost'}
-                    onChange={() => {}}
-                    options={[]}
+                    value={props.taskId}
+                    options={props.taskOptions}
+                    onChange={props.onTaskChange}
+                    onClear={handleTaskClear}
                     placeholder={t('Focus.Tracking.selectTask')}
                 />
                 {isEditingDescription ? (

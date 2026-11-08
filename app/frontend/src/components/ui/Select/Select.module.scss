@@ -1,5 +1,6 @@
 @use 'styles/mixins/layout';
 @use 'styles/typography';
+@use 'styles/mixins/breakpoints';
 
 .Select {
     position: relative;
@@ -141,6 +142,16 @@
 
     .Select__label--placeholder {
         color: var(--text-2);
+    }
+
+    .Select__menu {
+        right: auto;
+        width: max(100%, 320px);
+
+        @include breakpoints.tablet {
+            right: 0;
+            width: auto;
+        }
     }
 
     .Select__trigger .Select__dot {
